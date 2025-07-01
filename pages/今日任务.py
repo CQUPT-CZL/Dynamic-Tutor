@@ -1,8 +1,50 @@
 import streamlit as st
 import time
 
+# --- 页面基础设置 ---
+st.set_page_config(
+    page_title="今日任务", 
+    page_icon="📋",
+    layout="wide"
+)
+
+# --- 自定义CSS样式 ---
+st.markdown("""
+<style>
+.task-header {
+    background: linear-gradient(90deg, #4facfe 0%, #00f2fe 100%);
+    padding: 1.5rem 2rem;
+    border-radius: 15px;
+    margin-bottom: 2rem;
+    color: white;
+    text-align: center;
+}
+.task-card {
+    background: white;
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin: 1rem 0;
+    border-left: 5px solid #4facfe;
+}
+.concept-box {
+    background: #f8f9fa;
+    padding: 1.5rem;
+    border-radius: 10px;
+    border-left: 4px solid #28a745;
+    margin: 1rem 0;
+}
+</style>
+""", unsafe_allow_html=True)
+
+# --- 检查用户状态 ---
+if 'user_id' not in st.session_state or not st.session_state.user_id:
+    st.warning("⚠️ 请先在主页选择学习者！")
+    if st.button("🏠 返回主页"):
+        st.switch_page("main.py")
+    st.stop()
+
 # --- 模拟后端逻辑 ---
-# 在真实项目中，这些函数应该是调用后端API的
 def get_recommendation_for_user(user_id):
     """模拟为用户生成一个推荐任务"""
     if user_id == "小明":
@@ -48,67 +90,95 @@ def diagnose_answer(user_id, question_id, answer):
         return {
             "status": "success",
             "diagnosis": "回答正确！你对因式分解法求解二次方程掌握得很扎实。",
-            "mastery_update": {"ECH_GX": 0.9} # 假设更新了“函数与方程关系”的掌握度
+            "next_recommendation": "建议你继续学习二次函数的图像性质。"
         }
     else:
         return {
-            "status": "failed",
-            "diagnosis": "回答错误。别灰心，再想一想，是不是可以尝试用因式分解的方法来解决呢？",
-            "mastery_update": {"ECH_GX": 0.4}
+            "status": "partial",
+            "diagnosis": "答案不够完整。提示：可以尝试因式分解 x² - 5x + 6 = (x-2)(x-3)。",
+            "hint": "当 (x-2)(x-3) = 0 时，x = 2 或 x = 3"
         }
 
-# --- 页面渲染 ---
-st.set_page_config(page_title="今日任务", page_icon="🎯")
+# --- 页面标题 ---
+st.markdown('<div class="task-header"><h1>📋 今日学习任务</h1><p>AI为你精心准备的个性化学习任务</p></div>', unsafe_allow_html=True)
 
-if not st.session_state.user_id:
-    st.warning("请先在主程序页面选择学生！")
-    st.stop()
+# --- 用户信息显示 ---
+col1, col2, col3 = st.columns([2, 1, 1])
+with col1:
+    st.info(f"👨‍🎓 当前学习者：**{st.session_state.user_id}**")
+with col2:
+    if st.button("🎲 获取新任务", type="primary"):
+        st.session_state.current_mission = None
+        st.session_state.diagnosis_result = None
+        st.rerun()
+with col3:
+    if st.button("🏠 返回主页"):
+        st.switch_page("main.py")
 
-st.title(f"🎯 {st.session_state.user_id}的今日任务")
-st.markdown("---")
-
-# 如果没有当前任务，就从后端获取一个
+# --- 获取或显示任务 ---
 if not st.session_state.current_mission:
-    with st.spinner("AI正在为你定制学习任务..."):
+    with st.spinner("🤖 AI正在为你定制学习任务..."):
         time.sleep(1.5)
         st.session_state.current_mission = get_recommendation_for_user(st.session_state.user_id)
 
 mission = st.session_state.current_mission
 
 # --- 任务卡片设计 ---
-with st.container(border=True):
-    st.subheader(f"任务类型: {mission['type']}")
-    st.info(f"💡 **推荐理由**: {mission['reason']}")
-    
-    # 如果任务包含概念学习
-    if "concept_text" in mission['content']:
-        with st.expander("首先，我们来复习一下概念 📖"):
-            st.write(mission['content']['concept_text'])
+st.markdown('<div class="task-card">', unsafe_allow_html=True)
+st.subheader(f"📚 任务类型: {mission['type']}")
+st.success(f"💡 **推荐理由**: {mission['reason']}")
 
-    # 题目展示与作答
-    st.markdown("---")
-    st.markdown(f"**练习题 (ID: {mission['content']['question_id']})**")
-    st.latex(mission['content']['question_text']) # 使用latex格式显示数学公式
-    
-    answer = st.text_area("请在下方输入你的解题过程和答案：", height=150)
-    
+# 如果任务包含概念学习
+if "concept_text" in mission['content']:
+    st.markdown('<div class="concept-box">', unsafe_allow_html=True)
+    st.write("### 📖 知识回顾")
+    st.markdown(f"**{mission['content']['concept_text']}**")
+    st.markdown('</div>', unsafe_allow_html=True)
+
+# 题目展示与作答
+st.markdown("---")
+st.write("### 🤔 练习题目")
+st.info(f"题目ID: {mission['content']['question_id']}")
+st.latex(mission['content']['question_text'])
+
+answer = st.text_area("请在此处输入你的解题过程和答案：", height=150, key="mission_answer")
+
+col1, col2 = st.columns([1, 3])
+with col1:
     if st.button("提交答案", type="primary"):
-        st.session_state.diagnosis_result = diagnose_answer(
-            st.session_state.user_id, 
-            mission['content']['question_id'], 
-            answer
-        )
+        if answer:
+            with st.spinner("🤖 AI正在诊断你的答案..."):
+                diagnosis = diagnose_answer(
+                    st.session_state.user_id, 
+                    mission['content']['question_id'], 
+                    answer
+                )
+                st.session_state.diagnosis_result = diagnosis
+        else:
+            st.error("请先输入答案！")
 
-# --- 显示诊断结果 ---
+st.markdown('</div>', unsafe_allow_html=True)
+
+# --- 诊断结果显示 ---
 if st.session_state.diagnosis_result:
     result = st.session_state.diagnosis_result
-    if result['status'] == "success":
-        st.success(f"🤖 **AI诊断**: {result['diagnosis']}")
-        if st.button("太棒了，下一个任务！"):
-            st.session_state.current_mission = None
-            st.session_state.diagnosis_result = None
-            st.rerun()
-    elif result['status'] == "failed":
-        st.error(f"🤖 **AI诊断**: {result['diagnosis']}")
+    st.markdown("---")
+    st.write("### 🔍 AI诊断结果")
+    
+    if result['status'] == 'success':
+        st.success(f"✅ {result['diagnosis']}")
+        if 'next_recommendation' in result:
+            st.info(f"💡 下一步建议：{result['next_recommendation']}")
+        st.balloons()
+    elif result['status'] == 'partial':
+        st.warning(f"⚠️ {result['diagnosis']}")
+        if 'hint' in result:
+            st.info(f"💡 提示：{result['hint']}")
     else:
-        st.warning(result['message'])
+        st.error(f"❌ {result['message']}")
+    
+    # 重新开始按钮
+    if st.button("🔄 开始新任务", type="secondary"):
+        st.session_state.current_mission = None
+        st.session_state.diagnosis_result = None
+        st.rerun()
