@@ -1,8 +1,39 @@
 import pandas as pd
 import time
+import os
+import sys
+import logging
+from datetime import datetime
+
+# 添加当前目录到路径
+current_dir = os.path.dirname(os.path.abspath(__file__))
+sys.path.append(current_dir)
+
+# 配置日志
+log_dir = os.path.join(os.path.dirname(current_dir), 'logs')
+os.makedirs(log_dir, exist_ok=True)
+
+log_file = os.path.join(log_dir, f'backend_{datetime.now().strftime("%Y%m%d")}.log')
+
+# 设置日志格式
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+    handlers=[
+        logging.FileHandler(log_file, encoding='utf-8'),
+        logging.StreamHandler(sys.stdout)
+    ]
+)
+
+logger = logging.getLogger('backend')
+logger.info("🚀 后端服务启动，日志记录已开启")
+
+from database import DatabaseManager
 
 def get_recommendation_for_user(user_id):
     """模拟为用户生成一个推荐任务"""
+    logger.info(f"📋 为用户 {user_id} 生成推荐任务")
+    
     if user_id == "小明":
         return {
             "mission_id": "M001",
@@ -36,119 +67,109 @@ def get_recommendation_for_user(user_id):
             }
         }
 
+# 初始化数据库管理器
+logger.info("💾 初始化数据库管理器")
+try:
+    db_manager = DatabaseManager()
+    logger.info("✅ 数据库管理器初始化成功")
+except Exception as e:
+    logger.error(f"❌ 数据库管理器初始化失败: {e}")
+    raise
+
 def diagnose_answer(user_id, question_id, answer, answer_type="text", image_data=None):
     """模拟诊断用户的答案，支持文字和图片答案"""
     import random
     import json
     import os
+    from datetime import datetime
+    
+    logger.info(f"🔍 开始诊断答案 - 用户: {user_id}, 题目: {question_id}, 答题类型: {answer_type}")
     
     if not answer:
+        logger.warning(f"⚠️ 用户 {user_id} 提交了空答案")
         return {"status": "error", "message": "答案不能为空哦！"}
     
     # 模拟AI思考过程
+    logger.info(f"🤖 AI正在分析用户 {user_id} 的答案...")
     time.sleep(2)
     
-    # 记录答题历史到用户数据
-    try:
-        data_path = os.path.join(os.path.dirname(__file__), '..', 'data', 'user_progress.json')
-        with open(data_path, 'r', encoding='utf-8') as f:
-            user_data = json.load(f)
-        
-        # 随机判断答案正确性（模拟AI判断）
-        is_correct = random.choice([True, False, True])  # 66%概率正确
-        confidence = random.uniform(0.3, 0.95)
-        
-        # 记录答题历史
-        if user_id in user_data:
-            answer_record = {
-                "question_id": question_id,
-                "user_answer": answer if answer_type == "text" else f"图片答案: {image_data.name if image_data else 'unknown'}",
-                "is_correct": is_correct,
-                "answer_time": time.strftime("%Y-%m-%d %H:%M:%S"),
-                "time_spent": random.randint(30, 300),
-                "answer_type": answer_type,
-                "confidence": confidence
-            }
-            
-            user_data[user_id]["answer_history"].append(answer_record)
-            
-            # 更新错题集
-            if not is_correct:
-                wrong_question = {
-                    "question_id": question_id,
-                    "wrong_count": 1,
-                    "first_wrong_time": answer_record["answer_time"],
-                    "last_wrong_time": answer_record["answer_time"],
-                    "status": "未掌握"
-                }
-                
-                # 检查是否已存在该错题
-                existing_wrong = None
-                for wrong in user_data[user_id]["wrong_questions"]:
-                    if wrong["question_id"] == question_id:
-                        existing_wrong = wrong
-                        break
-                
-                if existing_wrong:
-                    existing_wrong["wrong_count"] += 1
-                    existing_wrong["last_wrong_time"] = answer_record["answer_time"]
-                else:
-                    user_data[user_id]["wrong_questions"].append(wrong_question)
-            
-            # 更新学习统计
-            stats = user_data[user_id]["learning_stats"]
-            stats["total_questions_attempted"] += 1
-            if is_correct:
-                stats["total_correct"] += 1
-                stats["current_streak"] += 1
-                stats["best_streak"] = max(stats["best_streak"], stats["current_streak"])
-            else:
-                stats["current_streak"] = 0
-            
-            stats["accuracy_rate"] = stats["total_correct"] / stats["total_questions_attempted"]
-            stats["total_study_time"] += answer_record["time_spent"]
-            
-            # 保存更新后的数据
-            with open(data_path, 'w', encoding='utf-8') as f:
-                json.dump(user_data, f, ensure_ascii=False, indent=2)
+    # 随机判断答案正确性（模拟AI判断）
+    is_correct = random.choice([True, False, True])  # 66%概率正确
+    confidence = random.uniform(0.3, 0.95)
+    time_spent = random.randint(30, 300)
     
+    logger.info(f"📊 AI分析结果 - 正确性: {is_correct}, 置信度: {confidence:.2f}, 用时: {time_spent}秒")
+    
+    # 使用数据库记录答题历史
+    try:
+        logger.info(f"💾 开始保存答题记录到数据库")
+        # 获取正确答案（这里简化处理，实际应该从数据库查询）
+        correct_answer = "模拟正确答案"
+        
+        # 记录答题历史到数据库
+        db_manager.add_answer_record(
+            username=user_id,
+            question_id=question_id,
+            user_answer=answer if answer_type == "text" else f"图片答案: {image_data.name if image_data else 'unknown'}",
+            correct_answer=correct_answer,
+            is_correct=is_correct,
+            time_spent=time_spent,
+            answer_type=answer_type,
+            confidence=confidence
+        )
+        logger.info(f"✅ 答题记录保存成功 - 用户: {user_id}, 题目: {question_id}")
+        
     except Exception as e:
-        print(f"保存答题记录时出错: {e}")
+        logger.error(f"❌ 保存答题记录时出错: {e}")
+        import traceback
+        logger.error(f"详细错误信息: {traceback.format_exc()}")
     
     # 根据答题类型和随机结果返回诊断
+    logger.info(f"📝 生成诊断结果 - 答题类型: {answer_type}, 结果: {'正确' if is_correct else '错误'}")
+    
     if answer_type == "image":
         if is_correct:
-            return {
+            result = {
                 "status": "success",
                 "diagnosis": f"图片答案识别成功！解题思路清晰，答案正确。置信度：{confidence:.1%}",
                 "next_recommendation": "建议继续练习类似题型，巩固解题方法。"
             }
+            logger.info(f"✅ 图片答案诊断完成 - 用户: {user_id}, 结果: 正确")
+            return result
         else:
-            return {
+            result = {
                 "status": "partial",
                 "diagnosis": f"图片答案已识别，但解题过程中存在一些问题。置信度：{confidence:.1%}",
                 "hint": "建议检查计算步骤，注意细节处理。"
             }
+            logger.info(f"⚠️ 图片答案诊断完成 - 用户: {user_id}, 结果: 部分正确")
+            return result
     else:
         # 文字答案的原有逻辑，加上随机判断
         if "x=2" in answer and "x=3" in answer and is_correct:
-            return {
+            result = {
                 "status": "success",
                 "diagnosis": "回答正确！你对因式分解法求解二次方程掌握得很扎实。",
                 "next_recommendation": "建议你继续学习二次函数的图像性质。"
             }
+            logger.info(f"✅ 文字答案诊断完成 - 用户: {user_id}, 结果: 完全正确")
+            return result
         elif is_correct:
-            return {
+            result = {
                 "status": "success",
                 "diagnosis": "答案正确！解题思路很好。",
                 "next_recommendation": "可以尝试更有挑战性的题目。"
             }
+            logger.info(f"✅ 文字答案诊断完成 - 用户: {user_id}, 结果: 正确")
+            return result
         else:
-            return {
+            result = {
                 "status": "partial",
                 "diagnosis": "答案不够完整或存在错误。提示：可以尝试因式分解 x² - 5x + 6 = (x-2)(x-3)。",
                 "hint": "当 (x-2)(x-3) = 0 时，x = 2 或 x = 3"
             }
+            logger.info(f"⚠️ 文字答案诊断完成 - 用户: {user_id}, 结果: 错误或不完整")
+            return result
 
 def get_user_knowledge_map(user_id):
     """模拟获取用户的知识图谱掌握情况"""

@@ -5,7 +5,16 @@ import os
 # 添加项目根目录到Python路径
 project_root = os.path.join(os.path.dirname(__file__), '..', '..')
 sys.path.insert(0, project_root)
+
+# 添加backend路径
+backend_path = os.path.join(project_root, 'backend')
+sys.path.append(backend_path)
+
 from backend.backend import get_recommendation_for_user, diagnose_answer
+from backend.database import DatabaseManager
+
+# 初始化数据库管理器
+db_manager = DatabaseManager()
 
 def render_daily_tasks_page():
     """渲染今日任务页面"""

@@ -4,94 +4,54 @@ from datetime import datetime, timedelta
 import json
 import os
 import sys
+from pathlib import Path
+
+# 添加backend路径
+backend_path = os.path.join(os.path.dirname(__file__), '..', '..', 'backend')
+sys.path.append(backend_path)
+from database import DatabaseManager
 
 # 添加项目根目录到Python路径
 project_root = os.path.join(os.path.dirname(__file__), '..', '..')
 sys.path.insert(0, project_root)
 
 def load_user_wrong_questions(user_id):
-    """从数据文件中加载用户的错题数据"""
+    """从数据库中加载用户的错题数据"""
     try:
-        data_path = os.path.join(project_root, 'data', 'user_progress.json')
-        if not os.path.exists(data_path):
-            st.warning("用户数据文件不存在")
-            return []
-            
-        with open(data_path, 'r', encoding='utf-8') as f:
-            user_data = json.load(f)
+        # 初始化数据库管理器
+        db_manager = DatabaseManager()
         
-        questions_path = os.path.join(project_root, 'data', 'questions.json')
-        if not os.path.exists(questions_path):
-            st.warning("题目数据文件不存在")
-            return []
-            
-        with open(questions_path, 'r', encoding='utf-8') as f:
-            questions_data = json.load(f)
+        # 从数据库获取用户错题数据
+        wrong_questions = db_manager.get_user_wrong_questions(user_id)
         
-        if user_id not in user_data:
-            st.info(f"用户 {user_id} 暂无错题记录")
-            return []
-        
-        wrong_questions = user_data[user_id].get("wrong_questions", [])
         if not wrong_questions:
             st.info(f"用户 {user_id} 暂无错题记录")
             return []
-            
+        
         wrong_questions_list = []
         
-        # 创建题目ID到题目内容的映射
-        question_map = {}
-        try:
-            for subject, categories in questions_data.items():
-                if isinstance(categories, dict):
-                    for category, questions in categories.items():
-                        if isinstance(questions, list):
-                            for question in questions:
-                                if isinstance(question, dict) and "id" in question:
-                                    question_map[question["id"]] = question
-        except Exception as map_error:
-            st.error(f"解析题目数据时出错: {map_error}")
-            return []
-        
-        for i, wrong_q in enumerate(wrong_questions):
+        for wrong_q in wrong_questions:
             try:
-                if not isinstance(wrong_q, dict):
-                    st.warning(f"错题记录 {i} 格式错误")
-                    continue
-                    
-                question_id = wrong_q.get("question_id", "")
-                if not question_id:
-                    st.warning(f"错题记录 {i} 缺少题目ID")
-                    continue
-                    
-                question_info = question_map.get(question_id, {})
-                
                 # 安全地获取时间字段
                 first_time = wrong_q.get("first_wrong_time", "")
                 last_time = wrong_q.get("last_wrong_time", "")
                 
                 wrong_questions_list.append({
-                    "题目ID": question_id,
-                    "题目内容": question_info.get("question", "题目内容未找到"),
+                    "题目ID": wrong_q.get("question_id", ""),
+                    "题目内容": wrong_q.get("question_text", "题目内容未找到"),
                     "错误次数": wrong_q.get("wrong_count", 0),
                     "首次错误时间": first_time.split(" ")[0] if first_time and " " in first_time else first_time,
                     "最近错误时间": last_time.split(" ")[0] if last_time and " " in last_time else last_time,
-                    "知识点": ", ".join(question_info.get("knowledge_points", ["未知"])),
-                    "难度": question_info.get("difficulty", "未知"),
+                    "知识点": ", ".join(wrong_q.get("knowledge_points", ["未知"])),
+                    "难度": wrong_q.get("difficulty", "未知"),
                     "状态": wrong_q.get("status", "未知")
                 })
             except Exception as item_error:
-                st.warning(f"处理错题记录 {i} 时出错: {item_error}")
+                st.warning(f"处理错题记录时出错: {item_error}")
                 continue
         
         return wrong_questions_list
     
-    except json.JSONDecodeError as json_error:
-        st.error(f"JSON文件格式错误: {json_error}")
-        return []
-    except FileNotFoundError as file_error:
-        st.error(f"文件未找到: {file_error}")
-        return []
     except Exception as e:
         st.error(f"加载错题数据时出错: {type(e).__name__}: {e}")
         import traceback

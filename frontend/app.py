@@ -5,8 +5,18 @@ import os
 # 添加当前目录到Python路径，以便导入模块
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
+# 添加项目根目录和backend路径
+project_root = os.path.join(os.path.dirname(__file__), '..')
+sys.path.insert(0, project_root)
+backend_path = os.path.join(project_root, 'backend')
+sys.path.append(backend_path)
+
 # 导入配置和页面模块
 from config import init_page_config, init_session_state, load_custom_css, render_header, render_user_selector
+from backend.database import DatabaseManager
+
+# 初始化数据库管理器
+db_manager = DatabaseManager()
 from pages.home import render_home_page
 from pages.daily_tasks import render_daily_tasks_page
 from pages.knowledge_map import render_knowledge_map_page
