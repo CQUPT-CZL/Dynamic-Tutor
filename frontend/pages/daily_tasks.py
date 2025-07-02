@@ -45,21 +45,60 @@ def render_daily_tasks_page():
     st.info(f"题目ID: {mission['content']['question_id']}")
     st.latex(mission['content']['question_text'])
 
-    answer = st.text_area("请在此处输入你的解题过程和答案：", height=150, key="mission_answer")
+    # 答案输入方式选择
+    answer_type = st.radio(
+        "选择答题方式：",
+        ["📝 文字输入", "📷 图片上传"],
+        horizontal=True,
+        key="answer_type_radio"
+    )
+    
+    answer = None
+    uploaded_image = None
+    
+    if answer_type == "📝 文字输入":
+        answer = st.text_area("请在此处输入你的解题过程和答案：", height=150, key="mission_answer")
+    else:
+        st.write("📷 **上传答题图片**")
+        uploaded_image = st.file_uploader(
+            "请上传包含解题过程的图片",
+            type=["png", "jpg", "jpeg", "gif", "bmp"],
+            key="answer_image_uploader"
+        )
+        
+        if uploaded_image is not None:
+            # 显示上传的图片
+            st.image(uploaded_image, caption="上传的答题图片", use_column_width=True)
+            st.success("✅ 图片上传成功！")
 
     col1, col2 = st.columns([1, 3])
     with col1:
         if st.button("提交答案", type="primary", key="submit_answer_btn"):
-            if answer:
+            if answer or uploaded_image:
                 with st.spinner("🤖 AI正在诊断你的答案..."):
-                    diagnosis = diagnose_answer(
-                        st.session_state.user_id, 
-                        mission['content']['question_id'], 
-                        answer
-                    )
+                    # 根据答题方式传递不同的参数
+                    if answer_type == "📝 文字输入":
+                        diagnosis = diagnose_answer(
+                            st.session_state.user_id, 
+                            mission['content']['question_id'], 
+                            answer,
+                            answer_type="text"
+                        )
+                    else:
+                        # 对于图片，传递图片信息
+                        diagnosis = diagnose_answer(
+                            st.session_state.user_id, 
+                            mission['content']['question_id'], 
+                            f"图片答案: {uploaded_image.name}",
+                            answer_type="image",
+                            image_data=uploaded_image
+                        )
                     st.session_state.diagnosis_result = diagnosis
             else:
-                st.error("请先输入答案！")
+                if answer_type == "📝 文字输入":
+                    st.error("请先输入答案！")
+                else:
+                    st.error("请先上传答题图片！")
 
     st.markdown('</div>', unsafe_allow_html=True)
 

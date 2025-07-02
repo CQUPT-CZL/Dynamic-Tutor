@@ -1,24 +1,115 @@
 import streamlit as st
-import sys
+import pandas as pd
+from datetime import datetime, timedelta
+import json
 import os
+import sys
 
 # 添加项目根目录到Python路径
-project_root = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+project_root = os.path.join(os.path.dirname(__file__), '..', '..')
 sys.path.insert(0, project_root)
 
-from backend.backend import diagnose_answer, get_recommendation_for_user
+def load_user_wrong_questions(user_id):
+    """从数据文件中加载用户的错题数据"""
+    try:
+        data_path = os.path.join(project_root, 'data', 'user_progress.json')
+        if not os.path.exists(data_path):
+            st.warning("用户数据文件不存在")
+            return []
+            
+        with open(data_path, 'r', encoding='utf-8') as f:
+            user_data = json.load(f)
+        
+        questions_path = os.path.join(project_root, 'data', 'questions.json')
+        if not os.path.exists(questions_path):
+            st.warning("题目数据文件不存在")
+            return []
+            
+        with open(questions_path, 'r', encoding='utf-8') as f:
+            questions_data = json.load(f)
+        
+        if user_id not in user_data:
+            st.info(f"用户 {user_id} 暂无错题记录")
+            return []
+        
+        wrong_questions = user_data[user_id].get("wrong_questions", [])
+        if not wrong_questions:
+            st.info(f"用户 {user_id} 暂无错题记录")
+            return []
+            
+        wrong_questions_list = []
+        
+        # 创建题目ID到题目内容的映射
+        question_map = {}
+        try:
+            for subject, categories in questions_data.items():
+                if isinstance(categories, dict):
+                    for category, questions in categories.items():
+                        if isinstance(questions, list):
+                            for question in questions:
+                                if isinstance(question, dict) and "id" in question:
+                                    question_map[question["id"]] = question
+        except Exception as map_error:
+            st.error(f"解析题目数据时出错: {map_error}")
+            return []
+        
+        for i, wrong_q in enumerate(wrong_questions):
+            try:
+                if not isinstance(wrong_q, dict):
+                    st.warning(f"错题记录 {i} 格式错误")
+                    continue
+                    
+                question_id = wrong_q.get("question_id", "")
+                if not question_id:
+                    st.warning(f"错题记录 {i} 缺少题目ID")
+                    continue
+                    
+                question_info = question_map.get(question_id, {})
+                
+                # 安全地获取时间字段
+                first_time = wrong_q.get("first_wrong_time", "")
+                last_time = wrong_q.get("last_wrong_time", "")
+                
+                wrong_questions_list.append({
+                    "题目ID": question_id,
+                    "题目内容": question_info.get("question", "题目内容未找到"),
+                    "错误次数": wrong_q.get("wrong_count", 0),
+                    "首次错误时间": first_time.split(" ")[0] if first_time and " " in first_time else first_time,
+                    "最近错误时间": last_time.split(" ")[0] if last_time and " " in last_time else last_time,
+                    "知识点": ", ".join(question_info.get("knowledge_points", ["未知"])),
+                    "难度": question_info.get("difficulty", "未知"),
+                    "状态": wrong_q.get("status", "未知")
+                })
+            except Exception as item_error:
+                st.warning(f"处理错题记录 {i} 时出错: {item_error}")
+                continue
+        
+        return wrong_questions_list
+    
+    except json.JSONDecodeError as json_error:
+        st.error(f"JSON文件格式错误: {json_error}")
+        return []
+    except FileNotFoundError as file_error:
+        st.error(f"文件未找到: {file_error}")
+        return []
+    except Exception as e:
+        st.error(f"加载错题数据时出错: {type(e).__name__}: {e}")
+        import traceback
+        st.code(traceback.format_exc())
+        return []
 
 def render_wrong_questions_page():
     """渲染错题集页面"""
-    st.header("📝 错题集")
-    
-    # 检查是否有选择的用户
-    if 'user_id' not in st.session_state or not st.session_state.user_id:
-        st.warning("⚠️ 请先在顶部选择一个用户")
+    # 检查用户是否已选择
+    if not st.session_state.user_id:
+        st.warning("⚠️ 请先选择一个用户")
         return
     
-    user = st.session_state.user_id
-    st.info(f"👤 当前用户：{user}")
+    st.write("### 📚 我的错题集")
+    st.info(f"👨‍🎓 当前学习者：**{st.session_state.user_id}**")
+    
+    # 从数据文件加载错题数据
+    wrong_questions_data = load_user_wrong_questions(st.session_state.user_id)
     
     # 错题集功能区域
     col1, col2 = st.columns([2, 1])
@@ -41,39 +132,19 @@ def render_wrong_questions_page():
         st.markdown("---")
         st.subheader("📋 错题列表")
         
-        # 模拟错题数据
-        wrong_questions = [
-            {
-                "id": 1,
-                "subject": "数学",
-                "question": "求函数 f(x) = x² + 2x - 3 的最小值",
-                "your_answer": "最小值为 -2",
-                "correct_answer": "最小值为 -4",
-                "difficulty": "中等",
-                "date": "2024-01-15",
-                "times_wrong": 2
-            },
-            {
-                "id": 2,
-                "subject": "英语",
-                "question": "Choose the correct form: I _____ to the store yesterday.",
-                "your_answer": "go",
-                "correct_answer": "went",
-                "difficulty": "简单",
-                "date": "2024-01-14",
-                "times_wrong": 1
-            },
-            {
-                "id": 3,
-                "subject": "物理",
-                "question": "一个物体从10m高处自由落下，求落地时的速度（g=10m/s²）",
-                "your_answer": "v = 10 m/s",
-                "correct_answer": "v = 14.14 m/s",
-                "difficulty": "困难",
-                "date": "2024-01-13",
-                "times_wrong": 3
-            }
-        ]
+        # 使用加载的错题数据
+        wrong_questions = []
+        for q_data in wrong_questions_data:
+            wrong_questions.append({
+                "id": q_data["题目ID"],
+                "subject": "数学",  # 可以从知识点推断科目
+                "question": q_data["题目内容"],
+                "your_answer": "用户答案",  # 需要从数据中获取
+                "correct_answer": "正确答案",  # 需要从数据中获取
+                "difficulty": q_data["难度"],
+                "date": q_data["最近错误时间"],
+                "times_wrong": q_data["错误次数"]
+            })
         
         # 显示错题
         for i, question in enumerate(wrong_questions):

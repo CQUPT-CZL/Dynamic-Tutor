@@ -1,0 +1,291 @@
+{
+  "小明": {
+    "user_info": {
+      "name": "小明",
+      "grade": "高二",
+      "created_at": "2024-01-01",
+      "last_login": "2024-01-15"
+    },
+    "knowledge_graph": {
+      "高中函数": {
+        "基础概念": {
+          "mastery_level": 0.8,
+          "completed_questions": ["func_001", "func_002", "func_003"],
+          "correct_count": 2,
+          "total_attempts": 3,
+          "last_study_time": "2024-01-15",
+          "weak_points": ["根式函数定义域"]
+        },
+        "函数性质": {
+          "mastery_level": 0.6,
+          "completed_questions": ["func_004", "func_005"],
+          "correct_count": 1,
+          "total_attempts": 2,
+          "last_study_time": "2024-01-14",
+          "weak_points": ["函数奇偶性判断"]
+        },
+        "复合函数": {
+          "mastery_level": 0.3,
+          "completed_questions": ["func_007"],
+          "correct_count": 0,
+          "total_attempts": 1,
+          "last_study_time": "2024-01-13",
+          "weak_points": ["复合函数运算", "反函数求解"]
+        },
+        "函数应用": {
+          "mastery_level": 0.0,
+          "completed_questions": [],
+          "correct_count": 0,
+          "total_attempts": 0,
+          "last_study_time": null,
+          "weak_points": []
+        }
+      }
+    },
+    "answer_history": [
+      {
+        "question_id": "func_001",
+        "user_answer": "A",
+        "correct_answer": "A",
+        "is_correct": true,
+        "answer_time": "2024-01-15 10:30:00",
+        "time_spent": 45,
+        "answer_type": "text",
+        "confidence": 0.9
+      },
+      {
+        "question_id": "func_002",
+        "user_answer": "-1",
+        "correct_answer": "-1",
+        "is_correct": true,
+        "answer_time": "2024-01-15 10:35:00",
+        "time_spent": 120,
+        "answer_type": "text",
+        "confidence": 0.8
+      },
+      {
+        "question_id": "func_003",
+        "user_answer": "A",
+        "correct_answer": "B",
+        "is_correct": false,
+        "answer_time": "2024-01-15 10:40:00",
+        "time_spent": 90,
+        "answer_type": "text",
+        "confidence": 0.6
+      },
+      {
+        "question_id": "func_004",
+        "user_answer": "B",
+        "correct_answer": "A",
+        "is_correct": false,
+        "answer_time": "2024-01-14 15:20:00",
+        "time_spent": 180,
+        "answer_type": "text",
+        "confidence": 0.5
+      },
+      {
+        "question_id": "func_005",
+        "user_answer": "A",
+        "correct_answer": "A",
+        "is_correct": true,
+        "answer_time": "2024-01-14 15:25:00",
+        "time_spent": 60,
+        "answer_type": "text",
+        "confidence": 0.9
+      }
+    ],
+    "wrong_questions": [
+      {
+        "question_id": "func_003",
+        "wrong_count": 1,
+        "first_wrong_time": "2024-01-15 10:40:00",
+        "last_wrong_time": "2024-01-15 10:40:00",
+        "status": "未掌握"
+      },
+      {
+        "question_id": "func_004",
+        "wrong_count": 1,
+        "first_wrong_time": "2024-01-14 15:20:00",
+        "last_wrong_time": "2024-01-14 15:20:00",
+        "status": "未掌握"
+      }
+    ],
+    "learning_stats": {
+      "total_study_time": 495,
+      "total_questions_attempted": 5,
+      "total_correct": 3,
+      "accuracy_rate": 0.6,
+      "current_streak": 0,
+      "best_streak": 2,
+      "favorite_topics": ["基础概念"],
+      "recommended_topics": ["函数性质", "复合函数"]
+    }
+  },
+  "小红": {
+    "user_info": {
+      "name": "小红",
+      "grade": "高二",
+      "created_at": "2024-01-02",
+      "last_login": "2024-01-15"
+    },
+    "knowledge_graph": {
+      "高中函数": {
+        "基础概念": {
+          "mastery_level": 0.9,
+          "completed_questions": ["func_001", "func_002", "func_003"],
+          "correct_count": 3,
+          "total_attempts": 3,
+          "last_study_time": "2024-01-15",
+          "weak_points": []
+        },
+        "函数性质": {
+          "mastery_level": 0.8,
+          "completed_questions": ["func_004", "func_005", "func_006"],
+          "correct_count": 2,
+          "total_attempts": 3,
+          "last_study_time": "2024-01-14",
+          "weak_points": ["二次函数最值"]
+        },
+        "复合函数": {
+          "mastery_level": 0.5,
+          "completed_questions": ["func_007", "func_008"],
+          "correct_count": 1,
+          "total_attempts": 2,
+          "last_study_time": "2024-01-13",
+          "weak_points": ["反函数"]
+        },
+        "函数应用": {
+          "mastery_level": 0.7,
+          "completed_questions": ["func_009", "func_010"],
+          "correct_count": 1,
+          "total_attempts": 2,
+          "last_study_time": "2024-01-12",
+          "weak_points": ["实际应用问题"]
+        }
+      }
+    },
+    "answer_history": [
+      {
+        "question_id": "func_001",
+        "user_answer": "A",
+        "correct_answer": "A",
+        "is_correct": true,
+        "answer_time": "2024-01-15 09:30:00",
+        "time_spent": 30,
+        "answer_type": "text",
+        "confidence": 0.95
+      }
+    ],
+    "wrong_questions": [
+      {
+        "question_id": "func_006",
+        "wrong_count": 1,
+        "first_wrong_time": "2024-01-14 14:20:00",
+        "last_wrong_time": "2024-01-14 14:20:00",
+        "status": "未掌握"
+      }
+    ],
+    "learning_stats": {
+      "total_study_time": 720,
+      "total_questions_attempted": 10,
+      "total_correct": 7,
+      "accuracy_rate": 0.7,
+      "current_streak": 3,
+      "best_streak": 5,
+      "favorite_topics": ["基础概念", "函数性质"],
+      "recommended_topics": ["复合函数", "函数应用"]
+    }
+  },
+  "小刚": {
+    "user_info": {
+      "name": "小刚",
+      "grade": "高二",
+      "created_at": "2024-01-03",
+      "last_login": "2024-01-14"
+    },
+    "knowledge_graph": {
+      "高中函数": {
+        "基础概念": {
+          "mastery_level": 0.5,
+          "completed_questions": ["func_001", "func_002"],
+          "correct_count": 1,
+          "total_attempts": 2,
+          "last_study_time": "2024-01-14",
+          "weak_points": ["函数值计算"]
+        },
+        "函数性质": {
+          "mastery_level": 0.2,
+          "completed_questions": ["func_004"],
+          "correct_count": 0,
+          "total_attempts": 1,
+          "last_study_time": "2024-01-13",
+          "weak_points": ["函数奇偶性", "函数单调性"]
+        },
+        "复合函数": {
+          "mastery_level": 0.0,
+          "completed_questions": [],
+          "correct_count": 0,
+          "total_attempts": 0,
+          "last_study_time": null,
+          "weak_points": []
+        },
+        "函数应用": {
+          "mastery_level": 0.0,
+          "completed_questions": [],
+          "correct_count": 0,
+          "total_attempts": 0,
+          "last_study_time": null,
+          "weak_points": []
+        }
+      }
+    },
+    "answer_history": [
+      {
+        "question_id": "func_001",
+        "user_answer": "A",
+        "correct_answer": "A",
+        "is_correct": true,
+        "answer_time": "2024-01-14 16:30:00",
+        "time_spent": 90,
+        "answer_type": "text",
+        "confidence": 0.7
+      },
+      {
+        "question_id": "func_002",
+        "user_answer": "1",
+        "correct_answer": "-1",
+        "is_correct": false,
+        "answer_time": "2024-01-14 16:35:00",
+        "time_spent": 150,
+        "answer_type": "text",
+        "confidence": 0.4
+      }
+    ],
+    "wrong_questions": [
+      {
+        "question_id": "func_002",
+        "wrong_count": 1,
+        "first_wrong_time": "2024-01-14 16:35:00",
+        "last_wrong_time": "2024-01-14 16:35:00",
+        "status": "未掌握"
+      },
+      {
+        "question_id": "func_004",
+        "wrong_count": 1,
+        "first_wrong_time": "2024-01-13 20:15:00",
+        "last_wrong_time": "2024-01-13 20:15:00",
+        "status": "未掌握"
+      }
+    ],
+    "learning_stats": {
+      "total_study_time": 240,
+      "total_questions_attempted": 3,
+      "total_correct": 1,
+      "accuracy_rate": 0.33,
+      "current_streak": 0,
+      "best_streak": 1,
+      "favorite_topics": [],
+      "recommended_topics": ["基础概念", "函数性质"]
+    }
+  }
+}

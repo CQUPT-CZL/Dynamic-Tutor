@@ -36,24 +36,119 @@ def get_recommendation_for_user(user_id):
             }
         }
 
-def diagnose_answer(user_id, question_id, answer):
-    """模拟诊断用户的答案"""
+def diagnose_answer(user_id, question_id, answer, answer_type="text", image_data=None):
+    """模拟诊断用户的答案，支持文字和图片答案"""
+    import random
+    import json
+    import os
+    
     if not answer:
         return {"status": "error", "message": "答案不能为空哦！"}
+    
     # 模拟AI思考过程
-    time.sleep(2) 
-    if "x=2" in answer and "x=3" in answer:
-        return {
-            "status": "success",
-            "diagnosis": "回答正确！你对因式分解法求解二次方程掌握得很扎实。",
-            "next_recommendation": "建议你继续学习二次函数的图像性质。"
-        }
+    time.sleep(2)
+    
+    # 记录答题历史到用户数据
+    try:
+        data_path = os.path.join(os.path.dirname(__file__), '..', 'data', 'user_progress.json')
+        with open(data_path, 'r', encoding='utf-8') as f:
+            user_data = json.load(f)
+        
+        # 随机判断答案正确性（模拟AI判断）
+        is_correct = random.choice([True, False, True])  # 66%概率正确
+        confidence = random.uniform(0.3, 0.95)
+        
+        # 记录答题历史
+        if user_id in user_data:
+            answer_record = {
+                "question_id": question_id,
+                "user_answer": answer if answer_type == "text" else f"图片答案: {image_data.name if image_data else 'unknown'}",
+                "is_correct": is_correct,
+                "answer_time": time.strftime("%Y-%m-%d %H:%M:%S"),
+                "time_spent": random.randint(30, 300),
+                "answer_type": answer_type,
+                "confidence": confidence
+            }
+            
+            user_data[user_id]["answer_history"].append(answer_record)
+            
+            # 更新错题集
+            if not is_correct:
+                wrong_question = {
+                    "question_id": question_id,
+                    "wrong_count": 1,
+                    "first_wrong_time": answer_record["answer_time"],
+                    "last_wrong_time": answer_record["answer_time"],
+                    "status": "未掌握"
+                }
+                
+                # 检查是否已存在该错题
+                existing_wrong = None
+                for wrong in user_data[user_id]["wrong_questions"]:
+                    if wrong["question_id"] == question_id:
+                        existing_wrong = wrong
+                        break
+                
+                if existing_wrong:
+                    existing_wrong["wrong_count"] += 1
+                    existing_wrong["last_wrong_time"] = answer_record["answer_time"]
+                else:
+                    user_data[user_id]["wrong_questions"].append(wrong_question)
+            
+            # 更新学习统计
+            stats = user_data[user_id]["learning_stats"]
+            stats["total_questions_attempted"] += 1
+            if is_correct:
+                stats["total_correct"] += 1
+                stats["current_streak"] += 1
+                stats["best_streak"] = max(stats["best_streak"], stats["current_streak"])
+            else:
+                stats["current_streak"] = 0
+            
+            stats["accuracy_rate"] = stats["total_correct"] / stats["total_questions_attempted"]
+            stats["total_study_time"] += answer_record["time_spent"]
+            
+            # 保存更新后的数据
+            with open(data_path, 'w', encoding='utf-8') as f:
+                json.dump(user_data, f, ensure_ascii=False, indent=2)
+    
+    except Exception as e:
+        print(f"保存答题记录时出错: {e}")
+    
+    # 根据答题类型和随机结果返回诊断
+    if answer_type == "image":
+        if is_correct:
+            return {
+                "status": "success",
+                "diagnosis": f"图片答案识别成功！解题思路清晰，答案正确。置信度：{confidence:.1%}",
+                "next_recommendation": "建议继续练习类似题型，巩固解题方法。"
+            }
+        else:
+            return {
+                "status": "partial",
+                "diagnosis": f"图片答案已识别，但解题过程中存在一些问题。置信度：{confidence:.1%}",
+                "hint": "建议检查计算步骤，注意细节处理。"
+            }
     else:
-        return {
-            "status": "partial",
-            "diagnosis": "答案不够完整。提示：可以尝试因式分解 x² - 5x + 6 = (x-2)(x-3)。",
-            "hint": "当 (x-2)(x-3) = 0 时，x = 2 或 x = 3"
-        }
+        # 文字答案的原有逻辑，加上随机判断
+        if "x=2" in answer and "x=3" in answer and is_correct:
+            return {
+                "status": "success",
+                "diagnosis": "回答正确！你对因式分解法求解二次方程掌握得很扎实。",
+                "next_recommendation": "建议你继续学习二次函数的图像性质。"
+            }
+        elif is_correct:
+            return {
+                "status": "success",
+                "diagnosis": "答案正确！解题思路很好。",
+                "next_recommendation": "可以尝试更有挑战性的题目。"
+            }
+        else:
+            return {
+                "status": "partial",
+                "diagnosis": "答案不够完整或存在错误。提示：可以尝试因式分解 x² - 5x + 6 = (x-2)(x-3)。",
+                "hint": "当 (x-2)(x-3) = 0 时，x = 2 或 x = 3"
+            }
 
 def get_user_knowledge_map(user_id):
     """模拟获取用户的知识图谱掌握情况"""
