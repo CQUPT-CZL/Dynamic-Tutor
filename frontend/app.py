@@ -11,6 +11,8 @@ from pages.home import render_home_page
 from pages.daily_tasks import render_daily_tasks_page
 from pages.knowledge_map import render_knowledge_map_page
 from pages.free_practice import render_free_practice_page
+from pages.wrong_questions import render_wrong_questions_page
+from pages.self_assessment import render_self_assessment_page
 
 def main():
     """主应用函数"""
@@ -30,7 +32,7 @@ def main():
     render_user_selector()
     
     # 主导航标签页
-    tab1, tab2, tab3, tab4 = st.tabs(["🏠 学习首页", "📋 今日任务", "🗺️ 知识图谱", "📚 自由练习"])
+    tab1, tab2, tab3, tab4, tab5, tab6 = st.tabs(["🏠 学习首页", "📋 今日任务", "🗺️ 知识图谱", "📚 自由练习", "📝 错题集", "🎯 自我测评"])
     
     # 渲染各个页面
     with tab1:
@@ -44,6 +46,12 @@ def main():
     
     with tab4:
         render_free_practice_page()
+    
+    with tab5:
+        render_wrong_questions_page()
+    
+    with tab6:
+        render_self_assessment_page()
 
 if __name__ == "__main__":
     main()
