@@ -28,24 +28,19 @@ def get_or_create_node(cursor, node_name, level):
         )
     return node_id
 
+
 def main():
     conn = sqlite3.connect(DB_FILE)
     cursor = conn.cursor()
 
-    print(f"🚀 开始从 {CSV_FILE} 导入数据...")
+    print(f"🚀 开始从 {CSV_FILE} 导入数据 (使用占位符策略)...")
     
-    # 添加计数器统计成功导入的行数
-    success_count = 0
-
-    with open(CSV_FILE, mode='r', encoding='utf-8') as csvfile:
+    with open(CSV_FILE, mode='r', encoding='utf-8-sig') as csvfile: # 使用 utf-8-sig 来处理可能的BOM头
         reader = csv.DictReader(csvfile)
         
         for row in tqdm.tqdm(reader, desc="导入数据"):
             try:
-                # --- 1. 插入或替换题目信息到 `questions` 表 ---
-                # row.get(key, None) 可以在CSV缺少该列时安全地返回None
-                question_id = int(row['\ufeffid'])
-                # 判断答案是否为ABCD中的一个字母来确定题目类型
+                question_id = int(row['id'])
                 answer = row.get('answer', '').strip().upper()
                 question_type = '选择题' if answer in ['A', 'B', 'C', 'D'] else '非选择题'
                 
@@ -59,43 +54,50 @@ def main():
                         question_id,
                         row.get('question'),
                         question_type,
-                        round(float(row.get('difficulty', random.random())), 1), # 如果没有难度，随机选
+                        round(float(row.get('difficulty', random.random())), 1),
                         row.get('answer'),
                         row.get('analysis')
                     )
                 )
-                print(f"\n处理题目ID: {question_id}...")
 
-                # --- 2. 处理并关联知识点 ---
-                tags_string = row.get('knowledge_points', '')
-                level = row.get('level') # 获取该题的年级信息
-
-                if tags_string:
-                    knowledge_point_names = [tag.strip() for tag in tags_string.split(';')]
-                    
-                    for node_name in knowledge_point_names:
-                        if node_name:
-                            # a. 获取或创建知识点节点
-                            node_id = get_or_create_node(cursor, node_name, level)
-                            
-                            # b. 在映射表中创建关联
-                            if node_id:
-                                cursor.execute(
-                                    "INSERT OR IGNORE INTO question_to_node_mapping (question_id, node_id) VALUES (?, ?)",
-                                    (question_id, node_id)
-                                )
-                                print(f"  - 已关联到知识点: '{node_name}'")
+                # --- 核心修改在这里：智能生成知识点标签 ---
                 
-                # 成功处理完一行数据，计数器加1
-                success_count += 1
+                # 1. 优先尝试获取 'knowledge_points' 列
+                tags_string = row.get('knowledge_points')
+                
+                # 2. 如果没有，再尝试获取 'subject' 列 (根据你最初的截图)
+                if not tags_string:
+                    tags_string = row.get('subject')
 
+                # 3. 如果连 subject 都没有，我们就用 'level' 列来创造一个
+                if not tags_string:
+                    level = row.get('level')
+                    if level:
+                        tags_string = f"{level}综合" # 例如，生成 "高二综合" 这样的知识点
+                    else:
+                        tags_string = "未分类知识点" # 最后的备用方案
+
+                # --- 后续的关联逻辑保持不变 ---
+                level_for_node = row.get('level') 
+                knowledge_point_names = [tag.strip() for tag in tags_string.split(';')]
+                
+                for node_name in knowledge_point_names:
+                    if node_name:
+                        node_id = get_or_create_node(cursor, node_name, level_for_node)
+                        if node_id:
+                            cursor.execute(
+                                "INSERT OR IGNORE INTO question_to_node_mapping (question_id, node_id) VALUES (?, ?)",
+                                (question_id, node_id)
+                            )
+                
             except Exception as e:
-                print(f"处理行 {row['\ufeffid']} 时发生严重错误: {e}")
+                print(f"处理行 {row.get('id', '未知ID')} 时发生错误: {e}")
 
+    # ... (提交和关闭连接的代码不变) ...
     conn.commit()
     conn.close()
 
-    print(f"\n🎉 数据导入全部完成！成功导入 {success_count} 行数据。请使用DB Browser for SQLite检查结果。")
+    print("\n🎉 数据导入全部完成！")
 
 if __name__ == '__main__':
     main()
