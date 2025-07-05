@@ -1,83 +1,54 @@
+# initialize_data.py
+
 import sqlite3
 import random
-import tqdm
 import csv
+import os
+from tqdm import tqdm
 
-# 使用绝对路径确保能找到数据库文件
 DB_FILE = "my_database.db"
-CSV_FILE = "./raw/filtered_high_school_bracket_image.csv"
+CSV_FILE = "./raw/filtered_high_school_bracket_image.csv" # 你的原始数据CSV
 
 def get_or_create_node(cursor, node_name, level):
-    """
-    检查知识点是否存在，如果不存在则创建。
-    第一次创建时，会把这行数据里的'level'作为知识点的默认年级。
-    """
+    # ... 这个函数和之前一样，无需改动 ...
     node_id = ''.join(filter(str.isalnum, node_name.strip()))
-    if not node_id: 
-        return None
-
+    if not node_id: return None
     cursor.execute("SELECT node_id FROM knowledge_nodes WHERE node_id = ?", (node_id,))
-    data = cursor.fetchone()
-    
-    if data is None:
-        print(f"  - 新知识点 '{node_name}'，正在创建...")
-        # 对于CSV中没有的node_difficulty和node_learning，我们传入None，数据库会自动存为NULL (空)
+    if cursor.fetchone() is None:
         cursor.execute(
             "INSERT INTO knowledge_nodes (node_id, node_name, level) VALUES (?, ?, ?)", 
             (node_id, node_name, level)
         )
     return node_id
 
-
-def main():
-    conn = sqlite3.connect(DB_FILE)
-    cursor = conn.cursor()
-
-    print(f"🚀 开始从 {CSV_FILE} 导入数据 (使用占位符策略)...")
-    
-    with open(CSV_FILE, mode='r', encoding='utf-8-sig') as csvfile: # 使用 utf-8-sig 来处理可能的BOM头
+def import_questions_from_csv(cursor):
+    print("\n--- 阶段一：从CSV导入题库 ---")
+    with open(CSV_FILE, mode='r', encoding='utf-8-sig') as csvfile:
         reader = csv.DictReader(csvfile)
-        
-        for row in tqdm.tqdm(reader, desc="导入数据"):
+        for row in tqdm(reader, desc="导入题目"):
             try:
-                question_id = int(row['id'])
-                answer = row.get('answer', '').strip().upper()
-                question_type = '选择题' if answer in ['A', 'B', 'C', 'D'] else '非选择题'
-                
+                # --- 关键改动：不再从CSV读取ID ---
+                # 我们从INSERT语句中移除了 question_id
                 cursor.execute(
                     """
-                    INSERT OR REPLACE INTO questions 
-                    (question_id, question_text, question_type, difficulty, answer, analysis) 
-                    VALUES (?, ?, ?, ?, ?, ?)
+                    INSERT INTO questions 
+                    (question_text, question_type, difficulty, answer, analysis) 
+                    VALUES (?, ?, ?, ?, ?)
                     """,
                     (
-                        question_id,
                         row.get('question'),
-                        question_type,
-                        round(float(row.get('difficulty', random.random())), 1),
+                        '选择题' if row.get('answer', '').strip().upper() in ['A', 'B', 'C', 'D'] else '非选择题',
+                        round(float(row.get('difficulty', random.random())), 2),
                         row.get('answer'),
                         row.get('analysis')
                     )
                 )
-
-                # --- 核心修改在这里：智能生成知识点标签 ---
                 
-                # 1. 优先尝试获取 'knowledge_points' 列
-                tags_string = row.get('knowledge_points')
-                
-                # 2. 如果没有，再尝试获取 'subject' 列 (根据你最初的截图)
-                if not tags_string:
-                    tags_string = row.get('subject')
+                # --- 关键改动：获取刚刚插入的自增ID ---
+                new_question_id = cursor.lastrowid
 
-                # 3. 如果连 subject 都没有，我们就用 'level' 列来创造一个
-                if not tags_string:
-                    level = row.get('level')
-                    if level:
-                        tags_string = f"{level}综合" # 例如，生成 "高二综合" 这样的知识点
-                    else:
-                        tags_string = "未分类知识点" # 最后的备用方案
-
-                # --- 后续的关联逻辑保持不变 ---
+                # --- 关联知识点 (逻辑不变) ---
+                tags_string = row.get('knowledge_points') or row.get('subject') or f"{row.get('level')}综合"
                 level_for_node = row.get('level') 
                 knowledge_point_names = [tag.strip() for tag in tags_string.split(';')]
                 
@@ -87,17 +58,70 @@ def main():
                         if node_id:
                             cursor.execute(
                                 "INSERT OR IGNORE INTO question_to_node_mapping (question_id, node_id) VALUES (?, ?)",
-                                (question_id, node_id)
+                                (new_question_id, node_id)
                             )
-                
             except Exception as e:
                 print(f"处理行 {row.get('id', '未知ID')} 时发生错误: {e}")
 
-    # ... (提交和关闭连接的代码不变) ...
-    conn.commit()
-    conn.close()
+def generate_user_mastery_data(cursor):
+    print("\n--- 阶段二：为所有用户生成模拟知识点掌握度 ---")
+    cursor.execute("SELECT user_id FROM users")
+    user_ids = [row[0] for row in cursor.fetchall()]
+    
+    cursor.execute("SELECT node_id FROM knowledge_nodes")
+    node_ids = [row[0] for row in cursor.fetchall()]
 
-    print("\n🎉 数据导入全部完成！")
+    for user_id in tqdm(user_ids, desc="生成掌握度"):
+        for node_id in node_ids:
+            # 为每个用户对每个知识点生成一个0.1到1.0的随机掌握度
+            score = round(random.uniform(0.1, 1.0), 2)
+            cursor.execute(
+                "INSERT INTO user_node_mastery (user_id, node_id, mastery_score) VALUES (?, ?, ?)",
+                (user_id, node_id, score)
+            )
+
+def generate_wrong_questions_data(cursor):
+    print("\n--- 阶段三：为所有用户生成模拟错题本 ---")
+    cursor.execute("SELECT user_id FROM users")
+    user_ids = [row[0] for row in cursor.fetchall()]
+
+    cursor.execute("SELECT question_id FROM questions")
+    question_ids = [row[0] for row in cursor.fetchall()]
+
+    if not question_ids:
+        print("题库为空，无法生成错题记录。")
+        return
+
+    for user_id in tqdm(user_ids, desc="生成错题本"):
+        # 为每个用户随机挑选3道题作为错题
+        wrong_sample_questions = random.sample(question_ids, min(len(question_ids), 3))
+        for question_id in wrong_sample_questions:
+            wrong_count = random.randint(1, 5)
+            cursor.execute(
+                "INSERT OR IGNORE INTO wrong_questions (user_id, question_id, wrong_count) VALUES (?, ?, ?)",
+                (user_id, question_id, wrong_count)
+            )
+
+def main():
+    # 确保我们操作的是一个由schema.sql创建好的数据库
+    if not os.path.exists(DB_FILE):
+        print(f"错误: 数据库文件 {DB_FILE} 不存在。请先使用 schema.sql 创建。")
+        return
+        
+    conn = sqlite3.connect(DB_FILE)
+    cursor = conn.cursor()
+
+    try:
+        import_questions_from_csv(cursor)
+        generate_user_mastery_data(cursor)
+        generate_wrong_questions_data(cursor)
+        conn.commit()
+        print("\n🎉🎉🎉 所有数据导入和生成操作成功完成！")
+    except Exception as e:
+        print(f"\n发生严重错误，操作已回滚: {e}")
+        conn.rollback()
+    finally:
+        conn.close()
 
 if __name__ == '__main__':
     main()
