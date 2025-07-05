@@ -1,16 +1,14 @@
 import streamlit as st
 import random
-import sys
-import os
-# 添加项目根目录到Python路径
-project_root = os.path.join(os.path.dirname(__file__), '..', '..')
-sys.path.insert(0, project_root)
-from backend.backend import get_all_knowledge_nodes, get_node_difficulty, get_questions_for_node, get_user_mastery
 
-def render_free_practice_page():
+def render_free_practice_page(api_service, current_user):
     """渲染自由练习页面"""
     st.write("### 📚 自由练习")
-    st.info(f"👨‍🎓 当前学习者：**{st.session_state.user_id}**")
+    if not current_user:
+        st.warning("请先选择用户")
+        return
+    
+    st.info(f"👨‍🎓 当前学习者：**{current_user}**")
     
     col1, col2 = st.columns([3, 1])
     with col2:
@@ -23,14 +21,14 @@ def render_free_practice_page():
     st.markdown('<div class="practice-card">', unsafe_allow_html=True)
     st.write("### 🎯 选择练习知识点")
 
-    nodes = get_all_knowledge_nodes()
+    # 获取知识节点
+    nodes = api_service.get_knowledge_nodes()
     node_options = []
-    for node_id, node_name in nodes.items():
-        difficulty = get_node_difficulty(node_id)
-        mastery = get_user_mastery(st.session_state.user_id, node_id)
-        difficulty_stars = "⭐" * difficulty
+    for node_name in nodes.values():
+        mastery = api_service.get_user_mastery(current_user, node_name)
+        # 简化显示，暂时不显示难度
         mastery_percent = f"{mastery:.0%}"
-        node_options.append(f"{node_name} ({difficulty_stars}) - 掌握度: {mastery_percent}")
+        node_options.append(f"{node_name} - 掌握度: {mastery_percent}")
 
     selected_option = st.selectbox(
         "请选择一个知识点:",
@@ -40,19 +38,17 @@ def render_free_practice_page():
 
     if selected_option:
         # 解析选择的知识点
-        selected_node_name = selected_option.split(" (")[0]
-        selected_node_id = [id for id, name in nodes.items() if name == selected_node_name][0]
+        selected_node_name = selected_option.split(" - 掌握度:")[0]
         
         # 显示知识点信息
-        difficulty = get_node_difficulty(selected_node_id)
-        mastery = get_user_mastery(st.session_state.user_id, selected_node_id)
+        mastery = api_service.get_user_mastery(current_user, selected_node_name)
         
         st.markdown('<div class="node-info">', unsafe_allow_html=True)
         col1, col2, col3 = st.columns(3)
         with col1:
             st.metric("知识点", selected_node_name)
         with col2:
-            st.metric("难度等级", "⭐" * difficulty)
+            st.metric("难度等级", "⭐⭐⭐")  # 暂时显示固定难度
         with col3:
             st.metric("我的掌握度", f"{mastery:.0%}")
         st.markdown('</div>', unsafe_allow_html=True)
@@ -60,7 +56,7 @@ def render_free_practice_page():
         st.markdown('</div>', unsafe_allow_html=True)
         
         # 题目展示
-        questions = get_questions_for_node(selected_node_id)
+        questions = api_service.get_questions_for_node(selected_node_name)
         
         # 题目选择逻辑
         if 'selected_question_index' not in st.session_state:
@@ -79,7 +75,7 @@ def render_free_practice_page():
         answer = st.text_area(
             "请在此处输入你的解题过程和答案：", 
             height=150, 
-            key=f"practice_answer_{selected_node_id}_{st.session_state.selected_question_index}"
+            key=f"practice_answer_{selected_node_name}_{st.session_state.selected_question_index}"
         )
         
         # 操作按钮

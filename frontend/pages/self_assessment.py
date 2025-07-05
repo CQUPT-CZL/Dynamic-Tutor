@@ -1,26 +1,17 @@
 import streamlit as st
-import sys
-import os
 import time
 import random
 
-# 添加项目根目录到Python路径
-project_root = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-sys.path.insert(0, project_root)
-
-from backend.backend import diagnose_answer, get_recommendation_for_user
-
-def render_self_assessment_page():
+def render_self_assessment_page(api_service, current_user):
     """渲染自我测评页面"""
     st.header("🎯 自我测评")
     
     # 检查是否有选择的用户
-    if 'user_id' not in st.session_state or not st.session_state.user_id:
-        st.warning("⚠️ 请先在顶部选择一个用户")
+    if not current_user:
+        st.warning("⚠️ 请先选择一个用户")
         return
     
-    user = st.session_state.user_id
-    st.info(f"👤 当前用户：{user}")
+    st.info(f"👤 当前用户：{current_user}")
     
     # 初始化session state
     if 'assessment_mode' not in st.session_state:

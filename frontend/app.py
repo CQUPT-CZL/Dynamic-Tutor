@@ -6,104 +6,18 @@ AI智慧学习平台 - 前端应用
 """
 
 import streamlit as st
-import requests
-import json
-from typing import Dict, List, Any
-import time
 from datetime import datetime
 
 # 导入页面模块
 from pages import daily_tasks, free_practice, knowledge_map, self_assessment, wrong_questions
-from config import init_session_state, render_user_selector, load_css
+from config import init_session_state, render_user_selector, load_custom_css
+from services import get_api_service
 
-# API配置
-API_BASE_URL = "http://localhost:8000/api"
-
-class APIClient:
-    """API客户端类，处理与后端的HTTP通信"""
-    
-    def __init__(self, base_url: str = API_BASE_URL):
-        self.base_url = base_url
-        self.session = requests.Session()
-        self.session.headers.update({
-            "Content-Type": "application/json",
-            "Accept": "application/json"
-        })
-    
-    def _make_request(self, method: str, endpoint: str, **kwargs) -> Dict[str, Any]:
-        """发送HTTP请求的通用方法"""
-        url = f"{self.base_url}{endpoint}"
-        try:
-            response = self.session.request(method, url, **kwargs)
-            response.raise_for_status()
-            return response.json()
-        except requests.exceptions.RequestException as e:
-            st.error(f"API请求失败: {e}")
-            return {"error": str(e)}
-    
-    def get_users(self) -> List[Dict[str, str]]:
-        """获取用户列表"""
-        result = self._make_request("GET", "/users")
-        return result if isinstance(result, list) else []
-    
-    def get_recommendation(self, user_id: str) -> Dict[str, Any]:
-        """获取用户推荐"""
-        return self._make_request("GET", f"/recommendation/{user_id}")
-    
-    def diagnose_answer(self, user_id: str, question_id: str, answer: str, 
-                       answer_type: str = "text", time_spent: int = None, 
-                       confidence: float = None) -> Dict[str, Any]:
-        """诊断答案"""
-        data = {
-            "user_id": user_id,
-            "question_id": question_id,
-            "answer": answer,
-            "answer_type": answer_type
-        }
-        if time_spent is not None:
-            data["time_spent"] = time_spent
-        if confidence is not None:
-            data["confidence"] = confidence
-        
-        return self._make_request("POST", "/diagnose", json=data)
-    
-    def get_knowledge_map(self, user_id: str) -> List[Dict[str, Any]]:
-        """获取知识图谱"""
-        result = self._make_request("GET", f"/knowledge-map/{user_id}")
-        return result if isinstance(result, list) else []
-    
-    def get_knowledge_nodes(self) -> Dict[str, str]:
-        """获取知识节点"""
-        result = self._make_request("GET", "/knowledge-nodes")
-        return result.get("nodes", {}) if isinstance(result, dict) else {}
-    
-    def get_user_mastery(self, user_id: str, node_name: str) -> float:
-        """获取用户掌握度"""
-        result = self._make_request("GET", f"/mastery/{user_id}/{node_name}")
-        return result.get("mastery", 0.0) if isinstance(result, dict) else 0.0
-    
-    def get_questions_for_node(self, node_name: str) -> List[str]:
-        """获取知识点练习题"""
-        result = self._make_request("GET", f"/questions/{node_name}")
-        return result.get("questions", []) if isinstance(result, dict) else []
-    
-    def get_wrong_questions(self, user_id: str) -> List[Dict[str, Any]]:
-        """获取错题集"""
-        result = self._make_request("GET", f"/wrong-questions/{user_id}")
-        return result.get("wrong_questions", []) if isinstance(result, dict) else []
-    
-    def get_user_stats(self, user_id: str) -> Dict[str, Any]:
-        """获取用户统计"""
-        return self._make_request("GET", f"/stats/{user_id}")
-    
-    def health_check(self) -> Dict[str, Any]:
-        """健康检查"""
-        return self._make_request("GET", "/health")
-
-def check_api_connection(api_client: APIClient) -> bool:
+def check_api_connection(api_service) -> bool:
     """检查API连接状态"""
     try:
-        health = api_client.health_check()
+        health = api_service.health_check()
+        print(health)
         return health.get("status") == "healthy"
     except:
         return False
@@ -112,21 +26,18 @@ def check_api_connection(api_client: APIClient) -> bool:
 
 def main():
     """主应用函数"""
-    # 初始化API客户端
-    if "api_client" not in st.session_state:
-        st.session_state.api_client = APIClient()
-    
-    api_client = st.session_state.api_client
+    # 初始化API服务
+    api_service = get_api_service()
     
     # 检查API连接
     if "api_connected" not in st.session_state:
-        st.session_state.api_connected = check_api_connection(api_client)
+        st.session_state.api_connected = check_api_connection(api_service)
     
     # 初始化页面配置
     init_session_state()
     
     # 加载CSS样式
-    load_css()
+    load_custom_css()
     
     # 渲染顶部标题栏
     st.markdown("""
@@ -144,7 +55,7 @@ def main():
         else:
             st.error("🔴 后端API连接失败，请确保后端服务器正在运行")
             if st.button("🔄 重新连接"):
-                st.session_state.api_connected = check_api_connection(api_client)
+                st.session_state.api_connected = check_api_connection(api_service)
                 st.rerun()
     
     # 如果API未连接，显示启动说明
@@ -170,7 +81,8 @@ def main():
         return
     
     # 渲染用户选择区域
-    render_user_selector(api_client)
+    current_user = render_user_selector(api_service)
+    st.session_state.current_user = current_user
     
     # 如果没有选择用户，显示用户选择提示
     if not st.session_state.current_user:
@@ -191,23 +103,23 @@ def main():
     
     # 今日任务页面
     with tab1:
-        daily_tasks.render_daily_tasks_page(api_client, st.session_state.current_user)
+        daily_tasks.render_daily_tasks_page(api_service, st.session_state.current_user)
     
     # 自由练习页面
     with tab2:
-        free_practice.render_free_practice_page(api_client, st.session_state.current_user)
+        free_practice.render_free_practice_page(api_service, st.session_state.current_user)
     
     # 知识图谱页面
     with tab3:
-        knowledge_map.render_knowledge_map_page(api_client, st.session_state.current_user)
+        knowledge_map.render_knowledge_map_page(api_service, st.session_state.current_user)
     
     # 自我测评页面
     with tab4:
-        self_assessment.render_self_assessment_page(api_client, st.session_state.current_user)
+        self_assessment.render_self_assessment_page(api_service, st.session_state.current_user)
     
     # 错题集页面
     with tab5:
-        wrong_questions.render_wrong_questions_page(api_client, st.session_state.current_user)
+        wrong_questions.render_wrong_questions_page(api_service, st.session_state.current_user)
     
     # 页面底部信息
     st.markdown("---")

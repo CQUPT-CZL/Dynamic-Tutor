@@ -1,19 +1,30 @@
 import streamlit as st
 import pandas as pd
-import sys
-import os
-# 添加项目根目录到Python路径
-project_root = os.path.join(os.path.dirname(__file__), '..', '..')
-sys.path.insert(0, project_root)
-from backend.backend import get_user_knowledge_map
 
-def render_knowledge_map_page():
+def render_knowledge_map_page(api_service, current_user):
     """渲染知识图谱页面"""
     st.write("### 🗺️ 我的知识图谱")
-    st.info(f"👨‍🎓 当前学习者：**{st.session_state.user_id}**")
+    if not current_user:
+        st.warning("请先选择用户")
+        return
+    
+    st.info(f"👨‍🎓 当前学习者：**{current_user}**")
     
     # 获取知识图谱数据
-    df = get_user_knowledge_map(st.session_state.user_id)
+    knowledge_map_data = api_service.get_knowledge_map(current_user)
+    
+    # 转换为DataFrame格式
+    if knowledge_map_data:
+        df_data = []
+        for item in knowledge_map_data:
+            df_data.append({
+                '知识点': item.get('node_name', ''),
+                '我的掌握度': item.get('mastery', 0.0),
+                '难度': item.get('difficulty', 1)
+            })
+        df = pd.DataFrame(df_data)
+    else:
+        df = pd.DataFrame(columns=['知识点', '我的掌握度', '难度'])
 
     # 知识图谱概览
     st.markdown('<div class="knowledge-card">', unsafe_allow_html=True)

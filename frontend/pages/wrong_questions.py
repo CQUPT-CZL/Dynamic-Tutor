@@ -1,48 +1,27 @@
 import streamlit as st
 import pandas as pd
 from datetime import datetime, timedelta
-import json
-import os
-import sys
-from pathlib import Path
 
-# 添加backend路径
-backend_path = os.path.join(os.path.dirname(__file__), '..', '..', 'backend')
-sys.path.append(backend_path)
-from database import DatabaseManager
-
-# 添加项目根目录到Python路径
-project_root = os.path.join(os.path.dirname(__file__), '..', '..')
-sys.path.insert(0, project_root)
-
-def load_user_wrong_questions(user_id):
-    """从数据库中加载用户的错题数据"""
+def load_user_wrong_questions(api_service, user_id):
+    """通过API加载用户的错题数据"""
     try:
-        # 初始化数据库管理器
-        db_manager = DatabaseManager()
-        
-        # 从数据库获取用户错题数据
-        wrong_questions = db_manager.get_user_wrong_questions(user_id)
+        # 通过API获取用户错题数据
+        wrong_questions = api_service.get_wrong_questions(user_id)
         
         if not wrong_questions:
-            st.info(f"用户 {user_id} 暂无错题记录")
             return []
         
         wrong_questions_list = []
         
         for wrong_q in wrong_questions:
             try:
-                # 安全地获取时间字段
-                first_time = wrong_q.get("first_wrong_time", "")
-                last_time = wrong_q.get("last_wrong_time", "")
-                
                 wrong_questions_list.append({
                     "题目ID": wrong_q.get("question_id", ""),
                     "题目内容": wrong_q.get("question_text", "题目内容未找到"),
                     "错误次数": wrong_q.get("wrong_count", 0),
-                    "首次错误时间": first_time.split(" ")[0] if first_time and " " in first_time else first_time,
-                    "最近错误时间": last_time.split(" ")[0] if last_time and " " in last_time else last_time,
-                    "知识点": ", ".join(wrong_q.get("knowledge_points", ["未知"])),
+                    "首次错误时间": wrong_q.get("first_wrong_time", ""),
+                    "最近错误时间": wrong_q.get("last_wrong_time", ""),
+                    "知识点": wrong_q.get("knowledge_points", "未知"),
                     "难度": wrong_q.get("difficulty", "未知"),
                     "状态": wrong_q.get("status", "未知")
                 })
@@ -54,22 +33,20 @@ def load_user_wrong_questions(user_id):
     
     except Exception as e:
         st.error(f"加载错题数据时出错: {type(e).__name__}: {e}")
-        import traceback
-        st.code(traceback.format_exc())
         return []
 
-def render_wrong_questions_page():
+def render_wrong_questions_page(api_service, current_user):
     """渲染错题集页面"""
     # 检查用户是否已选择
-    if not st.session_state.user_id:
+    if not current_user:
         st.warning("⚠️ 请先选择一个用户")
         return
     
     st.write("### 📚 我的错题集")
-    st.info(f"👨‍🎓 当前学习者：**{st.session_state.user_id}**")
+    st.info(f"👨‍🎓 当前学习者：**{current_user}**")
     
-    # 从数据文件加载错题数据
-    wrong_questions_data = load_user_wrong_questions(st.session_state.user_id)
+    # 通过API加载错题数据
+    wrong_questions_data = load_user_wrong_questions(api_service, current_user)
     
     # 错题集功能区域
     col1, col2 = st.columns([2, 1])

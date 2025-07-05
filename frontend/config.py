@@ -124,7 +124,7 @@ def render_header():
     """渲染顶部标题栏"""
     st.markdown('<div class="main-header"><h1>🎓 AI智慧学习平台</h1><p>个性化学习，智能化成长</p></div>', unsafe_allow_html=True)
 
-def render_user_selector(api_client):
+def render_user_selector(api_service):
     """渲染用户选择区域"""
     st.markdown('<div class="user-selector">', unsafe_allow_html=True)
     col1, col2, col3 = st.columns([2, 2, 1])
@@ -132,7 +132,7 @@ def render_user_selector(api_client):
         st.write("### 👨‍🎓 选择学习者")
     with col2:
         # 从API获取用户数据
-        users = api_client.get_users()
+        users = api_service.get_users()
         
         if not users:
             st.warning("无法获取用户列表，请检查后端连接")

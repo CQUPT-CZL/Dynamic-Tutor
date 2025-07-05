@@ -1,22 +1,7 @@
 import streamlit as st
 import time
-import sys
-import os
-# 添加项目根目录到Python路径
-project_root = os.path.join(os.path.dirname(__file__), '..', '..')
-sys.path.insert(0, project_root)
 
-# 添加backend路径
-backend_path = os.path.join(project_root, 'backend')
-sys.path.append(backend_path)
-
-from backend.backend import get_recommendation_for_user, diagnose_answer
-from backend.database import DatabaseManager
-
-# 初始化数据库管理器
-db_manager = DatabaseManager()
-
-def render_daily_tasks_page(api_client, current_user):
+def render_daily_tasks_page(api_service, current_user):
     """渲染今日任务页面"""
     st.markdown("## 📋 今日任务")
     
@@ -25,7 +10,7 @@ def render_daily_tasks_page(api_client, current_user):
         return
     
     # 获取用户推荐
-    recommendation = api_client.get_recommendation(current_user)
+    recommendation = api_service.get_recommendation(current_user)
     
     if not recommendation or "error" in recommendation:
         st.info("暂无推荐任务")
@@ -73,7 +58,7 @@ def render_daily_tasks_page(api_client, current_user):
     st.markdown("### 📊 学习进度概览")
     
     # 获取用户统计数据
-    stats = api_client.get_user_stats(current_user)
+    stats = api_service.get_user_stats(current_user)
     
     col1, col2, col3, col4 = st.columns(4)
     
@@ -93,7 +78,7 @@ def render_daily_tasks_page(api_client, current_user):
     st.markdown("### ❌ 最近错题提醒")
     
     # 获取错题数据
-    wrong_questions = api_client.get_wrong_questions(current_user)
+    wrong_questions = api_service.get_wrong_questions(current_user)
     
     if wrong_questions and len(wrong_questions) > 0:
         for i, question in enumerate(wrong_questions[:3]):
