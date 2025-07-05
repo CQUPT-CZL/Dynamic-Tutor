@@ -4,7 +4,7 @@ import sqlite3
 import random
 import csv
 import os
-from tqdm import tqdm
+# from tqdm import tqdm
 
 DB_FILE = "my_database.db"
 CSV_FILE = "./raw/filtered_high_school_bracket_image.csv" # 你的原始数据CSV
@@ -25,7 +25,7 @@ def import_questions_from_csv(cursor):
     print("\n--- 阶段一：从CSV导入题库 ---")
     with open(CSV_FILE, mode='r', encoding='utf-8-sig') as csvfile:
         reader = csv.DictReader(csvfile)
-        for row in tqdm(reader, desc="导入题目"):
+        for row in reader:
             try:
                 # --- 关键改动：不再从CSV读取ID ---
                 # 我们从INSERT语句中移除了 question_id
@@ -71,7 +71,7 @@ def generate_user_mastery_data(cursor):
     cursor.execute("SELECT node_id FROM knowledge_nodes")
     node_ids = [row[0] for row in cursor.fetchall()]
 
-    for user_id in tqdm(user_ids, desc="生成掌握度"):
+    for user_id in user_ids:
         for node_id in node_ids:
             # 为每个用户对每个知识点生成一个0.1到1.0的随机掌握度
             score = round(random.uniform(0.1, 1.0), 2)
@@ -92,7 +92,7 @@ def generate_wrong_questions_data(cursor):
         print("题库为空，无法生成错题记录。")
         return
 
-    for user_id in tqdm(user_ids, desc="生成错题本"):
+    for user_id in user_ids:
         # 为每个用户随机挑选3道题作为错题
         wrong_sample_questions = random.sample(question_ids, min(len(question_ids), 3))
         for question_id in wrong_sample_questions:

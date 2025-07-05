@@ -97,17 +97,20 @@ class APIService:
     
     def get_knowledge_nodes(self) -> Dict[str, str]:
         """获取知识节点"""
-        result = self._make_request("GET", "/knowledge-nodes")
+        result = self._make_request("GET", "/knowledge-map/get-nodes")
+        # print('shizhidian')
+        # print(result)
+        # print('wancheng')
         return result.get("nodes", {}) if isinstance(result, dict) else {}
     
     def get_user_mastery(self, user_id: str, node_name: str) -> float:
         """获取用户掌握度"""
-        result = self._make_request("GET", f"/mastery/{user_id}/{node_name}")
+        result = self._make_request("GET", f"/knowledge-map/mastery/{user_id}/{node_name}")
         return result.get("mastery", 0.0) if isinstance(result, dict) else 0.0
     
     def update_user_mastery(self, user_id: str, node_name: str, mastery_score: float) -> Dict[str, Any]:
         """更新用户掌握度"""
-        return self._make_request("POST", f"/mastery/{user_id}/{node_name}", json={"mastery_score": mastery_score})
+        return self._make_request("POST", f"/knowledge-map/mastery/{user_id}/{node_name}", json={"mastery_score": mastery_score})
     
     # 练习题目
     def get_questions_for_node(self, node_name: str) -> List[str]:

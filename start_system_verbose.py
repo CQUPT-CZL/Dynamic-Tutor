@@ -72,7 +72,7 @@ def start_backend():
         
         # 切换到后端目录并启动服务器
         process = subprocess.Popen(
-            [sys.executable, "api_server.py"],
+            [sys.executable, "api_server_new.py"],
             cwd=backend_dir,
             # 输出到管道，然后读取并同时写入终端和文件
             stdout=subprocess.PIPE,

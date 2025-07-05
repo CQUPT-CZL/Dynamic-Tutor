@@ -1,7 +1,7 @@
 import streamlit as st
 import random
 
-def render_free_practice_page(api_service, current_user):
+def render_free_practice_page(api_service, current_user, user_id):
     """渲染自由练习页面"""
     st.write("### 📚 自由练习")
     if not current_user:
@@ -23,9 +23,10 @@ def render_free_practice_page(api_service, current_user):
 
     # 获取知识节点
     nodes = api_service.get_knowledge_nodes()
+    nodes = {'1': '代数'}
     node_options = []
     for node_name in nodes.values():
-        mastery = api_service.get_user_mastery(current_user, node_name)
+        mastery = api_service.get_user_mastery(user_id, node_name)
         # 简化显示，暂时不显示难度
         mastery_percent = f"{mastery:.0%}"
         node_options.append(f"{node_name} - 掌握度: {mastery_percent}")
@@ -41,7 +42,7 @@ def render_free_practice_page(api_service, current_user):
         selected_node_name = selected_option.split(" - 掌握度:")[0]
         
         # 显示知识点信息
-        mastery = api_service.get_user_mastery(current_user, selected_node_name)
+        mastery = api_service.get_user_mastery(user_id, selected_node_name)
         
         st.markdown('<div class="node-info">', unsafe_allow_html=True)
         col1, col2, col3 = st.columns(3)
@@ -57,7 +58,7 @@ def render_free_practice_page(api_service, current_user):
         
         # 题目展示
         questions = api_service.get_questions_for_node(selected_node_name)
-        
+        print(questions)
         # 题目选择逻辑
         if 'selected_question_index' not in st.session_state:
             st.session_state.selected_question_index = 0

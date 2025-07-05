@@ -35,7 +35,7 @@ def load_user_wrong_questions(api_service, user_id):
         st.error(f"加载错题数据时出错: {type(e).__name__}: {e}")
         return []
 
-def render_wrong_questions_page(api_service, current_user):
+def render_wrong_questions_page(api_service, current_user, user_id):
     """渲染错题集页面"""
     # 检查用户是否已选择
     if not current_user:
@@ -46,7 +46,7 @@ def render_wrong_questions_page(api_service, current_user):
     st.info(f"👨‍🎓 当前学习者：**{current_user}**")
     
     # 通过API加载错题数据
-    wrong_questions_data = load_user_wrong_questions(api_service, current_user)
+    wrong_questions_data = load_user_wrong_questions(api_service, user_id)
     
     # 错题集功能区域
     col1, col2 = st.columns([2, 1])

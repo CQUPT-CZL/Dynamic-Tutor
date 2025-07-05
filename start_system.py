@@ -71,7 +71,7 @@ def start_backend():
         
         # 切换到后端目录并启动服务器
         process = subprocess.Popen(
-            [sys.executable, "api_server.py"],
+            [sys.executable, "api_server_new.py"],
             cwd=backend_dir,
             # 重定向输出到日志文件
             stdout=log_file,

@@ -1,7 +1,8 @@
+from curses import use_default_colors
 import streamlit as st
 import time
 
-def render_daily_tasks_page(api_service, current_user):
+def render_daily_tasks_page(api_service, current_user, user_id):
     """渲染今日任务页面"""
     st.markdown("## 📋 今日任务")
     
@@ -10,7 +11,7 @@ def render_daily_tasks_page(api_service, current_user):
         return
     
     # 获取用户推荐
-    recommendation = api_service.get_recommendation(current_user)
+    recommendation = api_service.get_recommendation(user_id)
     
     if not recommendation or "error" in recommendation:
         st.info("暂无推荐任务")

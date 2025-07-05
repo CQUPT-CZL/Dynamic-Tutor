@@ -83,6 +83,16 @@ def main():
     # 渲染用户选择区域
     current_user = render_user_selector(api_service)
     st.session_state.current_user = current_user
+
+    USER_MAP = {
+        "小崔": 1,
+        "小陈": 2,
+        "小胡": 3
+    }
+    if current_user:
+        st.session_state.user_id = USER_MAP[current_user]
+
+    print(current_user)
     
     # 如果没有选择用户，显示用户选择提示
     if not st.session_state.current_user:
@@ -103,23 +113,23 @@ def main():
     
     # 今日任务页面
     with tab1:
-        daily_tasks.render_daily_tasks_page(api_service, st.session_state.current_user)
+        daily_tasks.render_daily_tasks_page(api_service, st.session_state.current_user, st.session_state.user_id)
     
     # 自由练习页面
     with tab2:
-        free_practice.render_free_practice_page(api_service, st.session_state.current_user)
+        free_practice.render_free_practice_page(api_service, st.session_state.current_user, st.session_state.user_id)
     
     # 知识图谱页面
     with tab3:
-        knowledge_map.render_knowledge_map_page(api_service, st.session_state.current_user)
+        knowledge_map.render_knowledge_map_page(api_service, st.session_state.current_user, st.session_state.user_id)
     
     # 自我测评页面
     with tab4:
-        self_assessment.render_self_assessment_page(api_service, st.session_state.current_user)
+        self_assessment.render_self_assessment_page(api_service, st.session_state.current_user, st.session_state.user_id)
     
     # 错题集页面
     with tab5:
-        wrong_questions.render_wrong_questions_page(api_service, st.session_state.current_user)
+        wrong_questions.render_wrong_questions_page(api_service, st.session_state.current_user, st.session_state.user_id)
     
     # 页面底部信息
     st.markdown("---")

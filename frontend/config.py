@@ -11,8 +11,10 @@ def init_page_config():
 
 def init_session_state():
     """初始化Session State"""
+    if 'user_name' not in st.session_state:
+        st.session_state.user_name = "默认用户"
     if 'user_id' not in st.session_state:
-        st.session_state.user_id = "小明"
+        st.session_state.user_id = 1
     if 'current_mission' not in st.session_state:
         st.session_state.current_mission = None
     if 'diagnosis_result' not in st.session_state:

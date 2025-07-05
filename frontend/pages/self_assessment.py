@@ -2,7 +2,7 @@ import streamlit as st
 import time
 import random
 
-def render_self_assessment_page(api_service, current_user):
+def render_self_assessment_page(api_service, current_user, user_id):
     """渲染自我测评页面"""
     st.header("🎯 自我测评")
     
