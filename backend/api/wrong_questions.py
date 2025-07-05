@@ -3,9 +3,6 @@
 """
 错题集接口
 """
-
-from re import U
-from tkinter import W
 from fastapi import APIRouter, HTTPException
 from .database import get_db_connection
 
