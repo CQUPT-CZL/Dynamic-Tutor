@@ -172,7 +172,15 @@ def render_knowledge_list(api_service, user_id):
                 # 详情查看模式
                 if st.session_state.get(f"viewing_{node['node_id']}", False):
                     st.markdown("---")
-                    st.subheader("📖 知识点详情")
+                    
+                    # 在顶部添加关闭按钮
+                    col_title, col_close = st.columns([4, 1])
+                    with col_title:
+                        st.subheader("📖 知识点详情")
+                    with col_close:
+                        if st.button("❌ 关闭", key=f"close_detail_{node['node_id']}", help="关闭详情页面"):
+                            del st.session_state[f"viewing_{node['node_id']}"]
+                            st.rerun()
                     
                     try:
                         # 调用API获取详细信息
@@ -209,10 +217,6 @@ def render_knowledge_list(api_service, user_id):
                             st.error("❌ 获取详情失败")
                     except Exception as e:
                         st.error(f"❌ 获取知识点详情失败: {str(e)}")
-                    
-                    if st.button("❌ 关闭详情", key=f"close_detail_{node['node_id']}"):
-                        del st.session_state[f"viewing_{node['node_id']}"]
-                        st.rerun()
                 
                 # 编辑模式
                 if st.session_state.get(f"editing_{node['node_id']}", False):
