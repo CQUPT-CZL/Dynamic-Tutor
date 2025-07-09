@@ -193,7 +193,7 @@ def render_login_page(api_service):
                         USER_MAP = {
                             "小崔": 1,
                             "小陈": 2,
-                            "胡老师": 3,
+                            "1": 3,
                             "AI_System": 4
                         }
                         st.session_state.user_id = USER_MAP.get(username, 1)

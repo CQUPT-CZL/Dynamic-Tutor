@@ -63,8 +63,8 @@ class APIService:
             return mock_api.get_users()
         
         try:
-            response = self._make_request("GET", "/api/users")
-            return response.get("data", [])
+            response = self._make_request("GET", "/users")
+            return response
         except Exception as e:
             st.error(f"获取用户列表失败: {str(e)}")
             return mock_api.get_users()
