@@ -14,8 +14,8 @@ async def get_users():
     """获取用户列表"""
     try:
         conn = get_db_connection()
-        cursor = conn.execute("SELECT user_id, username FROM users")
-        users = [{"user_id": row["user_id"], "username": row["username"]} for row in cursor.fetchall()]
+        cursor = conn.execute("SELECT user_id, username, role FROM users")
+        users = [{"user_id": row["user_id"], "username": row["username"], "role": row["role"]} for row in cursor.fetchall()]
         conn.close()
         return users
     except Exception as e:

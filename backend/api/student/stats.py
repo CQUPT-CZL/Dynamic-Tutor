@@ -5,7 +5,7 @@
 """
 
 from fastapi import APIRouter, HTTPException
-from .database import get_db_connection
+from ..common.database import get_db_connection
 
 router = APIRouter(prefix="/stats", tags=["用户统计"])
 
@@ -86,4 +86,4 @@ async def get_user_stats(user_id: str):
             "avg_mastery": avg_mastery
         }
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"获取用户统计失败: {str(e)}") 
+        raise HTTPException(status_code=500, detail=f"获取用户统计失败: {str(e)}")

@@ -4,7 +4,7 @@
 错题集接口
 """
 from fastapi import APIRouter, HTTPException
-from .database import get_db_connection
+from ..common.database import get_db_connection
 
 router = APIRouter(prefix="/wrong-questions", tags=["错题集"])
 
@@ -64,4 +64,4 @@ async def get_wrong_questions(user_id: str):
         # print(wrong_questions)
         return {"wrong_questions": wrong_questions}
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"获取错题集失败: {str(e)}") 
+        raise HTTPException(status_code=500, detail=f"获取错题集失败: {str(e)}")

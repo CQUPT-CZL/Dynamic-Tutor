@@ -7,8 +7,8 @@
 from fastapi import APIRouter, HTTPException, UploadFile, File
 from typing import Optional
 from datetime import datetime
-from .models import DiagnosisRequest
-from .database import get_db_connection
+from ..common.models import DiagnosisRequest
+from ..common.database import get_db_connection
 
 router = APIRouter(prefix="/diagnose", tags=["答案诊断"])
 
@@ -90,4 +90,4 @@ async def diagnose_image_answer(
         }
         return diagnosis_result
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"图片诊断失败: {str(e)}") 
+        raise HTTPException(status_code=500, detail=f"图片诊断失败: {str(e)}")

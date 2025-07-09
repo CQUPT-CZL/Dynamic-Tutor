@@ -5,7 +5,7 @@
 """
 
 from fastapi import APIRouter, HTTPException
-from .database import get_db_connection
+from ..common.database import get_db_connection
 
 router = APIRouter(prefix="/questions", tags=["练习题目"])
 
@@ -29,4 +29,4 @@ async def get_questions_for_node(node_name: str):
         
         return {"questions": questions}
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"获取练习题失败: {str(e)}") 
+        raise HTTPException(status_code=500, detail=f"获取练习题失败: {str(e)}")

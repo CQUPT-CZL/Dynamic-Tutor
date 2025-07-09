@@ -5,7 +5,7 @@
 """
 
 from fastapi import APIRouter, HTTPException
-from .database import get_db_connection
+from ..common.database import get_db_connection
 
 router = APIRouter(prefix="/knowledge-map", tags=["知识图谱"])
 
@@ -119,4 +119,4 @@ async def update_user_mastery(user_id: str, node_name: str, mastery_score: float
         
         return {"status": "success", "mastery": mastery_score}
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"更新掌握度失败: {str(e)}") 
+        raise HTTPException(status_code=500, detail=f"更新掌握度失败: {str(e)}")
