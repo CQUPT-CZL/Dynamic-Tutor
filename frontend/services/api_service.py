@@ -252,6 +252,32 @@ class APIService:
             st.error(f"获取知识点统计失败: {str(e)}")
             return mock_api.get_knowledge_nodes_stats()
     
+    def generate_learning_objective(self, node_name: str, level: str = "") -> Dict[str, Any]:
+        """AI生成学习目标"""
+        if not self._backend_available:
+            # 模拟返回数据
+            return {
+                "status": "success",
+                "learning_objective": f"1. 理解{node_name}的基本概念\n2. 掌握{node_name}的核心原理\n3. 能够运用{node_name}解决实际问题",
+                "message": "学习目标生成成功（模拟数据）"
+            }
+        
+        try:
+            data = {"node_name": node_name, "level": level}
+            response = self._make_request("POST", "/teacher/knowledge/generate-learning-objective", json=data)
+            return {
+                "status": response.get("status", "error"),
+                "learning_objective": response.get("learning_objective", ""),
+                "message": "success"
+            }
+        except Exception as e:
+            st.error(f"生成学习目标失败: {str(e)}")
+            return {
+                "status": "error",
+                "learning_objective": "",
+                "message": f"生成失败: {str(e)}"
+            }
+    
     # 题目管理
     def get_questions(self, page: int = 1, page_size: int = 10, 
                      search: str = "", question_type: str = "", 

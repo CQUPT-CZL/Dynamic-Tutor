@@ -11,14 +11,15 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 
 # 导入所有路由模块
-from api.system import router as system_router
-from api.users import router as users_router
-from api.recommendation import router as recommendation_router
-from api.diagnosis import router as diagnosis_router
-from api.knowledge_map import router as knowledge_map_router
-from api.questions import router as questions_router
-from api.wrong_questions import router as wrong_questions_router
-from api.stats import router as stats_router
+from api.common.system import router as system_router
+from api.common.users import router as users_router
+from api.student.recommendation import router as recommendation_router
+from api.student.diagnosis import router as diagnosis_router
+from api.student.knowledge_map import router as knowledge_map_router
+from api.student.questions import router as questions_router
+from api.student.wrong_questions import router as wrong_questions_router
+from api.student.stats import router as stats_router
+from api.teacher.knowledge_management import router as teacher_knowledge_router
 
 # 创建FastAPI应用
 app = FastAPI(
@@ -45,6 +46,7 @@ app.include_router(knowledge_map_router)
 app.include_router(questions_router)
 app.include_router(wrong_questions_router)
 app.include_router(stats_router)
+app.include_router(teacher_knowledge_router, prefix="/teacher/knowledge", tags=["teacher-knowledge"])
 
 # 错误处理
 @app.exception_handler(Exception)
@@ -71,4 +73,4 @@ if __name__ == "__main__":
         port=8000,
         reload=True,
         log_level="info"
-    ) 
+    )

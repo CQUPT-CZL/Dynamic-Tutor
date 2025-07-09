@@ -7,6 +7,7 @@
 
 import streamlit as st
 import pandas as pd
+import time
 from datetime import datetime
 
 def render_knowledge_management_page(api_service, current_user, user_id):
@@ -270,19 +271,107 @@ def render_add_knowledge(api_service, user_id):
     """渲染添加知识点界面"""
     st.subheader("➕ 添加新知识点")
     
+    # 初始化session state
+    if 'generated_learning_objective' not in st.session_state:
+        st.session_state['generated_learning_objective'] = ''
+    if 'use_generated_objective' not in st.session_state:
+        st.session_state['use_generated_objective'] = False
+    
+    # 表单外的输入控件
+    col1, col2 = st.columns(2)
+    
+    with col1:
+        node_name = st.text_input("📚 知识点名称", placeholder="例如: 三角函数")
+        level = st.selectbox("📊 年级等级", [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12])
+    
+    with col2:
+        difficulty = st.slider("🎯 难度系数", 0.0, 1.0, 0.5, step=0.1)
+        st.write("")
+        st.write("")
+    
+    # 学习目标输入区域（表单外）
+    col_learning1, col_learning2 = st.columns([4, 1])
+    
+    with col_learning1:
+        # 如果有生成的内容且用户选择使用，则显示生成的内容
+        default_value = st.session_state['generated_learning_objective'] if st.session_state['use_generated_objective'] else ''
+        node_learning = st.text_area("🎯 学习目标", placeholder="描述学生需要掌握的知识点和技能", value=default_value)
+    
+    with col_learning2:
+        st.write("")
+        st.write("")
+        # AI生成按钮和状态管理
+        if 'ai_generating' not in st.session_state:
+            st.session_state['ai_generating'] = False
+        if 'generation_start_time' not in st.session_state:
+            st.session_state['generation_start_time'] = None
+            
+        # 显示生成按钮或取消按钮
+        if not st.session_state['ai_generating']:
+            if st.button("🤖 AI生成", help="点击使用AI生成学习目标", key="ai_generate_btn"):
+                if node_name.strip():
+                    st.session_state['ai_generating'] = True
+                    st.session_state['generation_start_time'] = time.time()
+                    st.rerun()
+                else:
+                    st.warning("⚠️ 请先填写知识点名称")
+        else:
+            # 显示取消按钮和进度信息
+            col_cancel1, col_cancel2 = st.columns([1, 1])
+            with col_cancel1:
+                if st.button("❌ 取消生成", key="cancel_generate_btn"):
+                    st.session_state['ai_generating'] = False
+                    st.session_state['generation_start_time'] = None
+                    st.info("🔄 AI生成已取消")
+                    st.rerun()
+            
+            with col_cancel2:
+                # 显示生成时间
+                if st.session_state['generation_start_time']:
+                    elapsed = time.time() - st.session_state['generation_start_time']
+                    st.write(f"⏱️ 已用时: {elapsed:.1f}秒")
+            
+            # 执行AI生成
+            try:
+                # 获取年级信息
+                level_map = {0: "幼儿园", 1: "小学一年级", 2: "小学二年级", 3: "小学三年级", 
+                           4: "小学四年级", 5: "小学五年级", 6: "小学六年级", 7: "初中一年级", 
+                           8: "初中二年级", 9: "初中三年级", 10: "高中一年级", 11: "高中二年级", 12: "高中三年级"}
+                level_str = level_map.get(level, f"年级{level}")
+                
+                # 显示生成状态
+                with st.spinner(f"🤖 AI正在为'{node_name}'({level_str})生成学习目标..."):
+                    # 调用AI生成接口
+                    result = api_service.generate_learning_objective(node_name.strip(), level_str)
+                    
+                    # 重置生成状态
+                    st.session_state['ai_generating'] = False
+                    st.session_state['generation_start_time'] = None
+                    
+                    if result.get('status') == 'success':
+                        # 保存生成的内容到session state
+                        st.session_state['generated_learning_objective'] = result.get('learning_objective', '')
+                        st.session_state['use_generated_objective'] = True
+                        st.success("✅ AI生成成功！内容已自动填充到学习目标框中")
+                        st.rerun()
+                    else:
+                        st.error(f"❌ AI生成失败: {result.get('message', '未知错误')}")
+                        
+            except Exception as e:
+                # 重置生成状态
+                st.session_state['ai_generating'] = False
+                st.session_state['generation_start_time'] = None
+                st.error(f"❌ AI生成失败: {str(e)}")
+        
+        # 添加清除按钮
+        if st.session_state['use_generated_objective'] and st.session_state['generated_learning_objective']:
+            if st.button("🗑️ 清除", help="清除AI生成的内容", key="clear_generated_btn"):
+                st.session_state['generated_learning_objective'] = ''
+                st.session_state['use_generated_objective'] = False
+                st.rerun()
+    
+    # 表单部分（只包含前置知识点选择和提交按钮）
     with st.form("add_knowledge_form"):
-        col1, col2 = st.columns(2)
-        
-        with col1:
-            node_name = st.text_input("📚 知识点名称", placeholder="例如: 三角函数")
-            level = st.selectbox("📊 年级等级", [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12])
-        
-        with col2:
-            difficulty = st.slider("🎯 难度系数", 0.0, 1.0, 0.5, step=0.1)
-            st.write("")
-            st.write("")
-        
-        node_learning = st.text_area("🎯 学习目标", placeholder="描述学生需要掌握的知识点和技能")
         
         # 前置知识点选择
         st.subheader("🔗 前置知识点（可选）")

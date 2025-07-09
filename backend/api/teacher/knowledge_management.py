@@ -3,12 +3,14 @@
 """
 知识点管理接口
 """
-
+import requests
+import json
 from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
 from ..common.database import get_db_connection
 from datetime import datetime
 from typing import Optional, List
+import time
 
 class CreateKnowledgeRequest(BaseModel):
     node_name: str
@@ -303,3 +305,47 @@ async def get_knowledge_detail(node_id: str):
         }
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"获取知识点详情失败: {str(e)}")
+
+@router.post("/generate-learning-objective")
+async def generate_learning_objective(request: dict):
+    """AI生成学习目标（模拟接口）"""
+    try:
+        url = "https://xingchen-api.xf-yun.com/workflow/v1/chat/completions"
+
+        payload = json.dumps({
+        "flow_id": "7348743694213447682",
+        "parameters": {
+            "AGENT_USER_INPUT": request['node_name']
+        },
+        "ext": {
+            "bot_id": "workflow",
+            "caller": "workflow"
+        },
+        "stream": False,
+        })
+        headers = {
+        'Authorization': 'Bearer 4cec7267c3353726a2f1656cb7c0ec37:NDk0MDk0N2JiYzg0ZTgxMzVlNmRkM2Fh',
+        'Content-Type': 'application/json',
+        'Accept': '*/*',
+        'Host': 'xingchen-api.xf-yun.com',
+        'Connection': 'keep-alive'
+        }
+
+        response = requests.request("POST", url, headers=headers, data=payload).json()
+        # 检查响应是否成功
+        if 'choices' not in response or not response['choices'] or 'delta' not in response['choices'][0]:
+            raise HTTPException(status_code=500, detail="AI生成学习目标失败：响应格式错误")
+            
+        content = response['choices'][0]['delta'].get('content')
+        if not content:
+            raise HTTPException(status_code=500, detail="AI生成学习目标失败：未生成内容")
+            
+        print(content)
+        return {
+            "status": "success",
+            "learning_objective": content
+        }
+
+      
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"生成学习目标失败: {str(e)}")
