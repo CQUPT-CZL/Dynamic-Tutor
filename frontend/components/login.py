@@ -23,7 +23,7 @@ def verify_credentials(username: str, password: str, role: str, api_service) -> 
                 user.get('role') == role):
                 # 这里应该验证密码，但由于是演示系统，暂时简化
                 return True
-        return True
+        return False
     except:
         # 如果API不可用，使用默认用户验证
         default_users = {
@@ -32,14 +32,14 @@ def verify_credentials(username: str, password: str, role: str, api_service) -> 
                 '小陈': 'password123'
             },
             'teacher': {
-                '胡老师': 'teacher123',
+                '1': '1',
                 'AI_System': 'admin123'
             }
         }
         
         if role in default_users and username in default_users[role]:
             return default_users[role][username] == password
-        return True
+        return False
 
 def render_login_page(api_service):
     """渲染登录页面"""
