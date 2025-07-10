@@ -9,6 +9,8 @@ AI智慧学习平台 - 后端API服务器
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
+from fastapi.staticfiles import StaticFiles
+import os
 
 # 导入通用模块
 from api.common.system import router as system_router
@@ -23,11 +25,9 @@ from api.student.wrong_questions import router as student_wrong_questions_router
 from api.student.stats import router as student_stats_router
 
 # 导入教师端模块
-from api.teacher.class_management import router as teacher_class_router
 from api.teacher.student_analytics import router as teacher_analytics_router
-from api.teacher.assignment_management import router as teacher_assignment_router
 from api.teacher.knowledge_management import router as teacher_knowledge_router
-
+from api.teacher.question_management import router as teacher_question_router
 # 创建FastAPI应用
 app = FastAPI(
     title="AI智慧学习平台API",
@@ -44,6 +44,14 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+# 创建上传目录
+uploads_dir = "uploads"
+if not os.path.exists(uploads_dir):
+    os.makedirs(uploads_dir)
+
+# 配置静态文件服务
+app.mount("/uploads", StaticFiles(directory=uploads_dir), name="uploads")
+
 # 注册通用路由
 app.include_router(system_router)
 app.include_router(users_router)
@@ -57,9 +65,8 @@ app.include_router(student_wrong_questions_router, prefix="/student")
 app.include_router(student_stats_router, prefix="/student")
 
 # 注册教师端路由（添加前缀）
-app.include_router(teacher_class_router, prefix="/teacher")
 app.include_router(teacher_analytics_router, prefix="/teacher")
-app.include_router(teacher_assignment_router, prefix="/teacher")
+app.include_router(teacher_question_router, prefix="/teacher")
 app.include_router(teacher_knowledge_router, prefix="/teacher")
 
 # 错误处理
@@ -100,9 +107,8 @@ async def get_api_info():
             "teacher": {
                 "description": "教师端接口",
                 "routes": [
-                    "/teacher/class",
                     "/teacher/analytics", 
-                    "/teacher/assignment",
+                    "/teacher/question",
                     "/teacher/knowledge"
                 ]
             }

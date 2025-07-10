@@ -171,8 +171,18 @@ POST /api/teacher/questions
   "answer": "4",
   "analysis": "将x=1代入函数：f(1) = 1² + 2×1 + 1 = 4",
   "status": "draft",
-  "question_image_url": null
+  "question_image_url": "/uploads/questions/uuid.jpg"
 }
+```
+
+**字段说明:**
+- `question_text`: 题目内容
+- `question_type`: 题目类型 (选择题/填空题/解答题)
+- `difficulty`: 难度系数 (0.0-1.0)
+- `answer`: 正确答案
+- `analysis`: 题目解析
+- `status`: 状态 (draft/published)
+- `question_image_url`: 题目图片URL (可选，支持相对路径)
 ```
 
 ### 2.3 更新题目
@@ -180,6 +190,24 @@ POST /api/teacher/questions
 ```http
 PUT /api/teacher/questions/{question_id}
 ```
+
+**请求体:**
+```json
+{
+  "question_text": "更新后的题目内容",
+  "question_type": "选择题",
+  "difficulty": 0.7,
+  "options": "{\"A\": \"选项1\", \"B\": \"选项2\", \"C\": \"选项3\", \"D\": \"选项4\"}",
+  "answer": "A",
+  "analysis": "更新后的解析内容",
+  "status": "published",
+  "question_image_url": "/uploads/questions/new-uuid.jpg"
+}
+```
+
+**字段说明:**
+- 所有字段都是可选的，只更新提供的字段
+- `question_image_url`: 设置为 `null` 可清除图片，设置为新路径可更新图片
 
 ### 2.4 删除题目
 
@@ -193,26 +221,7 @@ DELETE /api/teacher/questions/{question_id}
 POST /api/teacher/questions/{question_id}/publish
 ```
 
-### 2.6 上传题目图片
-
-```http
-POST /api/teacher/questions/upload-image
-```
-
-**请求体:** multipart/form-data
-- `file`: 图片文件
-
-**响应示例:**
-```json
-{
-  "status": "success",
-  "data": {
-    "image_url": "/images/questions/20231201_123456_image.jpg"
-  }
-}
-```
-
-### 2.7 获取题目统计
+### 2.6 获取题目统计
 
 ```http
 GET /api/teacher/questions/stats
