@@ -106,13 +106,13 @@ def main():
     user_role = current_user_info['role']
     
     # 渲染顶部标题栏和用户信息
-    col1, col2, col3 = st.columns([2, 1, 1])
+    col1, col2 = st.columns([2.5, 1.5])
     
     with col1:
         st.markdown("""
-        <div class="main-header">
-            <h1>🎓 AI智慧学习平台</h1>
-            <p>个性化学习，智能推荐，助力学习进步</p>
+        <div class="main-header" style="padding: 1.5rem 0 0.5rem 0; background: linear-gradient(90deg, #667eea 0%, #764ba2 100%); border-radius: 16px 16px 0 0; box-shadow: 0 4px 16px rgba(102,126,234,0.08);">
+            <h1 style="color: #fff; font-size: 2.6rem; margin-bottom: 0.2em; letter-spacing: 2px;">🎓 AI智慧学习平台</h1>
+            <p style="color: #f3f3f3; font-size: 1.15rem; margin: 0;">个性化学习，智能推荐，助力学习进步 🚀</p>
         </div>
         """, unsafe_allow_html=True)
     
@@ -120,16 +120,15 @@ def main():
         role_emoji = "🎓" if user_role == "student" else "👨‍🏫"
         role_text = "学生" if user_role == "student" else "教师"
         st.markdown(f"""
-        <div style="text-align: center; padding: 1rem; background: linear-gradient(45deg, #667eea, #764ba2); 
-                    color: white; border-radius: 10px; margin-top: 1rem;">
-            <h4>{role_emoji} {current_user}</h4>
-            <p style="margin: 0;">{role_text}模式</p>
+        <div style="text-align: center; padding: 1.5rem 0.5rem; background: linear-gradient(135deg, #43cea2 0%, #185a9d 100%); color: white; border-radius: 16px; margin-top: 1rem; box-shadow: 0 2px 8px rgba(67,206,162,0.10);">
+            <h4 style='font-size: 1.3rem; margin-bottom: 0.3em;'>{role_emoji} {current_user}</h4>
+            <p style="margin: 0; font-size: 1.05rem; letter-spacing: 1px;">{role_text}模式</p>
         </div>
         """, unsafe_allow_html=True)
     
-    with col3:
-        st.markdown("<div style='margin-top: 2rem;'></div>", unsafe_allow_html=True)
-        render_logout_button()
+    # with col3:
+    #     st.markdown("<div style='margin-top: 2.5rem;'></div>", unsafe_allow_html=True)
+    #     render_logout_button()
     
     # API连接状态显示
     if st.session_state.api_connected:
@@ -152,14 +151,28 @@ def main():
         render_teacher_interface(api_service)
     
     # 页面底部信息
-    st.markdown("---")
+    # st.markdown("---")
     st.markdown("""
-    <div style="text-align: center; color: #666; padding: 20px;">
-        <p>🎓 AI智慧学习平台 v2.0 | 登录版本</p>
-        <p>API文档: <a href="http://localhost:8000/docs" target="_blank">http://localhost:8000/docs</a></p>
-        <p>登录时间: {}</p>
+        <div style='
+            height: 4px;
+            background: linear-gradient(90deg, 
+                #FF6B6B 0%, 
+                #4ECDC4 33%, 
+                #45B7D1 66%, 
+                #96E6A1 100%
+            );
+            margin: 1.5rem 0;
+            border-radius: 2px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        '></div>
+    """, unsafe_allow_html=True)
+    st.markdown(f"""
+    <div style="text-align: center; color: #666; padding: 22px 0 10px 0; background: linear-gradient(90deg, #f8fafc 60%, #e0e7ff 100%); border-radius: 0 0 18px 18px; margin-top: 2rem; box-shadow: 0 -2px 12px rgba(118,75,162,0.06);">
+        <p style="font-size: 1.1rem; margin-bottom: 0.5em;">🎓 <b>AI智慧学习平台 v2.0</b> | 登录版本</p>
+        <p style="margin: 0.2em 0;">登录时间: {current_user_info['login_time'].strftime('%Y-%m-%d %H:%M:%S')}</p>
+        <p style="margin: 0.2em 0; font-size: 0.95rem; color: #aaa;">© 2025 刘立团队</p>
     </div>
-    """.format(current_user_info['login_time'].strftime('%Y-%m-%d %H:%M:%S')), unsafe_allow_html=True)
+    """, unsafe_allow_html=True)
 
 if __name__ == "__main__":
     main()

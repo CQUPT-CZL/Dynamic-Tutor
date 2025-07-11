@@ -46,15 +46,6 @@ def render_login_page(api_service):
     # 登录页面CSS样式
     st.markdown("""
     <style>
-    .login-container {
-        max-width: 500px;
-        margin: 0 auto;
-        padding: 2rem;
-        background: white;
-        border-radius: 20px;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-        margin-top: 3rem;
-    }
     .login-header {
         text-align: center;
         margin-bottom: 2rem;
@@ -119,8 +110,7 @@ def render_login_page(api_service):
     </style>
     """, unsafe_allow_html=True)
     
-    # 主登录容器
-    st.markdown('<div class="login-container">', unsafe_allow_html=True)
+    # 主登录区域
     
     # 登录标题
     st.markdown("""
@@ -214,8 +204,7 @@ def render_login_page(api_service):
             <p>• 用户名：小崔，密码：password123</p>
             <p>• 用户名：小陈，密码：password123</p>
             <p><strong>教师账户：</strong></p>
-            <p>• 用户名：胡老师，密码：teacher123</p>
-            <p>• 用户名：AI_System，密码：admin123</p>
+            <p>• 用户名：舵老师，密码：1</p>
         </div>
         """, unsafe_allow_html=True)
     
@@ -230,8 +219,7 @@ def render_login_page(api_service):
     </div>
     """, unsafe_allow_html=True)
     
-    # 关闭登录容器
-    st.markdown('</div>', unsafe_allow_html=True)
+
 
 def render_logout_button():
     """渲染登出按钮"""
