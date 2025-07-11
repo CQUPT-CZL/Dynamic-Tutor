@@ -26,6 +26,16 @@ class UpdateKnowledgeRequest(BaseModel):
     level: Optional[int] = None
     node_learning: Optional[str] = None
 
+class CreateKnowledgeEdgeRequest(BaseModel):
+    source_node_id: str
+    target_node_id: str
+    relation_type: str = "is_prerequisite_for"
+
+class DeleteKnowledgeEdgeRequest(BaseModel):
+    source_node_id: str
+    target_node_id: str
+    relation_type: str = "is_prerequisite_for"
+
 router = APIRouter(prefix="/knowledge", tags=["知识点管理"])
 
 @router.post("/create")
@@ -305,6 +315,160 @@ async def get_knowledge_detail(node_id: str):
         }
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"获取知识点详情失败: {str(e)}")
+
+@router.get("/edges")
+async def get_knowledge_edges():
+    """获取所有知识点关系"""
+    try:
+        conn = get_db_connection()
+        cursor = conn.execute("""
+            SELECT 
+                ke.edge_id,
+                ke.source_node_id,
+                ke.target_node_id,
+                ke.relation_type,
+                ke.status,
+                sn.node_name as source_name,
+                tn.node_name as target_name
+            FROM knowledge_edges ke
+            JOIN knowledge_nodes sn ON ke.source_node_id = sn.node_id
+            JOIN knowledge_nodes tn ON ke.target_node_id = tn.node_id
+            ORDER BY ke.edge_id
+        """)
+        
+        edges = []
+        for row in cursor.fetchall():
+            edges.append({
+                "id": row["edge_id"],
+                "source_node_id": row["source_node_id"],
+                "target_node_id": row["target_node_id"],
+                "relation_type": row["relation_type"],
+                "status": row["status"],
+                "source_name": row["source_name"],
+                "target_name": row["target_name"]
+            })
+        
+        conn.close()
+        return {"edges": edges}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"获取知识点关系失败: {str(e)}")
+
+@router.post("/edges")
+async def create_knowledge_edge(request: CreateKnowledgeEdgeRequest):
+    """创建知识点关系"""
+    try:
+        conn = get_db_connection()
+        
+        # 检查源节点和目标节点是否存在
+        cursor = conn.execute("""
+            SELECT node_id FROM knowledge_nodes WHERE node_id = ?
+        """, (request.source_node_id,))
+        if not cursor.fetchone():
+            conn.close()
+            raise HTTPException(status_code=400, detail="源知识点不存在")
+        
+        cursor = conn.execute("""
+            SELECT node_id FROM knowledge_nodes WHERE node_id = ?
+        """, (request.target_node_id,))
+        if not cursor.fetchone():
+            conn.close()
+            raise HTTPException(status_code=400, detail="目标知识点不存在")
+        
+        # 检查关系是否已存在
+        cursor = conn.execute("""
+            SELECT edge_id FROM knowledge_edges 
+            WHERE source_node_id = ? AND target_node_id = ? AND relation_type = ?
+        """, (request.source_node_id, request.target_node_id, request.relation_type))
+        if cursor.fetchone():
+            conn.close()
+            raise HTTPException(status_code=400, detail="该知识点关系已存在")
+        
+        # 创建关系
+        cursor = conn.execute("""
+            INSERT INTO knowledge_edges (source_node_id, target_node_id, relation_type, created_by)
+            VALUES (?, ?, ?, 3)
+        """, (request.source_node_id, request.target_node_id, request.relation_type))
+        
+        edge_id = cursor.lastrowid
+        conn.commit()
+        conn.close()
+        
+        return {
+            "status": "success",
+            "edge_id": edge_id,
+            "message": "知识点关系创建成功"
+        }
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"创建知识点关系失败: {str(e)}")
+
+@router.delete("/edges")
+async def delete_knowledge_edge(request: DeleteKnowledgeEdgeRequest):
+    """删除知识点关系"""
+    try:
+        conn = get_db_connection()
+        
+        # 删除关系
+        cursor = conn.execute("""
+            DELETE FROM knowledge_edges 
+            WHERE source_node_id = ? AND target_node_id = ? AND relation_type = ?
+        """, (request.source_node_id, request.target_node_id, request.relation_type))
+        
+        if cursor.rowcount == 0:
+            conn.close()
+            raise HTTPException(status_code=404, detail="知识点关系不存在")
+        
+        conn.commit()
+        conn.close()
+        
+        return {
+            "status": "success",
+            "message": "知识点关系删除成功"
+        }
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"删除知识点关系失败: {str(e)}")
+
+@router.get("/graph-data")
+async def get_knowledge_graph_data():
+    """获取知识图谱数据"""
+    try:
+        conn = get_db_connection()
+        
+        # 获取所有节点
+        cursor = conn.execute("""
+            SELECT node_id, node_name, node_difficulty, level
+            FROM knowledge_nodes
+            ORDER BY level, node_name
+        """)
+        nodes = []
+        for row in cursor.fetchall():
+            nodes.append({
+                "id": str(row["node_id"]),
+                "name": row["node_name"],
+                "difficulty": row["node_difficulty"],
+                "level": row["level"]
+            })
+        
+        # 获取所有边
+        cursor = conn.execute("""
+            SELECT source_node_id, target_node_id, relation_type
+            FROM knowledge_edges
+            WHERE status = 'published'
+        """)
+        edges = []
+        for row in cursor.fetchall():
+            edges.append({
+                "source": str(row["source_node_id"]),
+                "target": str(row["target_node_id"]),
+                "relation": row["relation_type"]
+            })
+        
+        conn.close()
+        return {
+            "nodes": nodes,
+            "edges": edges
+        }
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"获取知识图谱数据失败: {str(e)}")
 
 @router.post("/generate-learning-objective")
 async def generate_learning_objective(request: dict):

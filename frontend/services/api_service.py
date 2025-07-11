@@ -432,37 +432,52 @@ class APIService:
             return mock_api.get_knowledge_edges()
         
         try:
-            response = self._make_request("GET", "/api/teacher/knowledge-edges")
-            return response.get("data", [])
+            response = self._make_request("GET", "/teacher/knowledge/edges")
+            return response.get("edges", []) if isinstance(response, dict) else []
         except Exception as e:
             st.error(f"获取知识点关系失败: {str(e)}")
             return mock_api.get_knowledge_edges()
     
-    def create_knowledge_edge(self, edge_data: Dict[str, Any]) -> Dict[str, Any]:
+    def create_knowledge_edge(self, source_node_id: str, target_node_id: str, relation_type: str = "is_prerequisite_for") -> Dict[str, Any]:
         """创建知识点关系"""
-        print(f"[API调用] create_knowledge_edge(edge_data={edge_data})")
+        print(f"[API调用] create_knowledge_edge(source_node_id={source_node_id}, target_node_id={target_node_id}, relation_type={relation_type})")
         if not self._backend_available:
-            return mock_api.create_knowledge_edge(edge_data)
+            return mock_api.create_knowledge_edge(source_node_id, target_node_id, relation_type)
         
         try:
-            response = self._make_request("POST", "/api/teacher/knowledge-edges", json=edge_data)
-            return response.get("data", {})
+            edge_data = {
+                "source_node_id": source_node_id,
+                "target_node_id": target_node_id,
+                "relation_type": relation_type
+            }
+            response = self._make_request("POST", "/teacher/knowledge/edges", json=edge_data)
+            if "error" not in response:
+                return response
+            else:
+                print(f"创建知识点关系失败: {response['error']}")
+                return mock_api.create_knowledge_edge(source_node_id, target_node_id, relation_type)
         except Exception as e:
-            st.error(f"创建知识点关系失败: {str(e)}")
-            return mock_api.create_knowledge_edge(edge_data)
+            print(f"创建知识点关系失败: {e}")
+            return mock_api.create_knowledge_edge(source_node_id, target_node_id, relation_type)
     
-    def delete_knowledge_edge(self, edge_id: int) -> bool:
+    def delete_knowledge_edge(self, source_node_id: str, target_node_id: str, relation_type: str = "is_prerequisite_for") -> bool:
         """删除知识点关系"""
-        print(f"[API调用] delete_knowledge_edge(edge_id={edge_id})")
-        if not self._backend_available:
-            return mock_api.delete_knowledge_edge(edge_id)
+        print(f"[API调用] delete_knowledge_edge(source_node_id={source_node_id}, target_node_id={target_node_id}, relation_type={relation_type})")
+        if not self._backend_available: 
+            return mock_api.delete_knowledge_edge(source_node_id, target_node_id, relation_type)
         
         try:
-            response = self._make_request("DELETE", f"/api/teacher/knowledge-edges/{edge_id}")
-            return response.get("success", False)
+            response = self._make_request("DELETE", "/teacher/knowledge/edges", json={
+                "source_node_id": source_node_id,
+                "target_node_id": target_node_id,
+                "relation_type": relation_type
+            })
+            print(response)
+            # 后端返回格式: {"status": "success", "message": "..."}
+            return response.get("status") == "success"
         except Exception as e:
             st.error(f"删除知识点关系失败: {str(e)}")
-            return mock_api.delete_knowledge_edge(edge_id)
+            return mock_api.delete_knowledge_edge(source_node_id, target_node_id, relation_type)
     
     def get_knowledge_graph_data(self) -> Dict[str, Any]:
         """获取知识图谱数据"""
@@ -471,37 +486,19 @@ class APIService:
             return mock_api.get_knowledge_graph_data()
         
         try:
-            response = self._make_request("GET", "/api/teacher/knowledge-graph/data")
-            return response.get("data", {})
+            response = self._make_request("GET", "/teacher/knowledge/graph-data")
+            if "error" not in response:
+                return response
+            else:
+                print(f"获取知识图谱数据失败: {response['error']}")
+                return mock_api.get_knowledge_graph_data()
         except Exception as e:
             st.error(f"获取知识图谱数据失败: {str(e)}")
             return mock_api.get_knowledge_graph_data()
     
-    def get_graph_analysis(self) -> Dict[str, Any]:
-        """获取图谱分析数据"""
-        print(f"[API调用] get_graph_analysis()")
-        if not self._backend_available:
-            return mock_api.get_graph_analysis()
-        
-        try:
-            response = self._make_request("GET", "/api/teacher/knowledge-graph/analysis")
-            return response.get("data", {})
-        except Exception as e:
-            st.error(f"获取图谱分析失败: {str(e)}")
-            return mock_api.get_graph_analysis()
+
     
-    def get_ai_suggestions(self) -> List[Dict[str, Any]]:
-        """获取AI建议"""
-        print(f"[API调用] get_ai_suggestions()")
-        if not self._backend_available:
-            return mock_api.get_ai_suggestions()
-        
-        try:
-            response = self._make_request("GET", "/api/teacher/knowledge-graph/ai-suggestions")
-            return response.get("data", [])
-        except Exception as e:
-            st.error(f"获取AI建议失败: {str(e)}")
-            return mock_api.get_ai_suggestions()
+
     
     # 用户统计
     def get_user_stats(self, user_id: str) -> Dict[str, Any]:
