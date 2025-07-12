@@ -125,7 +125,7 @@ class APIService:
         if confidence is not None:
             data["confidence"] = str(confidence)
         
-        return self._make_request("POST", "/diagnose", json=data)
+        return self._make_request("POST", "/student/diagnose", json=data)
     
     def diagnose_image_answer(self, user_id: str, question_id: str, 
                             image_file, time_spent: Optional[int] = None, 
@@ -155,13 +155,13 @@ class APIService:
     def get_knowledge_map(self, user_id: str) -> List[Dict[str, Any]]:
         """获取知识图谱"""
         print(f"[API调用] get_knowledge_map(user_id={user_id})")
-        result = self._make_request("GET", f"/knowledge-map/{user_id}")
+        result = self._make_request("GET", f"/student/knowledge-map/{user_id}")
         return result if isinstance(result, list) else []
     
     def get_knowledge_nodes_simple(self) -> Dict[str, str]:
         """获取知识节点（简单版本）"""
         print(f"[API调用] get_knowledge_nodes_simple()")
-        result = self._make_request("GET", "/knowledge-map/get-nodes")
+        result = self._make_request("GET", "/student/knowledge-map/get-nodes")
         # print('shizhidian')
         # print(result)
         # print('wancheng')
@@ -170,26 +170,33 @@ class APIService:
     def get_user_mastery(self, user_id: str, node_name: str) -> float:
         """获取用户掌握度"""
         print(f"[API调用] get_user_mastery(user_id={user_id}, node_name={node_name})")
-        result = self._make_request("GET", f"/knowledge-map/mastery/{user_id}/{node_name}")
+        result = self._make_request("GET", f"/student/knowledge-map/mastery/{user_id}/{node_name}")
         return result.get("mastery", 0.0) if isinstance(result, dict) else 0.0
     
     def update_user_mastery(self, user_id: str, node_name: str, mastery_score: float) -> Dict[str, Any]:
         """更新用户掌握度"""
         print(f"[API调用] update_user_mastery(user_id={user_id}, node_name={node_name}, mastery_score={mastery_score})")
-        return self._make_request("POST", f"/knowledge-map/mastery/{user_id}/{node_name}", json={"mastery_score": mastery_score})
+        return self._make_request("POST", f"/student/knowledge-map/mastery/{user_id}/{node_name}", json={"mastery_score": mastery_score})
     
     # 练习题目
-    def get_questions_for_node(self, node_name: str) -> List[str]:
+    def get_questions_for_node(self, node_name: str) -> List[Dict[str, Any]]:
         """获取知识点练习题"""
         print(f"[API调用] get_questions_for_node(node_name={node_name})")
-        result = self._make_request("GET", f"/questions/{node_name}")
-        return result.get("questions", []) if isinstance(result, dict) else []
+        result = self._make_request("GET", f"/student/questions/{node_name}")   
+        questions = result.get("questions", []) if isinstance(result, dict) else []
+        
+        # 兼容处理：如果返回的是字符串列表（旧格式），转换为新格式
+        if questions and isinstance(questions[0], str):
+            return [{"question_id": i+1, "question_text": q, "question_type": "unknown", "difficulty": 0.5} 
+                   for i, q in enumerate(questions)]
+        print(questions)
+        return questions
     
     # 错题集
     def get_wrong_questions(self, user_id: str) -> List[Dict[str, Any]]:
         """获取错题集"""
         print(f"[API调用] get_wrong_questions(user_id={user_id})")
-        result = self._make_request("GET", f"/wrong-questions/{user_id}")
+        result = self._make_request("GET", f"/student/wrong-questions/{user_id}")
         return result.get("wrong_questions", []) if isinstance(result, dict) else []
     
     def add_wrong_question(self, user_id: int, question_id: int, user_answer: str) -> bool:
