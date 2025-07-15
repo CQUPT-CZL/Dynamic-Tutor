@@ -18,6 +18,10 @@ def render_free_practice_page(api_service, current_user, user_id):
         st.session_state.selected_node_name = None
     if 'selected_question_index' not in st.session_state:
         st.session_state.selected_question_index = 0
+    if 'current_questions' not in st.session_state:
+        st.session_state.current_questions = None
+    if 'current_node_for_questions' not in st.session_state:
+        st.session_state.current_node_for_questions = None
     
     # 知识图谱展示区域
     col1, col2 = st.columns([3, 1])
@@ -87,6 +91,9 @@ def render_free_practice_page(api_service, current_user, user_id):
                     if st.button(button_text, key=f"node_{node_name}", use_container_width=True):
                         st.session_state.selected_node_name = node_name
                         st.session_state.selected_question_index = 0  # 重置题目索引
+                        # 清除题目缓存，强制重新获取
+                        st.session_state.current_questions = None
+                        st.session_state.current_node_for_questions = None
                         # 清除诊断结果
                         st.session_state.show_diagnosis = False
                         st.session_state.diagnosis_result = None
@@ -113,23 +120,43 @@ def render_free_practice_page(api_service, current_user, user_id):
             st.metric("我的掌握度", f"{mastery:.0%}")
         with col3:
             if st.button("🔄 换个题目", type="secondary", key="change_question_btn"):
-                questions = api_service.get_questions_for_node(selected_node_name)
-                if questions:
-                    st.session_state.selected_question_index = random.randint(0, len(questions) - 1)
+                # 确保题目列表已加载
+                if (st.session_state.current_node_for_questions != selected_node_name or 
+                    st.session_state.current_questions is None):
+                    st.session_state.current_questions = api_service.get_questions_for_node(selected_node_name)
+                    st.session_state.current_node_for_questions = selected_node_name
+                
+                questions = st.session_state.current_questions
+                if questions and len(questions) > 1:
+                    # 确保不选择当前题目
+                    new_index = st.session_state.selected_question_index
+                    while new_index == st.session_state.selected_question_index:
+                        new_index = random.randint(0, len(questions) - 1)
+                    st.session_state.selected_question_index = new_index
                     # 清除诊断结果
                     st.session_state.show_diagnosis = False
                     st.session_state.diagnosis_result = None
                     st.rerun()
+                elif questions and len(questions) == 1:
+                    st.info("只有一道题目，无法切换")
         with col4:
             if st.button("🔙 重新选择知识点", key="back_to_map"):
                 st.session_state.selected_node_name = None
+                # 清除题目缓存
+                st.session_state.current_questions = None
+                st.session_state.current_node_for_questions = None
                 # 清除诊断结果
                 st.session_state.show_diagnosis = False
                 st.session_state.diagnosis_result = None
                 st.rerun()
         
-        # 获取题目
-        questions = api_service.get_questions_for_node(selected_node_name)
+        # 获取题目（使用缓存机制）
+        if (st.session_state.current_node_for_questions != selected_node_name or 
+            st.session_state.current_questions is None):
+            st.session_state.current_questions = api_service.get_questions_for_node(selected_node_name)
+            st.session_state.current_node_for_questions = selected_node_name
+        
+        questions = st.session_state.current_questions
         
         if questions:
             current_question = questions[st.session_state.selected_question_index]
@@ -215,11 +242,18 @@ def render_free_practice_page(api_service, current_user, user_id):
             
             with col4:
                 if st.button("🎲 随机题目", key="random_question"):
-                    st.session_state.selected_question_index = random.randint(0, len(questions) - 1)
-                    # 清除诊断结果
-                    st.session_state.show_diagnosis = False
-                    st.session_state.diagnosis_result = None
-                    st.rerun()
+                    if len(questions) > 1:
+                        # 确保不选择当前题目
+                        new_index = st.session_state.selected_question_index
+                        while new_index == st.session_state.selected_question_index:
+                            new_index = random.randint(0, len(questions) - 1)
+                        st.session_state.selected_question_index = new_index
+                        # 清除诊断结果
+                        st.session_state.show_diagnosis = False
+                        st.session_state.diagnosis_result = None
+                        st.rerun()
+                    else:
+                        st.info("只有一道题目，无法随机切换")
             
             # 显示诊断结果（在列布局之外，占用全宽度）
             if st.session_state.show_diagnosis and st.session_state.diagnosis_result:
