@@ -229,7 +229,7 @@ def _diagnose_answer_logic(user_answer: str, correct_answer: str, question_text:
         
         url = "https://xingchen-api.xf-yun.com/workflow/v1/chat/completions"
         
-        input_text = question_text + "##" + user_answer
+        input_text = question_text + "##" + user_answer + "##" + str(60)
         payload = json.dumps({
         "flow_id": "7347650620700119042",
         "parameters": {
@@ -266,19 +266,37 @@ def _diagnose_answer_logic(user_answer: str, correct_answer: str, question_text:
         
         # 解析AI响应
         parts = content.split("##")
-        if len(parts) < 2:
+        if len(parts) < 3:
             print(f"❌ AI响应格式不正确，无法解析: {content}")
             raise HTTPException(status_code=500, detail="AI响应格式错误")
             
         is_correct = parts[0].strip().lower() == 'yes'
         reason = parts[1].strip()
+
+        # 检查是否有评分部分
+        if len(parts) >= 3 and parts[2].strip():
+            try:
+                # 尝试解析JSON评分数组
+                scores_json = parts[2].strip()
+                scores = json.loads(scores_json)
+                print(f"📊 解析评分数据: {scores}")
+            except json.JSONDecodeError as e:
+                print(f"⚠️ 评分数据解析失败: {e}")
+                # 评分解析失败不影响主要结果
+                pass
         
         result = {
             "is_correct": is_correct,
-            "reason": reason
+            "reason": reason,
+            "scores": scores
         }
         
-        print(f"🎯 解析后的诊断结果: 正确性={is_correct}, 原因={reason}")
+        # result = {
+        #     "is_correct": is_correct,
+        #     "reason": reason
+        # }
+        
+        print(f"🎯 解析后的诊断结果: 正确性={is_correct}, 原因={reason}, 其他维度：{scores}")
         return result
 
     except Exception as e:

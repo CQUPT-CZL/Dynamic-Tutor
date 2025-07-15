@@ -87,6 +87,9 @@ def render_free_practice_page(api_service, current_user, user_id):
                     if st.button(button_text, key=f"node_{node_name}", use_container_width=True):
                         st.session_state.selected_node_name = node_name
                         st.session_state.selected_question_index = 0  # 重置题目索引
+                        # 清除诊断结果
+                        st.session_state.show_diagnosis = False
+                        st.session_state.diagnosis_result = None
                         st.rerun()
         else:
             st.info("暂无知识点数据")
@@ -113,10 +116,16 @@ def render_free_practice_page(api_service, current_user, user_id):
                 questions = api_service.get_questions_for_node(selected_node_name)
                 if questions:
                     st.session_state.selected_question_index = random.randint(0, len(questions) - 1)
+                    # 清除诊断结果
+                    st.session_state.show_diagnosis = False
+                    st.session_state.diagnosis_result = None
                     st.rerun()
         with col4:
             if st.button("🔙 重新选择知识点", key="back_to_map"):
                 st.session_state.selected_node_name = None
+                # 清除诊断结果
+                st.session_state.show_diagnosis = False
+                st.session_state.diagnosis_result = None
                 st.rerun()
         
         # 获取题目
@@ -155,6 +164,12 @@ def render_free_practice_page(api_service, current_user, user_id):
             # 操作按钮
             col1, col2, col3, col4 = st.columns(4)
             
+            # 初始化session state用于存储诊断结果
+            if 'diagnosis_result' not in st.session_state:
+                st.session_state.diagnosis_result = None
+            if 'show_diagnosis' not in st.session_state:
+                st.session_state.show_diagnosis = False
+            
             with col1:
                 if st.button("📝 提交答案", type="primary", key="submit_practice_answer"):
                     if answer:
@@ -170,26 +185,10 @@ def render_free_practice_page(api_service, current_user, user_id):
                             )
                         
                         if "error" not in diagnosis_result:
+                            st.session_state.diagnosis_result = diagnosis_result
+                            st.session_state.show_diagnosis = True
                             st.success("✅ 提交成功！")
-                            
-                            # 显示诊断结果
-                            st.write("### 📋 诊断结果")
-                            
-                            # 获取诊断结果
-                            is_correct = diagnosis_result.get("is_correct", False)
-                            reason = diagnosis_result.get("reason", "无诊断信息")
-                            
-                            # 根据正确性显示结果
-                            if is_correct:
-                                st.success(f"🎉 答案正确！{reason}")
-                                # 显示庆祝效果和掌握度提升
-                                st.balloons()
-                                if mastery < 1.0:
-                                    new_mastery = min(mastery + 0.1, 1.0)
-                                    st.success(f"🎉 掌握度提升！{mastery:.0%} → {new_mastery:.0%}")
-                            else:
-                                st.warning(f"⚠️ 答案需要改进：{reason}")
-                                st.info("💡 **建议**: 请仔细检查解题步骤，或尝试从不同角度思考问题")
+                            st.rerun()
                         else:
                             st.error(f"❌ 诊断失败: {diagnosis_result['error']}")
                             st.info("💡 请检查网络连接或稍后重试")
@@ -200,17 +199,94 @@ def render_free_practice_page(api_service, current_user, user_id):
                 if len(questions) > 1 and st.session_state.selected_question_index < len(questions) - 1:
                     if st.button("➡️ 下一题", key="next_question"):
                         st.session_state.selected_question_index += 1
+                        # 清除诊断结果
+                        st.session_state.show_diagnosis = False
+                        st.session_state.diagnosis_result = None
                         st.rerun()
             
             with col3:
                 if st.session_state.selected_question_index > 0:
                     if st.button("⬅️ 上一题", key="prev_question"):
                         st.session_state.selected_question_index -= 1
+                        # 清除诊断结果
+                        st.session_state.show_diagnosis = False
+                        st.session_state.diagnosis_result = None
                         st.rerun()
             
             with col4:
                 if st.button("🎲 随机题目", key="random_question"):
                     st.session_state.selected_question_index = random.randint(0, len(questions) - 1)
+                    # 清除诊断结果
+                    st.session_state.show_diagnosis = False
+                    st.session_state.diagnosis_result = None
+                    st.rerun()
+            
+            # 显示诊断结果（在列布局之外，占用全宽度）
+            if st.session_state.show_diagnosis and st.session_state.diagnosis_result:
+                st.divider()
+                st.write("### 📋 诊断结果")
+                
+                diagnosis_result = st.session_state.diagnosis_result
+                
+                # 获取诊断结果
+                is_correct = diagnosis_result.get("is_correct", False)
+                reason = diagnosis_result.get("reason", "无诊断信息")
+                scores = diagnosis_result.get("scores", [])
+                
+                # 根据正确性显示结果
+                if is_correct:
+                    st.success(f"🎉 答案正确！{reason}")
+                    # 显示庆祝效果和掌握度提升
+                    st.balloons()
+                    if mastery < 1.0:
+                        new_mastery = min(mastery + 0.1, 1.0)
+                        st.success(f"🎉 掌握度提升！{mastery:.0%} → {new_mastery:.0%}")
+                else:
+                    st.warning(f"⚠️ 答案需要改进：{reason}")
+                    st.info("💡 **建议**: 请仔细检查解题步骤，或尝试从不同角度思考问题")
+                    
+                # 显示评分详情（如果有）
+                if scores:
+                    with st.expander("📊 查看详细评分", expanded=is_correct):
+                        st.write("### 答题表现评估")
+                        
+                        # 创建评分表格
+                        score_data = []
+                        for score_item in scores:
+                            # 获取评分类别（支持中英文）
+                            category_en = score_item.get('Knowledge Mastery') or score_item.get('Logical Reasoning') or \
+                                        score_item.get('Calculation Accuracy') or score_item.get('Behavioral Performance')
+                            category_cn = score_item.get('知识掌握') or score_item.get('解题逻辑') or \
+                                        score_item.get('计算准确性') or score_item.get('行为表现')
+                            
+                            # 显示类别名称（优先使用中文）
+                            category = category_cn or category_en or '未知类别'
+                            score = score_item.get('score', 0)
+                            feedback = score_item.get('feedback', '无反馈')
+                            
+                            # 添加到表格数据
+                            score_data.append({"评估维度": category, "得分": score, "反馈": feedback})
+                        
+                        # 显示评分表格
+                        st.table(score_data)
+                        
+                        # 计算总分
+                        if score_data:
+                            total_score = sum(item["得分"] for item in score_data) / len(score_data)
+                            st.write(f"**综合评分**: {total_score:.1f}/1.0")
+                            
+                            # 根据总分给出鼓励性评语
+                            if total_score >= 0.9:
+                                st.success("🌟 优秀！你的解答非常出色，继续保持！")
+                            elif total_score >= 0.7:
+                                st.info("👍 不错！你的解答有一些亮点，还有提升空间。")
+                            else:
+                                st.warning("💪 加油！多加练习，你会做得更好！")
+                
+                # 添加清除诊断结果的按钮
+                if st.button("🗑️ 清除诊断结果", key="clear_diagnosis"):
+                    st.session_state.show_diagnosis = False
+                    st.session_state.diagnosis_result = None
                     st.rerun()
             
             # 学习提示
