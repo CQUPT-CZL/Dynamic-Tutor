@@ -75,13 +75,17 @@ async def diagnose_answer(request: DiagnosisRequest):
         
         # 插入答题记录
         print('📝 后端诊断结果:', diagnosis_result)
-        conn.execute("""
-            INSERT INTO user_answers 
-            (user_id, question_id, user_answer, is_correct, time_spent, confidence, timestamp)
-            VALUES (?, ?, ?, ?, ?, ?, ?)
-        """, (request.user_id, request.question_id, request.answer, is_correct,
-              request.time_spent or 0, request.confidence or 0.5, datetime.now().isoformat()))
-        conn.commit()
+        try:
+            conn.execute("""
+                INSERT INTO user_answers 
+                (user_id, question_id, user_answer, is_correct, time_spent, confidence, timestamp, diagnosis_json)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+            """, (request.user_id, request.question_id, request.answer, is_correct,
+                  request.time_spent or 0, request.confidence or 0.5, datetime.now().isoformat(), json.dumps(diagnosis_result, ensure_ascii=False)))
+            conn.commit()
+        except Exception as e:
+            print(f"❌ 插入答题记录失败: {str(e)}")
+            raise HTTPException(status_code=500, detail=f"插入答题记录失败: {str(e)}")
         print('✅ 答题记录插入成功')
         # 如果答错了，更新错题记录
         if not is_correct:
@@ -251,7 +255,7 @@ def _diagnose_answer_logic(user_answer: str, correct_answer: str, question_text:
         
         print(f"🌐 发送API请求到: {url}")
         response = requests.request("POST", url, headers=headers, data=payload).json()
-        print(f"📨 AI API响应: {response}")
+        print("📨 AI API响应成功")
         # 检查响应是否成功
         if 'choices' not in response or not response['choices'] or 'delta' not in response['choices'][0]:
             print("❌ AI API响应格式错误")
@@ -262,7 +266,7 @@ def _diagnose_answer_logic(user_answer: str, correct_answer: str, question_text:
             print("❌ AI API返回内容为空")
             raise HTTPException(status_code=500, detail="AI诊断失败")
             
-        print(f"✅ AI诊断内容: {content}")
+        # print(f"✅ AI诊断内容: {content}")
         
         # 解析AI响应
         parts = content.split("##")

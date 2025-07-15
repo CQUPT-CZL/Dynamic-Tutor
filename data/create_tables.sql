@@ -88,6 +88,7 @@ CREATE TABLE user_answers (
     is_correct BOOLEAN NOT NULL,
     time_spent INTEGER, -- 答题用时（秒）
     confidence REAL,    -- 答题信心度（0-1）
+    diagnosis_json TEXT, -- 答题诊断agent返回的多维得分数组（JSON格式）
     timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (user_id) REFERENCES users (user_id),
     FOREIGN KEY (question_id) REFERENCES questions (question_id)
