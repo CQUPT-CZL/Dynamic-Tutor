@@ -106,7 +106,7 @@ class APIService:
     def get_recommendation(self, user_id: str) -> Dict[str, Any]:
         """获取用户推荐"""
         print(f"[API调用] get_recommendation(user_id={user_id})")
-        return self._make_request("GET", f"/recommendation/{user_id}")
+        return self._make_request("GET", f"/student/recommendation/{user_id}")
     
     # 答案诊断
     def diagnose_answer(self, user_id: str, question_id: str, answer: str, 
@@ -511,7 +511,7 @@ class APIService:
     def get_user_stats(self, user_id: str) -> Dict[str, Any]:
         """获取用户统计"""
         print(f"[API调用] get_user_stats(user_id={user_id})")
-        return self._make_request("GET", f"/stats/{user_id}")
+        return self._make_request("GET", f"/student/stats/{user_id}")
 
     def create_question_node_mapping(self, question_id, node_id):
         """创建题目与知识点的关联"""
