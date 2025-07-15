@@ -253,3 +253,5 @@ node_modules/
 
 
 data/raw/
+
+data/my_database.db
