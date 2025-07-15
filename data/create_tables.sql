@@ -75,7 +75,8 @@ CREATE TABLE user_node_mastery (
     node_id TEXT NOT NULL,
     mastery_score REAL NOT NULL DEFAULT 0.0,
     FOREIGN KEY (user_id) REFERENCES users (user_id),
-    FOREIGN KEY (node_id) REFERENCES knowledge_nodes (node_id)
+    FOREIGN KEY (node_id) REFERENCES knowledge_nodes (node_id),
+    UNIQUE(user_id, node_id)
 );
 
 -- 表7: 用户答题记录表
