@@ -386,7 +386,7 @@ def render_stats_and_wrong_questions(api_service, user_id, current_user):
     """, unsafe_allow_html=True)
     
     # 获取错题数据
-    wrong_questions = api_service.get_wrong_questions(current_user)
+    wrong_questions = api_service.get_wrong_questions(user_id)
     
     if wrong_questions and len(wrong_questions) > 0:
         for i, question in enumerate(wrong_questions[:3]):
