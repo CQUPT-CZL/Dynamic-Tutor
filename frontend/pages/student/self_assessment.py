@@ -1,6 +1,7 @@
 import streamlit as st
 import time
 import random
+from components import render_question_with_navigation, QuestionPracticeComponent
 
 def render_self_assessment_page(api_service, current_user, user_id):
     """渲染自我测评页面"""
@@ -176,66 +177,61 @@ def render_assessment_testing():
     if current_q < len(questions):
         question = questions[current_q]
         
+        # 转换题目格式以适配新组件
+        formatted_question = {
+            'id': current_q + 1,
+            'content': question['question'],
+            'type': 'choice' if question['type'] == 'multiple_choice' else 
+                   ('judgment' if question['type'] == 'true_false' else 'text'),
+            'options': question.get('options', []),
+            'difficulty': question['difficulty'],
+            'subject': question['subject']
+        }
+        
+        # 自定义处理函数
+        def handle_prev():
+            if current_q > 0:
+                st.session_state.current_question -= 1
+                st.rerun()
+        
+        def handle_next(answer):
+            # 保存答案
+            if len(st.session_state.assessment_answers) <= current_q:
+                st.session_state.assessment_answers.append(answer)
+            else:
+                st.session_state.assessment_answers[current_q] = answer
+            
+            if current_q < config['question_count'] - 1:
+                st.session_state.current_question += 1
+                st.rerun()
+            else:
+                st.session_state.assessment_mode = 'result'
+                st.rerun()
+        
+        def handle_submit(answer):
+            # 测评模式下不需要诊断，直接进入下一题
+            handle_next(answer)
+        
+        # 使用新的做题组件
         st.markdown("---")
         st.subheader(f"第 {current_q + 1} 题")
-        
-        # 显示题目
         st.markdown(f"**📚 科目：** {question['subject']}")
         st.markdown(f"**🎯 难度：** {question['difficulty']}")
-        st.markdown(f"**❓ 题目：**")
-        st.write(question['question'])
         
-        # 根据题目类型显示不同的答题界面
-        if question['type'] == 'multiple_choice':
-            answer = st.radio(
-                "请选择答案：",
-                question['options'],
-                key=f"q_{current_q}"
-            )
-        elif question['type'] == 'true_false':
-            answer = st.radio(
-                "请判断正误：",
-                ["正确", "错误"],
-                key=f"q_{current_q}"
-            )
-        else:  # text_input
-            answer = st.text_area(
-                "请输入答案：",
-                key=f"q_{current_q}",
-                height=100
-            )
-        
-        # 答题按钮
-        col_prev, col_next = st.columns(2)
-        
-        with col_prev:
-            if current_q > 0:
-                if st.button("⬅️ 上一题", use_container_width=True):
-                    st.session_state.current_question -= 1
-                    st.rerun()
-        
-        with col_next:
-            if answer:  # 只有在有答案时才能进入下一题
-                if current_q < config['question_count'] - 1:
-                    if st.button("➡️ 下一题", use_container_width=True):
-                        # 保存答案
-                        if len(st.session_state.assessment_answers) <= current_q:
-                            st.session_state.assessment_answers.append(answer)
-                        else:
-                            st.session_state.assessment_answers[current_q] = answer
-                        
-                        st.session_state.current_question += 1
-                        st.rerun()
-                else:
-                    if st.button("✅ 完成测评", type="primary", use_container_width=True):
-                        # 保存最后一题答案
-                        if len(st.session_state.assessment_answers) <= current_q:
-                            st.session_state.assessment_answers.append(answer)
-                        else:
-                            st.session_state.assessment_answers[current_q] = answer
-                        
-                        st.session_state.assessment_mode = 'result'
-                        st.rerun()
+        render_question_with_navigation(
+            question=formatted_question,
+            api_service=st.session_state.api_service,
+            user_id=st.session_state.user_id,
+            current_index=current_q,
+            total_questions=config['question_count'],
+            key_suffix="assessment",
+            on_submit=handle_submit,
+            on_next=handle_next,
+            on_prev=handle_prev if current_q > 0 else None,
+            show_diagnosis=False,  # 测评模式不显示诊断
+            submit_text="下一题" if current_q < config['question_count'] - 1 else "完成测评",
+            prev_text="上一题"
+        )
 
 def render_assessment_result():
     """渲染测评结果页面"""

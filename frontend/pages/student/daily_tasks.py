@@ -1,5 +1,6 @@
 import streamlit as st
 import time
+from components import render_simple_question, QuestionPracticeComponent
 
 def get_mission_type_info(mission_type):
     """获取任务类型的显示信息"""
@@ -50,8 +51,18 @@ def render_daily_tasks_page(api_service, current_user, user_id):
         st.warning("⚠️ 请先选择用户")
         return
     
-    # 获取用户推荐
-    recommendation = api_service.get_recommendation(user_id)
+    # 初始化session_state来缓存推荐任务
+    if 'current_recommendation' not in st.session_state:
+        st.session_state.current_recommendation = None
+    if 'task_started' not in st.session_state:
+        st.session_state.task_started = False
+    
+    # 获取用户推荐（只在没有缓存或需要刷新时获取）
+    if st.session_state.current_recommendation is None:
+        recommendation = api_service.get_recommendation(user_id)
+        st.session_state.current_recommendation = recommendation
+    else:
+        recommendation = st.session_state.current_recommendation
     
     if not recommendation or "error" in recommendation:
         st.markdown("""
@@ -138,20 +149,36 @@ def render_daily_tasks_page(api_service, current_user, user_id):
             
             # 当用户点击"开始任务"按钮时
             if st.button("🚀 开始任务", key="start_task", use_container_width=True, type="primary"):
+                st.session_state.task_started = True
                 with st.spinner("任务加载中..."):
                     time.sleep(1)
                     st.success("✅ 任务已开始！")
                     st.balloons()
-                    # 在实际应用中，这里可能会设置一个session_state来切换到任务界面
+            
+            # 显示任务状态
+            if st.session_state.task_started:
+                st.markdown("<div style='margin: 10px 0;'></div>", unsafe_allow_html=True)
+                st.markdown("""
+                <div style="
+                    background: linear-gradient(135deg, #E8F5E8 0%, #C8E6C9 100%);
+                    padding: 10px;
+                    border-radius: 8px;
+                    text-align: center;
+                    margin: 10px 0;
+                ">
+                    <span style="color: #2E7D32; font-weight: bold;">🎯 任务进行中</span>
+                </div>
+                """, unsafe_allow_html=True)
             
             st.markdown("<div style='margin: 10px 0;'></div>", unsafe_allow_html=True)
             
             # 当用户点击"换个任务"按钮时
             if st.button("🔄 换个任务", key="refresh_task", use_container_width=True):
-                st.info("正在为你刷新任务...")
-                # st.rerun() 会重新运行整个脚本，从而获取新的推荐
-                # 为了在demo中看到效果，我们先用一个延时代替
-                time.sleep(1)
+                # 清除缓存的推荐任务，强制重新获取
+                st.session_state.current_recommendation = None
+                st.session_state.task_started = False
+                with st.spinner("正在为你刷新任务..."):
+                    time.sleep(1)
                 st.rerun()
             
             st.markdown("<div style='margin: 15px 0;'></div>", unsafe_allow_html=True)
@@ -253,51 +280,61 @@ def render_question_practice(content, api_service, user_id):
     prompt = content.get('prompt', '开始练习吧！')
     difficulty = content.get('difficulty', 0.5)
     
-    st.markdown(f"**💬 提示:** {prompt}")
-    
-    if difficulty:
-        difficulty_stars = "⭐" * int(difficulty * 5)
-        st.markdown(f"**🎯 难度:** {difficulty_stars} ({difficulty:.1f})")
+    # 显示提示信息
+    if prompt:
+        st.markdown(f"**💬 提示:** {prompt}")
     
     if question_id:
-        answer = st.text_area(f"✍️ 你的答案", key=f"answer_{question_id}", height=100)
+        # 构造题目数据格式，适配做题组件
+        question_data = {
+            'question_id': question_id,
+            'question_text': content.get('question_text', prompt),
+            'question': content.get('question', prompt),
+            'difficulty': difficulty,
+            'question_type': content.get('question_type', 'text_input')
+        }
         
-        col1, col2 = st.columns(2)
-        with col1:
-            if st.button("📝 提交答案", key=f"submit_{question_id}", use_container_width=True):
-                if answer.strip():
-                    with st.spinner("🤖 AI正在分析你的答案..."):
-                        diagnosis = api_service.diagnose_answer(user_id, question_id, answer)
-                        st.success("✅ 提交成功！")
-                        st.json(diagnosis)
-                else:
-                    st.warning("⚠️ 请先输入答案")
-        
-        with col2:
-            if st.button("💡 获取提示", key=f"hint_{question_id}", use_container_width=True):
-                st.info("💡 提示功能开发中...")
+        # 使用通用做题组件
+        render_simple_question(
+            api_service=api_service,
+            user_id=user_id,
+            question=question_data,
+            key_suffix=f"daily_task_{question_id}"
+        )
+    else:
+        st.warning("⚠️ 题目数据不完整，缺少question_id")
 
 def render_wrong_question_review(content, api_service, user_id):
     """渲染错题回顾"""
     question_id = content.get('question_id')
     prompt = content.get('prompt', '让我们回顾一下这道题')
     
-    st.markdown(f"**🔍 回顾提示:** {prompt}")
+    # 显示回顾提示
+    if prompt:
+        st.markdown(f"**🔍 回顾提示:** {prompt}")
     
     if question_id:
         st.info(f"📋 题目ID: {question_id}")
         st.markdown("**🎯 重新作答:**")
         
-        answer = st.text_area(f"✍️ 重新回答", key=f"review_answer_{question_id}", height=100)
+        # 构造题目数据格式，适配做题组件
+        question_data = {
+            'question_id': question_id,
+            'question_text': content.get('question_text', prompt),
+            'question': content.get('question', prompt),
+            'difficulty': content.get('difficulty', 0.5),
+            'question_type': content.get('question_type', 'text_input')
+        }
         
-        if st.button("📝 重新提交", key=f"resubmit_{question_id}"):
-            if answer.strip():
-                with st.spinner("🤖 AI正在重新分析..."):
-                    diagnosis = api_service.diagnose_answer(user_id, question_id, answer)
-                    st.success("✅ 重新提交成功！")
-                    st.json(diagnosis)
-            else:
-                st.warning("⚠️ 请先输入答案")
+        # 使用通用做题组件
+        render_simple_question(
+            api_service=api_service,
+            user_id=user_id,
+            question=question_data,
+            key_suffix=f"wrong_review_{question_id}"
+        )
+    else:
+        st.warning("⚠️ 错题数据不完整，缺少question_id")
 
 def get_step_type_name(step_type):
     """获取步骤类型的中文名称"""
