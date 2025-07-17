@@ -1,44 +1,44 @@
-# AI智慧学习平台 API 接口文档
+# 🎓 AI智慧学习平台 API 文档
 
-## 概述
+## 📖 概述
 
-本文档描述了AI智慧学习平台的RESTful API接口，实现前后端分离架构。后端使用FastAPI框架，提供高性能的API服务。
+本文档描述了AI智慧学习平台的RESTful API接口，采用前后端分离架构。后端使用FastAPI框架，按角色分离设计，提供高性能的API服务。
 
-## 基础信息
+## 🔗 基础信息
 
-- **基础URL**: `http://localhost:8000/api`
-- **API版本**: v1.0.0
+- **基础URL**: `http://localhost:8000`
+- **API版本**: v2.0.0
 - **数据格式**: JSON
 - **字符编码**: UTF-8
+- **交互式文档**: http://localhost:8000/docs
 
-## 通用响应格式
+## 🏗️ API架构
 
-### 成功响应
-```json
-{
-  "status": "success",
-  "data": {...},
-  "message": "操作成功"
-}
+### 角色分离设计
+
+```
+/                    # 通用接口
+├── /student/        # 🎓 学生端接口
+└── /teacher/        # 👨‍🏫 教师端接口
 ```
 
-### 错误响应
-```json
-{
-  "status": "error",
-  "error": "错误描述",
-  "detail": "详细错误信息"
-}
+## 📋 通用接口
+
+### 系统状态
+
+| 接口 | 方法 | 描述 |
+|------|------|------|
+| `/` | GET | API根路径信息 |
+| `/health` | GET | 健康检查 |
+| `/users` | GET | 获取用户列表 |
+| `/api-info` | GET | 获取API结构信息 |
+
+#### 健康检查示例
+```bash
+GET /health
 ```
 
-## API 接口列表
-
-### 1. 系统相关接口
-
-#### 1.1 健康检查
-- **接口**: `GET /health`
-- **描述**: 检查API服务状态
-- **响应**:
+**响应**:
 ```json
 {
   "status": "healthy",
@@ -47,252 +47,170 @@
 }
 ```
 
-#### 1.2 API根路径
-- **接口**: `GET /`
-- **描述**: 获取API基本信息
-- **响应**:
+---
+
+## 🎓 学生端接口
+
+### 1. 学习推荐
+
+**接口**: `GET /student/recommendation/{user_id}`
+
+**功能**: 获取个性化学习推荐，支持四种任务类型：
+- 🆕 新知探索 (NEW_KNOWLEDGE)
+- 💪 弱点巩固 (WEAK_POINT_CONSOLIDATION) 
+- 🚀 技能提升 (SKILL_ENHANCEMENT)
+- 🔍 兴趣探索 (EXPLORATORY)
+
+**响应示例**:
 ```json
 {
-  "message": "🎓 AI智慧学习平台API",
-  "version": "1.0.0",
-  "docs": "/docs",
-  "status": "running"
-}
-```
-
-### 2. 用户管理接口
-
-#### 2.1 获取用户列表
-- **接口**: `GET /users`
-- **描述**: 获取所有用户信息
-- **响应**:
-```json
-[
-  {
-    "username": "小明",
-    "name": "张小明",
-    "grade": "高一"
+  "mission_id": "mission_nk_1642234567",
+  "mission_type": "NEW_KNOWLEDGE",
+  "metadata": {
+    "title": "新知识解锁：条件概率！",
+    "objective": "通过本次任务，你将掌握条件概率的定义和基本计算方法。",
+    "reason": "AI发现你已经完全掌握了'概率的定义与性质'，现在是深入学习的最佳时机！"
   },
-  {
-    "username": "小红",
-    "name": "李小红",
-    "grade": "高一"
-  }
-]
-```
-
-### 3. 学习推荐接口
-
-#### 3.1 获取用户学习推荐
-- **接口**: `GET /recommendation/{user_id}`
-- **描述**: 获取指定用户的个性化学习推荐
-- **参数**:
-  - `user_id` (string): 用户ID
-- **响应**:
-```json
-{
-  "mission_id": "mission_001",
-  "type": "知识点练习",
-  "reason": "根据你的学习情况，建议加强二次函数的练习",
-  "content": {
-    "knowledge_point": "二次函数",
-    "difficulty": "中等",
-    "question_count": 5,
-    "question_id": "q_001",
-    "question_text": "求函数 f(x) = x² + 2x - 3 的最小值"
+  "payload": {
+    "target_node": {
+      "id": "conditional_probability",
+      "name": "条件概率"
+    },
+    "steps": [...]
   }
 }
 ```
 
-### 4. 答案诊断接口
+### 2. 答案诊断
 
-#### 4.1 诊断文本答案
-- **接口**: `POST /diagnose`
-- **描述**: 诊断用户提交的文本答案
-- **请求体**:
+#### 文本答案诊断
+**接口**: `POST /student/diagnose`
+
+**请求体**:
 ```json
 {
   "user_id": "小明",
   "question_id": "q_001",
   "answer": "最小值为-4，当x=-1时取得",
-  "answer_type": "text",
   "time_spent": 300,
   "confidence": 0.8
 }
 ```
-- **响应**:
+
+#### 图片答案诊断
+**接口**: `POST /student/diagnose/image`
+
+**参数**: 
+- `user_id` (string): 用户ID
+- `question_id` (string): 题目ID
+- `image` (file): 答案图片文件
+- `time_spent` (int, 可选): 答题用时
+- `confidence` (float, 可选): 答题信心度
+
+### 3. 知识图谱
+
+| 接口 | 方法 | 描述 |
+|------|------|------|
+| `/student/knowledge-map/{user_id}` | GET | 获取用户知识图谱 |
+| `/student/knowledge-map/get-nodes` | GET | 获取所有知识节点 |
+| `/student/knowledge-map/mastery/{user_id}/{node_name}` | GET | 获取知识点掌握度 |
+
+### 4. 练习与错题
+
+| 接口 | 方法 | 描述 |
+|------|------|------|
+| `/student/questions/{node_name}` | GET | 获取知识点练习题 |
+| `/student/wrong-questions/{user_id}` | GET | 获取用户错题集 |
+| `/student/stats/{user_id}` | GET | 获取用户学习统计 |
+
+---
+
+## 👨‍🏫 教师端接口
+
+### 1. 知识点管理
+
+**基础路径**: `/teacher/knowledge`
+
+| 接口 | 方法 | 描述 |
+|------|------|------|
+| `/nodes` | GET | 获取知识点列表 |
+| `/nodes` | POST | 创建知识点 |
+| `/nodes/{node_id}` | PUT | 更新知识点 |
+| `/nodes/{node_id}` | DELETE | 删除知识点 |
+| `/nodes/stats` | GET | 获取知识点统计 |
+| `/graph-data` | GET | 获取知识图谱数据 |
+| `/generate-learning-objective` | POST | AI生成学习目标 |
+
+#### 创建知识点示例
+```bash
+POST /teacher/knowledge/nodes
+```
+
+**请求体**:
 ```json
 {
-  "status": "success",
-  "diagnosis": "答案正确！解题思路清晰",
-  "hint": null,
-  "correct_answer": "最小值为-4，当x=-1时取得",
-  "next_recommendation": "可以尝试更复杂的二次函数问题"
+  "node_name": "二次函数",
+  "difficulty_level": "中等",
+  "subject": "数学",
+  "grade": "高一",
+  "description": "二次函数的定义、性质和应用"
 }
 ```
 
-#### 4.2 诊断图片答案
-- **接口**: `POST /diagnose/image`
-- **描述**: 诊断用户提交的图片答案
-- **参数**:
-  - `user_id` (string): 用户ID
-  - `question_id` (string): 题目ID
-  - `image` (file): 答案图片文件
-  - `time_spent` (integer, 可选): 答题用时（秒）
-  - `confidence` (float, 可选): 答题信心度（0-1）
-- **响应**: 同文本答案诊断
+### 2. 题目管理
 
-### 5. 知识图谱接口
+**基础路径**: `/teacher/question`
 
-#### 5.1 获取用户知识图谱
-- **接口**: `GET /knowledge-map/{user_id}`
-- **描述**: 获取用户的个人知识图谱
-- **参数**:
-  - `user_id` (string): 用户ID
-- **响应**:
-```json
-[
-  {
-    "知识点名称": "二次函数定义",
-    "难度": "简单",
-    "我的掌握度": 0.85,
-    "正确题数": 17,
-    "总题数": 20
-  },
-  {
-    "知识点名称": "二次函数图像与性质",
-    "难度": "中等",
-    "我的掌握度": 0.72,
-    "正确题数": 13,
-    "总题数": 18
-  }
-]
+| 接口 | 方法 | 描述 |
+|------|------|------|
+| `/questions` | GET | 获取题目列表 |
+| `/questions` | POST | 创建题目 |
+| `/questions/{question_id}` | PUT | 更新题目 |
+| `/questions/{question_id}` | DELETE | 删除题目 |
+| `/upload-image` | POST | 上传题目图片 |
+| `/map-to-node` | POST | 关联题目到知识点 |
+
+#### 创建题目示例
+```bash
+POST /teacher/question/questions
 ```
 
-#### 5.2 获取所有知识节点
-- **接口**: `GET /knowledge-nodes`
-- **描述**: 获取系统中所有知识节点
-- **响应**:
+**请求体**:
 ```json
 {
-  "nodes": {
-    "二次函数定义": "简单",
-    "二次函数图像与性质": "中等",
-    "二次函数三种解析式": "困难"
-  }
+  "question_text": "求函数 f(x) = x² + 2x - 3 的最小值",
+  "question_type": "解答题",
+  "answer": "最小值为-4，当x=-1时取得",
+  "analysis": "使用配方法或求导法求解",
+  "difficulty": "中等",
+  "subject": "数学",
+  "grade": "高一"
 }
 ```
 
-#### 5.3 获取用户掌握度
-- **接口**: `GET /mastery/{user_id}/{node_name}`
-- **描述**: 获取用户对特定知识点的掌握度
-- **参数**:
-  - `user_id` (string): 用户ID
-  - `node_name` (string): 知识点名称
-- **响应**:
-```json
-{
-  "mastery": 0.85
-}
-```
+### 3. 学生数据分析
 
-### 6. 练习题目接口
+**基础路径**: `/teacher/analytics`
 
-#### 6.1 获取知识点练习题
-- **接口**: `GET /questions/{node_name}`
-- **描述**: 获取指定知识点的练习题目
-- **参数**:
-  - `node_name` (string): 知识点名称
-- **响应**:
-```json
-{
-  "questions": [
-    "求函数 f(x) = x² + 2x - 3 的最小值",
-    "已知二次函数 f(x) = ax² + bx + c，求其对称轴",
-    "判断二次函数 y = -2x² + 4x + 1 的开口方向"
-  ]
-}
-```
+| 接口 | 方法 | 描述 |
+|------|------|------|
+| `/class/{class_id}/overview` | GET | 班级学习概览 |
+| `/student/{student_id}/progress` | GET | 学生学习进度 |
+| `/class/{class_id}/weak-points` | GET | 班级薄弱知识点 |
 
-### 7. 错题集接口
+---
 
-#### 7.1 获取用户错题集
-- **接口**: `GET /wrong-questions/{user_id}`
-- **描述**: 获取用户的错题记录
-- **参数**:
-  - `user_id` (string): 用户ID
-- **响应**:
-```json
-{
-  "wrong_questions": [
-    {
-      "question_id": "q_001",
-      "question_text": "求函数 f(x) = x² + 2x - 3 的最小值",
-      "subject": "数学",
-      "knowledge_point": "二次函数",
-      "user_answer": "最小值为-2",
-      "correct_answer": "最小值为-4",
-      "date": "2024-01-15",
-      "attempts": 2
-    }
-  ]
-}
-```
+## 🔧 使用示例
 
-### 8. 统计信息接口
-
-#### 8.1 获取用户学习统计
-- **接口**: `GET /stats/{user_id}`
-- **描述**: 获取用户的学习统计信息
-- **参数**:
-  - `user_id` (string): 用户ID
-- **响应**:
-```json
-{
-  "total_questions_answered": 156,
-  "correct_rate": 0.85,
-  "study_time_today": 45,
-  "streak_days": 7,
-  "mastery_progress": 0.72,
-  "weekly_progress": {
-    "monday": 12,
-    "tuesday": 8,
-    "wednesday": 15,
-    "thursday": 10,
-    "friday": 18,
-    "saturday": 6,
-    "sunday": 9
-  }
-}
-```
-
-## 错误代码说明
-
-| 状态码 | 说明 |
-|--------|------|
-| 200 | 请求成功 |
-| 400 | 请求参数错误 |
-| 404 | 资源不存在 |
-| 500 | 服务器内部错误 |
-
-## 使用示例
-
-### Python 请求示例
+### Python 示例
 
 ```python
 import requests
 
-# 基础URL
-base_url = "http://localhost:8000/api"
+base_url = "http://localhost:8000"
 
-# 获取用户列表
-response = requests.get(f"{base_url}/users")
-users = response.json()
-print(users)
-
-# 获取用户推荐
-user_id = "小明"
-response = requests.get(f"{base_url}/recommendation/{user_id}")
+# 获取学习推荐
+response = requests.get(f"{base_url}/student/recommendation/小明")
 recommendation = response.json()
 print(recommendation)
 
@@ -301,96 +219,86 @@ data = {
     "user_id": "小明",
     "question_id": "q_001",
     "answer": "最小值为-4",
-    "answer_type": "text"
+    "time_spent": 300
 }
-response = requests.post(f"{base_url}/diagnose", json=data)
-diagnosis = response.json()
-print(diagnosis)
+response = requests.post(f"{base_url}/student/diagnose", json=data)
+result = response.json()
+print(result)
+
+# 创建知识点（教师端）
+knowledge_data = {
+    "node_name": "二次函数",
+    "difficulty_level": "中等",
+    "subject": "数学",
+    "grade": "高一"
+}
+response = requests.post(f"{base_url}/teacher/knowledge/nodes", json=knowledge_data)
+print(response.json())
 ```
 
-### JavaScript 请求示例
+### JavaScript 示例
 
 ```javascript
-// 基础URL
-const baseUrl = "http://localhost:8000/api";
+const baseUrl = "http://localhost:8000";
 
-// 获取用户列表
-fetch(`${baseUrl}/users`)
+// 获取用户知识图谱
+fetch(`${baseUrl}/student/knowledge-map/小明`)
   .then(response => response.json())
-  .then(users => console.log(users));
+  .then(data => console.log(data));
 
-// 获取用户推荐
-const userId = "小明";
-fetch(`${baseUrl}/recommendation/${userId}`)
-  .then(response => response.json())
-  .then(recommendation => console.log(recommendation));
+// 上传图片答案
+const formData = new FormData();
+formData.append('user_id', '小明');
+formData.append('question_id', 'q_001');
+formData.append('image', imageFile);
 
-// 提交答案诊断
-const data = {
-  user_id: "小明",
-  question_id: "q_001",
-  answer: "最小值为-4",
-  answer_type: "text"
-};
-
-fetch(`${baseUrl}/diagnose`, {
+fetch(`${baseUrl}/student/diagnose/image`, {
   method: 'POST',
-  headers: {
-    'Content-Type': 'application/json',
-  },
-  body: JSON.stringify(data)
+  body: formData
 })
 .then(response => response.json())
-.then(diagnosis => console.log(diagnosis));
+.then(result => console.log(result));
 ```
 
-## 部署说明
+---
 
-### 后端部署
+## 🚀 快速启动
 
-1. 安装依赖：
+### 启动后端服务
+
 ```bash
 cd backend
-pip install -r requirements.txt
+python api_server_restructured.py
 ```
 
-2. 启动服务器：
-```bash
-python api_server.py
-```
+### 访问地址
 
-3. 访问API文档：
-   - Swagger UI: `http://localhost:8000/docs`
-   - ReDoc: `http://localhost:8000/redoc`
+- **API服务**: http://localhost:8000
+- **交互式文档**: http://localhost:8000/docs
+- **API信息**: http://localhost:8000/api-info
 
-### 前端部署
+---
 
-1. 安装依赖：
-```bash
-cd frontend
-pip install -r requirements.txt
-```
+## 📝 注意事项
 
-2. 启动前端应用：
-```bash
-streamlit run app.py
-```
+1. **CORS配置**: 当前允许 `http://localhost:8501` 访问
+2. **文件上传**: 支持图片答案上传，文件保存在 `/uploads` 目录
+3. **数据库**: 使用SQLite数据库，确保数据库文件存在
+4. **错误处理**: 统一的异常处理和错误响应格式
+5. **角色分离**: 学生端和教师端接口完全分离，便于权限管理
 
-3. 访问前端应用：
-   - 前端界面: `http://localhost:8501`
+---
 
-## 注意事项
+## 🔄 更新日志
 
-1. **CORS配置**: 当前配置允许所有域名访问，生产环境中应该限制为特定域名
-2. **数据验证**: 所有输入数据都会进行验证，确保数据安全性
-3. **错误处理**: API会返回详细的错误信息，便于调试
-4. **性能优化**: 使用了异步处理，支持高并发访问
-5. **数据库连接**: 确保数据库文件存在且可访问
+### v2.0.0 (2024-01-15)
+- ✨ 重构API架构，按角色分离
+- 🎯 优化学习推荐算法，支持四种任务类型
+- 📊 增强答案诊断功能，支持图片识别
+- 🗺️ 完善知识图谱管理
+- 👨‍🏫 新增教师端完整功能模块
+- 📈 添加学生数据分析功能
 
-## 更新日志
+---
 
-### v1.0.0 (2024-01-15)
-- 初始版本发布
-- 实现基础的用户管理、学习推荐、答案诊断等功能
-- 支持文本和图片答案诊断
-- 提供完整的知识图谱和统计功能
+*📚 更多详细信息请访问交互式API文档: http://localhost:8000/docs*
