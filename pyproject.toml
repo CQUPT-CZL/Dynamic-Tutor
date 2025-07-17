@@ -8,6 +8,7 @@ dependencies = [
     "fastapi>=0.115.14",
     "neo4j>=5.28.1",
     "pandas>=2.3.0",
+    "plotly>=6.2.0",
     "python-multipart>=0.0.20",
     "pyvis>=0.3.2",
     "streamlit>=1.46.1",
