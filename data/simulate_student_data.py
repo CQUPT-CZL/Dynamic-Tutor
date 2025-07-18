@@ -1,92 +1,129 @@
 import sqlite3
 import os
 import random
+import json # <<< 核心新增：导入json库用于转换字典为字符串
 from tqdm import tqdm
 from datetime import datetime
 
 # --- 配置区 ---
 DB_FILE = "my_database.db"
-NUM_INTERACTIONS_PER_USER = 50  # 为每个用户模拟50次答题行为
+NUM_INTERACTIONS_PER_USER = 50
 
 # --- 虚拟学生画像定义 ---
-# 我们可以定义不同类型的学生，让生成的数据更逼真
 PERSONAS = {
-    "小崔": {"name": "新手小崔", "base_accuracy": 0.5, "type": "cautious"},
-    "小陈": {"name": "学霸小陈", "base_accuracy": 0.8, "type": "confident"},
-    "小胡": {"name": "教师胡老师", "base_accuracy": 0.95, "type": "expert"} # 也可以模拟老师答题
+    "小崔": {"name": "新手小崔", "base_accuracy": 0.5, "weakness": "knowledge"},
+    "小陈": {"name": "聪明的马虎蛋小陈", "base_accuracy": 0.8, "weakness": "calculation"},
 }
 
 def get_db_connection():
     """获取数据库连接"""
     conn = sqlite3.connect(DB_FILE)
-    # 使用Row工厂可以让查询结果像字典一样访问
     conn.row_factory = sqlite3.Row
     return conn
 
+def generate_mock_diagnosis(is_correct, persona, question_difficulty):
+    """
+    <<< 核心新增：根据答题结果和用户画像，生成一份模拟的诊断JSON >>>
+    """
+    if is_correct:
+        # 如果回答正确，所有维度得分都很高
+        scores = {
+            "knowledge": round(random.uniform(0.8, 1.0), 2),
+            "logic": round(random.uniform(0.8, 1.0), 2),
+            "calculation": round(random.uniform(0.8, 1.0), 2),
+            "behavior": round(random.uniform(0.7, 1.0), 2)
+        }
+        summary = "表现出色，完全掌握！"
+    else:
+        # 如果回答错误，根据学生的“弱点”来决定哪个维度分低
+        scores = {
+            "knowledge": round(random.uniform(0.5, 0.9), 2),
+            "logic": round(random.uniform(0.6, 1.0), 2),
+            "calculation": round(random.uniform(0.7, 1.0), 2),
+            "behavior": round(random.uniform(0.3, 0.6), 2)
+        }
+        weakness = persona.get("weakness", "knowledge")
+        if weakness == "knowledge":
+            scores["knowledge"] = round(random.uniform(0.1, 0.4), 2)
+            summary = "对核心概念的理解似乎还不够深入哦。"
+        elif weakness == "calculation":
+            scores["calculation"] = round(random.uniform(0.1, 0.4), 2)
+            scores["logic"] = round(random.uniform(0.8, 1.0), 2) # 马虎蛋的逻辑通常很好
+            summary = "思路完全正确，但在计算上出了点小差错。"
+        else: # 默认情况
+            scores["logic"] = round(random.uniform(0.2, 0.5), 2)
+            summary = "解题的大方向上可能需要再思考一下。"
+
+    # 组装成我们设计的JSON格式
+    diagnosis_report = {
+        "diagnosis_id": f"diag_mock_{int(datetime.now().timestamp())}_{random.randint(100,999)}",
+        "is_correct": is_correct,
+        "assessment_dimensions": [
+            {"dimension": "知识掌握 (Knowledge Mastery)", "score": scores["knowledge"], "feedback": "模拟反馈..."},
+            {"dimension": "解题逻辑 (Logical Reasoning)", "score": scores["logic"], "feedback": "模拟反馈..."},
+            {"dimension": "计算准确性 (Calculation Accuracy)", "score": scores["calculation"], "feedback": "模拟反馈..."},
+            {"dimension": "行为表现 (Behavioral Performance)", "score": scores["behavior"], "feedback": "模拟反馈..."}
+        ],
+        "overall_summary": summary
+    }
+    # 将Python字典转换为JSON字符串，以便存入数据库
+    return json.dumps(diagnosis_report, ensure_ascii=False)
+
+
 def simulate_user_learning():
-    """
-    主函数，模拟所有用户的学习过程，并填充动态数据表。
-    """
+    """主函数，模拟所有用户的学习过程，并填充动态数据表。"""
     if not os.path.exists(DB_FILE):
-        print(f"❌ 错误: 数据库文件 '{DB_FILE}' 不存在。请先运行初始化脚本。")
+        print(f"❌ 错误: 数据库文件 '{DB_FILE}' 不存在。")
         return
 
     conn = get_db_connection()
     cursor = conn.cursor()
 
     try:
-        print("🚀 开始模拟用户学习行为，生成动态数据...")
+        print("🚀 开始模拟用户学习行为 (含多维度诊断)...")
 
-        # 1. 获取所有需要的基础数据
         users = cursor.execute("SELECT user_id, username FROM users WHERE role = 'student'").fetchall()
         questions = cursor.execute("SELECT question_id, difficulty FROM questions").fetchall()
         
         if not questions:
-            print("❌ 题库为空，无法进行模拟。请先填充题目。")
+            print("❌ 题库为空，无法进行模拟。")
             return
 
-        # 创建一个 question_id -> [node_id, ...] 的映射，方便查询
-        q_to_n_map = {}
+        q_to_n_map = {row['question_id']: [] for row in cursor.execute("SELECT DISTINCT question_id FROM question_to_node_mapping").fetchall()}
         for row in cursor.execute("SELECT question_id, node_id FROM question_to_node_mapping").fetchall():
-            if row['question_id'] not in q_to_n_map:
-                q_to_n_map[row['question_id']] = []
             q_to_n_map[row['question_id']].append(row['node_id'])
 
-        # 2. 为每个用户进行学习模拟
         for user in tqdm(users, desc="模拟用户学习"):
             user_id = user['user_id']
             username = user['username']
-            persona = PERSONAS.get(username, {"base_accuracy": 0.6, "type": "normal"}) # 如果用户不在画像中，给个默认值
+            persona = PERSONAS.get(username, {"base_accuracy": 0.6, "weakness": "knowledge"})
             
-            print(f"\n--- 正在模拟 '{persona['name']}' 的学习过程 ---")
-
-            for _ in tqdm(range(NUM_INTERACTIONS_PER_USER), desc=f"  答题中...", leave=False):
-                # a. 随机选择一道题
+            for _ in tqdm(range(NUM_INTERACTIONS_PER_USER), desc=f"  模拟'{username}'答题中", leave=False):
                 question = random.choice(questions)
                 question_id = question['question_id']
                 question_difficulty = question['difficulty']
 
-                # b. 根据用户画像和题目难度，决定本次答题是否正确
-                # 基础正确率 + (0.5 - 题目难度)的微调，难度越高越容易错
                 accuracy_chance = persona['base_accuracy'] + (0.5 - question_difficulty) * 0.2
                 is_correct = random.random() < accuracy_chance
 
-                # c. 插入到 user_answers 表
+                # <<< 核心修改 1：生成模拟的诊断JSON >>>
+                diagnosis_json_str = generate_mock_diagnosis(is_correct, persona, question_difficulty)
+
+                # <<< 核心修改 2：在INSERT语句中加入 diagnosis_json 字段 >>>
                 cursor.execute(
                     """
-                    INSERT INTO user_answers (user_id, question_id, is_correct, time_spent, confidence)
-                    VALUES (?, ?, ?, ?, ?)
+                    INSERT INTO user_answers 
+                    (user_id, question_id, is_correct, time_spent, confidence, diagnosis_json)
+                    VALUES (?, ?, ?, ?, ?, ?)
                     """,
                     (
-                        user_id, 
-                        question_id, 
-                        is_correct,
-                        random.randint(30, 300), # 随机用时30-300秒
-                        round(random.uniform(0.3, 1.0), 2) # 随机信心度
+                        user_id, question_id, is_correct,
+                        random.randint(30, 300), 
+                        round(random.uniform(0.3, 1.0), 2),
+                        diagnosis_json_str # 传入JSON字符串
                     )
                 )
 
-                # d. 如果答错了，更新错题本
                 if not is_correct:
                     cursor.execute(
                         """
@@ -99,36 +136,26 @@ def simulate_user_learning():
                         (user_id, question_id, datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
                     )
 
-                # e. 更新相关知识点的掌握度 (user_node_mastery)
                 related_nodes = q_to_n_map.get(question_id, [])
                 for node_id in related_nodes:
-                    # 获取当前掌握度
                     cursor.execute("SELECT mastery_score FROM user_node_mastery WHERE user_id = ? AND node_id = ?", (user_id, node_id))
                     current_mastery_row = cursor.fetchone()
                     current_score = current_mastery_row['mastery_score'] if current_mastery_row else 0.0
 
-                    # 根据对错更新分数 (一个简单的模型)
                     if is_correct:
-                        # 做对了，掌握度增加，越接近1增加越慢
                         new_score = current_score + (1.0 - current_score) * 0.1
                     else:
-                        # 做错了，掌握度降低
                         new_score = current_score * 0.8
                     
-                    new_score = round(new_score, 4) # 保留4位小数
+                    new_score = round(new_score, 4)
 
-                    # 使用 INSERT OR REPLACE 插入或更新掌握度记录
                     cursor.execute(
-                        """
-                        INSERT OR REPLACE INTO user_node_mastery (user_id, node_id, mastery_score)
-                        VALUES (?, ?, ?)
-                        """,
+                        "INSERT OR REPLACE INTO user_node_mastery (user_id, node_id, mastery_score) VALUES (?, ?, ?)",
                         (user_id, node_id, new_score)
                     )
         
-        # 提交所有更改
         conn.commit()
-        print("\n🎉🎉🎉 所有用户的学习行为模拟完成！数据库已填充动态数据。")
+        print("\n🎉🎉🎉 所有用户的学习行为模拟完成！")
 
     except Exception as e:
         print(f"\n❌ 发生严重错误: {e}")
