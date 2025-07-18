@@ -5,43 +5,79 @@ import random
 
 # --- 配置区 ---
 DB_FILE = "my_database.db"  # 你的数据库文件名
-TEACHER_USER_ID = 3           # 假设“胡老师”的user_id是3，用于标记创建者
+TEACHER_USER_ID = 3           # 假设“胡老师”的user_id是3
 
-# --- 知识图谱数据定义 (点和边都定义在这里) ---
+# --- 知识图谱数据定义 (全新、详细的概率论数据) ---
 
-# 1. 定义所有知识点 (Nodes)
+# 1. 定义所有知识点 (Nodes)，包括大的章节和具体的小概念
 KNOWLEDGE_NODES_DATA = [
-    # 模块一
-    {'name': '1.1 随机试验与样本空间', 'difficulty': 0.1, 'level': '大一', 'learning': '定义了概率论的基本研究对象和环境。'},
-    {'name': '1.2 随机事件及其关系与运算', 'difficulty': 0.2, 'level': '大一', 'learning': '学习事件的包含、互斥、对立关系，以及并、交、差运算。'},
-    {'name': '1.3 概率的定义与性质', 'difficulty': 0.3, 'level': '大一', 'learning': '掌握古典、几何、统计三种概率定义，以及概率的公理化定义和核心性质。'},
-    {'name': '1.4 条件概率与事件的独立性', 'difficulty': 0.5, 'level': '大一', 'learning': '核心概念，包括条件概率、乘法公式、全概率公式和贝叶斯公式。'},
-    # 模块二
-    {'name': '2.1 随机变量的概念', 'difficulty': 0.2, 'level': '大一', 'learning': '将随机试验的结果映射为数字，是概率论的一次重要抽象。'},
-    {'name': '2.2 离散型随机变量', 'difficulty': 0.4, 'level': '大一', 'learning': '研究变量取值为有限或可数个的情况，重点学习二项分布和泊松分布。'},
-    {'name': '2.3 连续型随机变量', 'difficulty': 0.4, 'level': '大一', 'learning': '研究变量取值充满一个区间的情况，重点学习均匀、指数和正态分布。'},
-    {'name': '2.4 分布函数(CDF)', 'difficulty': 0.5, 'level': '大一', 'learning': '描述随机变量落在某个区间内的概率，是连接离散和连续的桥梁。'},
-    # 你可以在这里继续添加所有模块的知识点...
+    # 领域
+    {'name': '概率论', 'difficulty': 1.0, 'level': '大学', 'learning': '研究随机现象统计规律性的数学分支。'},
+    
+    # 章节
+    {'name': '第一章：随机事件与概率', 'difficulty': 0.8, 'level': '大学', 'learning': '概率论的公理化基础和基本概念。'},
+    {'name': '第二章：随机变量及其分布', 'difficulty': 0.9, 'level': '大学', 'learning': '将随机事件的结果数字化，是概率论的核心抽象。'},
+    {'name': '第三章：多维随机变量及其分布', 'difficulty': 0.9, 'level': '大学', 'learning': '研究多个随机变量之间的相互关系。'},
+
+    # --- 第一章详细知识点 ---
+    {'name': '1.1 随机试验与样本空间', 'difficulty': 0.1, 'level': '大学', 'learning': '定义了概率论的基本研究对象和环境。'},
+    {'name': '1.2 随机事件及其关系与运算', 'difficulty': 0.2, 'level': '大学', 'learning': '学习事件的包含、互斥、对立关系，以及并、交、差运算。'},
+    {'name': '1.3 概率的定义与性质', 'difficulty': 0.3, 'level': '大学', 'learning': '掌握古典、几何、统计三种概率定义，以及概率的公理化定义和核心性质。'},
+    {'name': '1.4 条件概率与事件的独立性', 'difficulty': 0.5, 'level': '大学', 'learning': '核心概念，包括条件概率、乘法公式、全概率公式和贝叶斯公式。'},
+    {'name': '古典概型', 'difficulty': 0.2, 'level': '大学', 'learning': '要求试验结果有限且等可能。'},
+    {'name': '贝叶斯公式', 'difficulty': 0.6, 'level': '大学', 'learning': '由因果推断执果索因的核心公式。'},
+
+    # --- 第二章详细知识点 ---
+    {'name': '2.1 随机变量的概念', 'difficulty': 0.2, 'level': '大学', 'learning': '将随机试验的结果映射为数字。'},
+    {'name': '2.2 离散型随机变量', 'difficulty': 0.4, 'level': '大学', 'learning': '变量取值为有限或可数个的情况。'},
+    {'name': '2.3 连续型随机变量', 'difficulty': 0.4, 'level': '大学', 'learning': '变量取值充满一个区间的情况。'},
+    {'name': '2.4 分布函数(CDF)', 'difficulty': 0.5, 'level': '大学', 'learning': '描述随机变量P{X ≤ x}的函数。'},
+    {'name': '二项分布', 'difficulty': 0.3, 'level': '大学', 'learning': 'n重伯努利试验中成功次数的分布。'},
+    {'name': '正态分布', 'difficulty': 0.5, 'level': '大学', 'learning': '自然界中最常见、最重要的连续分布。'},
+
+    # --- 第三章详细知识点 ---
+    {'name': '3.1 二维随机变量联合分布', 'difficulty': 0.5, 'level': '大学', 'learning': '描述两个随机变量同时取值的概率规律。'},
+    {'name': '3.2 边缘分布', 'difficulty': 0.4, 'level': '大学', 'learning': '在联合分布中，只考虑其中一个变量的分布。'},
+    {'name': '3.3 条件分布', 'difficulty': 0.6, 'level': '大学', 'learning': '在给定一个变量的条件下，另一个变量的分布。'},
+    {'name': '3.4 随机变量的独立性', 'difficulty': 0.5, 'level': '大学', 'learning': '判断两个随机变量是否相互独立。'},
 ]
 
 # 2. 定义知识点之间的关系 (Edges)
-# 使用知识点的名字，脚本会自动查询它们的ID
 KNOWLEDGE_EDGES_DATA = [
-    # (起点名称, 终点名称, 关系类型)
+    # 领域 -> 章节 (从属关系)
+    ('概率论', '第一章：随机事件与概率', 'CONTAINS'),
+    ('概率论', '第二章：随机变量及其分布', 'CONTAINS'),
+    ('概率论', '第三章：多维随机变量及其分布', 'CONTAINS'),
+
+    # 章节 -> 主题 (从属关系)
+    ('第一章：随机事件与概率', '1.1 随机试验与样本空间', 'CONTAINS'),
+    ('第一章：随机事件与概率', '1.2 随机事件及其关系与运算', 'CONTAINS'),
+    ('第一章：随机事件与概率', '1.3 概率的定义与性质', 'CONTAINS'),
+    ('第一章：随机事件与概率', '1.4 条件概率与事件的独立性', 'CONTAINS'),
+    
+    # 主题 -> 具体概念 (从属关系)
+    ('1.3 概率的定义与性质', '古典概型', 'CONTAINS'),
+    ('1.4 条件概率与事件的独立性', '贝叶斯公式', 'CONTAINS'),
+    
+    # 章节内依赖关系 (is_prerequisite_for)
     ('1.1 随机试验与样本空间', '1.2 随机事件及其关系与运算', 'is_prerequisite_for'),
     ('1.2 随机事件及其关系与运算', '1.3 概率的定义与性质', 'is_prerequisite_for'),
     ('1.3 概率的定义与性质', '1.4 条件概率与事件的独立性', 'is_prerequisite_for'),
-    ('1.4 条件概率与事件的独立性', '2.1 随机变量的概念', 'is_prerequisite_for'),
+    
+    # 跨章节依赖关系
+    ('第一章：随机事件与概率', '2.1 随机变量的概念', 'is_prerequisite_for'),
     ('2.1 随机变量的概念', '2.2 离散型随机变量', 'is_prerequisite_for'),
     ('2.1 随机变量的概念', '2.3 连续型随机变量', 'is_prerequisite_for'),
     ('2.2 离散型随机变量', '2.4 分布函数(CDF)', 'is_prerequisite_for'),
     ('2.3 连续型随机变量', '2.4 分布函数(CDF)', 'is_prerequisite_for'),
+    ('第二章：随机变量及其分布', '3.1 二维随机变量联合分布', 'is_prerequisite_for'),
+    ('3.1 二维随机变量联合分布', '3.2 边缘分布', 'is_prerequisite_for'),
+    ('3.2 边缘分布', '3.3 条件分布', 'is_prerequisite_for'),
+    ('3.3 条件分布', '3.4 随机变量的独立性', 'is_prerequisite_for'),
 ]
 
 def initialize_database(db_path):
-    """
-    一个函数搞定所有事情：填充节点、边，并生成题目。
-    """
+    """一个函数搞定所有事情：填充节点、边，并生成题目。"""
     if not os.path.exists(db_path):
         print(f"❌ 错误: 数据库文件 '{db_path}' 不存在。请先运行你的schema.sql脚本创建数据库和表。")
         return
@@ -83,24 +119,35 @@ def initialize_database(db_path):
 
         # --- 阶段三：为每个知识点生成并插入题目 ---
         print("\n--- 阶段三：为每个知识点生成题目并关联 ---")
-        for node_name, node_id in tqdm(node_name_to_id_map.items(), desc="生成题目"):
-            for i in range(1, 4):
-                question_type = random.choice(['选择题', '填空题', '解答题'])
-                difficulty = round(random.uniform(0.1, 0.9), 2)
-                question_text = f"这是一道关于“{node_name}”的{question_type}，难度为{difficulty}。(题目{i})"
-                answer = f"“{node_name}”题目{i}的标准答案。"
-                analysis = f"“{node_name}”题目{i}的详细解析。"
+        
+        # <<< 核心修改 1：定义能力偏向类型 >>>
+        skill_focus_options = ['concept', 'calculation', 'logic', 'application']
 
-                cursor.execute(
-                    "INSERT INTO questions (question_text, question_type, difficulty, answer, analysis, created_by) VALUES (?, ?, ?, ?, ?, ?)",
-                    (question_text, question_type, difficulty, answer, analysis, TEACHER_USER_ID)
-                )
-                new_question_id = cursor.lastrowid
-                
-                cursor.execute(
-                    "INSERT INTO question_to_node_mapping (question_id, node_id) VALUES (?, ?)",
-                    (new_question_id, node_id)
-                )
+        for node_name, node_id in tqdm(node_name_to_id_map.items(), desc="生成题目"):
+            # 只为最底层的具体知识点生成题目，不为章节或领域生成
+            if not any(edge[0] == node_name for edge in KNOWLEDGE_EDGES_DATA if edge[2] == 'CONTAINS'):
+                for i in range(1, 4):
+                    question_type = random.choice(['选择题', '填空题', '解答题'])
+                    difficulty = round(random.uniform(0.1, 0.9), 2)
+                    
+                    # <<< 核心修改 2：为题目随机分配一个能力偏向 >>>
+                    skill_focus = random.choice(skill_focus_options)
+                    
+                    question_text = f"这是一道关于“{node_name}”的[{skill_focus}]型{question_type}，难度为{difficulty}。(题目{i})"
+                    answer = f"“{node_name}”题目{i}的标准答案。"
+                    analysis = f"“{node_name}”题目{i}的详细解析。"
+
+                    # <<< 核心修改 3：在INSERT语句中加入skill_focus字段 >>>
+                    cursor.execute(
+                        "INSERT INTO questions (question_text, question_type, difficulty, skill_focus, answer, analysis, created_by) VALUES (?, ?, ?, ?, ?, ?, ?)",
+                        (question_text, question_type, difficulty, skill_focus, answer, analysis, TEACHER_USER_ID)
+                    )
+                    new_question_id = cursor.lastrowid
+                    
+                    cursor.execute(
+                        "INSERT INTO question_to_node_mapping (question_id, node_id) VALUES (?, ?)",
+                        (new_question_id, node_id)
+                    )
         
         # 提交所有更改
         conn.commit()

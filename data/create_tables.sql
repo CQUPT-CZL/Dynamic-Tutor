@@ -54,6 +54,7 @@ CREATE TABLE questions (
     options TEXT,            -- 对于选择题，存储JSON格式的选项
     answer TEXT,
     analysis TEXT,
+    skill_focus TEXT,        -- 题目的技能重点
     status TEXT NOT NULL DEFAULT 'published', -- 'draft' (AI生成), 'published' (教师发布)
     created_by INTEGER NOT NULL, -- 关联到users表，记录创建者
     FOREIGN KEY (created_by) REFERENCES users (user_id)

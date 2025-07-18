@@ -4,8 +4,8 @@
 # 变量定义
 DB_FILE = my_database.db
 SCHEMA_FILE = create_tables.sql
-CSV_FILE = ./raw/filtered_high_school_bracket_image.csv
-IMPORT_SCRIPT = import_data.py
+# CSV_FILE = ./raw/filtered_high_school_bracket_image.csv
+IMPORT_SCRIPT = import_data_gailv.py
 IMPORT_EDGES_SCRIPT = import_edges.py
 
 # 默认目标
@@ -16,8 +16,7 @@ help:
 	@echo "📚 数据库管理命令:"
 	@echo "  make clean       - 🗑️  删除现有数据库文件"
 	@echo "  make rebuild     - 🔄 重新创建数据库（删除+创建表结构）"
-	@echo "  make import      - 📥 导入CSV数据到数据库"
-	@echo "  make import-edges - 🔗 导入边关系数据到数据库"
+	@echo "  make import      - 📥 导入模拟概率伦数据到数据库"
 	@echo "  make all         - 🚀 完整流程（重建+导入所有数据）"
 	@echo "  make help        - ❓ 显示此帮助信息"
 
@@ -40,33 +39,18 @@ rebuild: clean
 		exit 1; \
 	fi
 
-# 导入CSV数据
+# 导入概率伦数据
 import:
-	@echo "📥 导入CSV数据..."
+	@echo "📥 导入模拟概率伦数据..."
 	@if [ -f $(IMPORT_SCRIPT) ]; then \
-		if [ -f $(CSV_FILE) ]; then \
-			python3 $(IMPORT_SCRIPT) && echo "✅ 数据导入完成"; \
-		else \
-			echo "❌ 错误：找不到CSV文件 $(CSV_FILE)"; \
-			exit 1; \
-		fi; \
+		python3 $(IMPORT_SCRIPT) && echo "✅ 概率伦模拟数据导入完成"; \
 	else \
 		echo "❌ 错误：找不到导入脚本 $(IMPORT_SCRIPT)"; \
 		exit 1; \
 	fi
 
-# 导入边关系数据
-import-edges:
-	@echo "🔗 导入边关系数据..."
-	@if [ -f $(IMPORT_EDGES_SCRIPT) ]; then \
-		python3 $(IMPORT_EDGES_SCRIPT) && echo "✅ 边关系数据导入完成"; \
-	else \
-		echo "❌ 错误：找不到边关系导入脚本 $(IMPORT_EDGES_SCRIPT)"; \
-		exit 1; \
-	fi
-
 # 完整流程：重建数据库并导入所有数据
-all: rebuild import import-edges
+all: rebuild import
 	@echo "🎉 数据库重建和所有数据导入全部完成！"
 
 # 检查数据库状态
