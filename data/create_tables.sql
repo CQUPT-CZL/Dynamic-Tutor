@@ -28,6 +28,7 @@ CREATE TABLE knowledge_nodes (
     node_name TEXT NOT NULL,
     node_difficulty REAL, -- 知识点本身的抽象难度 (0.0 - 1.0)
     level TEXT,           -- 知识点所属年级
+    node_type TEXT,        -- 知识点类型：概念、章节等
     node_learning TEXT    -- 知识点的讲解、定义等核心文本
 );
 
