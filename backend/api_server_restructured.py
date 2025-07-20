@@ -17,7 +17,7 @@ from api.common.system import router as system_router
 from api.common.users import router as users_router
 
 # 导入学生端模块
-from api.student.recommendation import router as student_recommendation_router
+from api.student.recommendations.main import router as student_recommendation_router
 from api.student.diagnosis import router as student_diagnosis_router
 from api.student.knowledge_map import router as student_knowledge_map_router
 from api.student.questions import router as student_questions_router
