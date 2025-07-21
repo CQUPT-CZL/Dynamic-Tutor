@@ -204,7 +204,7 @@ def handle_weak_point_consolidation(user_id: int, decision: dict):
                     "name": target_node_name
                 },
                 "steps": steps,
-                "all_questions": question_details  # 添加所有题目的详细信息
+                # "all_questions": question_details  # 添加所有题目的详细信息
             }
         }
 

@@ -93,7 +93,7 @@ def get_user_profile_data(user_id: int, last_n: int = 30):
         for domain, stats in domain_stats.items():
             avg_scores = {}
             for dim_name, score_list in stats["scores"].items():
-                print(f"维度: {dim_name}, 所有分数: {score_list}")
+                # print(f"维度: {dim_name}, 所有分数: {score_list}")
                 avg_scores[dim_name] = round(sum(score_list) / len(score_list), 2) if score_list else 0.0
 
             analysis_by_domain.append({
@@ -202,6 +202,9 @@ async def get_user_recommendation(user_id: int):
         print(decision_reasoning, strategic_decision)
 
         mission_type = strategic_decision.get('mission_type')
+
+        # mission_type = "NEW_KNOWLEDGE"
+        # strategic_decision = None
 
         # --- 步骤3: 根据总指挥的战略，调用相应的战术执行函数 ---
         final_mission_package = None
