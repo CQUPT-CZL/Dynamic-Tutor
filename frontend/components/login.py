@@ -13,8 +13,8 @@ def hash_password(password: str) -> str:
     """对密码进行哈希处理"""
     return hashlib.sha256(password.encode()).hexdigest()
 
-def verify_credentials(username: str, password: str, role: str, api_service) -> bool:
-    """验证用户凭据"""
+def verify_credentials(username: str, password: str, role: str, api_service) -> tuple[bool, int]:
+    """验证用户凭据，返回验证结果和用户ID"""
     try:
         # 尝试从API验证用户
         users = api_service.get_users()
@@ -22,24 +22,25 @@ def verify_credentials(username: str, password: str, role: str, api_service) -> 
             if (user.get('username') == username and 
                 user.get('role') == role):
                 # 这里应该验证密码，但由于是演示系统，暂时简化
-                return True
-        return False
+                return True, user.get('user_id')
+        return False, None
     except:
         # 如果API不可用，使用默认用户验证
         default_users = {
             'student': {
-                '小崔': 'password123',
-                '小陈': 'password123'
+                '小崔': {'password': 'password123', 'user_id': 1},
+                '小陈': {'password': 'password123', 'user_id': 2}
             },
             'teacher': {
-                '1': '1',
-                'AI_System': 'admin123'
+                '舵老师': {'password': '1', 'user_id': 5}
             }
         }
         
         if role in default_users and username in default_users[role]:
-            return default_users[role][username] == password
-        return False
+            user_data = default_users[role][username]
+            if user_data['password'] == password:
+                return True, user_data['user_id']
+        return False, None
 
 def render_login_page(api_service):
     """渲染登录页面"""
@@ -172,21 +173,14 @@ def render_login_page(api_service):
                     st.error("❌ 请填写完整的登录信息")
                 else:
                     # 验证凭据
-                    if verify_credentials(username, password, st.session_state.selected_role, api_service):
+                    is_valid, user_id = verify_credentials(username, password, st.session_state.selected_role, api_service)
+                    if is_valid:
                         # 登录成功
                         st.session_state.is_logged_in = True
                         st.session_state.current_user = username
                         st.session_state.user_role = st.session_state.selected_role
                         st.session_state.login_time = datetime.now()
-                        
-                        # 用户ID映射
-                        USER_MAP = {
-                            "小崔": 1,
-                            "小陈": 2,
-                            "1": 3,
-                            "AI_System": 4
-                        }
-                        st.session_state.user_id = USER_MAP.get(username, 1)
+                        st.session_state.user_id = user_id
                         
                         st.success(f"✅ 登录成功！欢迎，{username}")
                         st.balloons()
