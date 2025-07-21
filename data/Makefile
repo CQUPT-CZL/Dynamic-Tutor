@@ -5,7 +5,7 @@
 DB_FILE = my_database.db
 SCHEMA_FILE = create_tables.sql
 # CSV_FILE = ./raw/filtered_high_school_bracket_image.csv
-IMPORT_SCRIPT = import_data_gailv.py
+IMPORT_SCRIPT = import_data.py
 IMPORT_EDGES_SCRIPT = import_edges.py
 SIMULATE_SCRIPT = simulate_student_data.py
 

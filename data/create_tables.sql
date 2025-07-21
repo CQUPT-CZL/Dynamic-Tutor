@@ -112,4 +112,6 @@ CREATE TABLE wrong_questions (
 -- 插入一些初始用户，用于测试
 INSERT INTO users (username, role) VALUES ('小崔', 'student');
 INSERT INTO users (username, role) VALUES ('小陈', 'student');
+INSERT INTO users (username, role) VALUES ('小李', 'student');
+INSERT INTO users (username, role) VALUES ('小张', 'student');
 INSERT INTO users (username, role) VALUES ('舵老师', 'teacher');
