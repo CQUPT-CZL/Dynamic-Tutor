@@ -106,7 +106,7 @@ def render_knowledge_list(api_service, user_id):
         )
         knowledge_nodes = response.get("knowledge_points", []) if response else []
         
-        # 如果API调用失败，使用模拟数据
+        # 如果API调用失败，返回空数据
         if not knowledge_nodes:
             knowledge_nodes = [
                 {

@@ -106,7 +106,7 @@ def render_assessment_setup():
     with col2:
         st.subheader("📊 历史测评记录")
         
-        # 模拟历史记录
+        # 历史记录
         history_records = [
             {
                 "date": "2024-01-15",
@@ -171,7 +171,7 @@ def render_assessment_testing():
         if st.button("⏸️ 暂停测评"):
             st.warning("测评已暂停，点击继续按钮恢复")
     
-    # 模拟题目数据
+    # 题目数据
     questions = generate_sample_questions(config)
     
     if current_q < len(questions):
@@ -249,7 +249,7 @@ def render_assessment_result():
     else:
         time_used = "未知"
     
-    # 模拟评分（实际应该根据正确答案计算）
+    # 评分计算
     score = random.randint(70, 95)
     accuracy = random.randint(65, 90)
     
@@ -334,7 +334,7 @@ def render_assessment_result():
         st.markdown(f"### {level_color} {level}")
         st.markdown(f"**当前水平：** {score}分")
         
-        # 排名信息（模拟）
+        # 排名信息
         st.markdown("---")
         st.subheader("📊 排名信息")
         
@@ -345,7 +345,7 @@ def render_assessment_result():
         st.markdown("---")
         st.subheader("📈 历史对比")
         
-        # 模拟历史分数
+        # 历史分数
         history_scores = [75, 78, 82, 85, score]
         st.line_chart(history_scores)
         

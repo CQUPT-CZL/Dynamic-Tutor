@@ -134,7 +134,7 @@ def main():
     if st.session_state.api_connected:
         st.success("🟢 后端API连接正常")
     else:
-        st.error("🔴 后端API连接失败，正在使用模拟数据")
+        st.error("🔴 后端API连接失败")
         col1, col2, col3 = st.columns([1, 1, 1])
         with col2:
             if st.button("🔄 重新连接API", use_container_width=True):

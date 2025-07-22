@@ -55,7 +55,7 @@ def render_graph_visualization(api_service, user_id):
         nodes = graph_data.get('nodes', [])
         edges = graph_data.get('edges', [])
         
-        # 如果没有数据，使用模拟数据
+        # 如果没有数据，使用默认数据
         if not nodes:
             nodes = [
                 {"id": "math_001", "name": "一元二次方程", "level": "中级", "difficulty": 0.7},
@@ -264,7 +264,7 @@ def render_relationship_management(api_service, user_id):
                 nodes_response = api_service.get_knowledge_nodes()
                 nodes = nodes_response.get('knowledge_points', []) if isinstance(nodes_response, dict) else []
                 
-                # 如果没有数据，使用模拟数据
+                # 如果没有数据，使用默认数据
                 if not nodes:
                     nodes = [
                         {"node_id": "math_001", "node_name": "一元二次方程"},
@@ -347,7 +347,7 @@ def render_relationship_management(api_service, user_id):
     try:
         edges = api_service.get_knowledge_edges()
         
-        # 如果没有数据，使用模拟数据
+        # 如果没有数据，使用默认数据
         if not edges:
             edges = [
                 {

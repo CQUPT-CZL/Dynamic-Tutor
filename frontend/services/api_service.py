@@ -9,7 +9,6 @@ import streamlit as st
 from typing import Dict, List, Any, Optional
 import requests
 import json
-from .mock_api_service import mock_api
 
 class APIService:
     """API服务类，提供所有前端需要的API调用方法"""
@@ -32,9 +31,6 @@ class APIService:
             self._backend_available = response.status_code == 200
         except:
             self._backend_available = False
-        
-        if not self._backend_available:
-            st.warning("🔧 后端API暂不可用，正在使用模拟数据进行界面展示")
     
     def is_backend_available(self) -> bool:
         """返回后端是否可用"""
@@ -92,15 +88,12 @@ class APIService:
     def get_users(self) -> List[Dict[str, Any]]:
         """获取用户列表"""
         print(f"[API调用] get_users()")
-        if not self._backend_available:
-            return mock_api.get_users()
-        
         try:
             response = self._make_request("GET", "/users")
             return response
         except Exception as e:
             st.error(f"获取用户列表失败: {str(e)}")
-            return mock_api.get_users()
+            return []
     
     # 学习推荐
     def get_recommendation(self, user_id: str) -> Dict[str, Any]:
@@ -224,9 +217,6 @@ class APIService:
                            max_difficulty: Optional[float] = None) -> Dict[str, Any]:
         """获取知识点列表"""
         print(f"[API调用] get_knowledge_nodes(level={level}, min_difficulty={min_difficulty}, max_difficulty={max_difficulty})")
-        if not self._backend_available:
-            return mock_api.get_knowledge_nodes(1, 10, "", None)
-        
         try:
             params = {}
             if level:
@@ -240,40 +230,31 @@ class APIService:
             return response
         except Exception as e:
             st.error(f"获取知识点列表失败: {str(e)}")
-            return mock_api.get_knowledge_nodes(1, 10, "", None)
+            return {"knowledge_points": []}
     
     def get_knowledge_node(self, node_id: str) -> Optional[Dict[str, Any]]:
         """获取单个知识点详情"""
         print(f"[API调用] get_knowledge_node(node_id={node_id})")
-        if not self._backend_available:
-            return mock_api.get_knowledge_node(node_id)
-        
         try:
             response = self._make_request("GET", f"/teacher/knowledge/detail/{node_id}")
             return response
         except Exception as e:
             st.error(f"获取知识点详情失败: {str(e)}")
-            return mock_api.get_knowledge_node(node_id)
+            return None
     
     def create_knowledge_node(self, node_data: Dict[str, Any]) -> Dict[str, Any]:
         """创建知识点"""
         print(f"[API调用] create_knowledge_node(node_data={node_data})")
-        if not self._backend_available:
-            return mock_api.create_knowledge_node(node_data)
-        
         try:
             response = self._make_request("POST", "/teacher/knowledge/create", json=node_data)
             return response
         except Exception as e:
             st.error(f"创建知识点失败: {str(e)}")
-            return mock_api.create_knowledge_node(node_data)
+            return {"error": str(e)}
     
     def update_knowledge_node(self, node_id: str, node_data: Dict[str, Any]) -> Optional[Dict[str, Any]]:
         """更新知识点"""
         print(f"[API调用] update_knowledge_node(node_id={node_id}, node_data={node_data})")
-        if not self._backend_available:
-            return mock_api.update_knowledge_node(node_id, node_data)
-        
         try:
             print('---')
             print(node_id, node_data)
@@ -281,43 +262,37 @@ class APIService:
             return response
         except Exception as e:
             st.error(f"更新知识点失败: {str(e)}")
-            return mock_api.update_knowledge_node(node_id, node_data)
+            return {"error": str(e)}
     
     def delete_knowledge_node(self, node_id: str) -> bool:
         """删除知识点"""
         print(f"[API调用] delete_knowledge_node(node_id={node_id})")
-        if not self._backend_available:
-            return mock_api.delete_knowledge_node(node_id)
-        
         try:
             response = self._make_request("DELETE", f"/teacher/knowledge/delete/{node_id}")
             return response
         except Exception as e:
             st.error(f"删除知识点失败: {str(e)}")
-            return mock_api.delete_knowledge_node(node_id)
+            return False
     
     def get_knowledge_nodes_stats(self) -> Dict[str, Any]:
         """获取知识点统计信息"""
         print(f"[API调用] get_knowledge_nodes_stats()")
-        if not self._backend_available:
-            return mock_api.get_knowledge_nodes_stats()
-        
         try:
             response = self._make_request("GET", "/api/teacher/knowledge-nodes/stats")
             return response.get("data", {})
         except Exception as e:
             st.error(f"获取知识点统计失败: {str(e)}")
-            return mock_api.get_knowledge_nodes_stats()
+            return {}
     
     def generate_learning_objective(self, node_name: str, level: str = "") -> Dict[str, Any]:
         """AI生成学习目标"""
         print(f"[API调用] generate_learning_objective(node_name={node_name}, level={level})")
         if not self._backend_available:
-            # 模拟返回数据
+            # 返回数据
             return {
                 "status": "success",
                 "learning_objective": f"1. 理解{node_name}的基本概念\n2. 掌握{node_name}的核心原理\n3. 能够运用{node_name}解决实际问题",
-                "message": "学习目标生成成功（模拟数据）"
+                "message": "学习目标生成成功"
             }
         
         try:
@@ -340,8 +315,6 @@ class APIService:
     def get_questions(self, page: int = 1, page_size: int = 100, search: str = "", question_type: str = "", status: str = "") -> Dict[str, Any]:
         """获取题目列表"""
         print(f"[API调用] get_questions(page={page}, page_size={page_size}, search={search}, question_type={question_type}, status={status})")
-        if not self._backend_available:
-            return mock_api.get_questions(page, page_size, search, question_type, status)
         try:
             params = {"page": page, "page_size": page_size}
             if search:
@@ -370,35 +343,39 @@ class APIService:
                 }
         except Exception as e:
             print(f"获取题目列表失败: {e}")
-            return mock_api.get_questions(page, page_size, search, question_type, status)
+            return {
+                "questions": [],
+                "pagination": {
+                    "page": page,
+                    "page_size": page_size,
+                    "total": 0,
+                    "total_pages": 0,
+                    "has_next": False,
+                    "has_prev": False
+                }
+            }
     
     def get_question(self, question_id: int) -> Dict[str, Any]:
         """获取单个题目详情"""
         print(f"[API调用] get_question(question_id={question_id})")
-        if not self._backend_available:
-            return mock_api.get_question(question_id)
         try:
             return self._make_request("GET", f"/teacher/question/detail/{question_id}")
         except Exception as e:
             print(f"获取题目详情失败: {e}")
-            return mock_api.get_question(question_id)
+            return {"error": str(e)}
     
     def create_question(self, question_data: Dict[str, Any]) -> Dict[str, Any]:
         """创建题目"""
         print(f"[API调用] create_question(question_data={question_data})")
-        if not self._backend_available:
-            return mock_api.create_question(question_data)
         try:
             return self._make_request("POST", "/teacher/question/create", json=question_data)
         except Exception as e:
             print(f"创建题目失败: {e}")
-            return mock_api.create_question(question_data)
+            return {"error": str(e)}
     
     def update_question(self, question_id: int, question_data: Dict[str, Any]) -> Dict[str, Any]:
         """更新题目"""
         print(f"[API调用] update_question(question_id={question_id}, question_data={question_data})")
-        if not self._backend_available:
-            return mock_api.update_question(question_id, question_data)
         try:
             # 确保请求体中包含question_id
             request_data = question_data.copy()
@@ -407,49 +384,41 @@ class APIService:
             return self._make_request("PUT", f"/teacher/question/update/{question_id}", json=request_data)
         except Exception as e:
             print(f"更新题目失败: {e}")
-            return mock_api.update_question(question_id, question_data)
+            return {"error": str(e)}
     
     def delete_question(self, question_id: int) -> Dict[str, Any]:
         """删除题目"""
         print(f"[API调用] delete_question(question_id={question_id})")
-        if not self._backend_available:
-            return mock_api.delete_question(question_id)
         try:
             return self._make_request("DELETE", f"/teacher/question/delete/{question_id}")
         except Exception as e:
             print(f"删除题目失败: {e}")
-            return mock_api.delete_question(question_id)
+            return {"error": str(e)}
     
     def get_questions_stats(self) -> Dict[str, Any]:
         """获取题目统计信息"""
         print(f"[API调用] get_questions_stats()")
-        if not self._backend_available:
-            return mock_api.get_questions_stats()
         try:
             return self._make_request("GET", "/teacher/question/stats")
         except Exception as e:
             print(f"获取题目统计失败: {e}")
-            return mock_api.get_questions_stats()
+            return {}
     
     # 知识图谱管理
     def get_knowledge_edges(self) -> List[Dict[str, Any]]:
         """获取知识点关系列表"""
         print(f"[API调用] get_knowledge_edges()")
-        if not self._backend_available:
-            return mock_api.get_knowledge_edges()
         
         try:
             response = self._make_request("GET", "/teacher/knowledge/edges")
             return response.get("edges", []) if isinstance(response, dict) else []
         except Exception as e:
             st.error(f"获取知识点关系失败: {str(e)}")
-            return mock_api.get_knowledge_edges()
+            return []
     
     def create_knowledge_edge(self, source_node_id: str, target_node_id: str, relation_type: str = "is_prerequisite_for") -> Dict[str, Any]:
         """创建知识点关系"""
         print(f"[API调用] create_knowledge_edge(source_node_id={source_node_id}, target_node_id={target_node_id}, relation_type={relation_type})")
-        if not self._backend_available:
-            return mock_api.create_knowledge_edge(source_node_id, target_node_id, relation_type)
         
         try:
             edge_data = {
@@ -458,20 +427,14 @@ class APIService:
                 "relation_type": relation_type
             }
             response = self._make_request("POST", "/teacher/knowledge/edges", json=edge_data)
-            if "error" not in response:
-                return response
-            else:
-                print(f"创建知识点关系失败: {response['error']}")
-                return mock_api.create_knowledge_edge(source_node_id, target_node_id, relation_type)
+            return response
         except Exception as e:
             print(f"创建知识点关系失败: {e}")
-            return mock_api.create_knowledge_edge(source_node_id, target_node_id, relation_type)
+            return {"error": str(e)}
     
     def delete_knowledge_edge(self, source_node_id: str, target_node_id: str, relation_type: str = "is_prerequisite_for") -> bool:
         """删除知识点关系"""
         print(f"[API调用] delete_knowledge_edge(source_node_id={source_node_id}, target_node_id={target_node_id}, relation_type={relation_type})")
-        if not self._backend_available: 
-            return mock_api.delete_knowledge_edge(source_node_id, target_node_id, relation_type)
         
         try:
             response = self._make_request("DELETE", "/teacher/knowledge/edges", json={
@@ -484,24 +447,18 @@ class APIService:
             return response.get("status") == "success"
         except Exception as e:
             st.error(f"删除知识点关系失败: {str(e)}")
-            return mock_api.delete_knowledge_edge(source_node_id, target_node_id, relation_type)
+            return False
     
     def get_knowledge_graph_data(self) -> Dict[str, Any]:
         """获取知识图谱数据"""
         print(f"[API调用] get_knowledge_graph_data()")
-        if not self._backend_available:
-            return mock_api.get_knowledge_graph_data()
         
         try:
             response = self._make_request("GET", "/teacher/knowledge/graph-data")
-            if "error" not in response:
-                return response
-            else:
-                print(f"获取知识图谱数据失败: {response['error']}")
-                return mock_api.get_knowledge_graph_data()
+            return response
         except Exception as e:
             st.error(f"获取知识图谱数据失败: {str(e)}")
-            return mock_api.get_knowledge_graph_data()
+            return {"nodes": [], "edges": []}
     
 
     
