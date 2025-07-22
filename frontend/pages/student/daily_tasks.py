@@ -39,14 +39,6 @@ def get_mission_type_info(mission_type):
 
 def render_daily_tasks_page(api_service, current_user, user_id):
     """渲染今日任务页面"""
-    # 页面标题
-    st.markdown("""
-    <div style="text-align: center; padding: 20px 0;">
-        <h1 style="color: #2E3440; margin-bottom: 10px;">📋 今日学习任务</h1>
-        <p style="color: #5E81AC; font-size: 18px;">为你量身定制的智能学习计划</p>
-    </div>
-    """, unsafe_allow_html=True)
-    
     if not current_user:
         st.warning("⚠️ 请先选择用户")
         return
@@ -59,10 +51,97 @@ def render_daily_tasks_page(api_service, current_user, user_id):
     
     # 获取用户推荐（只在没有缓存或需要刷新时获取）
     if st.session_state.current_recommendation is None:
-        recommendation = api_service.get_recommendation(user_id)
-        st.session_state.current_recommendation = recommendation
+        # 创建一个完整的页面容器来显示加载界面
+        page_container = st.container()
+        with page_container:
+            # 页面标题
+            st.markdown("""
+            <div style="text-align: center; padding: 20px 0;">
+                <h1 style="color: #2E3440; margin-bottom: 10px;">📋 今日学习任务</h1>
+                <p style="color: #5E81AC; font-size: 18px;">为你量身定制的智能学习计划</p>
+            </div>
+            """, unsafe_allow_html=True)
+            
+            # 显示友好的加载界面
+            st.markdown("""
+            <div style="
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                padding: 40px;
+                border-radius: 20px;
+                text-align: center;
+                margin: 30px 0;
+                box-shadow: 0 8px 32px rgba(102,126,234,0.2);
+                color: white;
+            ">
+                <div style="font-size: 3em; margin-bottom: 20px;">🤖</div>
+                <h2 style="margin: 0 0 15px 0; font-size: 1.8em;">AI正在为你量身定制学习任务</h2>
+                <p style="margin: 0; font-size: 1.1em; opacity: 0.9;">请稍等片刻，我们正在分析你的学习情况...</p>
+                <div style="margin-top: 25px; display: flex; justify-content: center; align-items: center;">
+                     <div style="
+                         display: flex;
+                         gap: 8px;
+                     ">
+                         <div style="
+                             width: 8px;
+                             height: 8px;
+                             background: rgba(255,255,255,0.9);
+                             border-radius: 50%;
+                             animation: bounce 1.4s infinite ease-in-out both;
+                             animation-delay: -0.32s;
+                         "></div>
+                         <div style="
+                             width: 8px;
+                             height: 8px;
+                             background: rgba(255,255,255,0.9);
+                             border-radius: 50%;
+                             animation: bounce 1.4s infinite ease-in-out both;
+                             animation-delay: -0.16s;
+                         "></div>
+                         <div style="
+                             width: 8px;
+                             height: 8px;
+                             background: rgba(255,255,255,0.9);
+                             border-radius: 50%;
+                             animation: bounce 1.4s infinite ease-in-out both;
+                         "></div>
+                     </div>
+                 </div>
+             </div>
+             <style>
+             @keyframes bounce {
+                 0%, 80%, 100% {
+                     transform: scale(0);
+                     opacity: 0.5;
+                 }
+                 40% {
+                     transform: scale(1);
+                     opacity: 1;
+                 }
+             }
+             </style>
+             """, unsafe_allow_html=True)
+        
+        # 调用API获取推荐
+        try:
+            with st.spinner("正在生成个性化任务推荐..."):
+                recommendation = api_service.get_recommendation(user_id)
+                st.session_state.current_recommendation = recommendation
+        except Exception as e:
+            st.error(f"获取推荐任务时出错: {str(e)}")
+            recommendation = None
+        
+        # 重新运行页面以显示新内容
+        st.rerun()
     else:
         recommendation = st.session_state.current_recommendation
+    
+    # 页面标题（正常显示时）
+    st.markdown("""
+    <div style="text-align: center; padding: 20px 0;">
+        <h1 style="color: #2E3440; margin-bottom: 10px;">📋 今日学习任务</h1>
+        <p style="color: #5E81AC; font-size: 18px;">为你量身定制的智能学习计划</p>
+    </div>
+    """, unsafe_allow_html=True)
     
     if not recommendation or "error" in recommendation:
         st.markdown("""
@@ -177,8 +256,6 @@ def render_daily_tasks_page(api_service, current_user, user_id):
                 # 清除缓存的推荐任务，强制重新获取
                 st.session_state.current_recommendation = None
                 st.session_state.task_started = False
-                with st.spinner("正在为你刷新任务..."):
-                    time.sleep(1)
                 st.rerun()
             
             st.markdown("<div style='margin: 15px 0;'></div>", unsafe_allow_html=True)
