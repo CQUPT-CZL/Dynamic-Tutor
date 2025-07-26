@@ -1,57 +1,85 @@
 import streamlit as st
 import pandas as pd
 import json
+from streamlit_agraph import agraph, Node, Edge, Config
 
 def generate_d3_html(graph_data_with_mastery: dict, show_labels: bool = True, node_size: int = 30) -> str:
     """
     根据整合后的图谱数据，生成包含 D3.js 可视化逻辑的完整 HTML。
-    采用教师端样式，但保留学生端的掌握度展示功能。
+    支持两层级交互：章节概览 -> 章节详细展开
     """
     data_json = json.dumps(graph_data_with_mastery)
-
-    html_template = f"""
+    show_labels_js = 'true' if show_labels else 'false'
+    
+    # 使用字符串拼接避免f-string中的JavaScript语法冲突
+    html_template = """
     <!DOCTYPE html>
     <html>
     <head>
         <script src="https://d3js.org/d3.v7.min.js"></script>
         <style>
-            #graph svg {{
-                border: 2px solid #f0f2f6;
-                border-radius: 8px;
-            }}
-            .node {{
+            #graph svg {
+                border: 2px solid #e0e3e7;
+                border-radius: 12px;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+                background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            }
+            .node {
                 stroke: #fff;
-                stroke-width: 2px;
+                stroke-width: 2.5px;
                 cursor: pointer;
-            }}
-            .link {{
-                stroke-opacity: 0.7;
-                stroke-width: 2px;
-            }}
-            .link.包含 {{
-                stroke: #888;
-            }}
-            .link.指向 {{
-                stroke: #337ab7;
-            }}
-            .label {{
-                font-family: Arial, sans-serif;
-                font-size: 12px;
+                transition: all 0.3s ease;
+            }
+            .node:hover {
+                stroke-width: 4px;
+                filter: drop-shadow(0 0 8px rgba(0, 0, 0, 0.3));
+                transform: scale(1.05);
+            }
+            .link {
+                stroke-opacity: 0.8;
+                stroke-width: 2.5px;
+            }
+            .link.包含 {
+                stroke: #6c757d;
+            }
+            .link.指向 {
+                stroke: #0d6efd;
+                stroke-dasharray: 0;
+            }
+            .label {
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                font-size: 15px;
+                font-weight: 500;
                 text-anchor: middle;
                 pointer-events: none;
-                fill: #333;
-            }}
-            .tooltip {{
+                fill: #212529;
+                text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
+            }
+            .label.white-text {
+                fill: #ffffff;
+                text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
+            }
+            .label.dark-text {
+                fill: #212529;
+                text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
+            }
+            .tooltip {
                 position: absolute;
-                background: rgba(0, 0, 0, 0.8);
-                color: white;
-                padding: 8px;
-                border-radius: 4px;
-                font-size: 12px;
+                background: rgba(33, 37, 41, 0.95);
+                color: #ffffff;
+                padding: 12px 15px;
+                border-radius: 8px;
+                font-size: 14px;
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
                 pointer-events: none;
                 opacity: 0;
                 transition: opacity 0.2s;
-            }}
+                box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25);
+                border: 1px solid rgba(255, 255, 255, 0.1);
+                max-width: 300px;
+                line-height: 1.6;
+                z-index: 1000;
+            }
         </style>
     </head>
     <body>
@@ -59,10 +87,21 @@ def generate_d3_html(graph_data_with_mastery: dict, show_labels: bool = True, no
         <div class="tooltip" id="tooltip"></div>
         
         <script>
-            const graphData = {data_json};
-            const nodes = graphData.nodes;
-            const links = graphData.edges || graphData.links;
-
+            const graphData = """ + data_json + """;
+            const showLabels = """ + show_labels_js + """;
+            const nodeSize = """ + str(node_size) + """;
+            
+            let allNodes = graphData.nodes;
+            let allLinks = graphData.edges || graphData.links;
+            
+            // 分离模块节点和知识点节点
+            const moduleNodes = allNodes.filter(d => d.type === '模块');
+            const knowledgeNodes = allNodes.filter(d => d.type !== '模块');
+            
+            // 当前状态：'overview' 或 'detail'
+            let currentState = 'overview';
+            let selectedModule = null;
+            
             const container = d3.select("#graph");
             const width = container.node().getBoundingClientRect().width || 800;
             const height = 600;
@@ -72,131 +111,381 @@ def generate_d3_html(graph_data_with_mastery: dict, show_labels: bool = True, no
                 .attr("height", height);
 
             const g = svg.append("g");
+            
+            // 添加缩放功能
+            const zoom = d3.zoom()
+                .scaleExtent([0.1, 4])
+                .on("zoom", function(event) {
+                    g.attr("transform", event.transform);
+                });
+            svg.call(zoom);
 
             // 定义箭头
             svg.append("defs").selectAll("marker")
                 .data(["指向", "is_prerequisite_for"])
                 .enter().append("marker")
-                .attr("id", d => `arrow-${{d}}`)
+                .attr("id", d => `arrow-${d}`)
                 .attr("viewBox", "0 -5 10 10")
-                .attr("refX", {node_size + 5})
+                .attr("refX", nodeSize + 5)
                 .attr("refY", 0)
                 .attr("markerWidth", 6)
                 .attr("markerHeight", 6)
                 .attr("orient", "auto")
                 .append("path")
-                .attr("fill", "#337ab7")
+                .attr("fill", "#0d6efd")
                 .attr("d", "M0,-5L10,0L0,5");
 
-            const simulation = d3.forceSimulation(nodes)
-                .force("link", d3.forceLink(links).id(d => d.id).distance(d => d.relation === '包含' ? 100 : 150))
-                .force("charge", d3.forceManyBody().strength(-600))
-                .force("center", d3.forceCenter(width / 2, height / 2));
+            let simulation;
+            let link, node, label;
             
-            const link = g.append("g")
-                .selectAll("line")
-                .data(links)
-                .enter().append("line")
-                .attr("class", d => `link ${{d.relation || d.relation_type || 'default'}}`)
-                .style("stroke-dasharray", d => d.status === "draft" ? "5,5" : "none")
-                .attr("marker-end", d => (d.relation === '指向' || d.relation_type === 'is_prerequisite_for') ? `url(#arrow-${{d.relation || d.relation_type}})` : null);
-            
-            const node = g.append("g")
-                .selectAll("circle")
-                .data(nodes)
-                .enter().append("circle")
-                .attr("class", "node")
-                .attr("r", {node_size})
-                .style("fill", d => {{
-                    if (d.type === '模块') return "#337ab7"; // 蓝色
-                    
-                    // 学生端特色：根据掌握度显示颜色
-                    const mastery = d.mastery || 0;
-                    if (mastery >= 0.8) return "#5cb85c"; // 绿色 - 已掌握
-                    if (mastery >= 0.5) return "#f0ad4e"; // 黄色 - 学习中
-                    if (mastery > 0) return "#d9534f"; // 红色 - 需要加强
-                    return "#999"; // 灰色 - 未开始
-                }})
-                .style("stroke", d => {{
-                    // 添加掌握度边框效果
-                    const mastery = d.mastery || 0;
-                    return mastery >= 0.8 ? "#449d44" : "#fff";
-                }})
-                .style("stroke-width", d => {{
-                    const mastery = d.mastery || 0;
-                    return mastery >= 0.8 ? "3px" : "2px";
-                }})
-                .call(d3.drag()
-                    .on("start", dragstarted)
-                    .on("drag", dragged)
-                    .on("end", dragended));
-            
-            const label = g.append("g")
-                .selectAll("text")
-                .data(nodes)
-                .enter().append("text")
-                .attr("class", "label")
-                .text(d => d.name)
-                .style("display", {"'block'" if show_labels else "'none'"});
-            
-            const tooltip = d3.select("#tooltip");
-            
-            node.on("mouseover", function(event, d) {{
-                tooltip.style("opacity", .9);
-                const masteryText = d.mastery !== undefined ? `<br/>掌握度: ${{(d.mastery * 100).toFixed(0)}}%` : '';
-                tooltip.html(`
-                    <strong>${{d.name}}</strong><br/>
-                    ID: ${{d.id}}<br/>
-                    类型: ${{d.type || 'N/A'}}<br/>
-                    ${{d.type !== '模块' ? `等级: ${{d.level || 'N/A'}}<br/>` : ''}}
-                    ${{d.type !== '模块' ? `难度: ${{d.difficulty || 'N/A'}}` : ''}}
-                    ${{masteryText}}
-                `)
-                .style("left", (event.pageX + 10) + "px")
-                .style("top", (event.pageY - 28) + "px");
-            }})
-            .on("mouseout", function(d) {{
-                tooltip.style("opacity", 0);
-            }});
-            
-            simulation.on("tick", () => {{
-                const r = {node_size};
-                node
-                    .attr("cx", d => d.x = Math.max(r, Math.min(width - 2 * r, d.x)))
-                    .attr("cy", d => d.y = Math.max(r, Math.min(height - 2 * r, d.y)));
-
-                link
-                    .attr("x1", d => d.source.x)
-                    .attr("y1", d => d.source.y)
-                    .attr("x2", d => d.target.x)
-                    .attr("y2", d => d.target.y);
+            // 初始化概览视图
+            function initOverview() {
+                currentState = 'overview';
+                selectedModule = null;
                 
-                label
-                    .attr("x", d => d.x)
-                    .attr("y", d => d.y + 5);
-            }}); 
+                // 清除现有元素
+                g.selectAll("*").remove();
+                
+                // 只显示模块节点
+                const nodes = moduleNodes.map(d => ({...d}));
+                const links = [];
+                
+                simulation = d3.forceSimulation(nodes)
+                    .force("charge", d3.forceManyBody().strength(-800))
+                    .force("center", d3.forceCenter(width / 2, height / 2))
+                    .force("collision", d3.forceCollide().radius(80));
+                
+                // 创建连线组
+                link = g.append("g")
+                    .selectAll("line")
+                    .data(links);
+                
+                // 创建节点组
+                node = g.append("g")
+                    .selectAll("circle")
+                    .data(nodes)
+                    .enter().append("circle")
+                    .attr("class", "node")
+                    .attr("r", 60)
+                    .style("fill", "#0d6efd")
+                    .style("cursor", "pointer")
+                    .on("click", function(event, d) {
+                        showModuleDetail(d);
+                    })
+                    .call(d3.drag()
+                        .on("start", dragstarted)
+                        .on("drag", dragged)
+                        .on("end", dragended));
+                
+                // 创建标签组
+                label = g.append("g")
+                    .selectAll("text")
+                    .data(nodes)
+                    .enter().append("text")
+                    .attr("class", "label white-text")
+                    .text(d => d.name)  
+                    .style("font-size", "16px")
+                    .style("font-weight", "bold")
+                    .style("text-anchor", "middle")
+                    .style("pointer-events", "none");
+                
+                setupTooltip();
+                simulation.on("tick", tick);
+            }
             
-            function dragstarted(event, d) {{
+            // 显示模块详细视图
+            function showModuleDetail(moduleData) {
+                currentState = 'detail';
+                selectedModule = moduleData;
+                
+                // 获取该模块的知识点
+                const moduleKnowledgeIds = new Set(
+                    allLinks.filter(l => l.source === moduleData.id && l.relation === '包含')
+                           .map(l => l.target)
+                );
+                
+                const moduleKnowledgeNodes = knowledgeNodes.filter(d => moduleKnowledgeIds.has(d.id));
+                const moduleKnowledgeLinks = allLinks.filter(l => 
+                    moduleKnowledgeIds.has(l.source) && 
+                    moduleKnowledgeIds.has(l.target) && 
+                    l.relation === '指向'
+                );
+                
+                // 准备节点数据
+                const detailNodes = [
+                    // 选中的模块节点（居中大显示）
+                    {...moduleData, isSelected: true},
+                    // 其他模块节点（缩小显示在边缘）
+                    ...moduleNodes.filter(d => d.id !== moduleData.id).map(d => ({...d, isOther: true})),
+                    // 该模块的知识点
+                    ...moduleKnowledgeNodes.map(d => ({...d}))
+                ];
+                
+                // 清除现有元素
+                g.selectAll("*").remove();
+                
+                simulation = d3.forceSimulation(detailNodes)
+                    .force("link", d3.forceLink(moduleKnowledgeLinks).id(d => d.id).distance(120))
+                    .force("charge", d3.forceManyBody().strength(d => d.isSelected ? -1000 : d.isOther ? -200 : -400))
+                    .force("center", d3.forceCenter(width / 2, height / 2))
+                    .force("collision", d3.forceCollide().radius(d => d.isSelected ? 70 : d.isOther ? 25 : 35));
+                
+                // 创建连线
+                link = g.append("g")
+                    .selectAll("line")
+                    .data(moduleKnowledgeLinks)
+                    .enter().append("line")
+                    .attr("class", d => `link ${d.relation || 'default'}`)
+                    .attr("marker-end", d => d.relation === '指向' ? "url(#arrow-指向)" : null);
+                
+                // 创建节点
+                node = g.append("g")
+                    .selectAll("circle")
+                    .data(detailNodes)
+                    .enter().append("circle")
+                    .attr("class", "node")
+                    .attr("r", d => {
+                        if (d.isSelected) return 60;
+                        if (d.isOther) return 20;
+                        return nodeSize;
+                    })
+                    .style("fill", d => {
+                        if (d.isSelected) return "#0d6efd";
+                        if (d.isOther) return "#6c757d";
+                        if (d.type === '模块') return "#0d6efd";
+                        
+                        const mastery = d.mastery || 0;
+                        if (mastery >= 0.8) return "#198754";
+                        if (mastery >= 0.5) return "#ffc107";
+                        if (mastery > 0) return "#dc3545";
+                        return "#6c757d";
+                    })
+                    .style("cursor", d => d.isOther ? "pointer" : "default")
+                    .on("click", function(event, d) {
+                        if (d.isOther) {
+                            showModuleDetail(d);
+                        } else if (d.isSelected) {
+                            initOverview();
+                        }
+                    })
+                    .call(d3.drag()
+                        .on("start", dragstarted)
+                        .on("drag", dragged)
+                        .on("end", dragended));
+                
+                // 创建标签
+                label = g.append("g")
+                    .selectAll("text")
+                    .data(detailNodes)
+                    .enter().append("text")
+                    .attr("class", d => {
+                        let classes = "label";
+                        if (d.isSelected || d.isOther) {
+                            classes += " white-text";
+                        } else {
+                            classes += " dark-text";
+                        }
+                        return classes;
+                    })
+                    .text(d => d.name)
+                    .style("font-size", d => d.isSelected ? "14px" : d.isOther ? "10px" : "12px")
+                    .style("font-weight", d => d.isSelected ? "bold" : "normal")
+                    .style("text-anchor", "middle")
+                    .style("pointer-events", "none")
+                    .style("display", showLabels ? "block" : "none");
+                
+                setupTooltip();
+                simulation.on("tick", tick);
+            }
+
+            // 设置提示框
+            function setupTooltip() {
+                const tooltip = d3.select("#tooltip");
+                
+                node.on("mouseover", function(event, d) {
+                    tooltip.style("opacity", .9);
+                    const masteryText = d.mastery !== undefined ? `<br/>掌握度: ${(d.mastery * 100).toFixed(0)}%` : '';
+                    const clickHint = d.isSelected ? '<br/>💡 点击返回概览' : 
+                                     d.isOther ? '<br/>💡 点击查看该模块' : 
+                                     d.type === '模块' ? '<br/>💡 点击查看详情' : '';
+                    tooltip.html(`
+                        <strong>${d.name}</strong><br/>
+                        ID: ${d.id}<br/>
+                        类型: ${d.type || 'N/A'}<br/>
+                        ${d.type !== '模块' ? `等级: ${d.level || 'N/A'}<br/>` : ''}
+                        ${d.type !== '模块' ? `难度: ${d.difficulty || 'N/A'}` : ''}
+                        ${masteryText}
+                        ${clickHint}
+                    `)
+                    .style("left", (event.pageX + 10) + "px")
+                    .style("top", (event.pageY - 28) + "px");
+                })
+                .on("mouseout", function(d) {
+                    tooltip.style("opacity", 0);
+                });
+            }
+            
+            // tick 函数
+            function tick() {
+                if (node) {
+                    node.attr("cx", d => {
+                        const r = d.isSelected ? 60 : d.isOther ? 20 : nodeSize;
+                        return d.x = Math.max(r, Math.min(width - r, d.x));
+                    })
+                    .attr("cy", d => {
+                        const r = d.isSelected ? 60 : d.isOther ? 20 : nodeSize;
+                        return d.y = Math.max(r, Math.min(height - r, d.y));
+                    });
+                }
+                
+                if (link) {
+                    link.attr("x1", d => d.source.x)
+                        .attr("y1", d => d.source.y)
+                        .attr("x2", d => d.target.x)
+                        .attr("y2", d => d.target.y);
+                }
+                
+                if (label) {
+                    label.attr("x", d => d.x)
+                         .attr("y", d => d.y + (d.isSelected ? 8 : d.isOther ? 4 : 5));
+                }
+            } 
+            
+            function dragstarted(event, d) {
                 if (!event.active) simulation.alphaTarget(0.3).restart();
                 d.fx = d.x;
                 d.fy = d.y;
-            }}
+            }
             
-            function dragged(event, d) {{
+            function dragged(event, d) {
                 d.fx = event.x;
                 d.fy = event.y;
-            }}
+            }
             
-            function dragended(event, d) {{
+            function dragended(event, d) {
                 if (!event.active) simulation.alphaTarget(0);
                 d.fx = null;
                 d.fy = null;
-            }}
+            }
+            
+            // 初始化概览视图
+            initOverview();
         </script>
     </body>
     </html>
     """
     return html_template
+
+def generate_module_nodes(graph_data, mastery_map):
+    """生成模块节点用于概览视图"""
+    module_nodes = []
+    module_edges = []
+    
+    if not graph_data or "nodes" not in graph_data:
+        return module_nodes, module_edges
+    
+    all_nodes = graph_data.get('nodes', [])
+    all_edges = graph_data.get('edges', [])
+    
+    # 提取模块节点
+    modules = [node for node in all_nodes if node.get('type') == '模块' or node.get('node_type') == '模块']
+    
+    # 为每个模块创建Node对象
+    for module in modules:
+        # 计算该模块的平均掌握度
+        module_knowledge_ids = set(
+            edge['target'] for edge in all_edges 
+            if edge['source'] == module['id'] and edge['relation'] == '包含'
+        )
+        
+        if module_knowledge_ids:
+            avg_mastery = sum(mastery_map.get(kid, 0) for kid in module_knowledge_ids) / len(module_knowledge_ids)
+        else:
+            avg_mastery = 0
+        
+        # 根据掌握度设置颜色
+        if avg_mastery >= 0.8:
+            color = "#198754"  # 绿色
+        elif avg_mastery >= 0.5:
+            color = "#ffc107"  # 黄色
+        elif avg_mastery > 0:
+            color = "#dc3545"  # 红色
+        else:
+            color = "#6c757d"  # 灰色
+        
+        module_nodes.append(Node(
+            id=module['id'],
+            label=f"{module['name']} 📚\n掌握度: {avg_mastery:.0%}",
+            size=40,  # 增大模块节点大小
+            color=color,
+            title=f"模块: {module['name']}\n平均掌握度: {avg_mastery:.1%}\n点击查看详情"
+        ))
+    
+    # 模块之间的关系（如果有的话）
+    module_ids = set(module['id'] for module in modules)
+    for edge in all_edges:
+        if edge['source'] in module_ids and edge['target'] in module_ids:
+            module_edges.append(Edge(
+                source=edge['source'],
+                target=edge['target'],
+                label="",  # 移除"指向"文字标签
+                color="#0d6efd"
+            ))
+    
+    return module_nodes, module_edges
+
+def generate_knowledge_points(graph_data, module_id, mastery_map):
+    """生成指定模块的知识点详细图谱"""
+    if not graph_data or "nodes" not in graph_data:
+        return [], []
+    
+    all_nodes = graph_data.get('nodes', [])
+    all_edges = graph_data.get('edges', [])
+    
+    # 获取该模块包含的知识点ID
+    knowledge_ids = set(
+        edge['target'] for edge in all_edges 
+        if edge['source'] == module_id and edge['relation'] == '包含'
+    )
+    
+    # 创建知识点节点
+    knowledge_nodes = []
+    for node in all_nodes:
+        if node['id'] in knowledge_ids:
+            mastery = mastery_map.get(node['name'], 0)
+            
+            # 根据掌握度设置颜色
+            if mastery >= 0.8:
+                color = "#198754"  # 绿色
+            elif mastery >= 0.5:
+                color = "#ffc107"  # 黄色
+            elif mastery > 0:
+                color = "#dc3545"  # 红色
+            else:
+                color = "#6c757d"  # 灰色
+            
+            knowledge_nodes.append(Node(
+                id=node['id'],
+                label=f"{node['name']}\n{mastery:.0%}",
+                size=35,  # 增大知识点节点大小
+                color=color,
+                title=f"知识点: {node['name']}\n掌握度: {mastery:.1%}\n难度: {node.get('difficulty', 'N/A')}\n等级: {node.get('level', 'N/A')}"
+            ))
+    
+    # 创建知识点之间的关系
+    knowledge_edges = []
+    for edge in all_edges:
+        if (edge['source'] in knowledge_ids and 
+            edge['target'] in knowledge_ids and 
+            edge['relation'] == '指向'):
+            knowledge_edges.append(Edge(
+                source=edge['source'],
+                target=edge['target'],
+                label="",  # 移除"指向"文字标签
+                color="#0d6efd"
+            ))
+    
+    return knowledge_nodes, knowledge_edges
 
 def render_knowledge_map_page(api_service, current_user, user_id):
     """渲染知识图谱页面"""
@@ -206,6 +495,12 @@ def render_knowledge_map_page(api_service, current_user, user_id):
         return
     
     st.info(f"👨‍🎓 当前学习者：**{current_user}**")
+    
+    # 初始化session state
+    if 'kg_view' not in st.session_state:
+        st.session_state['kg_view'] = 'overview'
+    if 'selected_module' not in st.session_state:
+        st.session_state['selected_module'] = None
     
     # --- [MODIFIED] 数据获取与处理部分 ---
     # 1. 获取用户的知识点掌握度数据
@@ -225,186 +520,134 @@ def render_knowledge_map_page(api_service, current_user, user_id):
     else:
         df = pd.DataFrame(columns=['知识点名称', '我的掌握度', '难度'])
     
-    # --- [NEW] D3.js 知识图谱可视化 ---
+    # --- [NEW] 交互式知识图谱可视化 ---
     st.markdown("### 🕸️ 知识关系图谱（交互式）")
-    st.success("💡 **交互提示**：可以拖动节点，鼠标悬浮可查看详情。节点颜色表示掌握度：🟢已掌握 🟡学习中 🔴需加强 ⚪未开始")
-
+    
+    # 使用Streamlit原生容器样式，避免CSS层级问题
+    
     try:
         # 3. 获取完整的图谱结构数据
         graph_data = api_service.get_knowledge_graph_data()
         
         if graph_data and "nodes" in graph_data and "edges" in graph_data:
-            all_nodes = graph_data.get('nodes', [])
-            all_edges = graph_data.get('edges', [])
+            # 将用户的掌握度数据转换为字典
+            mastery_map = {row['知识点名称']: row['我的掌握度'] for index, row in df.iterrows()}
             
-            # 提取模块用于下拉选择
-            modules = [node for node in all_nodes if node.get('node_type') == '模块' or node.get('type') == '模块']
+            # 配置agraph - 允许拖拽节点，禁用缩放功能，响应式宽度
+            config = Config(
+                width="100%",  # 使用百分比宽度，自适应容器
+                height=600,
+                directed=True,
+                physics=False,
+                hierarchical=False,
+                nodeHighlightBehavior=True,
+                highlightColor="#F7A7A6",
+                staticGraph=False,
+                staticGraphWithDragAndDrop=True,
+                # 精确控制交互功能
+                interaction={
+                    "dragNodes": True,           # 允许拖拽节点
+                    "dragView": False,          # 禁用视图拖拽
+                    "hideEdgesOnDrag": False,
+                    "hideNodesOnDrag": False,
+                    "hover": True,
+                    "hoverConnectedEdges": True,
+                    "keyboard": {
+                        "enabled": False
+                    },
+                    "multiselect": False,
+                    "navigationButtons": False,  # 隐藏缩放按钮
+                    "selectable": True,
+                    "selectConnectedEdges": False,
+                    "tooltipDelay": 300,
+                    "zoomView": False           # 禁用缩放
+                }
+            )
             
-            if modules:
-                # 控制面板
-                col1, col2, col3 = st.columns([2, 1, 1])
+            # 根据当前视图状态显示不同内容
+            if st.session_state['kg_view'] == 'overview':
+                st.success("💡 **交互提示**：点击任意模块节点查看该模块的详细知识点图谱")
                 
-                with col1:
-                    # 使用模块名称作为选项
-                    module_names = [m['name'] for m in modules]
-                    selected_module_name = st.selectbox("📚 选择模块", options=module_names, index=0)
-                    # 根据选择的名称找到对应的模块ID
-                    selected_module_id = next((m['id'] for m in modules if m['name'] == selected_module_name), None)
-
-                with col2:
-                    show_labels = st.checkbox("🏷️ 显示标签", value=True)
+                # 生成模块概览图
+                module_nodes, module_edges = generate_module_nodes(graph_data, mastery_map)
                 
-                with col3:
-                    if st.button("🔄 刷新图谱"):
+                if module_nodes:
+                    # 显示模块概览图谱（带样式容器）
+                    with st.container():
+                        # 使用Streamlit原生容器样式
+                        with st.expander("🗺️ 模块概览图谱", expanded=True):
+                            clicked_node_id = agraph(nodes=module_nodes, edges=module_edges, config=config)
+                    
+                    # 如果有模块被点击，切换到详细视图
+                    if clicked_node_id:
+                        st.session_state['kg_view'] = 'detail'
+                        st.session_state['selected_module'] = clicked_node_id
                         st.rerun()
-
-                if selected_module_id:
-                    # 根据选择的模块筛选节点和边，不展示模块节点
-                    # 找出模块包含的所有知识点ID
-                    module_kp_ids = {edge['target'] for edge in all_edges if edge['source'] == selected_module_id and edge['relation'] == '包含'}
-                    
-                    # 只筛选知识点节点
-                    nodes = [node for node in all_nodes if node['id'] in module_kp_ids]
-                    
-                    # 只筛选模块内知识点之间的"指向"关系
-                    edges = [
-                        edge for edge in all_edges 
-                        if (edge['source'] in module_kp_ids and 
-                            edge['target'] in module_kp_ids and 
-                            edge['relation'] == '指向')
-                    ]
-
-                    if nodes:
-                        # 4. 将用户的掌握度数据合并到图谱的节点信息中
-                        mastery_map = {row['知识点名称']: row['我的掌握度'] for index, row in df.iterrows()}
-                        for node in nodes:
-                            node["mastery"] = mastery_map.get(node["name"], 0.0)
-                        
-                        # 5. 准备筛选后的图谱数据
-                        filtered_graph_data = {
-                            "nodes": nodes,
-                            "edges": edges
-                        }
-                        
-                        # 6. 生成并渲染HTML
-                        html_code = generate_d3_html(filtered_graph_data, show_labels)
-                        st.components.v1.html(html_code, height=600, scrolling=False)
-                        
-                        # 更新图例
-                        st.markdown("### 📖 图例说明")
-                        col1, col2, col3 = st.columns(3)
-                        with col1:
-                            st.markdown("""
-                            **节点颜色（掌握度）:**
-                            - 🟢 **已掌握** (≥80%)
-                            - 🟡 **学习中** (50%-80%)
-                            - 🔴 **需加强** (1%-50%)
-                            - ⚪ **未开始** (0%)
-                            """)
-                        with col2:
-                            st.markdown("""
-                            **关系类型:**
-                            - <span style='color:#337ab7; font-weight:bold;'>--►</span> **指向** (知识点之间)
-                            """, unsafe_allow_html=True)
-                        with col3:
-                            st.markdown("""
-                            **交互功能:**
-                            - **拖拽** 移动节点
-                            - **悬浮** 查看详情
-                            - **缩放** 调整视图
-                            """)
-                    else:
-                        st.info("ℹ️ 当前模块下没有知识点或关系。")
                 else:
-                    st.error("❌ 无法找到所选模块。")
-            else:
-                # 如果没有模块，显示所有节点
-                # 4. 将用户的掌握度数据合并到图谱的节点信息中
-                mastery_map = {row['知识点名称']: row['我的掌握度'] for index, row in df.iterrows()}
-                for node in graph_data["nodes"]:
-                    node["mastery"] = mastery_map.get(node["name"], 0.0)
+                    st.warning("⚠️ 暂无模块数据可供展示。")
+            
+            elif st.session_state['kg_view'] == 'detail':
+                selected_module = st.session_state['selected_module']
                 
-                # 5. 准备 D3.js 需要的 links 格式
-                graph_data["links"] = graph_data["edges"]
+                # 获取模块名称
+                module_name = "未知模块"
+                for node in graph_data.get('nodes', []):
+                    if node['id'] == selected_module:
+                        module_name = node['name']
+                        break
                 
-                # 6. 生成并渲染HTML
-                html_code = generate_d3_html(graph_data)
-                st.components.v1.html(html_code, height=700, scrolling=False)
+                st.info(f"📚 **当前模块**：{module_name}")
+                
+                # 返回按钮
+                if st.button("⬅️ 返回模块概览"):
+                    st.session_state['kg_view'] = 'overview'
+                    st.session_state['selected_module'] = None
+                    st.rerun()
+                
+                # 生成该模块的详细知识点图谱
+                knowledge_nodes, knowledge_edges = generate_knowledge_points(
+                    graph_data, selected_module, mastery_map
+                )
+                
+                if knowledge_nodes:
+                    st.success("💡 **交互提示**：可以拖拽节点调整布局，悬浮查看知识点详情")
+                    # 显示知识点详细图谱（使用原生容器）
+                    with st.container():
+                        with st.expander(f"🔍 {module_name} - 详细知识点图谱", expanded=True):
+                            agraph(nodes=knowledge_nodes, edges=knowledge_edges, config=config)
+                else:
+                    st.warning(f"⚠️ 模块 '{module_name}' 暂无知识点数据。")
+            
+            # 图例说明
+            st.markdown("### 📖 图例说明")
+            col1, col2, col3 = st.columns(3)
+            with col1:
+                st.markdown("""
+                **节点颜色（掌握度）:**
+                - 🟢 **已掌握** (≥80%)
+                - 🟡 **学习中** (50%-80%)
+                - 🔴 **需加强** (1%-50%)
+                - ⚪ **未开始** (0%)
+                """)
+            with col2:
+                st.markdown("""
+                **关系类型:**
+                - <span style='color:#0d6efd; font-weight:bold;'>--►</span> **指向** (知识点依赖)
+                - <span style='color:#6c757d; font-weight:bold;'>--</span> **包含** (模块包含知识点)
+                """, unsafe_allow_html=True)
+            with col3:
+                st.markdown("""
+                **交互功能:**
+                - **点击** 模块节点查看详情
+                - **拖拽** 移动节点调整布局
+                - **悬浮** 查看节点信息
+                - **禁缩放** 固定图谱大小
+                """)
         else:
             st.warning("⚠️ 暂无知识图谱关系数据可供展示。")
     except Exception as e:
         st.error(f"❌ 知识图谱加载失败: {e}")
 
 
-    # --- [RETAINED] 您原来的所有统计分析和图表代码 ---
-    # 这部分代码无需修改，因为它现在使用了我们上面处理好的 DataFrame (df)
-    
-    st.markdown("### 📊 学习概览")
-    
-    col1, col2, col3, col4 = st.columns(4)
-    total_nodes = len(df)
-    with col1:
-        st.metric("总知识点", f"{total_nodes}个")
-    with col2:
-        mastered_nodes = len(df[df['我的掌握度'] >= 0.8])
-        mastered_percentage = f"{mastered_nodes/total_nodes:.0%}" if total_nodes > 0 else "0%"
-        st.metric("已掌握", f"{mastered_nodes}个", mastered_percentage)
-    with col3:
-        learning_nodes = len(df[(df['我的掌握度'] >= 0.3) & (df['我的掌握度'] < 0.8)])
-        learning_percentage = f"{learning_nodes/total_nodes:.0%}" if total_nodes > 0 else "0%"
-        st.metric("学习中", f"{learning_nodes}个", learning_percentage)
-    with col4:
-        avg_mastery = df['我的掌握度'].mean() if not df.empty else 0
-        st.metric("平均掌握度", f"{avg_mastery:.1%}")
-
-    st.write("### 📋 详细知识点掌握情况")
-    st.dataframe(
-        df,
-        column_config={
-            "我的掌握度": st.column_config.ProgressColumn(
-                "掌握度",
-                help="系统评估你对该知识点的掌握程度",
-                min_value=0.0,
-                max_value=1.0,
-                format="%.0f%%" # 改为整数百分比，更直观
-            )
-        },
-        use_container_width=True,
-        hide_index=True
-    )
-
-    if not df.empty:
-        st.write("### 📈 掌握度可视化分析")
-
-        col1, col2 = st.columns(2)
-        with col1:
-            st.write("#### 各知识点掌握度")
-            mastery_data = df.set_index('知识点名称')['我的掌握度']
-            st.bar_chart(mastery_data)
-
-        with col2:
-            st.write("#### 掌握度分布")
-            mastery_levels = {
-                "未开始 (0)": len(df[df['我的掌握度'] == 0]),
-                "初学 (0-0.3)": len(df[(df['我的掌握度'] > 0) & (df['我的掌握度'] <= 0.3)]),
-                "学习中 (0.3-0.8)": len(df[(df['我的掌握度'] > 0.3) & (df['我的掌握度'] < 0.8)]),
-                "已掌握 (0.8+)": len(df[df['我的掌握度'] >= 0.8])
-            }
-            distribution_df = pd.DataFrame(list(mastery_levels.items()), columns=['掌握度等级', '知识点数量'])
-            st.bar_chart(distribution_df.set_index('掌握度等级'))
-
-        st.write("### 💡 个性化学习建议")
-
-        if avg_mastery >= 0.8:
-            st.success("🎉 太棒了！你的平均掌握度达到了优秀水平！可以挑战更高难度的知识点。")
-        elif avg_mastery >= 0.6:
-            st.info("👍 不错！你的学习进展良好，继续保持！")
-            weak_points = df[df['我的掌握度'] < 0.5]['知识点名称'].tolist()
-            if weak_points:
-                st.warning(f"🎯 **重点关注**: {', '.join(weak_points)}")
-        else:
-            st.warning("💪 还有很大提升空间，建议制定系统的学习计划！")
-            priority_points = df.nsmallest(2, '我的掌握度')['知识点名称'].tolist()
-            if priority_points:
-                st.info(f"📚 **优先学习**: {', '.join(priority_points)}")
+    # 移除统计分析和图表代码，只保留知识图谱
 

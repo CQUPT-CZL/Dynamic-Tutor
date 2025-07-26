@@ -641,6 +641,15 @@ wheels = [
 ]
 
 [[package]]
+name = "pyparsing"
+version = "3.2.3"
+source = { registry = "https://mirrors.aliyun.com/pypi/simple" }
+sdist = { url = "https://mirrors.aliyun.com/pypi/packages/bb/22/f1129e69d94ffff626bdb5c835506b3a5b4f3d070f17ea295e12c2c6f60f/pyparsing-3.2.3.tar.gz", hash = "sha256:b9c13f1ab8b3b542f72e28f634bad4de758ab3ce4546e4301970ad6fa77c38be" }
+wheels = [
+    { url = "https://mirrors.aliyun.com/pypi/packages/05/e7/df2285f3d08fee213f2d041540fa4fc9ca6c2d44cf36d3a035bf2a8d2bcc/pyparsing-3.2.3-py3-none-any.whl", hash = "sha256:a749938e02d6fd0b59b356ca504a24982314bb090c383e3cf201c95ef7e2bfcf" },
+]
+
+[[package]]
 name = "python-dateutil"
 version = "2.9.0.post0"
 source = { registry = "https://mirrors.aliyun.com/pypi/simple" }
@@ -682,6 +691,18 @@ dependencies = [
 ]
 wheels = [
     { url = "https://mirrors.aliyun.com/pypi/packages/ab/4b/e37e4e5d5ee1179694917b445768bdbfb084f5a59ecd38089d3413d4c70f/pyvis-0.3.2-py3-none-any.whl", hash = "sha256:5720c4ca8161dc5d9ab352015723abb7a8bb8fb443edeb07f7a322db34a97555" },
+]
+
+[[package]]
+name = "rdflib"
+version = "7.1.4"
+source = { registry = "https://mirrors.aliyun.com/pypi/simple" }
+dependencies = [
+    { name = "pyparsing" },
+]
+sdist = { url = "https://mirrors.aliyun.com/pypi/packages/e8/7e/cb2d74466bd8495051ebe2d241b1cb1d4acf9740d481126aef19ef2697f5/rdflib-7.1.4.tar.gz", hash = "sha256:fed46e24f26a788e2ab8e445f7077f00edcf95abb73bcef4b86cefa8b62dd174" }
+wheels = [
+    { url = "https://mirrors.aliyun.com/pypi/packages/f4/31/e9b6f04288dcd3fa60cb3179260d6dad81b92aef3063d679ac7d80a827ea/rdflib-7.1.4-py3-none-any.whl", hash = "sha256:72f4adb1990fa5241abd22ddaf36d7cafa5d91d9ff2ba13f3086d339b213d997" },
 ]
 
 [[package]]
@@ -839,6 +860,20 @@ wheels = [
 ]
 
 [[package]]
+name = "streamlit-agraph"
+version = "0.0.45"
+source = { registry = "https://mirrors.aliyun.com/pypi/simple" }
+dependencies = [
+    { name = "networkx" },
+    { name = "rdflib" },
+    { name = "streamlit" },
+]
+sdist = { url = "https://mirrors.aliyun.com/pypi/packages/e6/63/00a16b1500cde32d43177bba1c16d12369ed7d1c8b45ab8162f6552d8519/streamlit-agraph-0.0.45.tar.gz", hash = "sha256:b2b7cf1ad0a40dc906de50792b27f2878b0e186603cb3bc958ed78ca7e469cdd" }
+wheels = [
+    { url = "https://mirrors.aliyun.com/pypi/packages/b9/80/8a666e700332a9fe19e458678c95fab4d78340251d2f12da7d2ad915458a/streamlit_agraph-0.0.45-py3-none-any.whl", hash = "sha256:38e7271ffd76a6769968c2e9dfc16cbac7621d62be15af98b62598e1446bee2f" },
+]
+
+[[package]]
 name = "streamlit-mermaid"
 version = "0.3.0"
 source = { registry = "https://mirrors.aliyun.com/pypi/simple" }
@@ -961,6 +996,7 @@ dependencies = [
     { name = "python-multipart" },
     { name = "pyvis" },
     { name = "streamlit" },
+    { name = "streamlit-agraph" },
     { name = "streamlit-mermaid" },
     { name = "tqdm" },
     { name = "uvicorn" },
@@ -975,6 +1011,7 @@ requires-dist = [
     { name = "python-multipart", specifier = ">=0.0.20" },
     { name = "pyvis", specifier = ">=0.3.2" },
     { name = "streamlit", specifier = ">=1.46.1" },
+    { name = "streamlit-agraph", specifier = ">=0.0.45" },
     { name = "streamlit-mermaid", specifier = ">=0.3.0" },
     { name = "tqdm", specifier = ">=4.67.1" },
     { name = "uvicorn", specifier = ">=0.35.0" },
