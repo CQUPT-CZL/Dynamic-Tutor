@@ -109,9 +109,46 @@ CREATE TABLE wrong_questions (
     UNIQUE(user_id, question_id)
 );
 
--- 插入一些初始用户，用于测试
+-- 插入20个学生用户和1个教师用户，用于测试
 INSERT INTO users (username, role) VALUES ('小崔', 'student');
 INSERT INTO users (username, role) VALUES ('小陈', 'student');
 INSERT INTO users (username, role) VALUES ('小李', 'student');
 INSERT INTO users (username, role) VALUES ('小张', 'student');
+INSERT INTO users (username, role) VALUES ('小王', 'student');
+INSERT INTO users (username, role) VALUES ('小赵', 'student');
+INSERT INTO users (username, role) VALUES ('小钱', 'student');
+INSERT INTO users (username, role) VALUES ('小孙', 'student');
+INSERT INTO users (username, role) VALUES ('小周', 'student');
+INSERT INTO users (username, role) VALUES ('小吴', 'student');
+INSERT INTO users (username, role) VALUES ('小郑', 'student');
+INSERT INTO users (username, role) VALUES ('小冯', 'student');
+INSERT INTO users (username, role) VALUES ('小陆', 'student');
+INSERT INTO users (username, role) VALUES ('小丁', 'student');
+INSERT INTO users (username, role) VALUES ('小石', 'student');
+INSERT INTO users (username, role) VALUES ('小田', 'student');
+INSERT INTO users (username, role) VALUES ('小何', 'student');
+INSERT INTO users (username, role) VALUES ('小林', 'student');
+INSERT INTO users (username, role) VALUES ('小徐', 'student');
+INSERT INTO users (username, role) VALUES ('小黄', 'student');
 INSERT INTO users (username, role) VALUES ('舵老师', 'teacher');
+
+INSERT INTO users (username, role) VALUES ('小刘', 'student');
+INSERT INTO users (username, role) VALUES ('小杨', 'student');
+INSERT INTO users (username, role) VALUES ('小宋', 'student');
+INSERT INTO users (username, role) VALUES ('小韩', 'student');
+INSERT INTO users (username, role) VALUES ('小魏', 'student');
+INSERT INTO users (username, role) VALUES ('小邓', 'student');
+INSERT INTO users (username, role) VALUES ('小许', 'student');
+INSERT INTO users (username, role) VALUES ('小曾', 'student');
+INSERT INTO users (username, role) VALUES ('小彭', 'student');
+INSERT INTO users (username, role) VALUES ('小吕', 'student');
+INSERT INTO users (username, role) VALUES ('小苏', 'student');
+INSERT INTO users (username, role) VALUES ('小卢', 'student');
+INSERT INTO users (username, role) VALUES ('小蒋', 'student');
+INSERT INTO users (username, role) VALUES ('小蔡', 'student');
+INSERT INTO users (username, role) VALUES ('小贾', 'student');
+INSERT INTO users (username, role) VALUES ('小丛', 'student');
+INSERT INTO users (username, role) VALUES ('小关', 'student');
+INSERT INTO users (username, role) VALUES ('小兰', 'student');
+INSERT INTO users (username, role) VALUES ('小方', 'student');
+INSERT INTO users (username, role) VALUES ('小史', 'student');

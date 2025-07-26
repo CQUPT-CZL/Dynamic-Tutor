@@ -9,24 +9,62 @@ from collections import defaultdict
 
 # --- 配置区 ---
 DB_FILE = "my_database.db"
-NUM_INTERACTIONS_PER_USER = 100
+NUM_INTERACTIONS_PER_USER = 300
 
 # --- 虚拟学生画像定义 ---
+# --- 虚拟学生画像定义 --- 
 PERSONAS = {
     "小崔": {"name": "基础薄弱的小崔", "base_accuracy": 0.4, "weakness": "knowledge"},
     "小陈": {"name": "聪明的马虎蛋小陈", "base_accuracy": 0.8, "weakness": "calculation"},
     "小李": {"name": "稳步前进的小李", "base_accuracy": 0.7, "weakness": None},
-    "小张": {"name": "学霸小张", "base_accuracy": 0.95, "weakness": None}
+    "小张": {"name": "学霸小张", "base_accuracy": 0.95, "weakness": None},
+    "小王": {"name": "努力型小王", "base_accuracy": 0.6, "weakness": "logic"},
+    "小赵": {"name": "天赋型小赵", "base_accuracy": 0.85, "weakness": None},
+    "小钱": {"name": "粗心大意小钱", "base_accuracy": 0.75, "weakness": "calculation"},
+    "小孙": {"name": "概念混淆小孙", "base_accuracy": 0.5, "weakness": "knowledge"},
+    "小周": {"name": "逻辑清晰小周", "base_accuracy": 0.8, "weakness": "calculation"},
+    "小吴": {"name": "基础扎实小吴", "base_accuracy": 0.75, "weakness": None},
+    "小郑": {"name": "思维敏捷小郑", "base_accuracy": 0.9, "weakness": "calculation"},
+    "小冯": {"name": "勤奋刻苦小冯", "base_accuracy": 0.65, "weakness": "logic"},
+    "小陆": {"name": "理解困难小陆", "base_accuracy": 0.45, "weakness": "knowledge"},
+    "小丁": {"name": "计算达人小丁", "base_accuracy": 0.8, "weakness": "logic"},
+    "小石": {"name": "全面发展小石", "base_accuracy": 0.7, "weakness": None},
+    "小田": {"name": "偏科严重小田", "base_accuracy": 0.55, "weakness": "knowledge"},
+    "小何": {"name": "细心谨慎小何", "base_accuracy": 0.75, "weakness": "logic"},
+    "小林": {"name": "创新思维小林", "base_accuracy": 0.85, "weakness": None},
+    "小徐": {"name": "基础一般小徐", "base_accuracy": 0.6, "weakness": "calculation"},
+    "小黄": {"name": "潜力无限小黄", "base_accuracy": 0.65, "weakness": "logic"},
+    # 新增20个用户
+    "小刘": {"name": "踏实认真小刘", "base_accuracy": 0.72, "weakness": "knowledge"},
+    "小杨": {"name": "反应迅速小杨", "base_accuracy": 0.88, "weakness": "calculation"},
+    "小宋": {"name": "沉稳内敛小宋", "base_accuracy": 0.68, "weakness": "logic"},
+    "小韩": {"name": "活泼好学小韩", "base_accuracy": 0.77, "weakness": None},
+    "小魏": {"name": "专注细致小魏", "base_accuracy": 0.83, "weakness": "calculation"},
+    "小邓": {"name": "基础扎实小邓", "base_accuracy": 0.74, "weakness": None},
+    "小许": {"name": "思维活跃小许", "base_accuracy": 0.81, "weakness": "logic"},
+    "小曾": {"name": "勤学好问小曾", "base_accuracy": 0.63, "weakness": "knowledge"},
+    "小彭": {"name": "逻辑严密小彭", "base_accuracy": 0.86, "weakness": "calculation"},
+    "小吕": {"name": "稳中求进小吕", "base_accuracy": 0.69, "weakness": "logic"},
+    "小苏": {"name": "天资聪颖小苏", "base_accuracy": 0.92, "weakness": None},
+    "小卢": {"name": "努力上进小卢", "base_accuracy": 0.58, "weakness": "knowledge"},
+    "小蒋": {"name": "计算精准小蒋", "base_accuracy": 0.79, "weakness": "logic"},
+    "小蔡": {"name": "理解深刻小蔡", "base_accuracy": 0.84, "weakness": "calculation"},
+    "小贾": {"name": "基础薄弱小贾", "base_accuracy": 0.42, "weakness": "knowledge"},
+    "小丛": {"name": "全面均衡小丛", "base_accuracy": 0.76, "weakness": None},
+    "小关": {"name": "细心谨慎小关", "base_accuracy": 0.71, "weakness": "calculation"},
+    "小兰": {"name": "思路清晰小兰", "base_accuracy": 0.87, "weakness": "logic"},
+    "小方": {"name": "刻苦钻研小方", "base_accuracy": 0.64, "weakness": "knowledge"},
+    "小史": {"name": "潜力巨大小史", "base_accuracy": 0.66, "weakness": "logic"}
 }
 
 # --- 模块顺序定义 ---
 MODULE_ORDER = [
-    "第一模块：概率论的基本概念",
-    "第二模块：概率运算进阶", 
-    "第三模块：随机变量及其分布",
-    "第四模块：数字特征与关系",
-    "第五模块：极限定理",
-    "第六模块：数理统计"
+    "概率论的基本概念",
+    "概率运算进阶", 
+    "随机变量及其分布",
+    "数字特征与关系",
+    "极限定理",
+    "数理统计"
 ]
 
 def get_db_connection():
@@ -161,7 +199,7 @@ def get_next_learnable_node(cursor, user_id, all_nodes, prereq_map):
         print(f"  🎓 用户{user_id}已完成所有模块的学习！")
         return None
     
-    print(f"  📚 用户{user_id}当前学习模块: {current_module}")
+    # print(f"  📚 用户{user_id}当前学习模块: {current_module}")
     
     # 在当前模块内寻找下一个可学习的节点
     next_node = get_next_learnable_node_in_module(cursor, user_id, current_module, all_nodes, prereq_map)
@@ -223,7 +261,7 @@ def simulate_user_learning():
             node_switch_count = 0
             current_module = None
             
-            for interaction_num in tqdm(range(NUM_INTERACTIONS_PER_USER), desc=f"  模拟'{username}'学习中", leave=False):
+            for interaction_num in tqdm(range(random.randint(10, 300)), desc=f"  模拟'{username}'学习中", leave=False):
                 # 每次循环睡眠0.1秒
                 time.sleep(0.1)
                 target_node = get_next_learnable_node(cursor, user_id, all_nodes, prereq_map)
@@ -276,11 +314,11 @@ def simulate_user_learning():
                 # 掌握度更新算法
                 if is_correct:
                     # 答对时，根据题目难度动态调整增长幅度
-                    growth = 0.1 + question_difficulty * 0.1  # 难题答对增长更多
+                    growth = 0.25 + question_difficulty * 0.1  # 难题答对增长更多
                     new_mastery = min(1.0, current_mastery + growth)
                 else:
                     # 答错时，掌握度下降
-                    new_mastery = max(0.0, current_mastery - 0.05)
+                    new_mastery = max(0.0, current_mastery - 0.04)
                 
                 # 保留两位小数
                 new_mastery = round(new_mastery, 2)
