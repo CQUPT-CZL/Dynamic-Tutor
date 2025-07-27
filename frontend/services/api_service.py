@@ -312,9 +312,9 @@ class APIService:
             }
     
     # 题目管理
-    def get_questions(self, page: int = 1, page_size: int = 100, search: str = "", question_type: str = "", status: str = "") -> Dict[str, Any]:
+    def get_questions(self, page: int = 1, page_size: int = 100, search: str = "", question_type: str = "", status: str = "", knowledge_node_id: str = "") -> Dict[str, Any]:
         """获取题目列表"""
-        print(f"[API调用] get_questions(page={page}, page_size={page_size}, search={search}, question_type={question_type}, status={status})")
+        print(f"[API调用] get_questions(page={page}, page_size={page_size}, search={search}, question_type={question_type}, status={status}, knowledge_node_id={knowledge_node_id})")
         try:
             params = {"page": page, "page_size": page_size}
             if search:
@@ -323,6 +323,8 @@ class APIService:
                 params["question_type"] = question_type
             if status:
                 params["status"] = status
+            if knowledge_node_id:
+                params["knowledge_node_id"] = knowledge_node_id
             response = self._make_request("GET", "/teacher/question/list", params=params)
             
             # 确保返回的数据结构包含questions和pagination

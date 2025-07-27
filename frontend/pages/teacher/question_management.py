@@ -39,23 +39,42 @@ def render_question_list(api_service, user_id):
     st.subheader("📋 题目列表")
     
     # 搜索和筛选
-    col1, col2, col3 = st.columns([2, 1, 1])
+    col1, col2, col3, col4, col5 = st.columns([1.5, 1, 1, 1, 1])
+    
     with col1:
         search_term = st.text_input("🔍 搜索题目", placeholder="输入关键词搜索...")
+    
     with col2:
         question_type_filter = st.selectbox("📋 题目类型", ["全部", "选择题", "填空题", "解答题"])
+    
     with col3:
         status_filter = st.selectbox("📊 状态", ["全部", "已发布", "草稿"])
     
-    # 分页控制
-    col1, col2, col3 = st.columns([1, 2, 1])
-    with col1:
+    with col4:
+        # 知识点筛选
+        try:
+            knowledge_response = api_service.get_knowledge_nodes()
+            knowledge_nodes = knowledge_response.get('knowledge_points', [])
+            
+            
+            # 添加"全部知识点"选项
+            knowledge_options = [{"node_id": "", "node_name": "全部知识点"}] + knowledge_nodes
+            
+            selected_knowledge = st.selectbox(
+                "📚 知识点",
+                options=knowledge_options,
+                format_func=lambda x: x['node_name']
+            )
+            knowledge_node_id = selected_knowledge['node_id'] if selected_knowledge['node_id'] else ""
+        except Exception as e:
+            st.warning(f"⚠️ 获取知识点列表失败: {str(e)}")
+            knowledge_node_id = ""
+    
+    with col5:
+        # 分页控制
         page_size = st.selectbox("📄 每页显示", [10, 20, 50, 100], index=1)
-    with col2:
         if 'current_page' not in st.session_state:
             st.session_state.current_page = 1
-    with col3:
-        st.write("")
     
     # 转换筛选条件
     type_param = "" if question_type_filter == "全部" else question_type_filter
@@ -68,7 +87,8 @@ def render_question_list(api_service, user_id):
             page_size=page_size,
             search=search_term,
             question_type=type_param,
-            status=status_param
+            status=status_param,
+            knowledge_node_id=knowledge_node_id
         )
         
         questions = response.get('questions', [])

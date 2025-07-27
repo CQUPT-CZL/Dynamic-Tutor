@@ -100,10 +100,11 @@ async def get_questions(
     created_by: Optional[int] = None,
     search: Optional[str] = None,
     min_difficulty: Optional[float] = None,
-    max_difficulty: Optional[float] = None
+    max_difficulty: Optional[float] = None,
+    knowledge_node_id: Optional[str] = None
 ):
     """获取题目列表"""
-    print(f"[DEBUG] 获取题目列表接口收到参数: page={page}, page_size={page_size}, question_type={question_type}, status={status}, created_by={created_by}, search={search}, min_difficulty={min_difficulty}, max_difficulty={max_difficulty}")
+    print(f"[DEBUG] 获取题目列表接口收到参数: page={page}, page_size={page_size}, question_type={question_type}, status={status}, created_by={created_by}, search={search}, min_difficulty={min_difficulty}, max_difficulty={max_difficulty}, knowledge_node_id={knowledge_node_id}")
     try:
         # 验证分页参数
         if page < 1:
@@ -141,13 +142,22 @@ async def get_questions(
             conditions.append("q.difficulty <= ?")
             params.append(max_difficulty)
         
+        if knowledge_node_id:
+            conditions.append("qnm.node_id = ?")
+            params.append(knowledge_node_id)
+
         where_clause = " WHERE " + " AND ".join(conditions) if conditions else ""
+        
+        # 构建JOIN子句
+        join_clause = "LEFT JOIN users u ON q.created_by = u.user_id"
+        if knowledge_node_id:
+            join_clause += " LEFT JOIN question_to_node_mapping qnm ON q.question_id = qnm.question_id"
         
         # 获取总数
         count_query = f"""
-            SELECT COUNT(*) as total
+            SELECT COUNT(DISTINCT q.question_id) as total
             FROM questions q
-            LEFT JOIN users u ON q.created_by = u.user_id
+            {join_clause}
             {where_clause}
         """
         
@@ -160,7 +170,7 @@ async def get_questions(
         
         # 获取分页数据
         query = f"""
-            SELECT 
+            SELECT DISTINCT
                 q.question_id,
                 q.question_text,
                 q.question_image_url,
@@ -173,7 +183,7 @@ async def get_questions(
                 q.created_by,
                 u.username as creator_name
             FROM questions q
-            LEFT JOIN users u ON q.created_by = u.user_id
+            {join_clause}
             {where_clause}
             ORDER BY q.question_id DESC
             LIMIT ? OFFSET ?
