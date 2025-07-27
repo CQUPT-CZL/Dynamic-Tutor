@@ -29,12 +29,12 @@ class UpdateKnowledgeRequest(BaseModel):
 class CreateKnowledgeEdgeRequest(BaseModel):
     source_node_id: str
     target_node_id: str
-    relation_type: str = "is_prerequisite_for"
+    relation_type: str = "指向"
 
 class DeleteKnowledgeEdgeRequest(BaseModel):
     source_node_id: str
     target_node_id: str
-    relation_type: str = "is_prerequisite_for"
+    relation_type: str = "指向"
 
 router = APIRouter(prefix="/knowledge", tags=["知识点管理"])
 
@@ -81,7 +81,7 @@ async def create_knowledge_point(request: CreateKnowledgeRequest):
                     # 使用默认的teacher用户ID (假设为3，根据初始数据)
                     conn.execute("""
                         INSERT INTO knowledge_edges (source_node_id, target_node_id, relation_type, created_by)
-                        VALUES (?, ?, 'is_prerequisite_for', 3)
+                        VALUES (?, ?, '指向', 3)
                     """, (prereq_node["node_id"], node_id))
         
         conn.commit()
@@ -247,7 +247,7 @@ async def get_knowledge_prerequisites(node_id: str):
                 kn.node_learning
             FROM knowledge_nodes kn
             JOIN knowledge_edges ke ON kn.node_id = ke.source_node_id
-            WHERE ke.target_node_id = ? AND ke.relation_type = 'is_prerequisite_for'
+            WHERE ke.target_node_id = ? AND ke.relation_type = '指向'
             ORDER BY kn.level, kn.node_name
         """, (node_id,))
         
@@ -287,7 +287,7 @@ async def get_knowledge_detail(node_id: str):
             SELECT kn.node_id, kn.node_name
             FROM knowledge_nodes kn
             JOIN knowledge_edges ke ON kn.node_id = ke.source_node_id
-            WHERE ke.target_node_id = ? AND ke.relation_type = 'is_prerequisite_for'
+            WHERE ke.target_node_id = ? AND ke.relation_type = '指向'
         """, (node_id,))
         prerequisites = [dict(row) for row in cursor.fetchall()]
         
@@ -296,7 +296,7 @@ async def get_knowledge_detail(node_id: str):
             SELECT kn.node_id, kn.node_name
             FROM knowledge_nodes kn
             JOIN knowledge_edges ke ON kn.node_id = ke.target_node_id
-            WHERE ke.source_node_id = ? AND ke.relation_type = 'is_prerequisite_for'
+            WHERE ke.source_node_id = ? AND ke.relation_type = '指向'
         """, (node_id,))
         next_nodes = [dict(row) for row in cursor.fetchall()]
         
@@ -435,7 +435,7 @@ async def get_knowledge_graph_data():
         
         # 获取所有节点
         cursor = conn.execute("""
-            SELECT node_id, node_name, node_difficulty, level
+            SELECT node_id, node_name, node_difficulty, level, node_type
             FROM knowledge_nodes
             ORDER BY level, node_name
         """)
@@ -445,7 +445,8 @@ async def get_knowledge_graph_data():
                 "id": str(row["node_id"]),
                 "name": row["node_name"],
                 "difficulty": row["node_difficulty"],
-                "level": row["level"]
+                "level": row["level"],
+                "node_type": row["node_type"]
             })
         
         # 获取所有边
@@ -477,7 +478,7 @@ async def generate_learning_objective(request: dict):
         url = "https://xingchen-api.xf-yun.com/workflow/v1/chat/completions"
 
         payload = json.dumps({
-        "flow_id": "7348743694213447682",
+        "flow_id": "7355086692730109954",
         "parameters": {
             "AGENT_USER_INPUT": request['node_name']
         },

@@ -416,7 +416,7 @@ def generate_module_nodes(graph_data, mastery_map):
         module_nodes.append(Node(
             id=module['id'],
             label=f"{module['name']} 📚\n掌握度: {avg_mastery:.0%}",
-            size=40,  # 增大模块节点大小
+            size=30,  # 调小模块节点大小
             color=color,
             title=f"模块: {module['name']}\n平均掌握度: {avg_mastery:.1%}\n点击查看详情"
         ))
@@ -467,7 +467,7 @@ def generate_knowledge_points(graph_data, module_id, mastery_map):
             knowledge_nodes.append(Node(
                 id=node['id'],
                 label=f"{node['name']}\n{mastery:.0%}",
-                size=35,  # 增大知识点节点大小
+                size=25,  # 调小知识点节点大小
                 color=color,
                 title=f"知识点: {node['name']}\n掌握度: {mastery:.1%}\n难度: {node.get('difficulty', 'N/A')}\n等级: {node.get('level', 'N/A')}"
             ))
