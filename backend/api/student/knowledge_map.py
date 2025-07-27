@@ -24,7 +24,7 @@ async def get_knowledge_map(user_id: str):
             FROM knowledge_nodes kn
             LEFT JOIN user_node_mastery unm ON kn.node_id = unm.node_id AND unm.user_id = ?
             ORDER BY kn.node_id
-        """, (1,))
+        """, (user_id,))
         knowledge_map = []
         for row in cursor.fetchall():
             knowledge_map.append({
