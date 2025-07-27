@@ -5,18 +5,19 @@
 """
 
 import json
+import requests
 from collections import defaultdict
 from re import U
 from ...common.database import get_db_connection
 
 # --- 模块顺序定义 ---
 MODULE_ORDER = [
-    "第一模块：概率论的基本概念",
-    "第二模块：概率运算进阶", 
-    "第三模块：随机变量及其分布",
-    "第四模块：数字特征与关系",
-    "第五模块：极限定理",
-    "第六模块：数理统计"
+    "概率论的基本概念",
+    "概率运算进阶", 
+    "随机变量及其分布",
+    "数字特征与关系",
+    "极限定理",
+    "数理统计"
 ]
 
 def get_module_nodes(cursor, module_name):
@@ -32,6 +33,7 @@ def get_module_nodes(cursor, module_name):
 def is_module_completed(cursor, user_id, module_name, mastery_threshold=0.8):
     """检查用户是否完成了指定模块的学习"""
     module_nodes = get_module_nodes(cursor, module_name)
+    # print(f"模块节点: {module_nodes}")
     if not module_nodes:
         return True  # 空模块视为已完成
     
@@ -101,8 +103,66 @@ def get_next_learnable_node_in_module(cursor, user_id, module_name):
     
     print(f"可学习候选节点: {[(candidate['node_id'], candidate['node_name']) for candidate in learnable_candidates]}")
     
+    # 如果有候选节点，使用GNN预测选择最佳节点
+    if learnable_candidates:
+        print(f"🤖 开始为 {len(learnable_candidates)} 个候选节点调用GNN预测...")
+        
+        # 为每个候选节点调用GNN预测
+        candidates_with_prediction = []
+        for candidate in learnable_candidates:
+            try:
+                # 调用GNN预测API
+                prediction_data = {
+                    "user_id": user_id,
+                    "knowledge_id": candidate['node_id']
+                }
+                
+                response = requests.post(
+                    "http://0.0.0.0:8008/predict",
+                    json=prediction_data,
+                    timeout=5
+                )
+                
+                if response.status_code == 200:
+                    prediction_result = response.json()
+                    prediction_probability = prediction_result.get('probability', 0.0)
+                    print(f"  🎯 节点 {candidate['node_name']} (ID: {candidate['node_id']}) 预测概率: {prediction_probability:.3f}")
+                    
+                    candidate['gnn_prediction'] = prediction_probability
+                    candidates_with_prediction.append(candidate)
+                else:
+                    print(f"  ⚠️ 节点 {candidate['node_name']} GNN预测失败，状态码: {response.status_code}")
+                    # 如果预测失败，设置默认概率
+                    candidate['gnn_prediction'] = 0.0
+                    candidates_with_prediction.append(candidate)
+                    
+            except Exception as e:
+                print(f"  ❌ 节点 {candidate['node_name']} GNN预测出错: {e}")
+                # 如果预测出错，设置默认概率
+                candidate['gnn_prediction'] = 0.0
+                candidates_with_prediction.append(candidate)
+        
+        # 根据GNN预测概率和难度的综合评分选择最佳节点（1:1权重）
+        if candidates_with_prediction:
+            # 计算难度的归一化分数（难度越低分数越高）
+            max_difficulty = max(c['node_difficulty'] for c in candidates_with_prediction)
+            min_difficulty = min(c['node_difficulty'] for c in candidates_with_prediction)
+            difficulty_range = max_difficulty - min_difficulty if max_difficulty > min_difficulty else 1
+            
+            for candidate in candidates_with_prediction:
+                # 归一化难度分数（0-1，难度越低分数越高）
+                normalized_difficulty_score = 1 - (candidate['node_difficulty'] - min_difficulty) / difficulty_range
+                # 综合评分：50% GNN预测 + 50% 难度评分
+                candidate['combined_score'] = 0.5 * candidate['gnn_prediction'] + 0.5 * normalized_difficulty_score
+                print(f"  📊 节点 {candidate['node_name']}: GNN={candidate['gnn_prediction']:.3f}, 难度评分={normalized_difficulty_score:.3f}, 综合评分={candidate['combined_score']:.3f}")
+            
+            best_candidate = max(candidates_with_prediction, key=lambda x: x['combined_score'])
+            print(f"🏆 基于综合评分选择最佳节点: {best_candidate['node_name']} (综合评分: {best_candidate['combined_score']:.3f})")
+            return best_candidate
+
     # 如果没有找到可学习的节点，选择模块内第一个未掌握的节点（可能是循环依赖的情况）
     if not learnable_candidates:
+        print(f"  ⚠️ 未找到满足前置条件的节点，寻找备选节点...")
         for node_id in module_nodes:
             node_id_str = str(node_id)
             if user_mastery.get(node_id_str, 0.0) < 0.8:
@@ -115,11 +175,63 @@ def get_next_learnable_node_in_module(cursor, user_id, module_name):
                 if node_info:
                     learnable_candidates.append(dict(node_info))
                     break
+        
+        # 对备选节点也进行GNN预测
+        if learnable_candidates:
+            print(f"  🔮 对备选节点进行GNN预测...")
+            candidates_with_prediction = []
+            
+            for candidate in learnable_candidates:
+                try:
+                    prediction_data = {
+                        "user_id": user_id,
+                        "knowledge_id": candidate['node_id']
+                    }
+                    
+                    response = requests.post(
+                        "http://0.0.0.0:8008/predict",
+                        json=prediction_data,
+                        timeout=5
+                    )
+                    
+                    if response.status_code == 200:
+                        prediction_result = response.json()
+                        prediction_probability = prediction_result.get('probability', 0.0)
+                        print(f"    🎯 备选节点 {candidate['node_name']} (ID: {candidate['node_id']}) 预测概率: {prediction_probability:.3f}")
+                        
+                        candidate['gnn_prediction'] = prediction_probability
+                        candidates_with_prediction.append(candidate)
+                    else:
+                        print(f"    ⚠️ 备选节点 {candidate['node_name']} GNN预测失败，状态码: {response.status_code}")
+                        candidate['gnn_prediction'] = 0.0
+                        candidates_with_prediction.append(candidate)
+                        
+                except Exception as e:
+                    print(f"    ❌ 备选节点 {candidate['node_name']} GNN预测出错: {e}")
+                    candidate['gnn_prediction'] = 0.0
+                    candidates_with_prediction.append(candidate)
+            
+            if candidates_with_prediction:
+                 # 计算备选节点的难度归一化分数
+                 max_difficulty = max(c['node_difficulty'] for c in candidates_with_prediction)
+                 min_difficulty = min(c['node_difficulty'] for c in candidates_with_prediction)
+                 difficulty_range = max_difficulty - min_difficulty if max_difficulty > min_difficulty else 1
+                 
+                 for candidate in candidates_with_prediction:
+                     # 归一化难度分数（0-1，难度越低分数越高）
+                     normalized_difficulty_score = 1 - (candidate['node_difficulty'] - min_difficulty) / difficulty_range
+                     # 综合评分：50% GNN预测 + 50% 难度评分
+                     candidate['combined_score'] = 0.5 * candidate['gnn_prediction'] + 0.5 * normalized_difficulty_score
+                     print(f"    📊 备选节点 {candidate['node_name']}: GNN={candidate['gnn_prediction']:.3f}, 难度评分={normalized_difficulty_score:.3f}, 综合评分={candidate['combined_score']:.3f}")
+                 
+                 best_candidate = max(candidates_with_prediction, key=lambda x: x['combined_score'])
+                 print(f"  🏆 基于综合评分选择最佳备选节点: {best_candidate['node_name']} (综合评分: {best_candidate['combined_score']:.3f})")
+                 return best_candidate
     
     if not learnable_candidates:
         return None
     
-    # 选择难度最低的节点
+    # 如果没有进行GNN预测，按难度排序选择
     learnable_candidates.sort(key=lambda x: x['node_difficulty'])
     return learnable_candidates[0]
 
