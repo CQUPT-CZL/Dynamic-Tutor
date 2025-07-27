@@ -141,7 +141,7 @@ def create_graph_html(nodes, edges, show_labels, node_size, api_service=None):
             }}
             .link {{
                 stroke-opacity: 0.7;
-                stroke-width: 2px;
+                stroke-width: 4px;
             }}
             .link.包含 {{
                 stroke: #888;
@@ -255,6 +255,9 @@ def create_graph_html(nodes, edges, show_labels, node_size, api_service=None):
             <div class="context-menu-item" onclick="selectNode()">🎯 选择节点</div>
             <div class="context-menu-item" onclick="clearSelection()">🔄 清除选择</div>
         </div>
+        <div class="context-menu" id="edgeContextMenu">
+            <div class="context-menu-item" onclick="deleteEdge()">🗑️ 删除关系</div>
+        </div>
         <div class="modal" id="confirmModal">
             <div class="modal-content">
                 <h3>🔗 添加关系</h3>
@@ -277,6 +280,7 @@ def create_graph_html(nodes, edges, show_labels, node_size, api_service=None):
             let selectedNodes = [];
             let previewLink = null;
             let currentContextNode = null;
+            let currentContextEdge = null;
 
             const container = d3.select("#graph");
             const width = container.node().getBoundingClientRect().width || 800;
@@ -298,10 +302,10 @@ def create_graph_html(nodes, edges, show_labels, node_size, api_service=None):
                 .enter().append("marker")
                 .attr("id", d => `arrow-${{d}}`)
                 .attr("viewBox", "0 -5 10 10")
-                .attr("refX", {node_size + 5})
+                .attr("refX", {node_size-2})
                 .attr("refY", 0)
-                .attr("markerWidth", 6)
-                .attr("markerHeight", 6)
+                .attr("markerWidth", 4)
+                .attr("markerHeight", 4)
                 .attr("orient", "auto")
                 .append("path")
                 .attr("fill", d => d === "preview" ? "#ff6b6b" : "#337ab7")
@@ -318,7 +322,12 @@ def create_graph_html(nodes, edges, show_labels, node_size, api_service=None):
                 .enter().append("line")
                 .attr("class", d => `link ${{d.relation}}`)
                 .style("stroke-dasharray", d => d.status === "draft" ? "5,5" : "none")
-                .attr("marker-end", d => d.relation === '指向' ? `url(#arrow-${{d.relation}})` : null);
+                .attr("marker-end", d => d.relation === '指向' ? `url(#arrow-${{d.relation}})` : null)
+                .on("contextmenu", function(event, d) {{
+                    event.preventDefault();
+                    currentContextEdge = d;
+                    showEdgeContextMenu(event.pageX, event.pageY);
+                }});
             
             const node = g.append("g")
                 .selectAll("circle")
@@ -405,6 +414,14 @@ def create_graph_html(nodes, edges, show_labels, node_size, api_service=None):
             
             function hideContextMenu() {{
                 document.getElementById('contextMenu').style.display = 'none';
+                document.getElementById('edgeContextMenu').style.display = 'none';
+            }}
+            
+            function showEdgeContextMenu(x, y) {{
+                const menu = document.getElementById('edgeContextMenu');
+                menu.style.display = 'block';
+                menu.style.left = x + 'px';
+                menu.style.top = y + 'px';
             }}
             
             function selectNode() {{
@@ -562,7 +579,12 @@ def create_graph_html(nodes, edges, show_labels, node_size, api_service=None):
                  link.enter().append("line")
                      .attr("class", d => `link ${{d.type}}`)
                      .attr("marker-end", d => d.type === '指向' ? "url(#arrow)" : "")
-                     .style("stroke-dasharray", d => d.status === 'draft' ? "5,5" : "none");
+                     .style("stroke-dasharray", d => d.status === 'draft' ? "5,5" : "none")
+                     .on("contextmenu", function(event, d) {{
+                         event.preventDefault();
+                         currentContextEdge = d;
+                         showEdgeContextMenu(event.pageX, event.pageY);
+                     }});
                  
                  link.exit().remove();
                  
@@ -570,6 +592,61 @@ def create_graph_html(nodes, edges, show_labels, node_size, api_service=None):
                  simulation.nodes(nodes);
                  simulation.force("link").links(links);
                  simulation.alpha(1).restart();
+             }}
+             
+             function deleteEdge() {{
+                 if (!currentContextEdge) return;
+                 
+                 const edge = currentContextEdge;
+                 const sourceName = edge.source.name || 'Unknown';
+                 const targetName = edge.target.name || 'Unknown';
+                 
+                 // 确认删除
+                 if (confirm(`确认要删除 "${{sourceName}}" → "${{targetName}}" 的关系吗？`)) {{
+                     // 更新状态提示
+                     const statusIndicator = document.getElementById('statusIndicator');
+                     statusIndicator.innerHTML = '🔄 正在删除关系，请稍候...';
+                     
+                     // 发送删除请求到后端API
+                     fetch('http://localhost:8000/teacher/knowledge/edges', {{
+                         method: 'DELETE',
+                         headers: {{
+                             'Content-Type': 'application/json',
+                         }},
+                         body: JSON.stringify({{
+                             source_node_id: edge.source.id.toString(),
+                             target_node_id: edge.target.id.toString(),
+                             relation_type: edge.relation || '指向'
+                         }})
+                     }})
+                     .then(response => response.json())
+                     .then(data => {{
+                         if (data.status === 'success') {{
+                             // 成功删除边
+                             statusIndicator.innerHTML = `✅ 成功删除关系: ${{sourceName}} → ${{targetName}}`;
+                             
+                             // 从图谱中移除边
+                             const edgeIndex = links.findIndex(link => 
+                                 link.source.id === edge.source.id && 
+                                 link.target.id === edge.target.id &&
+                                 link.relation === edge.relation
+                             );
+                             
+                             if (edgeIndex !== -1) {{
+                                 links.splice(edgeIndex, 1);
+                                 updateGraph();
+                             }}
+                         }} else {{
+                             statusIndicator.innerHTML = `❌ 删除关系失败: ${{data.message || '未知错误'}}`;
+                         }}
+                     }})
+                     .catch(error => {{
+                         console.error('Error:', error);
+                         statusIndicator.innerHTML = `❌ 删除关系失败: ${{error.message}}`;
+                     }});
+                 }}
+                 
+                 hideContextMenu();
              }}
             
             function updateStatusIndicator() {{
