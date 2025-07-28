@@ -308,7 +308,20 @@ def generate_d3_html(graph_data_with_mastery: dict, show_labels: bool = True, no
                 
                 node.on("mouseover", function(event, d) {
                     tooltip.style("opacity", .9);
-                    const masteryText = d.mastery !== undefined ? `<br/>掌握度: ${(d.mastery * 100).toFixed(0)}%` : '';
+                    
+                    // 对于模块节点，显示掌握比例；对于知识点节点，显示掌握度
+                    let masteryText = '';
+                    if (d.type === '模块') {
+                        // 模块节点显示比例信息
+                        if (d.mastered_count !== undefined && d.total_count !== undefined) {
+                            const ratio = d.total_count > 0 ? (d.mastered_count / d.total_count * 100).toFixed(0) : 0;
+                            masteryText = `<br/>掌握情况: ${d.mastered_count}/${d.total_count} (${ratio}%)`;
+                        }
+                    } else {
+                        // 知识点节点显示掌握度
+                        masteryText = d.mastery !== undefined ? `<br/>掌握度: ${(d.mastery * 100).toFixed(0)}%` : '';
+                    }
+                    
                     const clickHint = d.isSelected ? '<br/>💡 点击返回概览' : 
                                      d.isOther ? '<br/>💡 点击查看该模块' : 
                                      d.type === '模块' ? '<br/>💡 点击查看详情' : '';
@@ -398,33 +411,47 @@ def generate_module_nodes(graph_data, mastery_map):
     
     # 为每个模块创建Node对象
     for module in modules:
-        # 计算该模块的平均掌握度
+        # 计算该模块的知识点掌握情况
         module_knowledge_ids = set(
             edge['target'] for edge in all_edges 
             if edge['source'] == module['id'] and edge['relation'] == '包含'
         )
         
         if module_knowledge_ids:
-            avg_mastery = sum(mastery_map.get(kid, 0) for kid in module_knowledge_ids) / len(module_knowledge_ids)
+            # 计算已掌握的知识点数量（掌握度 > 0.5 视为已掌握）
+            mastered_count = 0
+            for kid in module_knowledge_ids:
+                # 通过知识点ID找到对应的知识点名称
+                knowledge_node = next((node for node in all_nodes if node['id'] == kid), None)
+                if knowledge_node:
+                    knowledge_name = knowledge_node.get('name', '')
+                    mastery = mastery_map.get(knowledge_name, 0)
+                    if mastery > 0.5:
+                        mastered_count += 1
+            
+            total_count = len(module_knowledge_ids)
+            mastery_ratio = mastered_count / total_count if total_count > 0 else 0
         else:
-            avg_mastery = 0
+            mastered_count = 0
+            total_count = 0
+            mastery_ratio = 0
         
-        # 根据掌握度设置颜色
-        if avg_mastery >= 0.8:
+        # 根据掌握比例设置颜色
+        if mastery_ratio >= 0.8:
             color = "#198754"  # 绿色
-        elif avg_mastery >= 0.5:
+        elif mastery_ratio >= 0.5:
             color = "#ffc107"  # 黄色
-        elif avg_mastery > 0:
+        elif mastery_ratio > 0:
             color = "#dc3545"  # 红色
         else:
             color = "#6c757d"  # 灰色
         
         module_nodes.append(Node(
             id=module['id'],
-            label=f"{module['name']} 📚\n掌握度: {avg_mastery:.0%}",
+            label=f"{module['name']} 📚\n{mastered_count}/{total_count}",
             size=30,  # 调小模块节点大小
             color=color,
-            title=f"模块: {module['name']}\n平均掌握度: {avg_mastery:.1%}\n点击查看详情"
+            title=f"模块: {module['name']}\n掌握情况: {mastered_count}/{total_count} ({mastery_ratio:.1%})\n点击查看详情"
         ))
     
     # 模块之间的关系（如果有的话）
@@ -813,6 +840,14 @@ def render_knowledge_map_page(api_service, current_user, user_id):
             if not df.empty:
                 st.write(f"知识点数量: {len(df)}")
                 st.write(f"平均掌握度: {df['我的掌握度'].mean():.2%}")
+                
+                # 显示掌握度分布
+                high_mastery = len(df[df['我的掌握度'] > 0.8])
+                medium_mastery = len(df[(df['我的掌握度'] > 0.5) & (df['我的掌握度'] <= 0.8)])
+                low_mastery = len(df[df['我的掌握度'] <= 0.5])
+                st.write(f"高掌握度(>80%): {high_mastery}个")
+                st.write(f"中掌握度(50-80%): {medium_mastery}个")
+                st.write(f"低掌握度(≤50%): {low_mastery}个")
             else:
                 st.write("暂无知识点数据")
             
@@ -820,6 +855,10 @@ def render_knowledge_map_page(api_service, current_user, user_id):
                 graph_data = st.session_state['graph_structure_data']
                 st.write(f"图谱节点数: {len(graph_data.get('nodes', []))}")
                 st.write(f"图谱边数: {len(graph_data.get('edges', []))}")
+                
+                # 显示模块统计
+                modules = [node for node in graph_data.get('nodes', []) if node.get('type') == '模块']
+                st.write(f"模块数量: {len(modules)}")
             else:
                 st.write("暂无图谱结构数据")
 
