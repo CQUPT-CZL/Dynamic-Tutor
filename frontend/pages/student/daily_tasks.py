@@ -48,100 +48,234 @@ def render_daily_tasks_page(api_service, current_user, user_id):
         st.session_state.current_recommendation = None
     if 'task_started' not in st.session_state:
         st.session_state.task_started = False
+    if 'loading_recommendation' not in st.session_state:
+        st.session_state.loading_recommendation = False
     
-    # 获取用户推荐（只在没有缓存或需要刷新时获取）
-    if st.session_state.current_recommendation is None:
-        # 创建一个完整的页面容器来显示加载界面
-        page_container = st.container()
-        with page_container:
-            # 页面标题
-            st.markdown("""
-            <div style="text-align: center; padding: 20px 0;">
-                <h1 style="color: #2E3440; margin-bottom: 10px;">📋 今日学习任务</h1>
-                <p style="color: #5E81AC; font-size: 18px;">为你量身定制的智能学习计划</p>
-            </div>
-            """, unsafe_allow_html=True)
-            
-            # 显示友好的加载界面
-            st.markdown("""
-            <div style="
-                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-                padding: 40px;
-                border-radius: 20px;
-                text-align: center;
-                margin: 30px 0;
-                box-shadow: 0 8px 32px rgba(102,126,234,0.2);
-                color: white;
-            ">
-                <div style="font-size: 3em; margin-bottom: 20px;">🤖</div>
-                <h2 style="margin: 0 0 15px 0; font-size: 1.8em;">AI正在为你量身定制学习任务</h2>
-                <p style="margin: 0; font-size: 1.1em; opacity: 0.9;">请稍等片刻，我们正在分析你的学习情况...</p>
-                <div style="margin-top: 25px; display: flex; justify-content: center; align-items: center;">
-                     <div style="
-                         display: flex;
-                         gap: 8px;
-                     ">
-                         <div style="
-                             width: 8px;
-                             height: 8px;
-                             background: rgba(255,255,255,0.9);
-                             border-radius: 50%;
-                             animation: bounce 1.4s infinite ease-in-out both;
-                             animation-delay: -0.32s;
-                         "></div>
-                         <div style="
-                             width: 8px;
-                             height: 8px;
-                             background: rgba(255,255,255,0.9);
-                             border-radius: 50%;
-                             animation: bounce 1.4s infinite ease-in-out both;
-                             animation-delay: -0.16s;
-                         "></div>
-                         <div style="
-                             width: 8px;
-                             height: 8px;
-                             background: rgba(255,255,255,0.9);
-                             border-radius: 50%;
-                             animation: bounce 1.4s infinite ease-in-out both;
-                         "></div>
-                     </div>
-                 </div>
-             </div>
-             <style>
-             @keyframes bounce {
-                 0%, 80%, 100% {
-                     transform: scale(0);
-                     opacity: 0.5;
-                 }
-                 40% {
-                     transform: scale(1);
-                     opacity: 1;
-                 }
-             }
-             </style>
-             """, unsafe_allow_html=True)
-        
-        # 调用API获取推荐
-        try:
-            with st.spinner("正在生成个性化任务推荐..."):
-                recommendation = api_service.get_recommendation(user_id)
-                st.session_state.current_recommendation = recommendation
-        except Exception as e:
-            st.error(f"获取推荐任务时出错: {str(e)}")
-            recommendation = None
-        
-        # 重新运行页面以显示新内容
-        st.rerun()
-    else:
-        recommendation = st.session_state.current_recommendation
-    
-    # 页面标题（正常显示时）
+    # 页面标题
     st.markdown("""
     <div style="text-align: center; padding: 20px 0;">
         <h1 style="color: #2E3440; margin-bottom: 10px;">📋 今日学习任务</h1>
         <p style="color: #5E81AC; font-size: 18px;">为你量身定制的智能学习计划</p>
     </div>
     """, unsafe_allow_html=True)
+    
+    # 如果没有推荐任务，显示获取推荐按钮
+    if st.session_state.current_recommendation is None and not st.session_state.loading_recommendation:
+        # 显示醒目的获取推荐任务按钮
+        st.markdown("""
+        <div style="
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 50px;
+            border-radius: 25px;
+            text-align: center;
+            margin: 40px 0;
+            box-shadow: 0 12px 40px rgba(102,126,234,0.3);
+            color: white;
+        ">
+            <div style="font-size: 4em; margin-bottom: 25px;">🎁</div>
+            <h2 style="margin: 0 0 20px 0; font-size: 2.2em; font-weight: bold;">获取你的专属学习任务包</h2>
+            <p style="margin: 0 0 30px 0; font-size: 1.3em; opacity: 0.95; line-height: 1.5;">AI将根据你的学习情况和兴趣，为你量身定制个性化学习任务</p>
+            <div style="
+                background: rgba(255,255,255,0.15);
+                padding: 20px;
+                border-radius: 15px;
+                margin: 25px 0;
+                backdrop-filter: blur(10px);
+            ">
+                <div style="display: flex; justify-content: space-around; align-items: center; flex-wrap: wrap; gap: 20px;">
+                    <div style="text-align: center;">
+                        <div style="font-size: 2em; margin-bottom: 8px;">🚀</div>
+                        <div style="font-size: 0.9em; opacity: 0.9;">新知探索</div>
+                    </div>
+                    <div style="text-align: center;">
+                        <div style="font-size: 2em; margin-bottom: 8px;">💪</div>
+                        <div style="font-size: 0.9em; opacity: 0.9;">弱点巩固</div>
+                    </div>
+                    <div style="text-align: center;">
+                        <div style="font-size: 2em; margin-bottom: 8px;">⚡</div>
+                        <div style="font-size: 0.9em; opacity: 0.9;">技能提升</div>
+                    </div>
+                    <div style="text-align: center;">
+                        <div style="font-size: 2em; margin-bottom: 8px;">🎨</div>
+                        <div style="font-size: 0.9em; opacity: 0.9;">兴趣探索</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        """, unsafe_allow_html=True)
+        
+        # 超大醒目按钮 - 占据更多空间
+        st.markdown("""
+        <style>
+        .mega-button {
+            background: linear-gradient(135deg, #FF6B6B 0%, #FF8E53 100%);
+            color: white;
+            padding: 30px 80px;
+            font-size: 2em;
+            font-weight: bold;
+            border: none;
+            border-radius: 60px;
+            cursor: pointer;
+            box-shadow: 0 15px 40px rgba(255,107,107,0.5);
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: block;
+            width: 80%;
+            max-width: 600px;
+            margin: 40px auto;
+            text-align: center;
+            min-height: 80px;
+            line-height: 1.2;
+        }
+        .mega-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 50px rgba(255,107,107,0.7);
+            background: linear-gradient(135deg, #FF8E53 0%, #FF6B6B 100%);
+            scale: 1.02;
+        }
+        .mega-button:active {
+            transform: translateY(-2px);
+        }
+        
+        /* 覆盖Streamlit默认按钮样式 */
+        .stButton > button {
+            background: linear-gradient(135deg, #FF6B6B 0%, #FF8E53 100%) !important;
+            color: white !important;
+            padding: 30px 80px !important;
+            font-size: 2em !important;
+            font-weight: bold !important;
+            border: none !important;
+            border-radius: 60px !important;
+            box-shadow: 0 15px 40px rgba(255,107,107,0.5) !important;
+            transition: all 0.3s ease !important;
+            width: 100% !important;
+            min-height: 80px !important;
+            line-height: 1.2 !important;
+        }
+        .stButton > button:hover {
+            transform: translateY(-5px) !important;
+            box-shadow: 0 20px 50px rgba(255,107,107,0.7) !important;
+            background: linear-gradient(135deg, #FF8E53 0%, #FF6B6B 100%) !important;
+            scale: 1.02 !important;
+            border: none !important;
+        }
+        .stButton > button:active {
+            transform: translateY(-2px) !important;
+            background: linear-gradient(135deg, #FF6B6B 0%, #FF8E53 100%) !important;
+        }
+        .stButton > button:focus {
+            box-shadow: 0 20px 50px rgba(255,107,107,0.7) !important;
+            border: none !important;
+        }
+        </style>
+        """, unsafe_allow_html=True)
+        
+        # 使用更宽的列布局让按钮更大
+        col1, col2, col3 = st.columns([0.5, 3, 0.5])
+        with col2:
+            # 超大按钮
+            if st.button(
+                "🎯 获取我的专属学习任务包", 
+                key="get_recommendation", 
+                use_container_width=True, 
+                type="primary",
+                help="点击获取AI为你定制的个性化学习任务"
+            ):
+                st.session_state.loading_recommendation = True
+                st.rerun()
+            
+            # 添加按钮下方的说明文字
+            st.markdown("""
+            <div style="
+                text-align: center;
+                margin-top: 25px;
+                color: #666;
+                font-size: 1.1em;
+                font-weight: 500;
+            ">
+                💡 点击后AI将深度分析你的学习数据，生成专属任务
+            </div>
+            """, unsafe_allow_html=True)
+        
+        return
+    
+    # 如果正在加载推荐任务
+    if st.session_state.loading_recommendation:
+        # 显示加载界面
+        st.markdown("""
+        <div style="
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+            margin: 30px 0;
+            box-shadow: 0 8px 32px rgba(102,126,234,0.2);
+            color: white;
+        ">
+            <div style="font-size: 3em; margin-bottom: 20px;">🤖</div>
+            <h2 style="margin: 0 0 15px 0; font-size: 1.8em;">AI正在为你量身定制学习任务</h2>
+            <p style="margin: 0; font-size: 1.1em; opacity: 0.9;">请稍等片刻，我们正在分析你的学习情况...</p>
+            <div style="margin-top: 25px; display: flex; justify-content: center; align-items: center;">
+                 <div style="
+                     display: flex;
+                     gap: 8px;
+                 ">
+                     <div style="
+                         width: 8px;
+                         height: 8px;
+                         background: rgba(255,255,255,0.9);
+                         border-radius: 50%;
+                         animation: bounce 1.4s infinite ease-in-out both;
+                         animation-delay: -0.32s;
+                     "></div>
+                     <div style="
+                         width: 8px;
+                         height: 8px;
+                         background: rgba(255,255,255,0.9);
+                         border-radius: 50%;
+                         animation: bounce 1.4s infinite ease-in-out both;
+                         animation-delay: -0.16s;
+                     "></div>
+                     <div style="
+                         width: 8px;
+                         height: 8px;
+                         background: rgba(255,255,255,0.9);
+                         border-radius: 50%;
+                         animation: bounce 1.4s infinite ease-in-out both;
+                     "></div>
+                 </div>
+             </div>
+         </div>
+         <style>
+         @keyframes bounce {
+             0%, 80%, 100% {
+                 transform: scale(0);
+                 opacity: 0.5;
+             }
+             40% {
+                 transform: scale(1);
+                 opacity: 1;
+             }
+         }
+         </style>
+         """, unsafe_allow_html=True)
+        
+        # 调用API获取推荐
+        try:
+            with st.spinner("正在生成个性化任务推荐..."):
+                recommendation = api_service.get_recommendation(user_id)
+                st.session_state.current_recommendation = recommendation
+                st.session_state.loading_recommendation = False
+        except Exception as e:
+            st.error(f"获取推荐任务时出错: {str(e)}")
+            st.session_state.loading_recommendation = False
+            recommendation = None
+        
+        # 重新运行页面以显示新内容
+        st.rerun()
+    
+    # 显示推荐任务
+    recommendation = st.session_state.current_recommendation
     
     if not recommendation or "error" in recommendation:
         st.markdown("""
@@ -256,6 +390,7 @@ def render_daily_tasks_page(api_service, current_user, user_id):
                 # 清除缓存的推荐任务，强制重新获取
                 st.session_state.current_recommendation = None
                 st.session_state.task_started = False
+                st.session_state.loading_recommendation = False
                 st.rerun()
             
             st.markdown("<div style='margin: 15px 0;'></div>", unsafe_allow_html=True)
