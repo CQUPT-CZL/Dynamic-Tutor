@@ -185,6 +185,17 @@ def render_login_page(api_service):
                         st.success(f"✅ 登录成功！欢迎，{username}")
                         st.balloons()
                         
+                        # 添加JavaScript代码控制页面滚动到顶部
+                        st.markdown("""
+                        <script>
+                        window.parent.document.querySelector('.main').scrollTop = 0;
+                        setTimeout(function() {
+                            window.parent.document.body.scrollTop = 0;
+                            window.parent.document.documentElement.scrollTop = 0;
+                        }, 100);
+                        </script>
+                        """, unsafe_allow_html=True)
+                        
                         # 延迟后重新运行以显示主界面
                         st.rerun()
                     else:
