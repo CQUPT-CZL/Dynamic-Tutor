@@ -214,6 +214,33 @@ def render_question_mapping(api_service, user_id):
     """渲染题目与知识点关联页面"""
     st.subheader("🔗 题目与知识点关联")
     
+    # 初始化表单重置键
+    if 'mapping_form_reset_key' not in st.session_state:
+        st.session_state.mapping_form_reset_key = 0
+    
+    # 检查是否有关联成功的消息需要显示
+    if 'association_success' in st.session_state:
+        success_info = st.session_state.association_success
+        
+        # 显示弹窗成功消息
+        st.toast(f"🎉 成功关联 {success_info['success_count']} 个知识点！", icon="✅")
+        st.success(f"✅ 成功关联题目 #{success_info['question_id']} 与 {success_info['success_count']} 个知识点")
+        
+        # 显示成功关联的详细信息
+        with st.expander("📋 关联详情", expanded=True):
+            st.write(f"**题目:** {success_info['question_text'][:100]}...")
+            st.write(f"**成功关联的知识点数量:** {success_info['success_count']}")
+            if success_info['failed_nodes']:
+                st.write(f"**失败的知识点:** {', '.join(success_info['failed_nodes'])}")
+        
+        # 清除成功消息状态
+        del st.session_state.association_success
+        
+        # 提供继续关联按钮
+        if st.button("🆕 继续关联其他题目", use_container_width=True):
+            st.session_state.mapping_form_reset_key += 1
+            st.rerun()
+    
     # 获取题目列表
     try:
         response = api_service.get_questions(page=1, page_size=100)
@@ -233,7 +260,8 @@ def render_question_mapping(api_service, user_id):
         selected_question = st.selectbox(
             "选择题目",
             options=questions,
-            format_func=lambda x: f"#{x['question_id']}: {x['question_text'][:50]}..."
+            format_func=lambda x: f"#{x['question_id']}: {x['question_text'][:50]}...",
+            key=f"selected_question_{st.session_state.mapping_form_reset_key}"
         )
             
     with col2:
@@ -254,7 +282,8 @@ def render_question_mapping(api_service, user_id):
             selected_nodes = st.multiselect(
                 "选择关联的知识点",
                 options=knowledge_nodes,
-                format_func=lambda x: f"{x['node_id']}: {x['node_name']}"
+                format_func=lambda x: f"{x['node_id']}: {x['node_name']}",
+                key=f"selected_nodes_{st.session_state.mapping_form_reset_key}"
             )
         except Exception as e:
             st.warning(f"⚠️ 无法获取知识点列表，使用默认数据: {str(e)}")
@@ -267,14 +296,24 @@ def render_question_mapping(api_service, user_id):
             selected_nodes = st.multiselect(
                 "选择关联的知识点",
                 options=knowledge_nodes,
-                format_func=lambda x: f"{x['node_id']}: {x['node_name']}"
+                format_func=lambda x: f"{x['node_id']}: {x['node_name']}",
+                key=f"selected_nodes_fallback_{st.session_state.mapping_form_reset_key}"
             )
     
     if st.button("🔗 建立关联", use_container_width=True):
         if selected_question and selected_nodes:
             try:
                 success_count = 0
-                for node in selected_nodes:
+                failed_nodes = []
+                
+                # 显示进度
+                progress_bar = st.progress(0)
+                status_text = st.empty()
+                
+                for i, node in enumerate(selected_nodes):
+                    status_text.text(f"正在关联知识点: {node['node_name']}...")
+                    progress_bar.progress((i + 1) / len(selected_nodes))
+                    
                     try:
                         result = api_service.create_question_node_mapping(
                             selected_question['question_id'],
@@ -283,13 +322,34 @@ def render_question_mapping(api_service, user_id):
                         if result and result.get('status') == 'success':
                             success_count += 1
                         else:
-                            st.warning(f"⚠️ 关联知识点 {node['node_name']} 失败")
+                            failed_nodes.append(node['node_name'])
                     except Exception as e:
-                        st.warning(f"⚠️ 关联知识点 {node['node_name']} 失败: {str(e)}")
+                        failed_nodes.append(f"{node['node_name']} ({str(e)})")
                 
+                # 清除进度显示
+                progress_bar.empty()
+                status_text.empty()
+                
+                # 显示结果
                 if success_count > 0:
-                    st.success(f"✅ 成功关联题目 #{selected_question['question_id']} 与 {success_count} 个知识点")
+                    # 保存成功信息到session_state
+                    st.session_state.association_success = {
+                        'question_id': selected_question['question_id'],
+                        'question_text': selected_question['question_text'],
+                        'success_count': success_count,
+                        'failed_nodes': failed_nodes
+                    }
+                    
+                    # 重置表单
+                    st.session_state.mapping_form_reset_key += 1
                     st.rerun()
+                else:
+                    st.error("❌ 所有关联操作都失败了")
+                    if failed_nodes:
+                        st.write("失败的知识点:")
+                        for node in failed_nodes:
+                            st.write(f"- {node}")
+                            
             except Exception as e:
                 st.error(f"❌ 建立关联失败: {str(e)}")
         else:
@@ -317,10 +377,13 @@ def render_question_mapping(api_service, user_id):
                                 mapping['node_id']
                             )
                             if result and result.get('status') == 'success':
-                                st.success("✅ 关联已删除")
+                                st.success(f"✅ 已删除题目 #{mapping['question_id']} 与知识点 '{mapping['node_name']}' 的关联")
                                 st.rerun()
+                            elif result and result.get('status') == 'error':
+                                error_msg = result.get('message', '未知错误')
+                                st.error(f"❌ 删除关联失败: {error_msg}")
                             else:
-                                st.error("❌ 删除关联失败")
+                                st.error("❌ 删除关联失败，请检查网络连接或联系管理员")
                         except Exception as e:
                             st.error(f"❌ 删除关联失败: {str(e)}")
         else:
@@ -424,33 +487,63 @@ def render_add_question(api_service, user_id):
     """渲染添加题目页面"""
     st.subheader("➕ 添加新题目")
     
-    with st.form("add_question_form"):
+    # 初始化session state用于表单重置
+    if 'form_reset_key' not in st.session_state:
+        st.session_state.form_reset_key = 0
+    
+    # 显示最近添加成功的消息
+    if 'last_added_question' in st.session_state:
+        question_info = st.session_state.last_added_question
+        st.success(f"✅ 题目添加成功！题目ID: {question_info.get('question_id', 'N/A')}")
+        
+        # 显示添加的题目信息
+        with st.expander("📋 查看刚添加的题目", expanded=True):
+            st.write(f"**题目内容:** {question_info.get('question_text', '')}")
+            st.write(f"**题目类型:** {question_info.get('question_type', '')}")
+            st.write(f"**难度系数:** {question_info.get('difficulty', '')}")
+            st.write(f"**状态:** {question_info.get('status', '')}")
+            if question_info.get('question_type') == "选择题" and question_info.get('options'):
+                st.write("**选项:**")
+                for key, value in question_info.get('options', {}).items():
+                    st.write(f"  {key}: {value}")
+            st.write(f"**正确答案:** {question_info.get('answer', '')}")
+            if question_info.get('analysis'):
+                st.write(f"**答案解析:** {question_info.get('analysis', '')}")
+        
+        # 清除消息
+        if st.button("🆕 继续添加新题目", use_container_width=True):
+            del st.session_state.last_added_question
+            st.session_state.form_reset_key += 1
+            st.rerun()
+    
+    # 使用key来重置表单
+    with st.form(f"add_question_form_{st.session_state.form_reset_key}"):
         # 基本信息
         col1, col2 = st.columns([2, 1])
         
         with col1:
-            question_text = st.text_area("📝 题目内容", placeholder="请输入题目内容...")
-            question_type = st.selectbox("📋 题目类型", ["选择题", "填空题", "解答题"])
+            question_text = st.text_area("📝 题目内容", placeholder="请输入题目内容...", key=f"question_text_{st.session_state.form_reset_key}")
+            question_type = st.selectbox("📋 题目类型", ["选择题", "填空题", "解答题"], key=f"question_type_{st.session_state.form_reset_key}")
             
             # 选择题选项
             options = {}
             if question_type == "选择题":
                 st.write("**选项设置:**")
-                option_a = st.text_input("选项 A", placeholder="输入选项A内容")
-                option_b = st.text_input("选项 B", placeholder="输入选项B内容")
-                option_c = st.text_input("选项 C", placeholder="输入选项C内容")
-                option_d = st.text_input("选项 D", placeholder="输入选项D内容")
+                option_a = st.text_input("选项 A", placeholder="输入选项A内容", key=f"option_a_{st.session_state.form_reset_key}")
+                option_b = st.text_input("选项 B", placeholder="输入选项B内容", key=f"option_b_{st.session_state.form_reset_key}")
+                option_c = st.text_input("选项 C", placeholder="输入选项C内容", key=f"option_c_{st.session_state.form_reset_key}")
+                option_d = st.text_input("选项 D", placeholder="输入选项D内容", key=f"option_d_{st.session_state.form_reset_key}")
                 options = {"A": option_a, "B": option_b, "C": option_c, "D": option_d}
             
-            answer = st.text_input("✅ 正确答案", placeholder="输入正确答案")
-            analysis = st.text_area("📖 答案解析", placeholder="请输入答案解析...")
+            answer = st.text_input("✅ 正确答案", placeholder="输入正确答案", key=f"answer_{st.session_state.form_reset_key}")
+            analysis = st.text_area("📖 答案解析", placeholder="请输入答案解析...", key=f"analysis_{st.session_state.form_reset_key}")
         
         with col2:
-            difficulty = st.slider("🎯 难度系数", 0.0, 1.0, 0.5, 0.1)
-            status = st.selectbox("📊 状态", ["draft", "published"])
+            difficulty = st.slider("🎯 难度系数", 0.0, 1.0, 0.5, 0.1, key=f"difficulty_{st.session_state.form_reset_key}")
+            status = st.selectbox("📊 状态", ["draft", "published"], key=f"status_{st.session_state.form_reset_key}")
             
             # 图片URL输入
-            question_image_url = st.text_input("🖼️ 题目图片链接", placeholder="请输入图片URL地址（可选）")
+            question_image_url = st.text_input("🖼️ 题目图片链接", placeholder="请输入图片URL地址（可选）", key=f"image_url_{st.session_state.form_reset_key}")
         
         # 提交按钮
         submitted = st.form_submit_button("✅ 添加题目", use_container_width=True)
@@ -484,11 +577,34 @@ def render_add_question(api_service, user_id):
                     # 调用API创建题目
                     response = api_service.create_question(question_data)
                     
-                    if response:
-                        st.success("✅ 题目添加成功！")
+                    if response and response.get('status') == 'success':
+                        question_id = response.get('question_id')
+                        
+                        # 显示弹窗成功消息
+                        st.balloons()  # 添加庆祝动画
+                        st.toast(f"🎉 题目添加成功！题目ID: {question_id}", icon="✅")
+                        
+                        # 保存成功添加的题目信息到session_state
+                        st.session_state.last_added_question = {
+                            'question_id': question_id,
+                            'question_text': question_text,
+                            'question_type': question_type,
+                            'difficulty': difficulty,
+                            'status': status,
+                            'answer': answer,
+                            'analysis': analysis,
+                            'options': options if question_type == "选择题" else None
+                        }
+                        
+                        # 重置表单
+                        st.session_state.form_reset_key += 1
                         st.rerun()
+                        
+                    elif response and response.get('status') == 'error':
+                        error_msg = response.get('message', '未知错误')
+                        st.error(f"❌ 题目添加失败: {error_msg}")
                     else:
-                        st.error("❌ 题目添加失败")
+                        st.error("❌ 题目添加失败，请检查网络连接或联系管理员")
                         
                 except Exception as e:
                     st.error(f"❌ 添加题目失败: {str(e)}")
