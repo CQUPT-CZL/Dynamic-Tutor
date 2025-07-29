@@ -178,10 +178,10 @@ class APIService:
         result = self._make_request("GET", f"/student/questions/{node_name}")   
         questions = result.get("questions", []) if isinstance(result, dict) else []
         
-        # 兼容处理：如果返回的是字符串列表（旧格式），转换为新格式
-        if questions and isinstance(questions[0], str):
-            return [{"question_id": i+1, "question_text": q, "question_type": "unknown", "difficulty": 0.5} 
-                   for i, q in enumerate(questions)]
+        # # 兼容处理：如果返回的是字符串列表（旧格式），转换为新格式
+        # if questions and isinstance(questions[0], str):
+        #     return [{"question_id": i+1, "question_text": q, "question_type": "unknown", "difficulty": 0.5, "options": []} 
+        #            for i, q in enumerate(questions)]
         print(questions)
         return questions
     

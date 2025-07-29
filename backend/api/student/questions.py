@@ -15,7 +15,7 @@ async def get_questions_for_node(node_name: str):
     try:
         conn = get_db_connection()
         cursor = conn.execute("""
-            SELECT q.question_id, q.question_text, q.question_type, q.difficulty
+            SELECT q.question_id, q.question_text, q.question_type, q.difficulty, q.options
             FROM questions q
             JOIN question_to_node_mapping qtnm ON q.question_id = qtnm.question_id
             JOIN knowledge_nodes kn ON qtnm.node_id = kn.node_id
@@ -28,7 +28,8 @@ async def get_questions_for_node(node_name: str):
             "question_id": row["question_id"],
             "question_text": row["question_text"],
             "question_type": row["question_type"],
-            "difficulty": row["difficulty"]
+            "difficulty": row["difficulty"],
+            "options": row["options"]
         } for row in cursor.fetchall()]
         conn.close()
         
