@@ -3,6 +3,8 @@ import random
 import pandas as pd
 from components import render_simple_question, QuestionPracticeComponent
 
+
+
 def render_free_practice_page(api_service, current_user, user_id):
     """渲染自由练习页面"""
     st.write("### 📚 自由练习")
@@ -13,8 +15,6 @@ def render_free_practice_page(api_service, current_user, user_id):
     st.info(f"👨‍🎓 当前学习者：**{current_user}**")
     
     # 初始化session state
-    if 'show_knowledge_map' not in st.session_state:
-        st.session_state.show_knowledge_map = True
     if 'selected_node_name' not in st.session_state:
         st.session_state.selected_node_name = None
     if 'selected_question_index' not in st.session_state:
@@ -24,103 +24,170 @@ def render_free_practice_page(api_service, current_user, user_id):
     if 'current_node_for_questions' not in st.session_state:
         st.session_state.current_node_for_questions = None
     
-    # 知识图谱展示区域
-    col1, col2 = st.columns([3, 1])
-    with col1:
-        st.write("### 🗺️ 我的知识图谱")
-    with col2:
-        if st.button("📊 收起/展开图谱", key="toggle_knowledge_map"):
-            st.session_state.show_knowledge_map = not st.session_state.show_knowledge_map
-            st.rerun()
+    # 知识点选择区域
+    # 获取知识点数据
+    knowledge_map_data = api_service.get_knowledge_map(user_id)
     
-    if st.session_state.show_knowledge_map:
-        # 获取知识图谱数据
-        knowledge_map_data = api_service.get_knowledge_map(user_id)
+    if knowledge_map_data:
+        df_data = []
+        for item in knowledge_map_data:
+            df_data.append({
+                '知识点名称': item.get('node_name', ''),
+                '我的掌握度': item.get('mastery', 0.0),
+                '难度': item.get('node_difficulty', '未定义')
+            })
+        df = pd.DataFrame(df_data)
+    else:
+        df = pd.DataFrame(columns=['知识点名称', '我的掌握度', '难度'])
+    
+    # 简化的知识点选择
+    if not df.empty:
+        # 添加掌握度标识到知识点名称
+        knowledge_options_with_mastery = []
+        for _, row in df.iterrows():
+            knowledge_name = row['知识点名称']
+            mastery = row['我的掌握度']
+            
+            # 添加掌握度标识
+            if mastery >= 0.8:
+                status_icon = "🟢"
+            elif mastery >= 0.5:
+                status_icon = "🟡"
+            elif mastery > 0:
+                status_icon = "🔴"
+            else:
+                status_icon = "⚪"
+            
+            display_name = f"{status_icon} {knowledge_name} ({mastery:.0%})"
+            knowledge_options_with_mastery.append((display_name, knowledge_name, mastery))
         
-        if knowledge_map_data:
-            df_data = []
-            for item in knowledge_map_data:
-                df_data.append({
-                    '知识点名称': item.get('node_name', ''),
-                    '我的掌握度': item.get('mastery', 0.0),
-                    '难度': item.get('node_difficulty', '未定义')
-                })
-            df = pd.DataFrame(df_data)
-        else:
-            df = pd.DataFrame(columns=['知识点名称', '我的掌握度', '难度'])
+        # 按掌握度排序（掌握度低的在前，需要优先练习）
+        knowledge_options_with_mastery.sort(key=lambda x: x[2])
         
-        # 知识图谱概览
-        st.markdown("#### 📊 学习概览")
-        col1, col2, col3, col4 = st.columns(4)
-        total_nodes = len(df)
-        with col1:
-            st.metric("总知识点", f"{total_nodes}个")
-        with col2:
-            mastered_nodes = len(df[df['我的掌握度'] >= 0.8])
-            mastered_percentage = f"{mastered_nodes/total_nodes:.0%}" if total_nodes > 0 else "0%"
-            st.metric("已掌握", f"{mastered_nodes}个", mastered_percentage)
-        with col3:
-            learning_nodes = len(df[(df['我的掌握度'] >= 0.3) & (df['我的掌握度'] < 0.8)])
-            learning_percentage = f"{learning_nodes/total_nodes:.0%}" if total_nodes > 0 else "0%"
-            st.metric("学习中", f"{learning_nodes}个", learning_percentage)
-        with col4:
-            avg_mastery = df['我的掌握度'].mean() if not df.empty else 0
-            st.metric("平均掌握度", f"{avg_mastery:.1%}")
+        knowledge_options = ["请选择知识点..."] + [kp[0] for kp in knowledge_options_with_mastery]
+        selected_knowledge_display = st.selectbox(
+            "🎯 选择练习知识点：",
+            options=knowledge_options,
+            key="knowledge_selector",
+            help="🟢已掌握 🟡学习中 🔴需加强 ⚪未开始"
+        )
         
-        # 可点击的知识点列表
-        st.write("#### 🎯 选择练习知识点")
-        if not df.empty:
-            # 创建可点击的知识点按钮
-            cols = st.columns(3)  # 每行显示3个知识点
-            for idx, (_, row) in enumerate(df.iterrows()):
-                col_idx = idx % 3
-                with cols[col_idx]:
-                    node_name = row['知识点名称']
-                    mastery = row['我的掌握度']
-                    difficulty = row['难度']
-                    
-                    # 根据掌握度设置颜色
-                    if mastery >= 0.8:
-                        color = "🟢"  # 绿色 - 已掌握
-                    elif mastery >= 0.3:
-                        color = "🟡"  # 黄色 - 学习中
-                    else:
-                        color = "🔴"  # 红色 - 待学习
-                    
-                    button_text = f"{color} {node_name}\n掌握度: {mastery:.0%}"
-                    
-                    if st.button(button_text, key=f"node_{node_name}", use_container_width=True):
-                        st.session_state.selected_node_name = node_name
-                        st.session_state.selected_question_index = 0  # 重置题目索引
+        if selected_knowledge_display and selected_knowledge_display != "请选择知识点...":
+            # 找到对应的知识点名称
+            selected_knowledge_name = None
+            current_mastery = 0.0
+            for display_name, knowledge_name, mastery in knowledge_options_with_mastery:
+                if display_name == selected_knowledge_display:
+                    selected_knowledge_name = knowledge_name
+                    current_mastery = mastery
+                    break
+            
+            if selected_knowledge_name:
+                # 显示选中知识点的详细信息
+                col1, col2, col3 = st.columns(3)
+                with col1:
+                    st.metric("当前掌握度", f"{current_mastery:.0%}")
+                with col2:
+                    # 获取知识点难度
+                    difficulty = df[df['知识点名称'] == selected_knowledge_name]['难度'].iloc[0]
+                    st.metric("难度等级", difficulty)
+                with col3:
+                    if st.button("🚀 开始练习", key="start_practice_btn", help="点击开始练习选中的知识点"):
+                        st.session_state.selected_node_name = selected_knowledge_name
+                        st.session_state.selected_question_index = 0
                         # 清除题目缓存，强制重新获取
                         st.session_state.current_questions = None
                         st.session_state.current_node_for_questions = None
                         # 清除诊断结果
-                        st.session_state.show_diagnosis = False
-                        st.session_state.diagnosis_result = None
+                        if 'show_diagnosis' in st.session_state:
+                            st.session_state.show_diagnosis = False
+                        if 'diagnosis_result' in st.session_state:
+                            st.session_state.diagnosis_result = None
                         st.rerun()
-        else:
-            st.info("暂无知识点数据")
-        
-        st.divider()
+                
+                # 显示学习建议
+                if current_mastery < 0.3:
+                    st.info("💡 **学习建议**：这个知识点对你来说还比较新，建议先复习相关概念再做练习。")
+                elif current_mastery < 0.8:
+                    st.success("💪 **学习建议**：你对这个知识点有一定了解，多做练习可以进一步提高掌握度。")
+                else:
+                    st.success("🎉 **学习建议**：你已经很好地掌握了这个知识点！可以尝试挑战更高难度的内容。")
+    else:
+        st.warning("⚠️ 暂无知识点数据")
+    
+    st.divider()
     
     # 题目练习区域
     if st.session_state.selected_node_name:
         selected_node_name = st.session_state.selected_node_name
         
         # 显示选中的知识点信息
-        st.write(f"### 🎯 当前练习：{selected_node_name}")
+        # st.write(f"### 🎯 当前练习：{selected_node_name}")
         
         # 获取该知识点的掌握度信息
         mastery = api_service.get_user_mastery(user_id, selected_node_name)
         
-        col1, col2, col3, col4 = st.columns([2, 2, 2, 2])
+        # 添加美化的CSS样式
+        st.markdown("""
+        <style>
+        .elegant-button {
+            background: linear-gradient(135deg, #74b9ff 0%, #0984e3 100%);
+            color: white;
+            padding: 0.6rem 1.2rem;
+            border: none;
+            border-radius: 10px;
+            font-weight: 500;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 3px 12px rgba(116, 185, 255, 0.3);
+            width: 100%;
+            text-align: center;
+        }
+        .elegant-button:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 5px 15px rgba(116, 185, 255, 0.4);
+        }
+        .secondary-button {
+            background: linear-gradient(135deg, #fd79a8 0%, #e84393 100%);
+            color: white;
+            padding: 0.6rem 1.2rem;
+            border: none;
+            border-radius: 10px;
+            font-weight: 500;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 3px 12px rgba(253, 121, 168, 0.3);
+            width: 100%;
+            text-align: center;
+        }
+        .secondary-button:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 5px 15px rgba(253, 121, 168, 0.4);
+        }
+        .info-card {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            padding: 1rem;
+            border-radius: 12px;
+            border-left: 4px solid #667eea;
+            margin: 0.5rem 0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        </style>
+        """, unsafe_allow_html=True)
+        
+        # 美化的信息展示区域
+        st.markdown(f"""
+        <div class="info-card">
+            <h4 style="margin: 0; color: #2d3436;">🎯 当前练习：{selected_node_name}</h4>
+            <p style="margin: 0.5rem 0 0 0; color: #636e72;">掌握度：{mastery:.0%} | 继续加油！💪</p>
+        </div>
+        """, unsafe_allow_html=True)
+        
+        col1, col2, col3 = st.columns([1, 1, 1])
         with col1:
-            st.metric("知识点", selected_node_name)
-        with col2:
-            st.metric("我的掌握度", f"{mastery:.0%}")
-        with col3:
-            if st.button("🔄 换个题目", type="secondary", key="change_question_btn"):
+            if st.button("🔄 换个题目", key="change_question_btn", help="随机切换到其他题目"):
                 # 确保题目列表已加载
                 if (st.session_state.current_node_for_questions != selected_node_name or 
                     st.session_state.current_questions is None):
@@ -140,8 +207,8 @@ def render_free_practice_page(api_service, current_user, user_id):
                     st.rerun()
                 elif questions and len(questions) == 1:
                     st.info("只有一道题目，无法切换")
-        with col4:
-            if st.button("🔙 重新选择知识点", key="back_to_map"):
+        with col2:
+            if st.button("🔙 重新选择", key="back_to_map", help="返回知识点选择界面"):
                 st.session_state.selected_node_name = None
                 # 清除题目缓存
                 st.session_state.current_questions = None
@@ -150,6 +217,9 @@ def render_free_practice_page(api_service, current_user, user_id):
                 st.session_state.show_diagnosis = False
                 st.session_state.diagnosis_result = None
                 st.rerun()
+        with col3:
+            if st.button("📊 查看进度", key="view_progress", help="查看学习进度统计"):
+                st.info("📈 学习进度功能开发中...")
         
         # 获取题目（使用缓存机制）
         if (st.session_state.current_node_for_questions != selected_node_name or 
@@ -244,7 +314,7 @@ def render_free_practice_page(api_service, current_user, user_id):
             
             if mastery < 0.3:
                 st.warning("🔰 这个知识点对你来说还比较新，建议先复习相关概念再做练习。")
-                st.info("📖 推荐：先去查看知识图谱，了解相关的基础知识点。")
+                st.info("📖 推荐：先复习基础知识，再进行练习。")
             elif mastery < 0.8:
                 st.info("📈 你对这个知识点有一定了解，多做练习可以进一步提高掌握度。")
                 st.success("💪 继续努力，你正在进步！")
@@ -254,4 +324,4 @@ def render_free_practice_page(api_service, current_user, user_id):
         else:
             st.warning("该知识点暂无练习题目")
     else:
-        st.info("👆 请从上方知识图谱中选择一个知识点开始练习")
+        st.info("👆 请从上方选择一个知识点开始练习")
