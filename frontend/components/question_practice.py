@@ -62,14 +62,10 @@ class QuestionPracticeComponent:
             question_text = str(question_text)
         elif not isinstance(question_text, str):
             question_text = str(question_text)
-            
+        
         if question_text:
-            # 如果题目包含LaTeX，使用latex渲染，否则使用普通文本
-            if '$' in question_text or '\\' in question_text:
-                st.latex(question_text)
-            else:
-                st.write(f"**❓ 题目：**")
-                st.write(question_text)
+            st.write(f"**❓ 题目：**")
+            self._render_math_content(question_text)
         
         # 显示题目图片（如果有）
         if question.get('question_image_url'):
@@ -298,12 +294,17 @@ class QuestionPracticeComponent:
         with col_main:
             # 根据正确性显示结果
             if is_correct:
-                st.success(f"🎉 答案正确！{reason}")
+                st.success("🎉 答案正确！")
                 # 显示庆祝效果
                 st.balloons()
             else:
-                st.warning(f"⚠️ 答案需要改进：{reason}")
+                st.warning("⚠️ 答案需要改进")
                 st.info("💡 **建议**: 请仔细检查解题步骤，或尝试从不同角度思考问题")
+            
+            # 显示详细分析
+            if reason and reason != "无诊断信息":
+                st.write("**📝 详细分析：**")
+                st.markdown(reason)
         
         with col_side:
             # 显示掌握度提升（如果提供了之前的掌握度）
@@ -507,6 +508,46 @@ class QuestionPracticeComponent:
                 st.error(f"❌ 提交失败: {str(e)}")
                 # 重置提交状态，允许重新提交
                 st.session_state[submit_key] = False
+    
+    def _render_math_content(self, content: str) -> None:
+        """智能渲染包含数学公式的内容
+        
+        Args:
+            content: 要渲染的内容
+        """
+        # 检测是否包含复杂的LaTeX公式
+        has_block_math = '$$' in content
+        has_complex_latex = '\\begin{' in content or '\\end{' in content
+        
+        if has_block_math or has_complex_latex:
+            # 处理包含块级公式的内容
+            if has_block_math:
+                # 分离文本和公式部分
+                parts = content.split('$$')
+                for i, part in enumerate(parts):
+                    if i % 2 == 0:  # 普通文本部分
+                        if part.strip():
+                            # 处理行内公式
+                            if '$' in part:
+                                st.markdown(part)
+                            else:
+                                st.markdown(part)
+                    else:  # LaTeX公式部分
+                        try:
+                            st.latex(part)
+                        except Exception as e:
+                            # 如果LaTeX渲染失败，回退到markdown
+                            st.markdown(f"$${part}$$")
+            else:
+                # 尝试直接用latex渲染
+                try:
+                    st.latex(content)
+                except Exception as e:
+                    # 回退到markdown
+                    st.markdown(content)
+        else:
+            # 简单内容直接用markdown渲染
+            st.markdown(content)
 
 # 便捷函数
 def create_question_practice_component(api_service, user_id: str) -> QuestionPracticeComponent:
