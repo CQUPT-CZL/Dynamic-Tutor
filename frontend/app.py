@@ -10,7 +10,6 @@ import streamlit as st
 from datetime import datetime
 
 # 导入页面模块
-from pages.student import daily_tasks, free_practice, knowledge_map, self_assessment, wrong_questions
 from pages.teacher import knowledge_management, question_management, knowledge_graph_builder
 from components.login import render_login_page, render_logout_button, is_logged_in, get_current_user
 from config import init_session_state, load_custom_css
@@ -29,34 +28,37 @@ def check_api_connection(api_service) -> bool:
 
 def render_student_interface(api_service):
     """渲染学生界面"""
-    # 创建标签页
+    # 创建标签页 - 新的界面结构
     tab1, tab2, tab3, tab4, tab5 = st.tabs([
-        "📋 今日任务", 
+        "🏠 首页", 
         "🎯 自由练习", 
-        "🗺️ 知识图谱", 
         "📊 自我测评", 
-        "❌ 错题集"
+        "❌ 错题集", 
+        "🎯 推荐任务"
     ])
     
-    # 今日任务页面
+    # 导入学生页面模块
+    from pages.student import home, free_practice, self_assessment, wrong_questions, recommended_tasks
+    
+    # 首页 - 包含雷达图、知识图谱和学习概览
     with tab1:
-        daily_tasks.render_daily_tasks_page(api_service, st.session_state.current_user, st.session_state.user_id)
+        home.render_home_page(api_service, st.session_state.current_user, st.session_state.user_id)
     
     # 自由练习页面
     with tab2:
         free_practice.render_free_practice_page(api_service, st.session_state.current_user, st.session_state.user_id)
     
-    # 知识图谱页面
-    with tab3:
-        knowledge_map.render_knowledge_map_page(api_service, st.session_state.current_user, st.session_state.user_id)
-    
     # 自我测评页面
-    with tab4:
+    with tab3:
         self_assessment.render_self_assessment_page(api_service, st.session_state.current_user, st.session_state.user_id)
     
     # 错题集页面
-    with tab5:
+    with tab4:
         wrong_questions.render_wrong_questions_page(api_service, st.session_state.current_user, st.session_state.user_id)
+    
+    # 推荐任务页面 - 包含今日任务获取和推荐内容
+    with tab5:
+        recommended_tasks.render_recommended_tasks_page(api_service, st.session_state.current_user, st.session_state.user_id)
 
 def render_teacher_interface(api_service):
     """渲染教师界面"""
