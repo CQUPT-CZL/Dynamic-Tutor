@@ -101,6 +101,11 @@ class APIService:
         print(f"[API调用] get_recommendation(user_id={user_id})")
         return self._make_request("GET", f"/student/recommendation/{user_id}")
     
+    def get_user_profile(self, user_id: str) -> Dict[str, Any]:
+        """获取用户画像数据"""
+        print(f"[API调用] get_user_profile(user_id={user_id})")
+        return self._make_request("GET", f"/student/recommendation/profile/{user_id}")
+    
     # 答案诊断
     def diagnose_answer(self, user_id: str, question_id: str, answer: str, 
                        answer_type: str = "text", time_spent: Optional[int] = None, 

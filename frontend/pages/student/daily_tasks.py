@@ -1,6 +1,97 @@
 import streamlit as st
 import time
+import plotly.graph_objects as go
+import json
 from components import render_simple_question, QuestionPracticeComponent
+
+def get_student_thinking_radar_data(api_service, user_id):
+    """获取学生做题思维雷达图数据"""
+    try:
+        # 调用用户画像API获取数据
+        profile_data = api_service.get_user_profile(user_id)
+        
+        if not profile_data or 'analysis_by_node' not in profile_data:
+            return None
+            
+        # 聚合所有知识点的四维数据
+        dimension_totals = {
+            '知识掌握': [],
+            '解题逻辑': [],
+            '计算准确性': [],
+            '行为表现': []
+        }
+        
+        for node_data in profile_data['analysis_by_node']:
+            avg_scores = node_data.get('average_scores', {})
+            for dim_name in dimension_totals.keys():
+                if dim_name in avg_scores:
+                    dimension_totals[dim_name].append(avg_scores[dim_name])
+        
+        # 计算每个维度的平均分
+        radar_data = {}
+        for dim_name, scores in dimension_totals.items():
+            if scores:
+                radar_data[dim_name] = round(sum(scores) / len(scores), 2)
+            else:
+                radar_data[dim_name] = 0.0
+                
+        return radar_data
+        
+    except Exception as e:
+        print(f"获取雷达图数据失败: {e}")
+        return None
+
+def render_thinking_radar_chart(radar_data):
+    """渲染做题思维雷达图"""
+    if not radar_data:
+        return
+        
+    # 准备雷达图数据
+    categories = list(radar_data.keys())
+    values = list(radar_data.values())
+    
+    # 创建雷达图
+    fig = go.Figure()
+    
+    fig.add_trace(go.Scatterpolar(
+        r=values,
+        theta=categories,
+        fill='toself',
+        name='做题思维能力',
+        line=dict(color='#667eea', width=3),
+        fillcolor='rgba(102, 126, 234, 0.3)',
+        marker=dict(size=8, color='#667eea')
+    ))
+    
+    fig.update_layout(
+        polar=dict(
+            radialaxis=dict(
+                visible=True,
+                range=[0, 1],
+                tickvals=[0.2, 0.4, 0.6, 0.8, 1.0],
+                ticktext=['20%', '40%', '60%', '80%', '100%'],
+                gridcolor='rgba(0,0,0,0.1)',
+                linecolor='rgba(0,0,0,0.2)'
+            ),
+            angularaxis=dict(
+                gridcolor='rgba(0,0,0,0.1)',
+                linecolor='rgba(0,0,0,0.2)'
+            )
+        ),
+        showlegend=False,
+        title=dict(
+            text="📊 做题思维雷达图",
+            x=0.5,
+            font=dict(size=18, color='#2E3440')
+        ),
+        width=400,
+        height=400,
+        margin=dict(l=50, r=50, t=80, b=50),
+        paper_bgcolor='rgba(0,0,0,0)',
+        plot_bgcolor='rgba(0,0,0,0)'
+    )
+    
+    return fig
 
 def get_mission_type_info(mission_type):
     """获取任务类型的显示信息"""
@@ -58,6 +149,128 @@ def render_daily_tasks_page(api_service, current_user, user_id):
         <p style="color: #5E81AC; font-size: 18px;">为你量身定制的智能学习计划</p>
     </div>
     """, unsafe_allow_html=True)
+    
+    # 雷达图展示区域
+    # st.markdown("""
+    # <div style="
+    #     background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    #     padding: 20px;
+    #     border-radius: 15px;
+    #     margin: 20px 0;
+    #     box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+    # ">
+    # """, unsafe_allow_html=True)
+    
+    col1, col2 = st.columns([1, 2])
+    
+    with col1:
+        # 获取并展示雷达图
+        radar_data = get_student_thinking_radar_data(api_service, user_id)
+        if radar_data:
+            fig = render_thinking_radar_chart(radar_data)
+            if fig:
+                st.plotly_chart(fig, use_container_width=True)
+        else:
+            st.markdown("""
+            <div style="
+                text-align: center;
+                padding: 40px;
+                color: #666;
+            ">
+                <div style="font-size: 3em; margin-bottom: 15px;">📊</div>
+                <h4>暂无数据</h4>
+                <p>完成一些练习后即可查看你的思维雷达图</p>
+            </div>
+            """, unsafe_allow_html=True)
+    
+    with col2:
+        # 雷达图说明和数据详情
+        st.markdown("### 🧠 你的做题思维分析")
+        
+        if radar_data:
+            st.markdown("**📈 各维度能力评估：**")
+            
+            for dim_name, score in radar_data.items():
+                # 计算百分比和颜色
+                percentage = int(score * 100)
+                if percentage >= 80:
+                    color = "#4CAF50"  # 绿色
+                    level = "优秀"
+                elif percentage >= 60:
+                    color = "#2196F3"  # 蓝色
+                    level = "良好"
+                elif percentage >= 40:
+                    color = "#FF9800"  # 橙色
+                    level = "一般"
+                else:
+                    color = "#F44336"  # 红色
+                    level = "待提升"
+                
+                st.markdown(f"""
+                <div style="
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    padding: 10px 15px;
+                    margin: 8px 0;
+                    background: white;
+                    border-radius: 8px;
+                    border-left: 4px solid {color};
+                    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+                ">
+                    <span style="font-weight: 500;">{dim_name}</span>
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <span style="color: {color}; font-weight: bold;">{percentage}%</span>
+                        <span style="
+                            background: {color};
+                            color: white;
+                            padding: 2px 8px;
+                            border-radius: 12px;
+                            font-size: 0.8em;
+                        ">{level}</span>
+                    </div>
+                </div>
+                """, unsafe_allow_html=True)
+            
+            # 总体评价
+            avg_score = sum(radar_data.values()) / len(radar_data)
+            avg_percentage = int(avg_score * 100)
+            
+            st.markdown(f"""
+            <div style="
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                color: white;
+                padding: 15px;
+                border-radius: 10px;
+                margin-top: 15px;
+                text-align: center;
+            ">
+                <h4 style="margin: 0 0 8px 0;">🎯 综合能力评估</h4>
+                <div style="font-size: 1.5em; font-weight: bold;">{avg_percentage}%</div>
+                <p style="margin: 5px 0 0 0; opacity: 0.9;">继续努力，你的进步很明显！</p>
+            </div>
+            """, unsafe_allow_html=True)
+        else:
+            st.markdown("""
+            <div style="
+                background: white;
+                padding: 20px;
+                border-radius: 10px;
+                text-align: center;
+                color: #666;
+            ">
+                <p>📚 开始做题练习，系统将为你生成专属的思维能力分析报告</p>
+                <p>💡 雷达图将展示你在以下四个维度的表现：</p>
+                <ul style="text-align: left; margin-top: 15px;">
+                    <li><strong>知识掌握</strong> - 对知识点的理解程度</li>
+                    <li><strong>解题逻辑</strong> - 逻辑推理和思维过程</li>
+                    <li><strong>计算准确性</strong> - 计算和操作的准确度</li>
+                    <li><strong>行为表现</strong> - 答题习惯和表达能力</li>
+                </ul>
+            </div>
+            """, unsafe_allow_html=True)
+    
+    st.markdown("</div>", unsafe_allow_html=True)
     
     # 如果没有推荐任务，显示获取推荐按钮
     if st.session_state.current_recommendation is None and not st.session_state.loading_recommendation:

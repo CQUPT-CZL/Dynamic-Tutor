@@ -185,10 +185,26 @@ def call_ai_diagnosis_api(profile_data):
 # --- API 路由 ---
 router = APIRouter(prefix="/recommendation", tags=["学生推荐"])
 
+@router.get("/profile/{user_id}")
+async def get_user_profile(user_id: int):
+    """
+    获取指定用户的学习画像分析数据（仅返回用户画像数据，不包含推荐任务）。
+    用于雷达图等数据可视化组件。
+    """
+    try:
+        profile_data = get_user_profile_data(user_id)
+        if "message" in profile_data:
+            raise HTTPException(status_code=404, detail=profile_data["message"])
+        return profile_data
+    except HTTPException as e:
+        raise e
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"获取用户画像数据失败: {str(e)}")
+
 @router.get("/{user_id}")
 async def get_user_recommendation(user_id: int):
     """
-    获取指定用户的学习画像分析数据。
+    获取指定用户的学习推荐任务包。
     这个接口是"学习规划师Agent"和"总指挥Agent"决策的数据来源。
     """
     try:
