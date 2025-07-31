@@ -455,8 +455,8 @@ def _diagnose_answer_logic(user_answer: str, correct_answer: str, question_text:
         
         result = {
             "is_correct": is_correct,
-            "reason": reason,
-            "scores": scores
+            "assessment_dimensions": scores,
+            "overall_summary": reason,
         }
         
         # result = {
