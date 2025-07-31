@@ -104,14 +104,14 @@ async def update_user_mastery(user_id: str, node_name: str, mastery_score: float
             # 更新现有记录
             conn.execute("""
                 UPDATE user_node_mastery 
-                SET mastery_score = ? 
+                SET mastery_score = ?, updated_at = CURRENT_TIMESTAMP 
                 WHERE user_id = ? AND node_id = ?
             """, (mastery_score, user_id, node_id))
         else:
             # 创建新记录
             conn.execute("""
-                INSERT INTO user_node_mastery (user_id, node_id, mastery_score)
-                VALUES (?, ?, ?)
+                INSERT INTO user_node_mastery (user_id, node_id, mastery_score, updated_at)
+                VALUES (?, ?, ?, CURRENT_TIMESTAMP)
             """, (user_id, node_id, mastery_score))
         
         conn.commit()

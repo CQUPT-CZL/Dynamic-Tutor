@@ -185,41 +185,41 @@ def render_free_practice_page(api_service, current_user, user_id):
         </div>
         """, unsafe_allow_html=True)
         
-        col1, col2, col3 = st.columns([1, 1, 1])
-        with col1:
-            if st.button("🔄 换个题目", key="change_question_btn", help="随机切换到其他题目"):
-                # 确保题目列表已加载
-                if (st.session_state.current_node_for_questions != selected_node_name or 
-                    st.session_state.current_questions is None):
-                    st.session_state.current_questions = api_service.get_questions_for_node(selected_node_name)
-                    st.session_state.current_node_for_questions = selected_node_name
+        # col1, col2, col3 = st.columns([1, 1, 1])
+        # with col1:
+        #     if st.button("🔄 换个题目", key="change_question_btn", help="随机切换到其他题目"):
+        #         # 确保题目列表已加载
+        #         if (st.session_state.current_node_for_questions != selected_node_name or 
+        #             st.session_state.current_questions is None):
+        #             st.session_state.current_questions = api_service.get_questions_for_node(selected_node_name)
+        #             st.session_state.current_node_for_questions = selected_node_name
                 
-                questions = st.session_state.current_questions
-                if questions and len(questions) > 1:
-                    # 确保不选择当前题目
-                    new_index = st.session_state.selected_question_index
-                    while new_index == st.session_state.selected_question_index:
-                        new_index = random.randint(0, len(questions) - 1)
-                    st.session_state.selected_question_index = new_index
-                    # 清除诊断结果
-                    st.session_state.show_diagnosis = False
-                    st.session_state.diagnosis_result = None
-                    st.rerun()
-                elif questions and len(questions) == 1:
-                    st.info("只有一道题目，无法切换")
-        with col2:
-            if st.button("🔙 重新选择", key="back_to_map", help="返回知识点选择界面"):
-                st.session_state.selected_node_name = None
-                # 清除题目缓存
-                st.session_state.current_questions = None
-                st.session_state.current_node_for_questions = None
-                # 清除诊断结果
-                st.session_state.show_diagnosis = False
-                st.session_state.diagnosis_result = None
-                st.rerun()
-        with col3:
-            if st.button("📊 查看进度", key="view_progress", help="查看学习进度统计"):
-                st.info("📈 学习进度功能开发中...")
+        #         questions = st.session_state.current_questions
+        #         if questions and len(questions) > 1:
+        #             # 确保不选择当前题目
+        #             new_index = st.session_state.selected_question_index
+        #             while new_index == st.session_state.selected_question_index:
+        #                 new_index = random.randint(0, len(questions) - 1)
+        #             st.session_state.selected_question_index = new_index
+        #             # 清除诊断结果
+        #             st.session_state.show_diagnosis = False
+        #             st.session_state.diagnosis_result = None
+        #             st.rerun()
+        #         elif questions and len(questions) == 1:
+        #             st.info("只有一道题目，无法切换")
+        # with col2:
+        #     if st.button("🔙 重新选择", key="back_to_map", help="返回知识点选择界面"):
+        #         st.session_state.selected_node_name = None
+        #         # 清除题目缓存
+        #         st.session_state.current_questions = None
+        #         st.session_state.current_node_for_questions = None
+        #         # 清除诊断结果
+        #         st.session_state.show_diagnosis = False
+        #         st.session_state.diagnosis_result = None
+        #         st.rerun()
+        # with col3:
+        #     if st.button("📊 查看进度", key="view_progress", help="查看学习进度统计"):
+        #         st.info("📈 学习进度功能开发中...")
         
         # 获取题目（使用缓存机制）
         if (st.session_state.current_node_for_questions != selected_node_name or 

@@ -87,6 +87,66 @@ async def diagnose_answer(request: DiagnosisRequest):
             print(f"❌ 插入答题记录失败: {str(e)}")
             raise HTTPException(status_code=500, detail=f"插入答题记录失败: {str(e)}")
         print('✅ 答题记录插入成功')
+        
+        # 更新用户知识点掌握度
+        print(f"📊 开始更新知识点掌握度")
+        try:
+            # 获取题目关联的知识点和题目难度
+            cursor = conn.execute("""
+                SELECT qm.node_id, q.difficulty 
+                FROM question_to_node_mapping qm
+                JOIN questions q ON qm.question_id = q.question_id
+                WHERE qm.question_id = ?
+            """, (request.question_id,))
+            
+            knowledge_nodes = cursor.fetchall()
+            
+            for node in knowledge_nodes:
+                node_id = node['node_id']
+                difficulty = node['difficulty'] or 0.5  # 默认难度0.5
+                
+                # 根据题目难度计算掌握度变化幅度
+                # 难题答对奖励更多，简单题答错惩罚更少
+                if is_correct:
+                    # 答对：难度越高，奖励越多 (0.05 - 0.15)
+                    score_change = 0.05 + difficulty * 0.1
+                else:
+                    # 答错：难度越低，惩罚越多 (0.02 - 0.12)
+                    score_change = -(0.02 + (1 - difficulty) * 0.1)
+                
+                # 检查是否已有掌握度记录
+                cursor = conn.execute("""
+                    SELECT mastery_score FROM user_node_mastery 
+                    WHERE user_id = ? AND node_id = ?
+                """, (request.user_id, node_id))
+                
+                existing = cursor.fetchone()
+                
+                if existing:
+                    # 更新现有记录，确保掌握度在0-1之间
+                    new_score = max(0.0, min(1.0, existing['mastery_score'] + score_change))
+                    conn.execute("""
+                        UPDATE user_node_mastery 
+                        SET mastery_score = ?, updated_at = CURRENT_TIMESTAMP
+                        WHERE user_id = ? AND node_id = ?
+                    """, (new_score, request.user_id, node_id))
+                    print(f"✅ 更新知识点 {node_id} 掌握度: {existing['mastery_score']:.3f} -> {new_score:.3f} (难度: {difficulty:.2f})")
+                else:
+                    # 创建新记录，初始掌握度0.5，然后应用变化
+                    initial_score = max(0.0, min(1.0, 0.5 + score_change))
+                    conn.execute("""
+                        INSERT INTO user_node_mastery (user_id, node_id, mastery_score, updated_at)
+                        VALUES (?, ?, ?, CURRENT_TIMESTAMP)
+                    """, (request.user_id, node_id, initial_score))
+                    print(f"✅ 创建知识点 {node_id} 掌握度记录: {initial_score:.3f} (难度: {difficulty:.2f})")
+            
+            conn.commit()
+            print(f"✅ 知识点掌握度更新完成")
+            
+        except Exception as e:
+            print(f"❌ 更新知识点掌握度失败: {str(e)}")
+            # 掌握度更新失败不影响主要流程，只记录错误
+            pass
         # 如果答错了，更新错题记录
         if not is_correct:
             print(f"❌ 答案错误，开始处理错题记录")
@@ -201,14 +261,118 @@ async def diagnose_image_answer(
         
         # 使用相同的诊断逻辑
         diagnosis_result = _diagnose_answer_logic(recognized_text, correct_answer, question_type, question_text)
+        is_correct = diagnosis_result['is_correct']
         
-        # diagnosis_result = {
-        #     "status": "success",
-        #     "diagnosis": "图片答案识别成功，解题过程正确",
-        #     "hint": None,
-        #     "correct_answer": "最小值为-4，当x=-1时取得",
-        #     "next_recommendation": "可以尝试更复杂的二次函数问题"
-        # }
+        # 保存答题记录到数据库
+        print(f"💾 [图片诊断] 开始保存答题记录 - 用户ID: {user_id}, 题目ID: {question_id}, 答案正确性: {is_correct}")
+        
+        try:
+            conn.execute("""
+                INSERT INTO user_answers 
+                (user_id, question_id, user_answer, is_correct, time_spent, confidence, timestamp, diagnosis_json)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+            """, (user_id, question_id, recognized_text, is_correct,
+                  time_spent or 0, confidence or 0.5, datetime.now().isoformat(), json.dumps(diagnosis_result, ensure_ascii=False)))
+            conn.commit()
+            print('✅ [图片诊断] 答题记录插入成功')
+        except Exception as e:
+            print(f"❌ [图片诊断] 插入答题记录失败: {str(e)}")
+            raise HTTPException(status_code=500, detail=f"插入答题记录失败: {str(e)}")
+        
+        # 更新用户知识点掌握度
+        print(f"📊 [图片诊断] 开始更新知识点掌握度")
+        try:
+            # 获取题目关联的知识点和题目难度
+            cursor = conn.execute("""
+                SELECT qm.node_id, q.difficulty 
+                FROM question_to_node_mapping qm
+                JOIN questions q ON qm.question_id = q.question_id
+                WHERE qm.question_id = ?
+            """, (question_id,))
+            
+            knowledge_nodes = cursor.fetchall()
+            
+            for node in knowledge_nodes:
+                node_id = node['node_id']
+                difficulty = node['difficulty'] or 0.5  # 默认难度0.5
+                
+                # 根据题目难度计算掌握度变化幅度
+                # 难题答对奖励更多，简单题答错惩罚更少
+                if is_correct:
+                    # 答对：难度越高，奖励越多 (0.05 - 0.15)
+                    score_change = 0.05 + difficulty * 0.1
+                else:
+                    # 答错：难度越低，惩罚越多 (0.02 - 0.12)
+                    score_change = -(0.02 + (1 - difficulty) * 0.1)
+                
+                # 检查是否已有掌握度记录
+                cursor = conn.execute("""
+                    SELECT mastery_score FROM user_node_mastery 
+                    WHERE user_id = ? AND node_id = ?
+                """, (user_id, node_id))
+                
+                existing = cursor.fetchone()
+                
+                if existing:
+                    # 更新现有记录，确保掌握度在0-1之间
+                    new_score = max(0.0, min(1.0, existing['mastery_score'] + score_change))
+                    conn.execute("""
+                        UPDATE user_node_mastery 
+                        SET mastery_score = ?, updated_at = CURRENT_TIMESTAMP
+                        WHERE user_id = ? AND node_id = ?
+                    """, (new_score, user_id, node_id))
+                    print(f"✅ [图片诊断] 更新知识点 {node_id} 掌握度: {existing['mastery_score']:.3f} -> {new_score:.3f} (难度: {difficulty:.2f})")
+                else:
+                    # 创建新记录，初始掌握度0.5，然后应用变化
+                    initial_score = max(0.0, min(1.0, 0.5 + score_change))
+                    conn.execute("""
+                        INSERT INTO user_node_mastery (user_id, node_id, mastery_score, updated_at)
+                        VALUES (?, ?, ?, CURRENT_TIMESTAMP)
+                    """, (user_id, node_id, initial_score))
+                    print(f"✅ [图片诊断] 创建知识点 {node_id} 掌握度记录: {initial_score:.3f} (难度: {difficulty:.2f})")
+            
+            conn.commit()
+            print(f"✅ [图片诊断] 知识点掌握度更新完成")
+            
+        except Exception as e:
+            print(f"❌ [图片诊断] 更新知识点掌握度失败: {str(e)}")
+            # 掌握度更新失败不影响主要流程，只记录错误
+            pass
+        
+        # 如果答错了，更新错题记录
+        if not is_correct:
+            print(f"❌ [图片诊断] 答案错误，开始处理错题记录")
+            cursor = conn.execute("""
+                SELECT wrong_id, wrong_count FROM wrong_questions 
+                WHERE user_id = ? AND question_id = ?
+            """, (user_id, question_id))
+            
+            existing = cursor.fetchone()
+            if existing:
+                conn.execute("""
+                    UPDATE wrong_questions 
+                    SET wrong_count = wrong_count + 1, last_wrong_time = ?
+                    WHERE wrong_id = ?
+                """, (datetime.now().isoformat(), existing["wrong_id"]))
+                conn.commit()
+                print(f'✅ [图片诊断] 错题记录更新成功')
+            else:
+                try:
+                    conn.execute("""
+                        INSERT INTO wrong_questions 
+                        (user_id, question_id, wrong_count, last_wrong_time, status)
+                        VALUES (?, ?, ?, ?, '未掌握')
+                    """, (user_id, question_id, 1, datetime.now().isoformat()))
+                    conn.commit()
+                    print('✅ [图片诊断] 新错题记录创建成功')
+                except Exception as e:
+                    print(f"❌ [图片诊断] 插入错题记录失败: {str(e)}")
+        else:
+            print(f"✅ [图片诊断] 答案正确，无需记录错题")
+        
+        conn.close()
+        print('🔒 [图片诊断] 数据库连接已关闭')
+        
         return diagnosis_result
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"图片诊断失败: {str(e)}")

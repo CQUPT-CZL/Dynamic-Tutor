@@ -214,7 +214,7 @@ class QuestionPracticeComponent:
                     button_text = "✅ 已提交"
                     button_type = "secondary"
                     disabled = True
-                else:
+                else:   
                     button_text = "📝 提交答案"
                     button_type = "primary"
                     disabled = False
@@ -231,18 +231,18 @@ class QuestionPracticeComponent:
                         st.error("请先输入答案！")
             col_idx += 1
         
-        # 提示按钮
+        # 查看答案按钮
         if show_hint:
             with cols[col_idx]:
                 hint_key = f"hint_{question_id}_{key_suffix}" if key_suffix else f"hint_{question_id}"
                 hint_state_key = f"hint_shown_{question_id}"
                 
-                if st.button("💡 获取提示", key=hint_key, use_container_width=True):
+                if st.button("👁️ 查看答案", key=hint_key, use_container_width=True):
                     button_states['hint_clicked'] = True
                     if on_hint:
                         on_hint()
                     else:
-                        # 将提示状态存储到session_state中，避免立即刷新
+                        # 将答案显示状态存储到session_state中，避免立即刷新
                         st.session_state[hint_state_key] = True
             col_idx += 1
         
@@ -307,8 +307,41 @@ class QuestionPracticeComponent:
                 st.markdown(reason)
         
         with col_side:
-            # 显示掌握度提升（如果提供了之前的掌握度）
-            if is_correct and mastery_before < 1.0:
+            # 显示掌握度变化（基于实际更新结果）
+            question_id = st.session_state.get('current_question_id', 'unknown')
+            mastery_change_key = f'mastery_change_{question_id}'
+            
+            if mastery_change_key in st.session_state:
+                mastery_info = st.session_state[mastery_change_key]
+                knowledge_node = mastery_info['knowledge_node']
+                new_mastery = mastery_info['new_mastery']
+                change = mastery_info['change']
+                
+                # 显示知识点名称
+                st.markdown(f"**📚 {knowledge_node}**")
+                
+                # 显示掌握度变化
+                if change > 0:
+                    st.metric(
+                        "掌握度提升", 
+                        f"{new_mastery:.0%}", 
+                        delta=f"+{change:.1%}",
+                        delta_color="normal"
+                    )
+                elif change < 0:
+                    st.metric(
+                        "掌握度变化", 
+                        f"{new_mastery:.0%}", 
+                        delta=f"{change:.1%}",
+                        delta_color="inverse"
+                    )
+                else:
+                    st.metric(
+                        "当前掌握度", 
+                        f"{new_mastery:.0%}"
+                    )
+            elif is_correct and mastery_before < 1.0:
+                # 兼容旧版本显示
                 new_mastery = min(mastery_before + 0.1, 1.0)
                 st.metric(
                     "掌握度提升", 
@@ -435,6 +468,9 @@ class QuestionPracticeComponent:
         # 在按钮区域之后显示诊断结果（全宽度显示）
         question_id = question.get('question_id', question.get('id', 'unknown'))
         
+        # 设置当前题目ID到session_state，用于掌握度显示
+        st.session_state['current_question_id'] = question_id
+        
         # 添加重新提交按钮（如果已提交）
         submitted_key = f'submitted_{question_id}'
         if st.session_state.get(submitted_key, False):
@@ -456,12 +492,18 @@ class QuestionPracticeComponent:
             # 显示后立即清除，避免重复显示
             st.session_state[f'submit_success_{question_id}'] = False
         
-        # 显示提示信息（如果已点击获取提示）
+        # 显示答案信息（如果已点击查看答案）
         hint_state_key = f"hint_shown_{question_id}"
         if st.session_state.get(hint_state_key, False):
-            st.info("💡 提示功能开发中...")
-            # 添加关闭提示的按钮
-            if st.button("❌ 关闭提示", key=f"close_hint_{question_id}_{key_suffix}"):
+            # 显示标准答案
+            answer_text = question.get('answer', question.get('correct_answer', '暂无答案'))
+            if answer_text and answer_text != '暂无答案':
+                st.success(f"📝 **标准答案：** {answer_text}")
+            else:
+                st.info("💡 答案功能开发中...")
+            
+            # 添加关闭答案的按钮
+            if st.button("❌ 关闭答案", key=f"close_hint_{question_id}_{key_suffix}"):
                 st.session_state[hint_state_key] = False
                 st.rerun()
         
@@ -499,6 +541,9 @@ class QuestionPracticeComponent:
                     st.session_state[f'show_diagnosis_{question_id}'] = True
                     # 将成功消息也存储到session_state中，避免立即刷新
                     st.session_state[f'submit_success_{question_id}'] = True
+                    
+                    # 掌握度更新已移至后端处理
+                    
                 else:
                     st.error(f"❌ 诊断失败: {diagnosis['error']}")
                     st.info("💡 请检查网络连接或稍后重试")
@@ -508,6 +553,8 @@ class QuestionPracticeComponent:
                 st.error(f"❌ 提交失败: {str(e)}")
                 # 重置提交状态，允许重新提交
                 st.session_state[submit_key] = False
+    
+
     
     def _render_math_content(self, content: str) -> None:
         """智能渲染包含数学公式的内容
