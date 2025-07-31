@@ -31,10 +31,10 @@ def render_student_interface(api_service):
     # 创建标签页 - 新的界面结构
     tab1, tab2, tab3, tab4, tab5 = st.tabs([
         "🏠 首页", 
+        "🎯 推荐任务",
         "🎯 自由练习", 
         "📊 自我测评", 
-        "❌ 错题集", 
-        "🎯 推荐任务"
+        "❌ 错题集"
     ])
     
     # 导入学生页面模块
@@ -44,22 +44,21 @@ def render_student_interface(api_service):
     with tab1:
         home.render_home_page(api_service, st.session_state.current_user, st.session_state.user_id)
     
-    # 自由练习页面
+    # 推荐任务页面 - 包含今日任务获取和推荐内容
     with tab2:
+        recommended_tasks.render_recommended_tasks_page(api_service, st.session_state.current_user, st.session_state.user_id)
+    
+    # 自由练习页面
+    with tab3:
         free_practice.render_free_practice_page(api_service, st.session_state.current_user, st.session_state.user_id)
     
     # 自我测评页面
-    with tab3:
+    with tab4:
         self_assessment.render_self_assessment_page(api_service, st.session_state.current_user, st.session_state.user_id)
     
     # 错题集页面
-    with tab4:
-        wrong_questions.render_wrong_questions_page(api_service, st.session_state.current_user, st.session_state.user_id)
-    
-    # 推荐任务页面 - 包含今日任务获取和推荐内容
     with tab5:
-        recommended_tasks.render_recommended_tasks_page(api_service, st.session_state.current_user, st.session_state.user_id)
-
+        wrong_questions.render_wrong_questions_page(api_service, st.session_state.current_user, st.session_state.user_id)
 def render_teacher_interface(api_service):
     """渲染教师界面"""
     # 创建标签页
