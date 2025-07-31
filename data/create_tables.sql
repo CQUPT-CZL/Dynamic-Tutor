@@ -76,6 +76,7 @@ CREATE TABLE user_node_mastery (
     user_id INTEGER NOT NULL,
     node_id TEXT NOT NULL,
     mastery_score REAL NOT NULL DEFAULT 0.0,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP, -- 掌握度更新时间戳
     FOREIGN KEY (user_id) REFERENCES users (user_id),
     FOREIGN KEY (node_id) REFERENCES knowledge_nodes (node_id),
     UNIQUE(user_id, node_id)

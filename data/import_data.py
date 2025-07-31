@@ -1,13 +1,76 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+数据导入脚本
+从JSON文件导入知识图谱数据和数学题目数据到SQLite数据库
+"""
+
 import sqlite3
 import os
 import json
 from tqdm import tqdm
 import random
+from typing import Dict, List, Any
 
 # --- 配置区 ---
 DB_FILE = "my_database.db"
-JSON_FILE = "./raw/KG_data_v2.json"  # 你的JSON数据文件名
-TEACHER_USER_ID = 3            # 假设“胡老师”的user_id是3
+KG_JSON_FILE = "./raw/KG_data_v2.json"  # 知识图谱数据文件
+MATH_QUESTIONS_JSON_FILE = "./raw/final_math_questions1.json"  # 数学题目数据文件
+
+
+def connect_database(db_path: str = DB_FILE) -> sqlite3.Connection:
+    """
+    连接到SQLite数据库
+    
+    Args:
+        db_path: 数据库文件路径
+        
+    Returns:
+        数据库连接对象
+    """
+    if not os.path.exists(db_path):
+        raise FileNotFoundError(f"数据库文件不存在: {db_path}")
+    
+    conn = sqlite3.connect(db_path)
+    conn.execute("PRAGMA foreign_keys = ON")  # 启用外键约束
+    return conn
+
+
+def get_teacher_user_id(conn: sqlite3.Connection) -> int:
+    """
+    获取教师用户ID（用于设置created_by字段）
+    
+    Args:
+        conn: 数据库连接
+        
+    Returns:
+        教师用户ID
+    """
+    cursor = conn.cursor()
+    cursor.execute("SELECT user_id FROM users WHERE role = 'teacher' LIMIT 1")
+    result = cursor.fetchone()
+    
+    if result is None:
+        raise ValueError("数据库中没有找到教师用户")
+    
+    return result[0]
+
+
+def load_json_data(json_path: str) -> Dict[str, Any]:
+    """
+    加载JSON数据
+    
+    Args:
+        json_path: JSON文件路径
+        
+    Returns:
+        JSON数据
+    """
+    if not os.path.exists(json_path):
+        raise FileNotFoundError(f"JSON文件不存在: {json_path}")
+    
+    with open(json_path, 'r', encoding='utf-8') as f:
+        return json.load(f)
 
 def format_node_learning_text(node_obj):
     """将JSON中节点的描述、属性、公式格式化为一段学习文本"""
@@ -27,6 +90,145 @@ def format_node_learning_text(node_obj):
             learning_text += f"`{formula}`\n" # 使用反引号标记为代码，方便前端渲染
             
     return learning_text.strip()
+
+
+def insert_knowledge_node(conn: sqlite3.Connection, node_name: str) -> str:
+    """
+    插入知识点节点，如果已存在则返回现有ID
+    
+    Args:
+        conn: 数据库连接
+        node_name: 知识点名称
+        
+    Returns:
+        知识点节点ID
+    """
+    cursor = conn.cursor()
+    
+    # 检查是否已存在
+    cursor.execute("SELECT node_id FROM knowledge_nodes WHERE node_name = ?", (node_name,))
+    result = cursor.fetchone()
+    
+    if result:
+        return str(result[0])
+    
+    # 插入新的知识点节点
+    cursor.execute("""
+        INSERT INTO knowledge_nodes (node_name, node_difficulty, level, node_type, node_learning)
+        VALUES (?, ?, ?, ?, ?)
+    """, (
+        node_name,
+        0.5,  # 默认难度
+        "高中",  # 默认年级
+        "概念",  # 默认类型
+        f"{node_name}相关的数学概念和方法"  # 默认学习内容
+    ))
+    
+    return str(cursor.lastrowid)
+
+
+def insert_question(conn: sqlite3.Connection, question_data: Dict[str, Any], 
+                   teacher_id: int) -> int:
+    """
+    插入题目数据
+    
+    Args:
+        conn: 数据库连接
+        question_data: 题目数据
+        teacher_id: 教师用户ID
+        
+    Returns:
+        题目ID
+    """
+    cursor = conn.cursor()
+    
+    # 处理options字段 - 如果是字典则转换为JSON字符串
+    options = question_data.get('options', "")
+    if isinstance(options, dict):
+        import json
+        options = json.dumps(options, ensure_ascii=False)
+    elif options is None:
+        options = ""
+    
+    cursor.execute("""
+        INSERT INTO questions (
+            question_text, question_type, difficulty, options, answer, 
+            analysis, skill_focus, status, created_by
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+    """, (
+        question_data.get('question_text', ''),
+        question_data.get('question_type', '解答题'),
+        question_data.get('difficulty', 0.5),
+        options,
+        question_data.get('answer', ''),
+        question_data.get('analysis', ''),
+        question_data.get('skill_focus', ''),
+        'published',  # 状态设为已发布
+        teacher_id
+    ))
+    
+    return cursor.lastrowid
+
+
+def insert_question_node_mapping(conn: sqlite3.Connection, question_id: int, node_id: str):
+    """
+    插入题目与知识点的关联关系
+    
+    Args:
+        conn: 数据库连接
+        question_id: 题目ID
+        node_id: 知识点节点ID
+    """
+    cursor = conn.cursor()
+    
+    cursor.execute("""
+        INSERT INTO question_to_node_mapping (question_id, node_id)
+        VALUES (?, ?)
+    """, (question_id, node_id))
+
+
+def import_math_questions(conn: sqlite3.Connection, teacher_id: int):
+    """
+    导入数学题目数据
+    
+    Args:
+        conn: 数据库连接
+        teacher_id: 教师用户ID
+    """
+    print("\n--- 导入数学题目数据 ---")
+    
+    # 加载数学题目数据
+    questions_data = load_json_data(MATH_QUESTIONS_JSON_FILE)
+    print(f"成功加载数学题目数据，包含 {len(questions_data)} 个知识点分类")
+    
+    # 统计信息
+    total_questions = 0
+    knowledge_nodes_created = set()
+    
+    # 遍历每个知识点分类
+    for knowledge_point, question_types in tqdm(questions_data.items(), desc="导入数学题目"):
+        # 创建或获取知识点节点
+        node_id = insert_knowledge_node(conn, knowledge_point)
+        knowledge_nodes_created.add(knowledge_point)
+        
+        # 处理该知识点下的不同题型
+        for question_type, questions in question_types.items():
+            # 处理该题型下的所有题目
+            for question in questions:
+                # 确保question是字典类型
+                if isinstance(question, dict):
+                    # 插入题目
+                    question_id = insert_question(conn, question, teacher_id)
+                    
+                    # 创建题目与知识点的关联
+                    insert_question_node_mapping(conn, question_id, node_id)
+                    
+                    total_questions += 1
+                else:
+                    print(f"警告：跳过非字典类型的题目数据: {question}")
+    
+    print(f"导入了 {len(knowledge_nodes_created)} 个数学知识点")
+    print(f"导入了 {total_questions} 道数学题目")
 
 def initialize_database_from_json(db_path, json_path):
     """从JSON文件初始化所有数据：节点、边，并生成题目。"""
@@ -94,34 +296,9 @@ def initialize_database_from_json(db_path, json_path):
             if source_id and target_id:
                 cursor.execute(
                     "INSERT OR IGNORE INTO knowledge_edges (source_node_id, target_node_id, relation_type, created_by) VALUES (?, ?, ?, ?)",
-                    (source_id, target_id, relation_type, TEACHER_USER_ID)
+                    (source_id, target_id, relation_type, 1)
                 )
 
-        # --- 阶段三：为每个知识点生成并插入题目 ---
-        print("\n--- 阶段三：为每个知识点生成题目并关联 ---")
-        skill_focus_options = ['concept', 'calculation', 'logic', 'application']
-
-        for node_name, node_id in tqdm(node_name_to_id_map.items(), desc="生成题目"):
-            for i in range(1, 10):
-                question_type = random.choice(['选择题', '填空题', '解答题'])
-                difficulty = round(random.uniform(0.1, 0.9), 2)
-                skill_focus = random.choice(skill_focus_options)
-                
-                question_text = f"这是一道关于“{node_name}”的[{skill_focus}]型{question_type}，难度为{difficulty}。(题目{i})"
-                answer = f"“{node_name}”题目{i}的标准答案。"
-                analysis = f"“{node_name}”题目{i}的详细解析。"
-
-                cursor.execute(
-                    "INSERT INTO questions (question_text, question_type, difficulty, skill_focus, answer, analysis, created_by) VALUES (?, ?, ?, ?, ?, ?, ?)",
-                    (question_text, question_type, difficulty, skill_focus, answer, analysis, TEACHER_USER_ID)
-                )
-                new_question_id = cursor.lastrowid
-                
-                cursor.execute(
-                    "INSERT INTO question_to_node_mapping (question_id, node_id) VALUES (?, ?)",
-                    (new_question_id, node_id)
-                )
-        
         # 提交所有更改
         conn.commit()
         print("\n🎉🎉🎉 恭喜！JSON中的知识图谱及生成的题目已成功装载到数据库！")
@@ -133,4 +310,29 @@ def initialize_database_from_json(db_path, json_path):
         conn.close()
 
 if __name__ == '__main__':
-    initialize_database_from_json(DB_FILE, JSON_FILE)
+    # 连接数据库
+    conn = connect_database()
+    
+    try:
+        # 获取教师用户ID
+        teacher_id = get_teacher_user_id(conn)
+        if teacher_id is None:
+            print("错误：找不到用户名为 'teacher' 的教师用户")
+            conn.close()
+            exit(1)
+        
+        print(f"找到教师用户 (ID: {teacher_id})")
+        
+        # 导入知识图谱数据
+        initialize_database_from_json(DB_FILE, KG_JSON_FILE)
+        
+        # 导入数学题目数据
+        import_math_questions(conn, teacher_id)
+        
+        print("\n🎉 所有数据导入完成！")
+        
+    except Exception as e:
+        print(f"\n❌ 导入过程中发生错误: {e}")
+    finally:
+        conn.commit()
+        conn.close()

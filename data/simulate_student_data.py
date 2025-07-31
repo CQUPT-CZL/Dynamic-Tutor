@@ -15,46 +15,46 @@ NUM_INTERACTIONS_PER_USER = 300
 # --- 虚拟学生画像定义 --- 
 PERSONAS = {
     "小崔": {"name": "基础薄弱的小崔", "base_accuracy": 0.4, "weakness": "knowledge"},
-    "小陈": {"name": "聪明的马虎蛋小陈", "base_accuracy": 0.8, "weakness": "calculation"},
-    "小李": {"name": "稳步前进的小李", "base_accuracy": 0.7, "weakness": None},
-    "小张": {"name": "学霸小张", "base_accuracy": 0.95, "weakness": None},
-    "小王": {"name": "努力型小王", "base_accuracy": 0.6, "weakness": "logic"},
-    "小赵": {"name": "天赋型小赵", "base_accuracy": 0.85, "weakness": None},
-    "小钱": {"name": "粗心大意小钱", "base_accuracy": 0.75, "weakness": "calculation"},
-    "小孙": {"name": "概念混淆小孙", "base_accuracy": 0.5, "weakness": "knowledge"},
-    "小周": {"name": "逻辑清晰小周", "base_accuracy": 0.8, "weakness": "calculation"},
-    "小吴": {"name": "基础扎实小吴", "base_accuracy": 0.75, "weakness": None},
-    "小郑": {"name": "思维敏捷小郑", "base_accuracy": 0.9, "weakness": "calculation"},
-    "小冯": {"name": "勤奋刻苦小冯", "base_accuracy": 0.65, "weakness": "logic"},
-    "小陆": {"name": "理解困难小陆", "base_accuracy": 0.45, "weakness": "knowledge"},
-    "小丁": {"name": "计算达人小丁", "base_accuracy": 0.8, "weakness": "logic"},
-    "小石": {"name": "全面发展小石", "base_accuracy": 0.7, "weakness": None},
-    "小田": {"name": "偏科严重小田", "base_accuracy": 0.55, "weakness": "knowledge"},
-    "小何": {"name": "细心谨慎小何", "base_accuracy": 0.75, "weakness": "logic"},
-    "小林": {"name": "创新思维小林", "base_accuracy": 0.85, "weakness": None},
-    "小徐": {"name": "基础一般小徐", "base_accuracy": 0.6, "weakness": "calculation"},
-    "小黄": {"name": "潜力无限小黄", "base_accuracy": 0.65, "weakness": "logic"},
-    # 新增20个用户
-    "小刘": {"name": "踏实认真小刘", "base_accuracy": 0.72, "weakness": "knowledge"},
-    "小杨": {"name": "反应迅速小杨", "base_accuracy": 0.88, "weakness": "calculation"},
-    "小宋": {"name": "沉稳内敛小宋", "base_accuracy": 0.68, "weakness": "logic"},
-    "小韩": {"name": "活泼好学小韩", "base_accuracy": 0.77, "weakness": None},
-    "小魏": {"name": "专注细致小魏", "base_accuracy": 0.83, "weakness": "calculation"},
-    "小邓": {"name": "基础扎实小邓", "base_accuracy": 0.74, "weakness": None},
-    "小许": {"name": "思维活跃小许", "base_accuracy": 0.81, "weakness": "logic"},
-    "小曾": {"name": "勤学好问小曾", "base_accuracy": 0.63, "weakness": "knowledge"},
-    "小彭": {"name": "逻辑严密小彭", "base_accuracy": 0.86, "weakness": "calculation"},
-    "小吕": {"name": "稳中求进小吕", "base_accuracy": 0.69, "weakness": "logic"},
-    "小苏": {"name": "天资聪颖小苏", "base_accuracy": 0.92, "weakness": None},
-    "小卢": {"name": "努力上进小卢", "base_accuracy": 0.58, "weakness": "knowledge"},
-    "小蒋": {"name": "计算精准小蒋", "base_accuracy": 0.79, "weakness": "logic"},
-    "小蔡": {"name": "理解深刻小蔡", "base_accuracy": 0.84, "weakness": "calculation"},
-    "小贾": {"name": "基础薄弱小贾", "base_accuracy": 0.42, "weakness": "knowledge"},
-    "小丛": {"name": "全面均衡小丛", "base_accuracy": 0.76, "weakness": None},
-    "小关": {"name": "细心谨慎小关", "base_accuracy": 0.71, "weakness": "calculation"},
-    "小兰": {"name": "思路清晰小兰", "base_accuracy": 0.87, "weakness": "logic"},
-    "小方": {"name": "刻苦钻研小方", "base_accuracy": 0.64, "weakness": "knowledge"},
-    "小史": {"name": "潜力巨大小史", "base_accuracy": 0.66, "weakness": "logic"}
+    # "小陈": {"name": "聪明的马虎蛋小陈", "base_accuracy": 0.8, "weakness": "calculation"},
+    # "小李": {"name": "稳步前进的小李", "base_accuracy": 0.7, "weakness": None},
+    # "小张": {"name": "学霸小张", "base_accuracy": 0.95, "weakness": None},
+    # "小王": {"name": "努力型小王", "base_accuracy": 0.6, "weakness": "logic"},
+    # "小赵": {"name": "天赋型小赵", "base_accuracy": 0.85, "weakness": None},
+    # "小钱": {"name": "粗心大意小钱", "base_accuracy": 0.75, "weakness": "calculation"},
+    # "小孙": {"name": "概念混淆小孙", "base_accuracy": 0.5, "weakness": "knowledge"},
+    # "小周": {"name": "逻辑清晰小周", "base_accuracy": 0.8, "weakness": "calculation"},
+    # "小吴": {"name": "基础扎实小吴", "base_accuracy": 0.75, "weakness": None},
+    # "小郑": {"name": "思维敏捷小郑", "base_accuracy": 0.9, "weakness": "calculation"},
+    # "小冯": {"name": "勤奋刻苦小冯", "base_accuracy": 0.65, "weakness": "logic"},
+    # "小陆": {"name": "理解困难小陆", "base_accuracy": 0.45, "weakness": "knowledge"},
+    # "小丁": {"name": "计算达人小丁", "base_accuracy": 0.8, "weakness": "logic"},
+    # "小石": {"name": "全面发展小石", "base_accuracy": 0.7, "weakness": None},
+    # "小田": {"name": "偏科严重小田", "base_accuracy": 0.55, "weakness": "knowledge"},
+    # "小何": {"name": "细心谨慎小何", "base_accuracy": 0.75, "weakness": "logic"},
+    # "小林": {"name": "创新思维小林", "base_accuracy": 0.85, "weakness": None},
+    # "小徐": {"name": "基础一般小徐", "base_accuracy": 0.6, "weakness": "calculation"},
+    # "小黄": {"name": "潜力无限小黄", "base_accuracy": 0.65, "weakness": "logic"},
+    # # 新增20个用户
+    # "小刘": {"name": "踏实认真小刘", "base_accuracy": 0.72, "weakness": "knowledge"},
+    # "小杨": {"name": "反应迅速小杨", "base_accuracy": 0.88, "weakness": "calculation"},
+    # "小宋": {"name": "沉稳内敛小宋", "base_accuracy": 0.68, "weakness": "logic"},
+    # "小韩": {"name": "活泼好学小韩", "base_accuracy": 0.77, "weakness": None},
+    # "小魏": {"name": "专注细致小魏", "base_accuracy": 0.83, "weakness": "calculation"},
+    # "小邓": {"name": "基础扎实小邓", "base_accuracy": 0.74, "weakness": None},
+    # "小许": {"name": "思维活跃小许", "base_accuracy": 0.81, "weakness": "logic"},
+    # "小曾": {"name": "勤学好问小曾", "base_accuracy": 0.63, "weakness": "knowledge"},
+    # "小彭": {"name": "逻辑严密小彭", "base_accuracy": 0.86, "weakness": "calculation"},
+    # "小吕": {"name": "稳中求进小吕", "base_accuracy": 0.69, "weakness": "logic"},
+    # "小苏": {"name": "天资聪颖小苏", "base_accuracy": 0.92, "weakness": None},
+    # "小卢": {"name": "努力上进小卢", "base_accuracy": 0.58, "weakness": "knowledge"},
+    # "小蒋": {"name": "计算精准小蒋", "base_accuracy": 0.79, "weakness": "logic"},
+    # "小蔡": {"name": "理解深刻小蔡", "base_accuracy": 0.84, "weakness": "calculation"},
+    # "小贾": {"name": "基础薄弱小贾", "base_accuracy": 0.42, "weakness": "knowledge"},
+    # "小丛": {"name": "全面均衡小丛", "base_accuracy": 0.76, "weakness": None},
+    # "小关": {"name": "细心谨慎小关", "base_accuracy": 0.71, "weakness": "calculation"},
+    # "小兰": {"name": "思路清晰小兰", "base_accuracy": 0.87, "weakness": "logic"},
+    # "小方": {"name": "刻苦钻研小方", "base_accuracy": 0.64, "weakness": "knowledge"},
+    # "小史": {"name": "潜力巨大小史", "base_accuracy": 0.66, "weakness": "logic"}
 }
 
 # --- 模块顺序定义 ---
@@ -325,9 +325,9 @@ def simulate_user_learning():
                 
                 # 更新或插入掌握度记录
                 if current_mastery_row:
-                    cursor.execute("UPDATE user_node_mastery SET mastery_score = ? WHERE user_id = ? AND node_id = ?", (new_mastery, user_id, node_id_str))
+                    cursor.execute("UPDATE user_node_mastery SET mastery_score = ?, updated_at = CURRENT_TIMESTAMP WHERE user_id = ? AND node_id = ?", (new_mastery, user_id, node_id_str))
                 else:
-                    cursor.execute("INSERT INTO user_node_mastery (user_id, node_id, mastery_score) VALUES (?, ?, ?)", (user_id, node_id_str, new_mastery))
+                    cursor.execute("INSERT INTO user_node_mastery (user_id, node_id, mastery_score, updated_at) VALUES (?, ?, ?, CURRENT_TIMESTAMP)", (user_id, node_id_str, new_mastery))
                 
                 # # 详细的掌握度变化日志
                 # if interaction_num % 10 == 0 or new_mastery >= 0.8:
