@@ -34,7 +34,7 @@ def render_free_practice_page(api_service, current_user, user_id):
             df_data.append({
                 '知识点名称': item.get('node_name', ''),
                 '我的掌握度': item.get('mastery', 0.0),
-                '难度': item.get('node_difficulty', '未定义')
+                '难度': item.get('difficulty', '未定义')
             })
         df = pd.DataFrame(df_data)
     else:
@@ -280,32 +280,32 @@ def render_free_practice_page(api_service, current_user, user_id):
                 on_prev=handle_prev
             )
             
-            # 额外的操作按钮
-            col1, col2 = st.columns(2)
+            # # 额外的操作按钮
+            # col1, col2 = st.columns(2)
             
-            with col1:
-                if st.button("🎲 随机题目", key="random_question"):
-                    if len(questions) > 1:
-                        # 确保不选择当前题目
-                        new_index = st.session_state.selected_question_index
-                        while new_index == st.session_state.selected_question_index:
-                            new_index = random.randint(0, len(questions) - 1)
-                        st.session_state.selected_question_index = new_index
-                        st.rerun()
-                    else:
-                        st.info("只有一道题目，无法随机切换")
+            # with col1:
+            #     if st.button("🎲 随机题目", key="random_question"):
+            #         if len(questions) > 1:
+            #             # 确保不选择当前题目
+            #             new_index = st.session_state.selected_question_index
+            #             while new_index == st.session_state.selected_question_index:
+            #                 new_index = random.randint(0, len(questions) - 1)
+            #             st.session_state.selected_question_index = new_index
+            #             st.rerun()
+            #         else:
+            #             st.info("只有一道题目，无法随机切换")
             
-            with col2:
-                if st.button("🔄 换个题目", key="change_question_btn_bottom"):
-                    if len(questions) > 1:
-                        # 确保不选择当前题目
-                        new_index = st.session_state.selected_question_index
-                        while new_index == st.session_state.selected_question_index:
-                            new_index = random.randint(0, len(questions) - 1)
-                        st.session_state.selected_question_index = new_index
-                        st.rerun()
-                    else:
-                        st.info("只有一道题目，无法切换")
+            # with col2:
+            #     if st.button("🔄 换个题目", key="change_question_btn_bottom"):
+            #         if len(questions) > 1:
+            #             # 确保不选择当前题目
+            #             new_index = st.session_state.selected_question_index
+            #             while new_index == st.session_state.selected_question_index:
+            #                 new_index = random.randint(0, len(questions) - 1)
+            #             st.session_state.selected_question_index = new_index
+            #             st.rerun()
+            #         else:
+            #             st.info("只有一道题目，无法切换")
             
 
             

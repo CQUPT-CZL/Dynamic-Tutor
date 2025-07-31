@@ -180,21 +180,6 @@ class QuestionPracticeComponent:
         """
         question_id = question.get('question_id', question.get('id', 'unknown'))
         
-        # 计算需要的列数
-        col_count = 0
-        if show_submit: col_count += 1
-        if show_hint: col_count += 1
-        if show_navigation:
-            if current_index > 0: col_count += 1  # 上一题
-            if current_index < total_questions - 1: col_count += 1  # 下一题
-        
-        if col_count == 0:
-            return {}
-        
-        # 创建列布局
-        cols = st.columns(col_count)
-        col_idx = 0
-        
         button_states = {
             'submitted': False,
             'hint_clicked': False,
@@ -202,71 +187,81 @@ class QuestionPracticeComponent:
             'prev_clicked': False
         }
         
-        # 提交按钮
+        # 提交按钮单独一行
         if show_submit:
-            with cols[col_idx]:
-                submit_key = f"submit_{question_id}_{key_suffix}" if key_suffix else f"submit_{question_id}"
-                submitted_key = f'submitted_{question_id}'
-                is_submitted = st.session_state.get(submitted_key, False)
-                
-                # 根据提交状态显示不同的按钮文本和样式
-                if is_submitted:
-                    button_text = "✅ 已提交"
-                    button_type = "secondary"
-                    disabled = True
-                else:   
-                    button_text = "📝 提交答案"
-                    button_type = "primary"
-                    disabled = False
-                
-                if st.button(button_text, type=button_type, key=submit_key, 
-                           use_container_width=True, disabled=disabled):
-                    if answer and str(answer).strip():
-                        button_states['submitted'] = True
-                        if on_submit:
-                            on_submit(answer)
-                        else:
-                            self._default_submit_handler(question, answer)
+            submit_key = f"submit_{question_id}_{key_suffix}" if key_suffix else f"submit_{question_id}"
+            submitted_key = f'submitted_{question_id}'
+            is_submitted = st.session_state.get(submitted_key, False)
+            
+            # 根据提交状态显示不同的按钮文本和样式
+            if is_submitted:
+                button_text = "✅ 已提交"
+                button_type = "secondary"
+                disabled = True
+            else:   
+                button_text = "📝 智能诊断"
+                button_type = "primary"
+                disabled = False
+            
+            if st.button(button_text, type=button_type, key=submit_key, 
+                       use_container_width=True, disabled=disabled):
+                if answer and str(answer).strip():
+                    button_states['submitted'] = True
+                    if on_submit:
+                        on_submit(answer)
                     else:
-                        st.error("请先输入答案！")
-            col_idx += 1
+                        self._default_submit_handler(question, answer)
+                else:
+                    st.error("请先输入答案！")
         
-        # 查看答案按钮
-        if show_hint:
-            with cols[col_idx]:
-                hint_key = f"hint_{question_id}_{key_suffix}" if key_suffix else f"hint_{question_id}"
-                hint_state_key = f"hint_shown_{question_id}"
-                
-                if st.button("👁️ 查看答案", key=hint_key, use_container_width=True):
-                    button_states['hint_clicked'] = True
-                    if on_hint:
-                        on_hint()
-                    else:
-                        # 将答案显示状态存储到session_state中，避免立即刷新
-                        st.session_state[hint_state_key] = True
-            col_idx += 1
-        
-        # 导航按钮
+        # 计算其他按钮需要的列数
+        col_count = 0
+        if show_hint: col_count += 1
         if show_navigation:
-            # 上一题按钮
-            if current_index > 0:
+            if current_index > 0: col_count += 1  # 上一题
+            if current_index < total_questions - 1: col_count += 1  # 下一题
+        
+        if col_count > 0:
+            # 创建列布局用于其他按钮
+            cols = st.columns(col_count)
+            col_idx = 0
+            
+            # 查看答案按钮
+            if show_hint:
                 with cols[col_idx]:
-                    prev_key = f"prev_{question_id}_{key_suffix}" if key_suffix else f"prev_{question_id}"
-                    if st.button("⬅️ 上一题", key=prev_key, use_container_width=True):
-                        button_states['prev_clicked'] = True
-                        if on_prev:
-                            on_prev()
+                    hint_key = f"hint_{question_id}_{key_suffix}" if key_suffix else f"hint_{question_id}"
+                    hint_state_key = f"hint_shown_{question_id}"
+                    
+                    if st.button("👁️ 查看答案", key=hint_key, use_container_width=True):
+                        button_states['hint_clicked'] = True
+                        if on_hint:
+                            on_hint()
+                        else:
+                            # 将答案显示状态存储到session_state中，避免立即刷新
+                            st.session_state[hint_state_key] = True
                 col_idx += 1
             
-            # 下一题按钮
-            if current_index < total_questions - 1:
-                with cols[col_idx]:
-                    next_key = f"next_{question_id}_{key_suffix}" if key_suffix else f"next_{question_id}"
-                    if st.button("➡️ 下一题", key=next_key, use_container_width=True):
-                        button_states['next_clicked'] = True
-                        if on_next:
-                            on_next()
-                col_idx += 1
+            # 导航按钮
+            if show_navigation:
+                # 上一题按钮
+                if current_index > 0:
+                    with cols[col_idx]:
+                        prev_key = f"prev_{question_id}_{key_suffix}" if key_suffix else f"prev_{question_id}"
+                        if st.button("⬅️ 上一题", key=prev_key, use_container_width=True):
+                            button_states['prev_clicked'] = True
+                            if on_prev:
+                                on_prev()
+                    col_idx += 1
+                
+                # 下一题按钮
+                if current_index < total_questions - 1:
+                    with cols[col_idx]:
+                        next_key = f"next_{question_id}_{key_suffix}" if key_suffix else f"next_{question_id}"
+                        if st.button("➡️ 下一题", key=next_key, use_container_width=True):
+                            button_states['next_clicked'] = True
+                            if on_next:
+                                on_next()
+                    col_idx += 1
         
         return button_states
     
@@ -288,25 +283,25 @@ class QuestionPracticeComponent:
         reason = diagnosis_result.get("reason", "无诊断信息")
         scores = diagnosis_result.get("scores", [])
         
-        # 使用列布局显示主要诊断结果
-        col_main, col_side = st.columns([3, 1])
+        # 根据正确性显示结果（全宽度显示）
+        if is_correct:
+            st.success("🎉 答案正确！")
+            # 显示庆祝效果
+            st.balloons()
+        else:
+            st.warning("⚠️ 答案需要改进")
+            st.info("💡 **建议**: 请仔细检查解题步骤，或尝试从不同角度思考问题")
         
-        with col_main:
-            # 根据正确性显示结果
-            if is_correct:
-                st.success("🎉 答案正确！")
-                # 显示庆祝效果
-                st.balloons()
-            else:
-                st.warning("⚠️ 答案需要改进")
-                st.info("💡 **建议**: 请仔细检查解题步骤，或尝试从不同角度思考问题")
-            
+        # 使用两列布局显示详细分析和掌握度变化
+        col_analysis, col_mastery = st.columns([2, 1])
+        
+        with col_analysis:
             # 显示详细分析
             if reason and reason != "无诊断信息":
                 st.write("**📝 详细分析：**")
                 st.markdown(reason)
         
-        with col_side:
+        with col_mastery:
             # 显示掌握度变化（基于实际更新结果）
             question_id = st.session_state.get('current_question_id', 'unknown')
             mastery_change_key = f'mastery_change_{question_id}'
@@ -352,41 +347,39 @@ class QuestionPracticeComponent:
         # 显示评分详情
         if show_detailed_scores and scores:
             with st.expander("📊 查看详细评分", expanded=is_correct):
-                col1, col2 = st.columns([2, 1])
-                
-                with col1:
-                    st.write("### 答题表现评估")
+                # 创建评分表格
+                score_data = []
+                for score_item in scores:
+                    # 获取评分类别（支持中英文）
+                    category_en = (score_item.get('Knowledge Mastery') or 
+                                 score_item.get('Logical Reasoning') or 
+                                 score_item.get('Calculation Accuracy') or 
+                                 score_item.get('Behavioral Performance'))
+                    category_cn = (score_item.get('知识掌握') or 
+                                 score_item.get('解题逻辑') or 
+                                 score_item.get('计算准确性') or 
+                                 score_item.get('行为表现'))
                     
-                    # 创建评分表格
-                    score_data = []
-                    for score_item in scores:
-                        # 获取评分类别（支持中英文）
-                        category_en = (score_item.get('Knowledge Mastery') or 
-                                     score_item.get('Logical Reasoning') or 
-                                     score_item.get('Calculation Accuracy') or 
-                                     score_item.get('Behavioral Performance'))
-                        category_cn = (score_item.get('知识掌握') or 
-                                     score_item.get('解题逻辑') or 
-                                     score_item.get('计算准确性') or 
-                                     score_item.get('行为表现'))
-                        
-                        # 显示类别名称（优先使用中文）
-                        category = category_cn or category_en or '未知类别'
-                        score = score_item.get('score', 0)
-                        feedback = score_item.get('feedback', '无反馈')
-                        
-                        score_data.append({
-                            "评估维度": category, 
-                            "得分": score, 
-                            "反馈": feedback
-                        })
+                    # 显示类别名称（优先使用中文）
+                    category = category_cn or category_en or '未知类别'
+                    score = score_item.get('score', 0)
+                    feedback = score_item.get('feedback', '无反馈')
                     
-                    # 显示评分表格
-                    if score_data:
-                        st.table(score_data)
+                    score_data.append({
+                        "评估维度": category, 
+                        "得分": score, 
+                        "反馈": feedback
+                    })
                 
-                with col2:
-                    if score_data:
+                if score_data:
+                    # 使用两列布局：左侧显示表格，右侧显示总分和评语
+                    col_table, col_summary = st.columns([3, 1])
+                    
+                    with col_table:
+                        st.write("### 📋 答题表现评估")
+                        st.dataframe(score_data, use_container_width=True, hide_index=True)
+                    
+                    with col_summary:
                         # 计算总分
                         total_score = sum(item["得分"] for item in score_data) / len(score_data)
                         st.metric("综合评分", f"{total_score:.1f}/1.0")
@@ -465,11 +458,40 @@ class QuestionPracticeComponent:
             on_hint=on_hint
         )
         
-        # 在按钮区域之后显示诊断结果（全宽度显示）
+        # 获取题目ID并设置到session_state
         question_id = question.get('question_id', question.get('id', 'unknown'))
-        
-        # 设置当前题目ID到session_state，用于掌握度显示
         st.session_state['current_question_id'] = question_id
+        
+        # 创建独立的结果显示区域
+        st.markdown("<br>", unsafe_allow_html=True)  # 添加间距
+        
+        # 显示提交成功消息
+        if st.session_state.get(f'submit_success_{question_id}', False):
+            st.success("✅ 提交成功！AI诊断结果已生成")
+            st.session_state[f'submit_success_{question_id}'] = False
+        
+        # 显示答案信息（如果已点击查看答案）
+        hint_state_key = f"hint_shown_{question_id}"
+        if st.session_state.get(hint_state_key, False):
+            with st.container():
+                st.info("💡 **标准答案**")
+                answer_text = question.get('answer', question.get('correct_answer', '暂无答案'))
+                if answer_text and answer_text != '暂无答案':
+                    st.markdown(f"{answer_text}")
+                else:
+                    st.markdown("答案功能开发中...")
+                
+                # 添加关闭答案的按钮
+                if st.button("❌ 关闭答案", key=f"close_hint_{question_id}_{key_suffix}"):
+                    st.session_state[hint_state_key] = False
+                    st.rerun()
+        
+        # 显示诊断结果（独立容器）
+        if st.session_state.get(f'show_diagnosis_{question_id}', False):
+            diagnosis_result = st.session_state.get(f'diagnosis_result_{question_id}')
+            if diagnosis_result:
+                # with st.container():
+                self.render_diagnosis_result(diagnosis_result)
         
         # 添加重新提交按钮（如果已提交）
         submitted_key = f'submitted_{question_id}'
@@ -486,39 +508,12 @@ class QuestionPracticeComponent:
                         del st.session_state[f'diagnosis_result_{question_id}']
                     st.rerun()
         
-        # 显示提交成功消息
-        if st.session_state.get(f'submit_success_{question_id}', False):
-            st.success("✅ 提交成功！AI诊断结果已生成")
-            # 显示后立即清除，避免重复显示
-            st.session_state[f'submit_success_{question_id}'] = False
-        
-        # 显示答案信息（如果已点击查看答案）
-        hint_state_key = f"hint_shown_{question_id}"
-        if st.session_state.get(hint_state_key, False):
-            # 显示标准答案
-            answer_text = question.get('answer', question.get('correct_answer', '暂无答案'))
-            if answer_text and answer_text != '暂无答案':
-                st.success(f"📝 **标准答案：** {answer_text}")
-            else:
-                st.info("💡 答案功能开发中...")
-            
-            # 添加关闭答案的按钮
-            if st.button("❌ 关闭答案", key=f"close_hint_{question_id}_{key_suffix}"):
-                st.session_state[hint_state_key] = False
-                st.rerun()
-        
-        # 显示诊断结果
-        if st.session_state.get(f'show_diagnosis_{question_id}', False):
-            diagnosis_result = st.session_state.get(f'diagnosis_result_{question_id}')
-            if diagnosis_result:
-                self.render_diagnosis_result(diagnosis_result)
-        
         return {'answer': answer, 'button_states': button_states}
     
     def _default_submit_handler(self, question: Dict[str, Any], answer: Any) -> None:
         """默认的提交处理函数"""
         question_id = question.get('question_id', question.get('id', 'unknown'))
-        
+        st.markdown("123    ")
         # 先设置提交状态，避免重复提交
         submit_key = f'submitted_{question_id}'
         if st.session_state.get(submit_key, False):
