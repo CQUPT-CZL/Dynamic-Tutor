@@ -54,7 +54,7 @@ def get_current_module(cursor, user_id):
     return None  # 所有模块都已完成
 
 def get_next_learnable_node_in_module(cursor, user_id, module_name):
-    """在指定模块内获取下一个可学习的节点"""
+    """在指定模块内获取候选学习节点（包括一跳和二跳节点）"""
     # 创建 node_id 到名字的映射
     cursor.execute("SELECT node_id, node_name FROM knowledge_nodes")
     node_name_map = {str(row['node_id']): row['node_name'] for row in cursor.fetchall()}
@@ -64,6 +64,7 @@ def get_next_learnable_node_in_module(cursor, user_id, module_name):
     mastery_rows = cursor.fetchall()
     user_mastery = {str(row['node_id']): row['mastery_score'] for row in mastery_rows}
     print(f"用户掌握度: {[(node_id, score, node_name_map.get(node_id, '未知')) for node_id, score in user_mastery.items()]}")
+    
     # 获取模块内的所有节点
     module_nodes = get_module_nodes(cursor, module_name)
     print(f"模块节点: {[(node_id, node_name_map.get(str(node_id), '未知')) for node_id in module_nodes]}")
@@ -82,34 +83,77 @@ def get_next_learnable_node_in_module(cursor, user_id, module_name):
         source_id, target_id = str(edge['source_node_id']), str(edge['target_node_id'])
         prereq_map[target_id].add(source_id)
     
-    # 在模块内寻找可学习的节点
-    learnable_candidates = []
+    # 候选节点列表，包含权重信息
+    all_candidates = []
+    
+    # 1. 寻找一跳节点（直接可学习的节点）- 权重 0.8
+    print("🎯 寻找一跳节点（直接可学习）...")
     for node_id in module_nodes:
         node_id_str = str(node_id)
-        # 如果节点未掌握，并且它的所有前置知识都已掌握
-        prerequisites = prereq_map.get(node_id_str, set())
-        prereq_names = [node_name_map.get(prereq_id, f'未知({prereq_id})') for prereq_id in prerequisites]
-        print(f"节点 {node_id_str}({node_name_map.get(node_id_str, '未知')}) 的前置条件: {prereq_names}")
-        if user_mastery.get(node_id_str, 0.0) < 0.8 and prerequisites.issubset(mastered_nodes):
-            # 获取节点详细信息
-            cursor.execute("""
-                SELECT node_id, node_name, node_difficulty, node_learning
-                FROM knowledge_nodes 
-                WHERE node_id = ?
-            """, (node_id,))
-            node_info = cursor.fetchone()
-            if node_info:
-                learnable_candidates.append(dict(node_info))
+        if user_mastery.get(node_id_str, 0.0) < 0.8:  # 未掌握的节点
+            prerequisites = prereq_map.get(node_id_str, set())
+            prereq_names = [node_name_map.get(prereq_id, f'未知({prereq_id})') for prereq_id in prerequisites]
+            print(f"  检查节点 {node_id_str}({node_name_map.get(node_id_str, '未知')}) 的前置条件: {prereq_names}")
+            
+            if prerequisites.issubset(mastered_nodes):  # 所有前置条件都已掌握
+                # 获取节点详细信息
+                cursor.execute("""
+                    SELECT node_id, node_name, node_difficulty, node_learning
+                    FROM knowledge_nodes 
+                    WHERE node_id = ?
+                """, (node_id,))
+                node_info = cursor.fetchone()
+                if node_info:
+                    candidate = dict(node_info)
+                    candidate['hop_weight'] = 0.8  # 一跳权重
+                    candidate['hop_type'] = '一跳'
+                    all_candidates.append(candidate)
+                    print(f"    ✅ 添加一跳候选节点: {candidate['node_name']} (权重: 0.8)")
     
-    print(f"可学习候选节点: {[(candidate['node_id'], candidate['node_name']) for candidate in learnable_candidates]}")
+    # 2. 寻找二跳节点（需要先学一个一跳候选节点的）- 权重 0.5
+    print("🎯 寻找二跳节点（需要一个一跳候选节点作为前置）...")
+    
+    # 获取一跳候选节点的ID集合
+    one_hop_node_ids = {str(c['node_id']) for c in all_candidates if c['hop_type'] == '一跳'}
+    
+    for node_id in module_nodes:
+        node_id_str = str(node_id)
+        if user_mastery.get(node_id_str, 0.0) < 0.8:  # 未掌握的节点
+            prerequisites = prereq_map.get(node_id_str, set())
+            
+            # 检查是否恰好缺少一个前置节点，且这个前置节点是一跳候选节点
+            unmastered_prereqs = prerequisites - mastered_nodes
+            if len(unmastered_prereqs) == 1:  # 恰好缺少一个前置节点
+                missing_prereq = list(unmastered_prereqs)[0]
+                
+                # 检查这个缺少的前置节点是否是一跳候选节点
+                if missing_prereq in one_hop_node_ids:
+                    missing_prereq_name = node_name_map.get(missing_prereq, f'未知({missing_prereq})')
+                    
+                    # 获取节点详细信息
+                    cursor.execute("""
+                        SELECT node_id, node_name, node_difficulty, node_learning
+                        FROM knowledge_nodes 
+                        WHERE node_id = ?
+                    """, (node_id,))
+                    node_info = cursor.fetchone()
+                    if node_info:
+                        candidate = dict(node_info)
+                        candidate['hop_weight'] = 0.5  # 二跳权重
+                        candidate['hop_type'] = '二跳'
+                        candidate['missing_prereq'] = missing_prereq_name
+                        all_candidates.append(candidate)
+                        print(f"    ✅ 添加二跳候选节点: {candidate['node_name']} (权重: 0.5, 需要先学一跳节点: {missing_prereq_name})")
+    
+    print(f"📊 总共找到 {len(all_candidates)} 个候选节点 (一跳: {len([c for c in all_candidates if c['hop_type'] == '一跳'])}, 二跳: {len([c for c in all_candidates if c['hop_type'] == '二跳'])})")
     
     # 如果有候选节点，使用GNN预测选择最佳节点
-    if learnable_candidates:
-        print(f"🤖 开始为 {len(learnable_candidates)} 个候选节点调用GNN预测...")
+    if all_candidates:
+        print(f"🤖 开始为 {len(all_candidates)} 个候选节点调用GNN预测...")
         
         # 为每个候选节点调用GNN预测
         candidates_with_prediction = []
-        for candidate in learnable_candidates:
+        for candidate in all_candidates:
             try:
                 # 调用GNN预测API
                 prediction_data = {
@@ -126,7 +170,7 @@ def get_next_learnable_node_in_module(cursor, user_id, module_name):
                 if response.status_code == 200:
                     prediction_result = response.json()
                     prediction_probability = prediction_result.get('probability', 0.0)
-                    print(f"  🎯 节点 {candidate['node_name']} (ID: {candidate['node_id']}) 预测概率: {prediction_probability:.3f}")
+                    print(f"  🎯 {candidate['hop_type']}节点 {candidate['node_name']} (ID: {candidate['node_id']}) 预测概率: {prediction_probability:.3f}")
                     
                     candidate['gnn_prediction'] = prediction_probability
                     candidates_with_prediction.append(candidate)
@@ -142,27 +186,43 @@ def get_next_learnable_node_in_module(cursor, user_id, module_name):
                 candidate['gnn_prediction'] = 0.0
                 candidates_with_prediction.append(candidate)
         
-        # 根据GNN预测概率和难度的综合评分选择最佳节点（1:1权重）
+        # 调用AI API评估候选节点适合度
         if candidates_with_prediction:
-            # 计算难度的归一化分数（难度越低分数越高）
-            max_difficulty = max(c['node_difficulty'] for c in candidates_with_prediction)
-            min_difficulty = min(c['node_difficulty'] for c in candidates_with_prediction)
-            difficulty_range = max_difficulty - min_difficulty if max_difficulty > min_difficulty else 1
+            # 准备AI评估所需的数据
+            mastered_node_names = [node_name_map.get(node_id, f'未知({node_id})') for node_id in mastered_nodes]
+            candidate_node_names = [c['node_name'] for c in candidates_with_prediction]
             
+            # 调用AI适合度评估
+            ai_suitability_scores = call_ai_suitability_api(module_name, mastered_node_names, candidate_node_names)
+            
+            # 将AI评分添加到候选节点中
             for candidate in candidates_with_prediction:
-                # 归一化难度分数（0-1，难度越低分数越高）
-                normalized_difficulty_score = 1 - (candidate['node_difficulty'] - min_difficulty) / difficulty_range
-                # 综合评分：50% GNN预测 + 50% 难度评分
-                candidate['combined_score'] = 0.5 * candidate['gnn_prediction'] + 0.5 * normalized_difficulty_score
-                print(f"  📊 节点 {candidate['node_name']}: GNN={candidate['gnn_prediction']:.3f}, 难度评分={normalized_difficulty_score:.3f}, 综合评分={candidate['combined_score']:.3f}")
+                candidate['ai_suitability'] = 0.5  # 默认值
+                if ai_suitability_scores:
+                    for ai_score in ai_suitability_scores:
+                        if ai_score.get('node_name') == candidate['node_name']:
+                            candidate['ai_suitability'] = ai_score.get('suitability_score', 0.5)
+                            break
+            
+            # 计算三维综合评分（删除难度评分）
+            for candidate in candidates_with_prediction:
+                # 综合评分：33% GNN预测 + 33% 跳数权重 + 33% AI适合度
+                candidate['combined_score'] = (
+                    0.33 * candidate['gnn_prediction'] + 
+                    0.33 * candidate['hop_weight'] +
+                    0.33 * candidate['ai_suitability']
+                )
+                hop_info = f", 需要先学: {candidate['missing_prereq']}" if candidate['hop_type'] == '二跳' else ""
+                print(f"  📊 {candidate['hop_type']}节点 {candidate['node_name']}: GNN={candidate['gnn_prediction']:.3f} | 跳数权重={candidate['hop_weight']:.1f} | AI适合度={candidate['ai_suitability']:.3f} | 综合评分={candidate['combined_score']:.3f}{hop_info}")
             
             best_candidate = max(candidates_with_prediction, key=lambda x: x['combined_score'])
-            print(f"🏆 基于综合评分选择最佳节点: {best_candidate['node_name']} (综合评分: {best_candidate['combined_score']:.3f})")
+            print(f"🏆 基于三维综合评分选择最佳节点: {best_candidate['node_name']} (综合评分: {best_candidate['combined_score']:.3f})")
             return best_candidate
 
     # 如果没有找到可学习的节点，选择模块内第一个未掌握的节点（可能是循环依赖的情况）
-    if not learnable_candidates:
+    if not all_candidates:
         print(f"  ⚠️ 未找到满足前置条件的节点，寻找备选节点...")
+        backup_candidates = []
         for node_id in module_nodes:
             node_id_str = str(node_id)
             if user_mastery.get(node_id_str, 0.0) < 0.8:
@@ -173,15 +233,19 @@ def get_next_learnable_node_in_module(cursor, user_id, module_name):
                 """, (node_id,))
                 node_info = cursor.fetchone()
                 if node_info:
-                    learnable_candidates.append(dict(node_info))
+                    backup_candidate = dict(node_info)
+                    backup_candidate['hop_type'] = '备选'
+                    backup_candidate['hop_weight'] = 0.3  # 备选节点权重较低
+                    backup_candidate['missing_prereq'] = '存在循环依赖'
+                    backup_candidates.append(backup_candidate)
                     break
         
         # 对备选节点也进行GNN预测
-        if learnable_candidates:
+        if backup_candidates:
             print(f"  🔮 对备选节点进行GNN预测...")
             candidates_with_prediction = []
             
-            for candidate in learnable_candidates:
+            for candidate in backup_candidates:
                 try:
                     prediction_data = {
                         "user_id": user_id,
@@ -197,45 +261,122 @@ def get_next_learnable_node_in_module(cursor, user_id, module_name):
                     if response.status_code == 200:
                         prediction_result = response.json()
                         prediction_probability = prediction_result.get('probability', 0.0)
-                        print(f"    🎯 备选节点 {candidate['node_name']} (ID: {candidate['node_id']}) 预测概率: {prediction_probability:.3f}")
+                        print(f"    🎯 {candidate['hop_type']}节点 {candidate['node_name']} (ID: {candidate['node_id']}) 预测概率: {prediction_probability:.3f}")
                         
                         candidate['gnn_prediction'] = prediction_probability
                         candidates_with_prediction.append(candidate)
                     else:
-                        print(f"    ⚠️ 备选节点 {candidate['node_name']} GNN预测失败，状态码: {response.status_code}")
+                        print(f"    ⚠️ {candidate['hop_type']}节点 {candidate['node_name']} GNN预测失败，状态码: {response.status_code}")
                         candidate['gnn_prediction'] = 0.0
                         candidates_with_prediction.append(candidate)
                         
                 except Exception as e:
-                    print(f"    ❌ 备选节点 {candidate['node_name']} GNN预测出错: {e}")
+                    print(f"    ❌ {candidate['hop_type']}节点 {candidate['node_name']} GNN预测出错: {e}")
                     candidate['gnn_prediction'] = 0.0
                     candidates_with_prediction.append(candidate)
             
             if candidates_with_prediction:
-                 # 计算备选节点的难度归一化分数
-                 max_difficulty = max(c['node_difficulty'] for c in candidates_with_prediction)
-                 min_difficulty = min(c['node_difficulty'] for c in candidates_with_prediction)
-                 difficulty_range = max_difficulty - min_difficulty if max_difficulty > min_difficulty else 1
-                 
-                 for candidate in candidates_with_prediction:
-                     # 归一化难度分数（0-1，难度越低分数越高）
-                     normalized_difficulty_score = 1 - (candidate['node_difficulty'] - min_difficulty) / difficulty_range
-                     # 综合评分：50% GNN预测 + 50% 难度评分
-                     candidate['combined_score'] = 0.5 * candidate['gnn_prediction'] + 0.5 * normalized_difficulty_score
-                     print(f"    📊 备选节点 {candidate['node_name']}: GNN={candidate['gnn_prediction']:.3f}, 难度评分={normalized_difficulty_score:.3f}, 综合评分={candidate['combined_score']:.3f}")
-                 
-                 best_candidate = max(candidates_with_prediction, key=lambda x: x['combined_score'])
-                 print(f"  🏆 基于综合评分选择最佳备选节点: {best_candidate['node_name']} (综合评分: {best_candidate['combined_score']:.3f})")
-                 return best_candidate
+                # 为备选节点也调用AI适合度评估
+                mastered_node_names = [node_name_map.get(node_id, f'未知({node_id})') for node_id in mastered_nodes]
+                candidate_node_names = [c['node_name'] for c in candidates_with_prediction]
+                
+                ai_suitability_scores = call_ai_suitability_api(module_name, mastered_node_names, candidate_node_names)
+                
+                # 将AI评分添加到备选候选节点中
+                for candidate in candidates_with_prediction:
+                    candidate['ai_suitability'] = 0.3  # 备选节点AI适合度默认较低
+                    if ai_suitability_scores:
+                        for ai_score in ai_suitability_scores:
+                            if ai_score.get('node_name') == candidate['node_name']:
+                                candidate['ai_suitability'] = ai_score.get('suitability_score', 0.3)
+                                break
+                
+                # 计算备选节点的三维综合评分（删除难度评分）
+                for candidate in candidates_with_prediction:
+                    # 综合评分：33% GNN预测 + 33% 跳数权重 + 33% AI适合度
+                    candidate['combined_score'] = (
+                        0.33 * candidate['gnn_prediction'] + 
+                        0.33 * candidate['hop_weight'] +
+                        0.33 * candidate['ai_suitability']
+                    )
+                    print(f"    📊 {candidate['hop_type']}节点 {candidate['node_name']}: GNN={candidate['gnn_prediction']:.3f} | 跳数权重={candidate['hop_weight']:.1f} | AI适合度={candidate['ai_suitability']:.3f} | 综合评分={candidate['combined_score']:.3f} ({candidate['missing_prereq']})")
+                
+                best_candidate = max(candidates_with_prediction, key=lambda x: x['combined_score'])
+                print(f"  🏆 基于三维综合评分选择最佳备选节点: {best_candidate['node_name']} (综合评分: {best_candidate['combined_score']:.3f})")
+                return best_candidate
     
-    if not learnable_candidates:
+    if not all_candidates:
         return None
     
     # 如果没有进行GNN预测，按难度排序选择
-    learnable_candidates.sort(key=lambda x: x['node_difficulty'])
-    return learnable_candidates[0]
+    all_candidates.sort(key=lambda x: x['node_difficulty'])
+    return all_candidates[0]
 
-def handle_new_knowledge(user_id: int, strategic_decision: dict = None):
+
+# --- AI API调用函数 ---
+def call_ai_suitability_api(module_name, mastered_nodes, candidate_nodes):
+    """调用AI API评估候选节点的适合度"""
+    print(f"🤖 调用AI API评估候选节点适合度...")
+    
+    # 组装输入数据
+    profile_data = {
+        "current_module": module_name,
+        "mastered_knowledge": [node for node in mastered_nodes],
+        "candidate_knowledge": [node for node in candidate_nodes]
+    }
+    print(profile_data)
+    
+    url = "https://xingchen-api.xf-yun.com/workflow/v1/chat/completions"
+    
+    payload = json.dumps({
+        "flow_id": "7358414739635269632",
+        "parameters": {
+            "AGENT_USER_INPUT": json.dumps(profile_data),
+        },
+        "ext": {
+            "bot_id": "workflow",
+            "caller": "workflow"
+        },
+        "stream": False,
+    })
+    headers = {
+        'Authorization': 'Bearer 4cec7267c3353726a2f1656cb7c0ec37:NDk0MDk0N2JiYzg0ZTgxMzVlNmRkM2Fh',
+        'Content-Type': 'application/json',
+        'Accept': '*/*',
+        'Host': 'xingchen-api.xf-yun.com',
+        'Connection': 'keep-alive'
+    }
+    
+    try:
+        print(f"🌐 发送AI适合度评估请求...")
+        response = requests.request("POST", url, headers=headers, data=payload).json()
+        print("📨 AI API响应成功")
+        
+        # 检查响应是否成功
+        if 'choices' not in response or not response['choices'] or 'delta' not in response['choices'][0]:
+            print("❌ AI API响应格式错误")
+            return None
+            
+        content = response['choices'][0]['delta'].get('content')
+        if not content:
+            print("❌ AI API返回内容为空")
+            return None
+        
+        # 解析AI返回的适合度评分
+        try:
+            suitability_scores = json.loads(content)
+            print(f"✅ AI适合度评估完成，获得 {len(suitability_scores)} 个节点评分")
+            return suitability_scores
+        except json.JSONDecodeError:
+            print("❌ AI返回内容不是有效的JSON格式")
+            return None
+            
+    except Exception as e:
+        print(f"❌ AI API调用失败: {e}")
+        return None
+
+
+def handle_new_knowledge(user_id: int, strategic_decision: dict = None, decision_reasoning: str = None):
     """
     处理新知识学习类型的学习任务
     
@@ -416,9 +557,9 @@ def handle_new_knowledge(user_id: int, strategic_decision: dict = None):
         return {
             "mission_type": "NEW_KNOWLEDGE",
             "metadata": {
-                "title": f"模块化学习：{primary_node['node_name']}",
+                "title": f"{primary_node['node_name']}",
                 "objective": f"在{current_module}中掌握{primary_node['node_name']}知识点",
-                "reason": f"根据模块化学习策略，你当前正在学习{current_module}，推荐掌握{primary_node['node_name']}知识点，这是当前模块中最适合学习的内容"
+                "reason": decision_reasoning if decision_reasoning else f"根据模块化学习策略，你当前正在学习{current_module}，推荐掌握{primary_node['node_name']}知识点，这是当前模块中最适合学习的内容"
             },
             "payload": {
                 "target_node": {
@@ -447,3 +588,13 @@ def handle_new_knowledge(user_id: int, strategic_decision: dict = None):
         }
     finally:
         conn.close()
+
+
+
+from fastapi import APIRouter, HTTPException
+
+router = APIRouter(prefix="/recommendation", tags=["新知识推荐"])
+
+@router.get("/new_knowledge/{user_id}")
+async def get_user_profile(user_id: int):
+    return handle_new_knowledge(user_id)

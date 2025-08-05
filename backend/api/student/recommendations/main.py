@@ -225,14 +225,14 @@ async def get_user_recommendation(user_id: int):
         # --- 步骤3: 根据总指挥的战略，调用相应的战术执行函数 ---
         final_mission_package = None
         if mission_type == "WEAK_POINT_CONSOLIDATION":
-            final_mission_package = handle_weak_point_consolidation(user_id, strategic_decision)
+            final_mission_package = handle_weak_point_consolidation(user_id, strategic_decision, decision_reasoning)
         elif mission_type == "NEW_KNOWLEDGE":
-            final_mission_package = handle_new_knowledge(user_id, strategic_decision)
+            final_mission_package = handle_new_knowledge(user_id, strategic_decision, decision_reasoning)
         elif mission_type == "SKILL_ENHANCEMENT":
-            final_mission_package = handle_skill_enhancement(user_id, strategic_decision)
+            final_mission_package = handle_skill_enhancement(user_id, strategic_decision, decision_reasoning)
         else:
             print(f"⚠️ 未知的任务类型 '{mission_type}'，执行默认推荐。")
-            final_mission_package = handle_new_knowledge(user_id, strategic_decision)
+            final_mission_package = handle_new_knowledge(user_id, strategic_decision, decision_reasoning)
 
     
         return final_mission_package

@@ -8,7 +8,7 @@ import json
 import time
 from ...common.database import get_db_connection
 
-def handle_weak_point_consolidation(user_id: int, decision: dict):
+def handle_weak_point_consolidation(user_id: int, decision: dict, decision_reasoning: str = None):
     """
     处理"弱点巩固"任务 - 实现"靶向治疗"逻辑
     
@@ -143,7 +143,7 @@ def handle_weak_point_consolidation(user_id: int, decision: dict):
         # 根据难度和任务焦点生成任务描述
         difficulty_desc = "基础" if difficulty_range[0] < 0.4 else ("中等" if difficulty_range[0] < 0.7 else "高级")
         objective = f"彻底解决在{target_node_name}的学习中遇到的困难。"
-        reason = f"注意到你在之前的练习中，对'{target_node_name}'掌握不牢固。我们一起来攻克它！"
+        reason = decision_reasoning if decision_reasoning else f"注意到你在之前的练习中，对'{target_node_name}'掌握不牢固。我们一起来攻克它！"
         
         # 构建步骤
         steps = []

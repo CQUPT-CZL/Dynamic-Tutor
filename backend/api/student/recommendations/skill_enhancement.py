@@ -7,7 +7,7 @@
 import json
 from ...common.database import get_db_connection
 
-def handle_skill_enhancement(user_id: int, strategic_decision: dict):
+def handle_skill_enhancement(user_id: int, strategic_decision: dict, decision_reasoning: str = None):
     """
     处理技能提升类型的学习任务
     
@@ -31,14 +31,18 @@ def handle_skill_enhancement(user_id: int, strategic_decision: dict):
     if not domain_name:
         print(f"⚠️ 未找到目标领域名称，使用默认推荐")
         return {
-            "mission_id": f"skill-{user_id}-{hash(str(strategic_decision))%1000}",
             "mission_type": "SKILL_ENHANCEMENT",
-            "title": "提升解题技能",
-            "description": "这个学习任务专注于提升你的解题技巧和应用能力。",
-            "target_skills": [],
-            "practice_strategy": "先完成基础题，再挑战进阶题，最后尝试综合应用题",
-            "estimated_time": "90分钟",
-            "reward_points": 250
+            "metadata": {
+                "title": "提升解题技能",
+                "objective": "提升你的解题技巧和应用能力",
+                "reason": decision_reasoning if decision_reasoning else "这个学习任务专注于提升你的解题技巧和应用能力。"
+            },
+            "payload": {
+                "target_skills": [],
+                "practice_strategy": "先完成基础题，再挑战进阶题，最后尝试综合应用题",
+                "estimated_time": "90分钟",
+                "reward_points": 250
+            }
         }
     
     # 连接数据库
@@ -53,14 +57,18 @@ def handle_skill_enhancement(user_id: int, strategic_decision: dict):
         if not domain_result:
             print(f"⚠️ 未找到领域: {domain_name}")
             return {
-                "mission_id": f"skill-{user_id}-{hash(str(strategic_decision))%1000}",
                 "mission_type": "SKILL_ENHANCEMENT",
-                "title": "提升解题技能",
-                "description": "这个学习任务专注于提升你的解题技巧和应用能力。",
-                "target_skills": [],
-                "practice_strategy": "先完成基础题，再挑战进阶题，最后尝试综合应用题",
-                "estimated_time": "90分钟",
-                "reward_points": 250
+                "metadata": {
+                    "title": "提升解题技能",
+                    "objective": "提升你的解题技巧和应用能力",
+                    "reason": decision_reasoning if decision_reasoning else "这个学习任务专注于提升你的解题技巧和应用能力。"
+                },
+                "payload": {
+                    "target_skills": [],
+                    "practice_strategy": "先完成基础题，再挑战进阶题，最后尝试综合应用题",
+                    "estimated_time": "90分钟",
+                    "reward_points": 250
+                }
             }
         
         domain_id = domain_result['node_id']
@@ -211,14 +219,18 @@ def handle_skill_enhancement(user_id: int, strategic_decision: dict):
         
         # 5. 构建并返回学习任务包
         return {
-            "mission_id": f"skill-{user_id}-{hash(str(strategic_decision))%1000}",
             "mission_type": "SKILL_ENHANCEMENT",
-            "title": f"提升{domain_name}解题技能",
-            "description": f"这个学习任务专注于提升你在{domain_name}领域的解题技巧和应用能力，难度范围在{difficulty_range[0]}-{difficulty_range[1]}之间。",
-            "target_skills": target_skills,
-            "practice_strategy": "先完成基础题，再挑战进阶题，最后尝试综合应用题",
-            "estimated_time": f"{60 + len(target_skills) * 15}分钟",
-            "reward_points": 200 + len(target_skills) * 25
+            "metadata": {
+                "title": f"提升{domain_name}解题技能",
+                "objective": f"提升你在{domain_name}领域的解题技巧和应用能力",
+                "reason": decision_reasoning if decision_reasoning else f"这个学习任务专注于提升你在{domain_name}领域的解题技巧和应用能力，难度范围在{difficulty_range[0]}-{difficulty_range[1]}之间。"
+            },
+            "payload": {
+                "target_skills": target_skills,
+                "practice_strategy": "先完成基础题，再挑战进阶题，最后尝试综合应用题",
+                "estimated_time": f"{60 + len(target_skills) * 15}分钟",
+                "reward_points": 200 + len(target_skills) * 25
+            }
         }
         
     except Exception as e:
