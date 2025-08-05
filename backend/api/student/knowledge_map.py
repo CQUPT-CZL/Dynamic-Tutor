@@ -34,7 +34,7 @@ async def get_knowledge_map(user_id: str):
                 "level": row["level"],
                 "mastery": row["mastery_score"]
             })
-        print(knowledge_map)
+        # print(knowledge_map)
         
         conn.close()
         return knowledge_map
@@ -45,7 +45,7 @@ async def get_knowledge_map(user_id: str):
 async def get_knowledge_nodes():
     """获取所有知识节点"""
     try:
-        print('huoquezhishidian')
+        # print('huoquezhishidian')
         conn = get_db_connection()
         cursor = conn.execute("SELECT node_id, node_name, node_difficulty FROM knowledge_nodes")
         

@@ -156,10 +156,10 @@ async def update_knowledge_point(
 ):
     """更新知识点信息"""
     try:
-        print(request)
+        # print(request)
         node_id = int(request.node_id)
         conn = get_db_connection()
-        print(f"Received data: node_id={node_id}, request={request}")
+        # print(f"Received data: node_id={node_id}, request={request}")
         
         # 验证难度值范围
         if request.node_difficulty is not None and (request.node_difficulty < 0.0 or request.node_difficulty > 1.0):
@@ -505,7 +505,7 @@ async def generate_learning_objective(request: dict):
         if not content:
             raise HTTPException(status_code=500, detail="AI生成学习目标失败：未生成内容")
             
-        print(content)
+        # print(content)
         return {
             "status": "success",
             "learning_objective": content
