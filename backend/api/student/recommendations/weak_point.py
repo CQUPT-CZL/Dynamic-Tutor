@@ -142,8 +142,8 @@ def handle_weak_point_consolidation(user_id: int, decision: dict):
         
         # 根据难度和任务焦点生成任务描述
         difficulty_desc = "基础" if difficulty_range[0] < 0.4 else ("中等" if difficulty_range[0] < 0.7 else "高级")
-        objective = f"彻底解决在{target_node_name}的{task_focus}时遇到的困难。"
-        reason = f"AI注意到你({user_id})在之前的练习中，对'{target_node_name}'掌握不牢固。我们一起来攻克它！"
+        objective = f"彻底解决在{target_node_name}的学习中遇到的困难。"
+        reason = f"注意到你在之前的练习中，对'{target_node_name}'掌握不牢固。我们一起来攻克它！"
         
         # 构建步骤
         steps = []
