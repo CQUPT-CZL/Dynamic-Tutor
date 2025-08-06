@@ -66,6 +66,8 @@ async def diagnose_answer(request: DiagnosisRequest):
         # 基于题目内容进行智能诊断
         diagnosis_result = _diagnose_answer_logic(request.answer, correct_answer, question_text)
         is_correct = diagnosis_result['is_correct']
+
+        scores = diagnosis_result['scores']
         # 生成诊断结果
         # diagnosis_result = {
         #     "status": "success",
@@ -104,14 +106,30 @@ async def diagnose_answer(request: DiagnosisRequest):
                 node_id = node['node_id']
                 difficulty = node['difficulty'] or 0.5  # 默认难度0.5
                 
-                # 根据题目难度计算掌握度变化幅度
-                # 难题答对奖励更多，简单题答错惩罚更少
-                if is_correct:
-                    # 答对：难度越高，奖励越多 (0.05 - 0.15)
-                    score_change = 0.05 + difficulty * 0.1
-                else:
-                    # 答错：难度越低，惩罚越多 (0.02 - 0.12)
-                    score_change = -(0.02 + (1 - difficulty) * 0.1)
+                # 基于四个维度综合计算掌握度变化
+                # 权重分配：知识掌握(40%) > 逻辑推理(30%) > 计算准确性(20%) > 行为表现(10%)
+                weights = {
+                    "Knowledge Mastery": 0.4,
+                    "Logical Reasoning": 0.3, 
+                    "Calculation Accuracy": 0.2,
+                    "Behavioral Performance": 0.1
+                }
+                
+                # 计算加权平均分
+                weighted_score = 0.0
+                for dimension in scores:
+                    dimension_name = list(dimension.keys())[0]  # 获取维度名称
+                    if dimension_name in weights:
+                        weighted_score += dimension['score'] * weights[dimension_name]
+                
+                # 根据加权分数和题目难度计算掌握度变化
+                # 基础变化幅度：-0.15 到 +0.15
+                base_change = (weighted_score - 0.5) * 0.3
+                
+                # 难度调整：难题的影响更大
+                difficulty_multiplier = 0.7 + difficulty * 0.6  # 0.7-1.3倍
+                score_change = base_change * difficulty_multiplier
+                print(f"base_change: {base_change}, difficulty_multiplier: {difficulty_multiplier}, score_change: {score_change}")
                 
                 # 检查是否已有掌握度记录
                 cursor = conn.execute("""

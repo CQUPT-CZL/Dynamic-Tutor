@@ -321,57 +321,10 @@ class QuestionPracticeComponent:
             st.warning("⚠️ 答案需要改进")
             st.info("💡 **建议**: 请仔细检查解题步骤，或尝试从不同角度思考问题")
         
-        # 使用两列布局显示详细分析和掌握度变化
-        col_analysis, col_mastery = st.columns([2, 1])
-        
-        with col_analysis:
-            # 显示详细分析
-            if reason and reason != "无诊断信息":
-                st.write("**📝 详细分析：**")
-                st.markdown(reason)
-        
-        with col_mastery:
-            # 显示掌握度变化（基于实际更新结果）
-            question_id = st.session_state.get('current_question_id', 'unknown')
-            mastery_change_key = f'mastery_change_{question_id}'
-            
-            if mastery_change_key in st.session_state:
-                mastery_info = st.session_state[mastery_change_key]
-                knowledge_node = mastery_info['knowledge_node']
-                new_mastery = mastery_info['new_mastery']
-                change = mastery_info['change']
-                
-                # 显示知识点名称
-                st.markdown(f"**📚 {knowledge_node}**")
-                
-                # 显示掌握度变化
-                if change > 0:
-                    st.metric(
-                        "掌握度提升", 
-                        f"{new_mastery:.0%}", 
-                        delta=f"+{change:.1%}",
-                        delta_color="normal"
-                    )
-                elif change < 0:
-                    st.metric(
-                        "掌握度变化", 
-                        f"{new_mastery:.0%}", 
-                        delta=f"{change:.1%}",
-                        delta_color="inverse"
-                    )
-                else:
-                    st.metric(
-                        "当前掌握度", 
-                        f"{new_mastery:.0%}"
-                    )
-            elif is_correct and mastery_before < 1.0:
-                # 兼容旧版本显示
-                new_mastery = min(mastery_before + 0.1, 1.0)
-                st.metric(
-                    "掌握度提升", 
-                    f"{new_mastery:.0%}", 
-                    delta=f"+{(new_mastery - mastery_before):.0%}"
-                )
+        # 显示详细分析
+        if reason and reason != "无诊断信息":
+            st.write("**📝 详细分析：**")
+            st.markdown(reason)
         
         # 显示评分详情
         if show_detailed_scores and scores:
