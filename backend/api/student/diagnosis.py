@@ -423,16 +423,17 @@ def _diagnose_answer_logic(user_answer: str, correct_answer: str, question_text:
                 # 评分解析失败不影响主要结果
                 pass
         
-        result = {
-            "is_correct": is_correct,
-            "assessment_dimensions": scores,
-            "overall_summary": reason,
-        }
-        
         # result = {
         #     "is_correct": is_correct,
-        #     "reason": reason
+        #     "assessment_dimensions": scores,
+        #     "overall_summary": reason,
         # }
+        
+        result = {
+            "is_correct": is_correct,
+            "reason": reason,
+            "scores": scores,
+        }
         
         return result
 
