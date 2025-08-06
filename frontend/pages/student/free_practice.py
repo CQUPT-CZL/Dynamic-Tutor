@@ -240,21 +240,53 @@ def render_free_practice_page(api_service, current_user, user_id):
             
             # 自定义提交处理函数
             def handle_submit(answer):
-                with st.spinner("🔍 正在诊断你的答案..."):
-                    question_id = current_question.get('question_id', st.session_state.selected_question_index + 1) if isinstance(current_question, dict) else st.session_state.selected_question_index + 1
-                    diagnosis_result = api_service.diagnose_answer(
-                        user_id=str(user_id),
-                        question_id=str(question_id),
-                        answer=answer,
-                        answer_type="text"
-                    )
+                # 检查答案是否为空
+                if answer is None:
+                    st.warning("⚠️ 请先输入答案或上传图片")
+                    return
                 
-                if "error" not in diagnosis_result:
-                    st.success("✅ 提交成功！")
-                    question_component.render_diagnosis_result(diagnosis_result, mastery_before=mastery)
+                # 判断答案类型
+                is_image = hasattr(answer, 'read') and hasattr(answer, 'name')
+                
+                if is_image:
+                    # 图片答案处理
+                    with st.spinner("📷 正在识别图片内容..."):
+                        try:
+                            question_id = current_question.get('question_id', st.session_state.selected_question_index + 1) if isinstance(current_question, dict) else st.session_state.selected_question_index + 1
+                            diagnosis_result = api_service.diagnose_image_answer(
+                                user_id=str(user_id),
+                                question_id=str(question_id),
+                                image_file=answer
+                            )
+                            
+                            if "error" not in diagnosis_result:
+                                st.success("✅ 提交成功！")
+                                question_component.render_diagnosis_result(diagnosis_result, mastery_before=mastery)
+                            else:
+                                st.error(f"❌ 图片识别失败: {diagnosis_result['error']}")
+                                st.info("💡 请确保图片清晰，或尝试重新上传")
+                        except Exception as e:
+                            st.error(f"❌ 图片处理失败: {str(e)}")
                 else:
-                    st.error(f"❌ 诊断失败: {diagnosis_result['error']}")
-                    st.info("💡 请检查网络连接或稍后重试")
+                    # 文本答案处理
+                    with st.spinner("🔍 正在诊断你的答案..."):
+                        try:
+                            question_id = current_question.get('question_id', st.session_state.selected_question_index + 1) if isinstance(current_question, dict) else st.session_state.selected_question_index + 1
+                            diagnosis_result = api_service.diagnose_answer(
+                                user_id=str(user_id),
+                                question_id=str(question_id),
+                                answer=str(answer),
+                                answer_type="text"
+                            )
+                            
+                            if "error" not in diagnosis_result:
+                                st.success("✅ 提交成功！")
+                                question_component.render_diagnosis_result(diagnosis_result, mastery_before=mastery)
+                            else:
+                                st.error(f"❌ 诊断失败: {diagnosis_result['error']}")
+                                st.info("💡 请检查网络连接或稍后重试")
+                        except Exception as e:
+                            st.error(f"❌ 提交失败: {str(e)}")
             
             # 自定义导航处理函数
             def handle_next():

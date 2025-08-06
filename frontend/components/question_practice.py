@@ -138,11 +138,40 @@ class QuestionPracticeComponent:
             )
         else:
             # 文本输入题（填空题、解答题等）
-            answer = st.text_area(
-                "请在此处输入你的解题过程和答案：",
-                height=height,
-                key=answer_key
+            # 添加答题方式选择
+            answer_mode_key = f"answer_mode_{question_id}_{key_suffix}" if key_suffix else f"answer_mode_{question_id}"
+            answer_mode = st.radio(
+                "选择答题方式：",
+                ["📝 文字输入", "📷 图片上传"],
+                key=answer_mode_key,
+                horizontal=True
             )
+            
+            if answer_mode == "📝 文字输入":
+                # 文字输入模式
+                answer = st.text_area(
+                    "请在此处输入你的解题过程和答案：",
+                    height=height,
+                    key=answer_key
+                )
+            else:
+                # 图片上传模式
+                st.write("📷 **上传手写答案图片**")
+                st.info("💡 提示：请确保图片清晰，支持 PNG、JPG、JPEG、WEBP、GIF 格式")
+                
+                image_key = f"image_{question_id}_{key_suffix}" if key_suffix else f"image_{question_id}"
+                uploaded_file = st.file_uploader(
+                    "选择图片文件",
+                    type=['png', 'jpg', 'jpeg', 'webp', 'gif'],
+                    key=image_key
+                )
+                
+                if uploaded_file is not None:
+                    # 显示上传的图片预览
+                    st.image(uploaded_file, caption="上传的答案图片", use_container_width=True)
+                    answer = uploaded_file  # 返回文件对象
+                else:
+                    answer = None
         
         return answer
     
@@ -513,41 +542,70 @@ class QuestionPracticeComponent:
     def _default_submit_handler(self, question: Dict[str, Any], answer: Any) -> None:
         """默认的提交处理函数"""
         question_id = question.get('question_id', question.get('id', 'unknown'))
-        st.markdown("123    ")
+        
         # 先设置提交状态，避免重复提交
         submit_key = f'submitted_{question_id}'
         if st.session_state.get(submit_key, False):
             return
         
+        # 检查答案是否为空
+        if answer is None:
+            st.warning("⚠️ 请先输入答案或上传图片")
+            return
+        
         st.session_state[submit_key] = True
         
-        with st.spinner("🤖 AI正在分析你的答案..."):
-            try:
-                diagnosis = self.api_service.diagnose_answer(
-                    user_id=str(self.user_id),
-                    question_id=str(question_id),
-                    answer=str(answer),
-                    answer_type="text"
-                )
-                
-                if "error" not in diagnosis:
-                    # 将诊断结果存储到session_state中，而不是直接渲染
-                    st.session_state[f'diagnosis_result_{question_id}'] = diagnosis
-                    st.session_state[f'show_diagnosis_{question_id}'] = True
-                    # 将成功消息也存储到session_state中，避免立即刷新
-                    st.session_state[f'submit_success_{question_id}'] = True
+        # 判断答案类型
+        is_image = hasattr(answer, 'read') and hasattr(answer, 'name')
+        
+        if is_image:
+            # 图片答案处理
+            with st.spinner("📷 正在识别图片内容..."):
+                try:
+                    # 调用图片诊断API
+                    diagnosis = self.api_service.diagnose_image_answer(
+                        user_id=str(self.user_id),
+                        question_id=str(question_id),
+                        image_file=answer  # 传递文件对象
+                    )
                     
-                    # 掌握度更新已移至后端处理
-                    
-                else:
-                    st.error(f"❌ 诊断失败: {diagnosis['error']}")
-                    st.info("💡 请检查网络连接或稍后重试")
-                    # 重置提交状态，允许重新提交
+                    if "error" not in diagnosis:
+                        # 将诊断结果存储到session_state中
+                        st.session_state[f'diagnosis_result_{question_id}'] = diagnosis
+                        st.session_state[f'show_diagnosis_{question_id}'] = True
+                        st.session_state[f'submit_success_{question_id}'] = True
+                    else:
+                        st.error(f"❌ 图片识别失败: {diagnosis['error']}")
+                        st.info("💡 请确保图片清晰，或尝试重新上传")
+                        st.session_state[submit_key] = False
+                        
+                except Exception as e:
+                    st.error(f"❌ 图片处理失败: {str(e)}")
                     st.session_state[submit_key] = False
-            except Exception as e:
-                st.error(f"❌ 提交失败: {str(e)}")
-                # 重置提交状态，允许重新提交
-                st.session_state[submit_key] = False
+        else:
+            # 文本答案处理
+            with st.spinner("🤖 AI正在分析你的答案..."):
+                try:
+                    diagnosis = self.api_service.diagnose_answer(
+                        user_id=str(self.user_id),
+                        question_id=str(question_id),
+                        answer=str(answer),
+                        answer_type="text"
+                    )
+                    
+                    if "error" not in diagnosis:
+                        # 将诊断结果存储到session_state中
+                        st.session_state[f'diagnosis_result_{question_id}'] = diagnosis
+                        st.session_state[f'show_diagnosis_{question_id}'] = True
+                        st.session_state[f'submit_success_{question_id}'] = True
+                    else:
+                        st.error(f"❌ 诊断失败: {diagnosis['error']}")
+                        st.info("💡 请检查网络连接或稍后重试")
+                        st.session_state[submit_key] = False
+                        
+                except Exception as e:
+                    st.error(f"❌ 提交失败: {str(e)}")
+                    st.session_state[submit_key] = False
     
 
     

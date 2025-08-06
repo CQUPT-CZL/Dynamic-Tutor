@@ -4,7 +4,8 @@
 答案诊断接口
 """
 
-from fastapi import APIRouter, HTTPException, UploadFile, File
+from fastapi import APIRouter, HTTPException, UploadFile, File, Form, Request
+from fastapi.exceptions import RequestValidationError
 from typing import Optional
 from datetime import datetime
 from pydantic import BaseModel
@@ -21,6 +22,13 @@ class DiagnosisRequest(BaseModel):
     time_spent: Optional[int] = None
     confidence: Optional[float] = None
 
+class ImageDiagnosisRequest(BaseModel):
+    """图片答案诊断请求模型"""
+    user_id: str
+    question_id: str
+    time_spent: Optional[int] = None
+    confidence: Optional[float] = None
+
 router = APIRouter(prefix="/diagnose", tags=["答案诊断"])
 
 @router.post("/")
@@ -28,9 +36,7 @@ async def diagnose_answer(request: DiagnosisRequest):
     """诊断文本答案"""
     try:
         # 根据题目ID从数据库获取题目信息
-        print(f"📊 开始查询题目信息，题目ID: {request.question_id}")
         conn = get_db_connection()
-        print("✅ 数据库连接成功")
         
         # 获取题目详细信息
         cursor = conn.execute("""
@@ -46,11 +52,10 @@ async def diagnose_answer(request: DiagnosisRequest):
         question_info = cursor.fetchone()
         
         if not question_info:
-            print(f"❌ 题目ID {request.question_id} 不存在")
             conn.close()
             raise HTTPException(status_code=404, detail=f"题目ID {request.question_id} 不存在")
         
-        print(f"✅ 成功获取题目信息: {question_info['question_text'][:50]}...")
+
         
         question_text = question_info["question_text"]
         correct_answer = question_info["answer"]
@@ -71,10 +76,7 @@ async def diagnose_answer(request: DiagnosisRequest):
         # }
         
         # 保存答题记录到数据库
-        print(f"💾 开始保存答题记录 - 用户ID: {request.user_id}, 题目ID: {request.question_id}, 答案正确性: {is_correct}")
-        
         # 插入答题记录
-        print('📝 后端诊断结果:', diagnosis_result)
         try:
             conn.execute("""
                 INSERT INTO user_answers 
@@ -84,12 +86,9 @@ async def diagnose_answer(request: DiagnosisRequest):
                   request.time_spent or 0, request.confidence or 0.5, datetime.now().isoformat(), json.dumps(diagnosis_result, ensure_ascii=False)))
             conn.commit()
         except Exception as e:
-            print(f"❌ 插入答题记录失败: {str(e)}")
             raise HTTPException(status_code=500, detail=f"插入答题记录失败: {str(e)}")
-        print('✅ 答题记录插入成功')
         
         # 更新用户知识点掌握度
-        print(f"📊 开始更新知识点掌握度")
         try:
             # 获取题目关联的知识点和题目难度
             cursor = conn.execute("""
@@ -130,7 +129,7 @@ async def diagnose_answer(request: DiagnosisRequest):
                         SET mastery_score = ?, updated_at = CURRENT_TIMESTAMP
                         WHERE user_id = ? AND node_id = ?
                     """, (new_score, request.user_id, node_id))
-                    print(f"✅ 更新知识点 {node_id} 掌握度: {existing['mastery_score']:.3f} -> {new_score:.3f} (难度: {difficulty:.2f})")
+
                 else:
                     # 创建新记录，初始掌握度0.5，然后应用变化
                     initial_score = max(0.0, min(1.0, 0.5 + score_change))
@@ -138,18 +137,15 @@ async def diagnose_answer(request: DiagnosisRequest):
                         INSERT INTO user_node_mastery (user_id, node_id, mastery_score, updated_at)
                         VALUES (?, ?, ?, CURRENT_TIMESTAMP)
                     """, (request.user_id, node_id, initial_score))
-                    print(f"✅ 创建知识点 {node_id} 掌握度记录: {initial_score:.3f} (难度: {difficulty:.2f})")
+
             
             conn.commit()
-            print(f"✅ 知识点掌握度更新完成")
             
         except Exception as e:
-            print(f"❌ 更新知识点掌握度失败: {str(e)}")
             # 掌握度更新失败不影响主要流程，只记录错误
             pass
         # 如果答错了，更新错题记录
         if not is_correct:
-            print(f"❌ 答案错误，开始处理错题记录")
             # 检查是否已有错题记录
             cursor = conn.execute("""
                 SELECT wrong_id, wrong_count FROM wrong_questions 
@@ -159,51 +155,55 @@ async def diagnose_answer(request: DiagnosisRequest):
             existing = cursor.fetchone()
             if existing:
                 # 更新错题记录
-                print(f'🔄 更新已存在的错题记录，错题ID: {existing["wrong_id"]}, 当前错误次数: {existing["wrong_count"]}')
                 conn.execute("""
                     UPDATE wrong_questions 
                     SET wrong_count = wrong_count + 1, last_wrong_time = ?
                     WHERE wrong_id = ?
                 """, (datetime.now().isoformat(), existing["wrong_id"]))
                 conn.commit()  # 提交事务
-                print(f'✅ 错题记录更新成功，错误次数增加到: {existing["wrong_count"] + 1}')
             else:
                 # 创建新的错题记录
-                print('📝 创建新的错题记录')
                 try:
                     conn.execute("""
                         INSERT INTO wrong_questions 
                         (user_id, question_id, wrong_count, last_wrong_time, status)
                         VALUES (?, ?, ?, ?, '未掌握')
                     """, (request.user_id, request.question_id, 1, datetime.now().isoformat()))
-                    conn.commit() 
-                    print('✅ 新错题记录创建成功')
+                    conn.commit()
                 except Exception as e:
-                    print(f"❌ 插入错题记录失败: {str(e)}")
                     raise HTTPException(status_code=500, detail=f"插入错题记录失败: {str(e)}")
-        else:
-            print(f"✅ 答案正确，无需记录错题")
+        
         conn.close()
-        print('🔒 数据库连接已关闭')
-        print('🎯 最终诊断结果:', diagnosis_result)
         return diagnosis_result
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"诊断失败: {str(e)}")
 
 @router.post("/image")
-async def diagnose_image_answer(
-    user_id: str,
-    question_id: str,
-    image: UploadFile = File(...),
-    time_spent: Optional[int] = None,
-    confidence: Optional[float] = None
-):
+async def diagnose_image_answer(request: Request):
     """诊断图片答案"""
+    
     try:
+        form_data = await request.form()
+        
+        user_id = form_data.get('user_id')
+        question_id = form_data.get('question_id')
+        image = form_data.get('image')
+        time_spent = form_data.get('time_spent')
+        confidence = form_data.get('confidence')
+        
+        if not user_id or not question_id or not image:
+            raise HTTPException(status_code=400, detail="缺少必要参数")
+        
+        # 转换类型
+        time_spent_int = None
+        confidence_float = None
+        if time_spent and time_spent.strip():
+            time_spent_int = int(time_spent)
+        if confidence and confidence.strip():
+            confidence_float = float(confidence)
+        
         # 根据题目ID从数据库获取题目信息
-        print(f"📊 [图片诊断] 开始查询题目信息，题目ID: {question_id}")
         conn = get_db_connection()
-        print("✅ [图片诊断] 数据库连接成功")
         
         # 获取题目详细信息
         cursor = conn.execute("""
@@ -219,11 +219,8 @@ async def diagnose_image_answer(
         question_info = cursor.fetchone()
         
         if not question_info:
-            print(f"❌ [图片诊断] 题目ID {question_id} 不存在")
             conn.close()
             raise HTTPException(status_code=404, detail=f"题目ID {question_id} 不存在")
-        
-        print(f"✅ [图片诊断] 成功获取题目信息: {question_info['question_text'][:50]}...")
         
         question_text = question_info["question_text"]
         question_type = question_info["question_type"]
@@ -236,35 +233,28 @@ async def diagnose_image_answer(
         import os
         from datetime import datetime
         
-        print(f"📁 [图片诊断] 开始保存上传的图片文件")
         upload_dir = "../backend/uploads"
         os.makedirs(upload_dir, exist_ok=True)
-        print(f"✅ [图片诊断] 上传目录准备完成: {upload_dir}")
         
         # 生成唯一文件名
         timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
         file_extension = os.path.splitext(image.filename)[1] if image.filename else ".jpg"
         filename = f"answer_{user_id}_{question_id}_{timestamp}{file_extension}"
         file_path = os.path.join(upload_dir, filename)
-        print(f"📝 [图片诊断] 生成文件名: {filename}")
         
         # 保存文件
         with open(file_path, "wb") as buffer:
             content = await image.read()
             buffer.write(content)
-        print(f"✅ [图片诊断] 图片文件保存成功: {file_path}")
         
         # 使用假的图片转文字函数
-        print(f"🔍 [图片诊断] 开始OCR识别")
         recognized_text = _fake_image_to_text(file_path)
-        print(f"✅ [图片诊断] OCR识别完成: {recognized_text}")
         
         # 使用相同的诊断逻辑
-        diagnosis_result = _diagnose_answer_logic(recognized_text, correct_answer, question_type, question_text)
+        diagnosis_result = _diagnose_answer_logic(recognized_text, correct_answer, question_text)
         is_correct = diagnosis_result['is_correct']
         
         # 保存答题记录到数据库
-        print(f"💾 [图片诊断] 开始保存答题记录 - 用户ID: {user_id}, 题目ID: {question_id}, 答案正确性: {is_correct}")
         
         try:
             conn.execute("""
@@ -272,15 +262,12 @@ async def diagnose_image_answer(
                 (user_id, question_id, user_answer, is_correct, time_spent, confidence, timestamp, diagnosis_json)
                 VALUES (?, ?, ?, ?, ?, ?, ?, ?)
             """, (user_id, question_id, recognized_text, is_correct,
-                  time_spent or 0, confidence or 0.5, datetime.now().isoformat(), json.dumps(diagnosis_result, ensure_ascii=False)))
+                  time_spent_int or 0, confidence_float or 0.5, datetime.now().isoformat(), json.dumps(diagnosis_result, ensure_ascii=False)))
             conn.commit()
-            print('✅ [图片诊断] 答题记录插入成功')
         except Exception as e:
-            print(f"❌ [图片诊断] 插入答题记录失败: {str(e)}")
             raise HTTPException(status_code=500, detail=f"插入答题记录失败: {str(e)}")
         
         # 更新用户知识点掌握度
-        print(f"📊 [图片诊断] 开始更新知识点掌握度")
         try:
             # 获取题目关联的知识点和题目难度
             cursor = conn.execute("""
@@ -321,7 +308,7 @@ async def diagnose_image_answer(
                         SET mastery_score = ?, updated_at = CURRENT_TIMESTAMP
                         WHERE user_id = ? AND node_id = ?
                     """, (new_score, user_id, node_id))
-                    print(f"✅ [图片诊断] 更新知识点 {node_id} 掌握度: {existing['mastery_score']:.3f} -> {new_score:.3f} (难度: {difficulty:.2f})")
+
                 else:
                     # 创建新记录，初始掌握度0.5，然后应用变化
                     initial_score = max(0.0, min(1.0, 0.5 + score_change))
@@ -329,19 +316,16 @@ async def diagnose_image_answer(
                         INSERT INTO user_node_mastery (user_id, node_id, mastery_score, updated_at)
                         VALUES (?, ?, ?, CURRENT_TIMESTAMP)
                     """, (user_id, node_id, initial_score))
-                    print(f"✅ [图片诊断] 创建知识点 {node_id} 掌握度记录: {initial_score:.3f} (难度: {difficulty:.2f})")
+
             
             conn.commit()
-            print(f"✅ [图片诊断] 知识点掌握度更新完成")
             
         except Exception as e:
-            print(f"❌ [图片诊断] 更新知识点掌握度失败: {str(e)}")
             # 掌握度更新失败不影响主要流程，只记录错误
             pass
         
         # 如果答错了，更新错题记录
         if not is_correct:
-            print(f"❌ [图片诊断] 答案错误，开始处理错题记录")
             cursor = conn.execute("""
                 SELECT wrong_id, wrong_count FROM wrong_questions 
                 WHERE user_id = ? AND question_id = ?
@@ -355,7 +339,6 @@ async def diagnose_image_answer(
                     WHERE wrong_id = ?
                 """, (datetime.now().isoformat(), existing["wrong_id"]))
                 conn.commit()
-                print(f'✅ [图片诊断] 错题记录更新成功')
             else:
                 try:
                     conn.execute("""
@@ -364,14 +347,10 @@ async def diagnose_image_answer(
                         VALUES (?, ?, ?, ?, '未掌握')
                     """, (user_id, question_id, 1, datetime.now().isoformat()))
                     conn.commit()
-                    print('✅ [图片诊断] 新错题记录创建成功')
                 except Exception as e:
-                    print(f"❌ [图片诊断] 插入错题记录失败: {str(e)}")
-        else:
-            print(f"✅ [图片诊断] 答案正确，无需记录错题")
+                    pass
         
         conn.close()
-        print('🔒 [图片诊断] 数据库连接已关闭')
         
         return diagnosis_result
     except Exception as e:
@@ -392,8 +371,6 @@ def _diagnose_answer_logic(user_answer: str, correct_answer: str, question_text:
         dict: 诊断结果
     """
     try:
-        print(f"🤖 开始调用AI诊断API")
-        print(f"📝 输入参数 - 题目: {question_text[:50]}..., 用户答案: {user_answer[:50]}...")
         
         url = "https://xingchen-api.xf-yun.com/workflow/v1/chat/completions"
         
@@ -417,17 +394,13 @@ def _diagnose_answer_logic(user_answer: str, correct_answer: str, question_text:
         'Connection': 'keep-alive'
         }
         
-        print(f"🌐 发送API请求到: {url}")
         response = requests.request("POST", url, headers=headers, data=payload).json()
-        print("📨 AI API响应成功")
         # 检查响应是否成功
         if 'choices' not in response or not response['choices'] or 'delta' not in response['choices'][0]:
-            print("❌ AI API响应格式错误")
             raise HTTPException(status_code=500, detail="AI生成学习目标失败：响应格式错误")
             
         content = response['choices'][0]['delta'].get('content')
         if not content:
-            print("❌ AI API返回内容为空")
             raise HTTPException(status_code=500, detail="AI诊断失败")
             
         # print(f"✅ AI诊断内容: {content}")
@@ -435,7 +408,6 @@ def _diagnose_answer_logic(user_answer: str, correct_answer: str, question_text:
         # 解析AI响应
         parts = content.split("##")
         if len(parts) < 3:
-            print(f"❌ AI响应格式不正确，无法解析: {content}")
             raise HTTPException(status_code=500, detail="AI响应格式错误")
             
         is_correct = parts[0].strip().lower() == 'yes'
@@ -447,9 +419,7 @@ def _diagnose_answer_logic(user_answer: str, correct_answer: str, question_text:
                 # 尝试解析JSON评分数组
                 scores_json = parts[2].strip()
                 scores = json.loads(scores_json)
-                print(f"📊 解析评分数据: {scores}")
             except json.JSONDecodeError as e:
-                print(f"⚠️ 评分数据解析失败: {e}")
                 # 评分解析失败不影响主要结果
                 pass
         
@@ -464,21 +434,90 @@ def _diagnose_answer_logic(user_answer: str, correct_answer: str, question_text:
         #     "reason": reason
         # }
         
-        print(f"🎯 解析后的诊断结果: 正确性={is_correct}, 原因={reason}, 其他维度：{scores}")
         return result
 
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"诊断失败: {str(e)}")
 
-def _fake_image_to_text(image_path: str):
+def _fake_image_to_text(image_path: str) -> str:
     """
-    假的图片转文字函数
+    调用API进行图片转文字识别
     
     Args:
         image_path: 图片文件路径
     
     Returns:
-        str: 模拟识别的文字内容
+        str: OCR识别的文字内容
     """
-    # 模拟OCR识别结果
-    return "最小值为-4，当x=-1时取得"
+    try:
+        import os
+        import mimetypes
+        
+        # 检查文件是否存在
+        if not os.path.exists(image_path):
+            return "图片文件不存在"
+        
+        # 获取文件的MIME类型
+        mime_type, _ = mimetypes.guess_type(image_path)
+        if not mime_type or not mime_type.startswith('image/'):
+            return "不支持的图片格式"
+        
+        # 准备API请求
+        url = "https://xingchen-api.xf-yun.com/workflow/v1/upload_file"
+        api_key = "4cec7267c3353726a2f1656cb7c0ec37:NDk0MDk0N2JiYzg0ZTgxMzVlNmRkM2Fh"
+        
+        headers = {
+            'Authorization': f'Bearer {api_key}'
+        }
+        
+        # 准备文件上传
+        with open(image_path, 'rb') as f:
+            files = {
+                'file': (os.path.basename(image_path), f, mime_type)
+            }
+            
+            response = requests.post(url, headers=headers, files=files)
+            
+            if response.status_code == 200:
+                result = response.json()
+                
+                # 根据API响应格式提取识别的文字
+                # 这里需要根据实际API响应格式调整
+                image_url = result['data']['url']
+
+                url = "https://xingchen-api.xf-yun.com/workflow/v1/chat/completions"
+        
+                payload = json.dumps({
+                    "flow_id": "7358509673684582402",
+                    "parameters": {
+                        "AGENT_USER_INPUT": "图片转文字",
+                        "image": image_url,
+                    },
+                    "ext": {
+                        "bot_id": "workflow",
+                        "caller": "workflow"
+                    },
+                    "stream": False,
+                })
+                headers = {
+                'Authorization': 'Bearer 4cec7267c3353726a2f1656cb7c0ec37:NDk0MDk0N2JiYzg0ZTgxMzVlNmRkM2Fh',
+                'Content-Type': 'application/json',
+                'Accept': '*/*',
+                'Host': 'xingchen-api.xf-yun.com',
+                'Connection': 'keep-alive'
+                }
+                
+
+                response = requests.request("POST", url, headers=headers, data=payload).json()
+                # 检查响应是否成功
+                if 'choices' not in response or not response['choices'] or 'delta' not in response['choices'][0]:
+                    raise HTTPException(status_code=500, detail="AI生成学习目标失败：响应格式错误")
+                    
+                content = response['choices'][0]['delta'].get('content')
+
+                return content
+            else:
+                return f"OCR识别失败: {response.text}"
+                
+    except Exception as e:
+        return f"图片处理异常: {str(e)}"

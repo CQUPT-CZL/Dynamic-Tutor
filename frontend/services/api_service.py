@@ -131,7 +131,15 @@ class APIService:
         """诊断图片答案"""
         print(f"[API调用] diagnose_image_answer(user_id={user_id}, question_id={question_id}, image_file={image_file}, time_spent={time_spent}, confidence={confidence})")
         try:
-            files = {"image": image_file}
+            # 构造 multipart/form-data
+            mime_type = getattr(image_file, "type", "application/octet-stream")
+            files = {
+                "image": (
+                    image_file.name if hasattr(image_file, "name") else "uploaded_image",
+                    image_file,
+                    mime_type
+                )
+            }
             data = {
                 "user_id": user_id,
                 "question_id": question_id
@@ -141,8 +149,14 @@ class APIService:
             if confidence is not None:
                 data["confidence"] = str(confidence)
             
-            url = f"{self.base_url}/diagnose/image"
-            response = self.session.post(url, files=files, data=data)
+
+            # return self._make_request("POST", "/student/diagnose/image", json=data)
+            print(f"[API调用] diagnose_image_answer() 前端发送的完整数据:", files, data)
+            url = f"{self.base_url}/student/diagnose/image"
+            # 使用临时session避免默认JSON header
+            temp_session = requests.Session()
+            temp_session.timeout = 10
+            response = temp_session.post(url, files=files, data=data)
             response.raise_for_status()
             return response.json()
         except requests.exceptions.RequestException as e:
