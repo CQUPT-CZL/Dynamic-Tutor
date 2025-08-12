@@ -47,6 +47,7 @@ def extract_mastery_data():
             unm.user_id,
             unm.node_id,
             unm.mastery_score,
+            unm.updated_at,
             u.username,
             kn.node_name,
             kn.node_difficulty,
@@ -180,10 +181,10 @@ def export_to_csv(data_list, output_file):
     print(f"\n💾 导出数据到CSV文件: {output_file}")
     
     try:
-        # 定义CSV字段
+        # 定义CSV字段 - 必须包含所有从数据库查询的字段
         fieldnames = [
             'mastery_id',
-            'user_id', 'node_id', 'mastery_score', 
+            'user_id', 'node_id', 'mastery_score', 'updated_at',
             'username', 'node_name', 'node_difficulty', 
             'level', 'node_type'
         ]

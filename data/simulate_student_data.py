@@ -10,52 +10,53 @@ from collections import defaultdict
 # --- 配置区 ---
 DB_FILE = "my_database.db"
 NUM_INTERACTIONS_PER_USER = 300
+RANDOM_SEED = 42  # 随机种子，用于保证结果可复现
 
 # --- 虚拟学生画像定义 ---
-# --- 虚拟学生画像定义 --- 
-PERSONAS = {
-    "小崔": {"name": "基础薄弱的小崔", "base_accuracy": 0.4, "weakness": "knowledge"},
-    # "小陈": {"name": "聪明的马虎蛋小陈", "base_accuracy": 0.8, "weakness": "calculation"},
-    # "小李": {"name": "稳步前进的小李", "base_accuracy": 0.7, "weakness": None},
-    # "小张": {"name": "学霸小张", "base_accuracy": 0.95, "weakness": None},
-    # "小王": {"name": "努力型小王", "base_accuracy": 0.6, "weakness": "logic"},
-    # "小赵": {"name": "天赋型小赵", "base_accuracy": 0.85, "weakness": None},
-    # "小钱": {"name": "粗心大意小钱", "base_accuracy": 0.75, "weakness": "calculation"},
-    # "小孙": {"name": "概念混淆小孙", "base_accuracy": 0.5, "weakness": "knowledge"},
-    # "小周": {"name": "逻辑清晰小周", "base_accuracy": 0.8, "weakness": "calculation"},
-    # "小吴": {"name": "基础扎实小吴", "base_accuracy": 0.75, "weakness": None},
-    # "小郑": {"name": "思维敏捷小郑", "base_accuracy": 0.9, "weakness": "calculation"},
-    # "小冯": {"name": "勤奋刻苦小冯", "base_accuracy": 0.65, "weakness": "logic"},
-    # "小陆": {"name": "理解困难小陆", "base_accuracy": 0.45, "weakness": "knowledge"},
-    # "小丁": {"name": "计算达人小丁", "base_accuracy": 0.8, "weakness": "logic"},
-    # "小石": {"name": "全面发展小石", "base_accuracy": 0.7, "weakness": None},
-    # "小田": {"name": "偏科严重小田", "base_accuracy": 0.55, "weakness": "knowledge"},
-    # "小何": {"name": "细心谨慎小何", "base_accuracy": 0.75, "weakness": "logic"},
-    # "小林": {"name": "创新思维小林", "base_accuracy": 0.85, "weakness": None},
-    # "小徐": {"name": "基础一般小徐", "base_accuracy": 0.6, "weakness": "calculation"},
-    # "小黄": {"name": "潜力无限小黄", "base_accuracy": 0.65, "weakness": "logic"},
-    # # 新增20个用户
-    # "小刘": {"name": "踏实认真小刘", "base_accuracy": 0.72, "weakness": "knowledge"},
-    # "小杨": {"name": "反应迅速小杨", "base_accuracy": 0.88, "weakness": "calculation"},
-    # "小宋": {"name": "沉稳内敛小宋", "base_accuracy": 0.68, "weakness": "logic"},
-    # "小韩": {"name": "活泼好学小韩", "base_accuracy": 0.77, "weakness": None},
-    # "小魏": {"name": "专注细致小魏", "base_accuracy": 0.83, "weakness": "calculation"},
-    # "小邓": {"name": "基础扎实小邓", "base_accuracy": 0.74, "weakness": None},
-    # "小许": {"name": "思维活跃小许", "base_accuracy": 0.81, "weakness": "logic"},
-    # "小曾": {"name": "勤学好问小曾", "base_accuracy": 0.63, "weakness": "knowledge"},
-    # "小彭": {"name": "逻辑严密小彭", "base_accuracy": 0.86, "weakness": "calculation"},
-    # "小吕": {"name": "稳中求进小吕", "base_accuracy": 0.69, "weakness": "logic"},
-    # "小苏": {"name": "天资聪颖小苏", "base_accuracy": 0.92, "weakness": None},
-    # "小卢": {"name": "努力上进小卢", "base_accuracy": 0.58, "weakness": "knowledge"},
-    # "小蒋": {"name": "计算精准小蒋", "base_accuracy": 0.79, "weakness": "logic"},
-    # "小蔡": {"name": "理解深刻小蔡", "base_accuracy": 0.84, "weakness": "calculation"},
-    # "小贾": {"name": "基础薄弱小贾", "base_accuracy": 0.42, "weakness": "knowledge"},
-    # "小丛": {"name": "全面均衡小丛", "base_accuracy": 0.76, "weakness": None},
-    # "小关": {"name": "细心谨慎小关", "base_accuracy": 0.71, "weakness": "calculation"},
-    # "小兰": {"name": "思路清晰小兰", "base_accuracy": 0.87, "weakness": "logic"},
-    # "小方": {"name": "刻苦钻研小方", "base_accuracy": 0.64, "weakness": "knowledge"},
-    # "小史": {"name": "潜力巨大小史", "base_accuracy": 0.66, "weakness": "logic"}
-}
+# 生成150个虚拟学生画像
+def generate_personas():
+    """生成150个虚拟学生画像"""
+    personas = {}
+    weaknesses = ["knowledge", "calculation", "logic", None]
+    weakness_weights = [0.3, 0.3, 0.3, 0.1]  # 各种弱点的分布权重
+    
+    # 前20个用户的具体名字，与create_tables.sql保持一致
+    specific_names = [
+        "小崔", "小陈", "小李", "小张", "小王", "小赵", "小钱", "小孙", "小周", "小吴",
+        "小郑", "小冯", "小陆", "小丁", "小石", "小田", "小何", "小林", "小徐", "小黄"
+    ]
+    
+    # 设置随机种子确保可复现
+    import random
+    random.seed(42)
+    
+    for i in range(1, 151):  # 生成150个用户
+        if i <= 20:
+            # 前20个用户使用具体名字
+            username = specific_names[i-1]
+            name = specific_names[i-1]
+        else:
+            # 后130个用户使用编号形式
+            username = f"user{i:03d}"  # user021, user022, ..., user150
+            name = f"学生{i}"
+        
+        # 基础准确率正态分布，均值0.7，标准差0.15，范围[0.3, 0.95]
+        base_accuracy = max(0.3, min(0.95, random.gauss(0.7, 0.15)))
+        base_accuracy = round(base_accuracy, 2)
+        
+        # 随机选择弱点类型
+        weakness = random.choices(weaknesses, weights=weakness_weights)[0]
+        
+        personas[username] = {
+            "name": name,
+            "base_accuracy": base_accuracy,
+            "weakness": weakness
+        }
+    
+    return personas
+
+# 生成虚拟学生画像
+PERSONAS = generate_personas()
 
 # --- 模块顺序定义 ---
 MODULE_ORDER = [
@@ -213,6 +214,10 @@ def get_next_learnable_node(cursor, user_id, all_nodes, prereq_map):
 
 def simulate_user_learning():
     """主函数，模拟所有用户的学习过程，并填充动态数据表。"""
+    # 设置随机种子以保证结果可复现
+    random.seed(RANDOM_SEED)
+    print(f"🎲 设置随机种子: {RANDOM_SEED}")
+    
     if not os.path.exists(DB_FILE):
         print(f"❌ 错误: 数据库文件 '{DB_FILE}' 不存在。")
         return
@@ -263,7 +268,7 @@ def simulate_user_learning():
             
             for interaction_num in tqdm(range(random.randint(10, 300)), desc=f"  模拟'{username}'学习中", leave=False):
                 # 每次循环睡眠0.1秒
-                time.sleep(0.1)
+                # time.sleep(0.1)
                 target_node = get_next_learnable_node(cursor, user_id, all_nodes, prereq_map)
                 
                 # 检测节点切换
@@ -314,7 +319,7 @@ def simulate_user_learning():
                 # 掌握度更新算法
                 if is_correct:
                     # 答对时，根据题目难度动态调整增长幅度
-                    growth = 0.25 + question_difficulty * 0.1  # 难题答对增长更多
+                    growth = 0.08 + question_difficulty * 0.1  # 难题答对增长更多
                     new_mastery = min(1.0, current_mastery + growth)
                 else:
                     # 答错时，掌握度下降
