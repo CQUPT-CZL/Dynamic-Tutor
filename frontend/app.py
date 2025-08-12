@@ -29,16 +29,15 @@ def check_api_connection(api_service) -> bool:
 def render_student_interface(api_service):
     """渲染学生界面"""
     # 创建标签页 - 新的界面结构
-    tab1, tab2, tab3, tab4, tab5 = st.tabs([
+    tab1, tab2, tab3, tab4 = st.tabs([
         "🏠 首页", 
         "🎯 推荐任务",
         "🎯 自由练习", 
-        "📊 自我测评", 
         "❌ 错题集"
     ])
     
     # 导入学生页面模块
-    from pages.student import home, free_practice, self_assessment, wrong_questions, recommended_tasks
+    from pages.student import home, free_practice, wrong_questions, recommended_tasks
     
     # 首页 - 包含雷达图、知识图谱和学习概览
     with tab1:
@@ -52,12 +51,8 @@ def render_student_interface(api_service):
     with tab3:
         free_practice.render_free_practice_page(api_service, st.session_state.current_user, st.session_state.user_id)
     
-    # 自我测评页面
-    with tab4:
-        self_assessment.render_self_assessment_page(api_service, st.session_state.current_user, st.session_state.user_id)
-    
     # 错题集页面
-    with tab5:
+    with tab4:
         wrong_questions.render_wrong_questions_page(api_service, st.session_state.current_user, st.session_state.user_id)
 def render_teacher_interface(api_service):
     """渲染教师界面"""
@@ -171,9 +166,9 @@ def main():
     <div style="text-align: center; color: #666; padding: 22px 0 10px 0; background: linear-gradient(90deg, #f8fafc 60%, #e0e7ff 100%); border-radius: 0 0 18px 18px; margin-top: 2rem; box-shadow: 0 -2px 12px rgba(118,75,162,0.06);">
         <p style="font-size: 1.1rem; margin-bottom: 0.5em;">🎓 <b>AI智慧学习平台 v2.0</b> | 登录版本</p>
         <p style="margin: 0.2em 0;">登录时间: {current_user_info['login_time'].strftime('%Y-%m-%d %H:%M:%S')}</p>
-        <p style="margin: 0.2em 0; font-size: 0.95rem; color: #aaa;">© 2025 刘立团队</p>
+        <p style="margin: 0.2em 0; font-size: 0.95rem; color: #aaa;">© 2025 科大讯飞挑战杯-揭榜挂帅项目</p>
     </div>
     """, unsafe_allow_html=True)
 
 if __name__ == "__main__":
-    main()
+    main()  

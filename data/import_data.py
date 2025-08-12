@@ -15,7 +15,7 @@ from typing import Dict, List, Any
 # --- 配置区 ---
 DB_FILE = "my_database.db"
 KG_JSON_FILE = "./raw/KG_data_v2.json"  # 知识图谱数据文件
-MATH_QUESTIONS_JSON_FILE = "./raw/final_math_questions1.json"  # 数学题目数据文件
+MATH_QUESTIONS_JSON_FILE = "./raw/final_math_questions_1754188486.json"  # 数学题目数据文件
 
 
 def connect_database(db_path: str = DB_FILE) -> sqlite3.Connection:
