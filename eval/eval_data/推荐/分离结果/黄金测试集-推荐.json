@@ -1,0 +1,1998 @@
+{
+  "33": {
+    "prompt": "{'user_id': 33, 'analysis_window': 20, 'overall_recent_accuracy': 0.85, 'analysis_by_node': [{'node_id': 11, 'node_name': '排列 & 组合', 'interaction_count': 10, 'accuracy': 0.8, 'average_scores': {'知识掌握': 0.78, '解题逻辑': 0.87, '计算准确性': 0.87, '行为表现': 0.85}}, {'node_id': 9, 'node_name': '样本空间', 'interaction_count': 10, 'accuracy': 0.9, 'average_scores': {'知识掌握': 0.83, '解题逻辑': 0.86, '计算准确性': 0.89, '行为表现': 0.88}}]}##用户已经完成了2个模块的学习：概率论的基本概念, 概率运算进阶。目前正在学习'随机变量及其分布'模块，已掌握13个知识点，还需学习3个知识点。已掌握的知识点包括：一维随机变量, 分布函数, 随机变量函数的分布, 离散型变量, 分布律, 0-1分布, 二项分布, 泊松分布, 几何分布, 超几何分布, 连续型变量, 概率密度, 多维随机变量。待学习的知识点包括：均匀分布, 指数分布, 正态分布。",
+    "rule_based_recommendation": {
+      "decision_reasoning": "学生在所有已分析知识点（排列 & 组合、样本空间）的正确率均超过0.8，且各通用技能维度（知识掌握、解题逻辑、计算准确性、行为表现）的平均分均处于较高水平（≥0.78），未发现显著的特定知识点缺陷或通用技能短板。根据‘修复优先’原则，当前状态适合推进新知识学习。结合学生正在学习的‘随机变量及其分布’模块进度，其待学习知识点为均匀分布、指数分布、正态分布，其中均匀分布是该模块中连续型随机变量的基础分布，逻辑上应优先掌握。",
+      "strategic_decision": {
+        "mission_type": "NEW_KNOWLEDGE",
+        "target": "指数分布",
+        "constraints": {
+          "task_focus": [
+            "CONCEPT_LEARNING",
+            "NORMAL_QUESTIONS"
+          ],
+          "difficulty_range": [
+            0.5,
+            0.8
+          ]
+        }
+      }
+    }
+  },
+  "63": {
+    "prompt": "{'user_id': 63, 'analysis_window': 20, 'overall_recent_accuracy': 0.85, 'analysis_by_node': [{'node_id': 11, 'node_name': '排列 & 组合', 'interaction_count': 7, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.88, '解题逻辑': 0.9, '计算准确性': 0.91, '行为表现': 0.89}}, {'node_id': 9, 'node_name': '样本空间', 'interaction_count': 11, 'accuracy': 0.73, 'average_scores': {'知识掌握': 0.74, '解题逻辑': 0.85, '计算准确性': 0.83, '行为表现': 0.85}}, {'node_id': 7, 'node_name': '随机现象', 'interaction_count': 2, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.9, '解题逻辑': 0.91, '计算准确性': 0.95, '行为表现': 0.88}}]}##用户已经完成了2个模块的学习：概率论的基本概念, 概率运算进阶。目前正在学习'随机变量及其分布'模块，已掌握14个知识点，还需学习2个知识点。已掌握的知识点包括：一维随机变量, 分布函数, 随机变量函数的分布, 离散型变量, 分布律, 0-1分布, 二项分布, 几何分布, 连续型变量, 概率密度, 均匀分布, 指数分布, 正态分布, 多维随机变量。待学习的知识点包括：泊松分布, 超几何分布。",
+    "rule_based_recommendation": {
+      "decision_reasoning": "经全面诊断，学生在所有已学知识点上的准确率均未出现显著短板（最低为‘样本空间’节点的0.73），且各通用技能维度（知识掌握、解题逻辑、计算准确性）在多节点中表现均衡，无系统性薄弱环节。当前学习进度显示学生已完成‘随机变量及其分布’模块的核心知识点，剩余待学习的‘泊松分布’与‘超几何分布’属于该模块的逻辑延伸内容。因此，判定学生具备学习新知识的充分基础，应优先推进新知学习。",
+      "strategic_decision": {
+        "mission_type": "NEW_KNOWLEDGE",
+        "target": "泊松分布",
+        "constraints": {
+          "task_focus": [
+            "CONCEPT_LEARNING",
+            "NORMAL_QUESTIONS"
+          ],
+          "difficulty_range": [
+            0.4,
+            0.7
+          ]
+        }
+      }
+    }
+  },
+  "77": {
+    "prompt": "{'user_id': 77, 'analysis_window': 20, 'overall_recent_accuracy': 0.6, 'analysis_by_node': [{'node_id': 11, 'node_name': '排列 & 组合', 'interaction_count': 9, 'accuracy': 0.78, 'average_scores': {'知识掌握': 0.75, '解题逻辑': 0.88, '计算准确性': 0.86, '行为表现': 0.87}}, {'node_id': 9, 'node_name': '样本空间', 'interaction_count': 11, 'accuracy': 0.45, 'average_scores': {'知识掌握': 0.54, '解题逻辑': 0.8, '计算准确性': 0.79, '行为表现': 0.79}}]}##用户已经完成了2个模块的学习：概率论的基本概念, 概率运算进阶。目前正在学习'随机变量及其分布'模块，已掌握6个知识点，还需学习10个知识点。已掌握的知识点包括：一维随机变量, 分布函数, 随机变量函数的分布, 连续型变量, 概率密度, 多维随机变量。待学习的知识点包括：离散型变量, 分布律, 0-1分布, 二项分布, 泊松分布, 几何分布, 超几何分布, 均匀分布, 指数分布, 正态分布。",
+    "rule_based_recommendation": {
+      "decision_reasoning": "数据分析显示，学生在‘样本空间’知识点上的正确率仅为0.45，远低于0.6的阈值，且其‘知识掌握’维度得分仅0.54，表明该知识点存在显著理解障碍。尽管其他知识点（如‘排列 & 组合’）表现良好，但根据‘修复优先’原则，必须优先解决这一特定知识点缺陷。",
+      "strategic_decision": {
+        "mission_type": "WEAK_POINT_CONSOLIDATION",
+        "target": "样本空间",
+        "constraints": {
+          "task_focus": [
+            "CONCEPT_LEARNING",
+            "NORMAL_QUESTIONS"
+          ],
+          "difficulty_range": [
+            0.3,
+            0.6
+          ]
+        }
+      }
+    }
+  },
+  "26": {
+    "prompt": "{'user_id': 26, 'analysis_window': 20, 'overall_recent_accuracy': 0.5, 'analysis_by_node': [{'node_id': 11, 'node_name': '排列 & 组合', 'interaction_count': 18, 'accuracy': 0.5, 'average_scores': {'知识掌握': 0.58, '解题逻辑': 0.81, '计算准确性': 0.79, '行为表现': 0.81}}, {'node_id': 9, 'node_name': '样本空间', 'interaction_count': 2, 'accuracy': 0.5, 'average_scores': {'知识掌握': 0.6, '解题逻辑': 0.77, '计算准确性': 0.83, '行为表现': 0.78}}]}##用户已经完成了1个模块的学习：概率论的基本概念。目前正在学习'概率运算进阶'模块，尚未掌握任何知识点，还需学习5个知识点。待学习的知识点包括：条件概率, 乘法公式, 事件的相互独立, 全概率公式, 贝叶斯公式。",
+    "rule_based_recommendation": {
+      "decision_reasoning": "数据分析表明，学生在‘排列 & 组合’和‘样本空间’两个知识点上的正确率均为0.5（远低于0.6阈值），且‘排列 & 组合’知识点的知识掌握度仅0.58，属于典型的特定知识点缺陷。由于存在明确的薄弱环节，根据修复优先原则，需优先进行针对性巩固而非推进新知识学习。",
+      "strategic_decision": {
+        "mission_type": "WEAK_POINT_CONSOLIDATION",
+        "target": "排列 & 组合",
+        "constraints": {
+          "task_focus": [
+            "CONCEPT_LEARNING",
+            "NORMAL_QUESTIONS"
+          ],
+          "difficulty_range": [
+            0.3,
+            0.6
+          ]
+        }
+      }
+    }
+  },
+  "102": {
+    "prompt": "{'user_id': 102, 'analysis_window': 20, 'overall_recent_accuracy': 0.5, 'analysis_by_node': [{'node_id': 11, 'node_name': '排列 & 组合', 'interaction_count': 20, 'accuracy': 0.5, 'average_scores': {'知识掌握': 0.57, '解题逻辑': 0.8, '计算准确性': 0.79, '行为表现': 0.79}}]}##用户尚未完成任何模块的学习。目前正在学习'概率论的基本概念'模块，已掌握5个知识点，还需学习3个知识点。已掌握的知识点包括：随机现象, 随机试验, 样本空间, 排列 & 组合, 古典概型。待学习的知识点包括：随机事件, 概率, 加法/减法公式。",
+    "rule_based_recommendation": {
+      "decision_reasoning": "数据分析显示，学生在‘排列 & 组合’知识点上的正确率仅为0.5，显著低于0.6的缺陷判定阈值，且该知识点的知识掌握度（0.57）也处于低位。尽管其他技能维度（如解题逻辑、计算准确性）表现尚可，但当前最紧迫的问题是该知识点本身的严重薄弱。根据修复优先原则，必须优先进行针对性知识巩固。",
+      "strategic_decision": {
+        "mission_type": "WEAK_POINT_CONSOLIDATION",
+        "target": "排列 & 组合",
+        "constraints": {
+          "task_focus": [
+            "CONCEPT_LEARNING",
+            "NORMAL_QUESTIONS"
+          ],
+          "difficulty_range": [
+            0.3,
+            0.6
+          ]
+        }
+      }
+    }
+  },
+  "111": {
+    "prompt": "{'user_id': 111, 'analysis_window': 20, 'overall_recent_accuracy': 0.95, 'analysis_by_node': [{'node_id': 11, 'node_name': '排列 & 组合', 'interaction_count': 7, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.87, '解题逻辑': 0.91, '计算准确性': 0.88, '行为表现': 0.89}}, {'node_id': 9, 'node_name': '样本空间', 'interaction_count': 8, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.9, '解题逻辑': 0.9, '计算准确性': 0.9, '行为表现': 0.93}}, {'node_id': 7, 'node_name': '随机现象', 'interaction_count': 5, 'accuracy': 0.8, 'average_scores': {'知识掌握': 0.84, '解题逻辑': 0.89, '计算准确性': 0.75, '行为表现': 0.86}}]}##用户已经完成了3个模块的学习：概率论的基本概念, 概率运算进阶, 随机变量及其分布。目前正在学习'数字特征与关系'模块，已掌握2个知识点，还需学习4个知识点。已掌握的知识点包括：数学期望, 协方差。待学习的知识点包括：矩母函数, 方差 & 标准差, 相关系数 ρ, 独立性与不相关性。",
+    "rule_based_recommendation": {
+      "decision_reasoning": "学生所有已学知识点的正确率均≥0.8（其中‘排列 & 组合’和‘样本空间’达1.0），且各通用技能维度（知识掌握、解题逻辑、计算准确性）在多个知识点上均表现良好（最低为‘随机现象’的计算准确性0.75）。未发现特定知识点缺陷或通用技能缺陷，符合‘无明显缺陷’状态。根据学习进度，学生当前需继续完成‘数字特征与关系’模块剩余知识点，故推荐新知。",
+      "strategic_decision": {
+        "mission_type": "NEW_KNOWLEDGE",
+        "target": "相关系数 ρ",
+        "constraints": {
+          "task_focus": [
+            "CONCEPT_LEARNING",
+            "APPLIED_EXAMPLES"
+          ],
+          "difficulty_range": [
+            0.5,
+            0.8
+          ]
+        }
+      }
+    }
+  },
+  "13": {
+    "prompt": "{'user_id': 13, 'analysis_window': 20, 'overall_recent_accuracy': 0.9, 'analysis_by_node': [{'node_id': 11, 'node_name': '排列 & 组合', 'interaction_count': 7, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.92, '解题逻辑': 0.88, '计算准确性': 0.91, '行为表现': 0.89}}, {'node_id': 9, 'node_name': '样本空间', 'interaction_count': 11, 'accuracy': 0.82, 'average_scores': {'知识掌握': 0.79, '解题逻辑': 0.86, '计算准确性': 0.84, '行为表现': 0.85}}, {'node_id': 7, 'node_name': '随机现象', 'interaction_count': 2, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.94, '解题逻辑': 0.81, '计算准确性': 0.89, '行为表现': 0.94}}]}##用户已经完成了3个模块的学习：概率论的基本概念, 概率运算进阶, 随机变量及其分布。目前正在学习'数字特征与关系'模块，已掌握2个知识点，还需学习4个知识点。已掌握的知识点包括：矩母函数, 数学期望。待学习的知识点包括：方差 & 标准差, 协方差, 相关系数 ρ, 独立性与不相关性。",
+    "rule_based_recommendation": {
+      "decision_reasoning": "经全面诊断，学生在所有已学知识点（排列 & 组合、样本空间、随机现象）的正确率均高于0.8，且各通用技能维度（知识掌握、解题逻辑、计算准确性、行为表现）的平均分均未出现显著短板（最低为样本空间的‘知识掌握’0.79）。当前无明确知识点或技能缺陷，符合‘无明显缺陷’状态，应优先推进新知识学习。根据学习进度，学生正处于‘数字特征与关系’模块，已完成‘矩母函数’和‘数学期望’，下一阶段应聚焦该模块剩余知识点‘方差 & 标准差’。",
+      "strategic_decision": {
+        "mission_type": "NEW_KNOWLEDGE",
+        "target": "方差 & 标准差",
+        "constraints": {
+          "task_focus": [
+            "CONCEPT_LEARNING",
+            "NORMAL_QUESTIONS"
+          ],
+          "difficulty_range": [
+            0.5,
+            0.8
+          ]
+        }
+      }
+    }
+  },
+  "2": {
+    "prompt": "{'user_id': 2, 'analysis_window': 20, 'overall_recent_accuracy': 0.8, 'analysis_by_node': [{'node_id': 11, 'node_name': '排列 & 组合', 'interaction_count': 11, 'accuracy': 0.73, 'average_scores': {'知识掌握': 0.71, '解题逻辑': 0.86, '计算准确性': 0.85, '行为表现': 0.84}}, {'node_id': 9, 'node_name': '样本空间', 'interaction_count': 9, 'accuracy': 0.89, 'average_scores': {'知识掌握': 0.84, '解题逻辑': 0.87, '计算准确性': 0.88, '行为表现': 0.89}}]}##用户已经完成了2个模块的学习：概率论的基本概念, 概率运算进阶。目前正在学习'随机变量及其分布'模块，已掌握13个知识点，还需学习3个知识点。已掌握的知识点包括：一维随机变量, 分布函数, 随机变量函数的分布, 离散型变量, 分布律, 0-1分布, 二项分布, 泊松分布, 几何分布, 超几何分布, 连续型变量, 概率密度, 多维随机变量。待学习的知识点包括：均匀分布, 指数分布, 正态分布。",
+    "rule_based_recommendation": {
+      "decision_reasoning": "经全面诊断，学生在所有已学知识点（排列 & 组合、样本空间）的正确率均高于0.6，且各通用技能维度（知识掌握、解题逻辑、计算准确性、行为表现）的平均分均处于较高水平（≥0.71），未发现显著的特定知识点缺陷或通用技能短板。根据‘修复优先’原则，由于当前无明确缺陷，应进入新知推荐流程。结合学生当前学习模块‘随机变量及其分布’的进度，其待学知识点为均匀分布、指数分布、正态分布，按学科逻辑顺序，优先推荐学习‘均匀分布’。",
+      "strategic_decision": {
+        "mission_type": "NEW_KNOWLEDGE",
+        "target": "均匀分布",
+        "constraints": {
+          "task_focus": [
+            "NORMAL_QUESTIONS"
+          ],
+          "difficulty_range": [
+            0.5,
+            0.8
+          ]
+        }
+      }
+    }
+  },
+  "106": {
+    "prompt": "{'user_id': 106, 'analysis_window': 20, 'overall_recent_accuracy': 1.0, 'analysis_by_node': [{'node_id': 11, 'node_name': '排列 & 组合', 'interaction_count': 7, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.89, '解题逻辑': 0.92, '计算准确性': 0.92, '行为表现': 0.84}}, {'node_id': 9, 'node_name': '样本空间', 'interaction_count': 8, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.87, '解题逻辑': 0.91, '计算准确性': 0.88, '行为表现': 0.92}}, {'node_id': 7, 'node_name': '随机现象', 'interaction_count': 5, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.87, '解题逻辑': 0.92, '计算准确性': 0.87, '行为表现': 0.89}}]}##用户已经完成了3个模块的学习：概率论的基本概念, 概率运算进阶, 随机变量及其分布。目前正在学习'数字特征与关系'模块，尚未掌握任何知识点，还需学习6个知识点。待学习的知识点包括：矩母函数, 数学期望, 方差 & 标准差, 协方差, 相关系数 ρ, 独立性与不相关性。",
+    "rule_based_recommendation": {
+      "decision_reasoning": "学生在所有已学知识点（排列 & 组合、样本空间、随机现象）的准确率均为1.0，且各通用技能维度（知识掌握、解题逻辑、计算准确性）的平均分均处于高位（≥0.84）。未发现任何特定知识点缺陷或通用技能缺陷，符合‘无明显缺陷’状态。因此，应优先推进新知识学习。",
+      "strategic_decision": {
+        "mission_type": "NEW_KNOWLEDGE",
+        "target": "数学期望",
+        "constraints": {
+          "task_focus": [
+            "CONCEPT_LEARNING",
+            "NORMAL_QUESTIONS"
+          ],
+          "difficulty_range": [
+            0.5,
+            0.8
+          ]
+        }
+      }
+    }
+  },
+  "121": {
+    "prompt": "{'user_id': 121, 'analysis_window': 20, 'overall_recent_accuracy': 0.65, 'analysis_by_node': [{'node_id': 11, 'node_name': '排列 & 组合', 'interaction_count': 13, 'accuracy': 0.62, 'average_scores': {'知识掌握': 0.85, '解题逻辑': 0.9, '计算准确性': 0.66, '行为表现': 0.84}}, {'node_id': 9, 'node_name': '样本空间', 'interaction_count': 7, 'accuracy': 0.71, 'average_scores': {'知识掌握': 0.87, '解题逻辑': 0.9, '计算准确性': 0.7, '行为表现': 0.88}}]}##用户已经完成了2个模块的学习：概率论的基本概念, 概率运算进阶。目前正在学习'随机变量及其分布'模块，尚未掌握任何知识点，还需学习16个知识点。待学习的知识点包括：一维随机变量, 分布函数, 随机变量函数的分布, 离散型变量, 分布律, 0-1分布, 二项分布, 泊松分布, 几何分布, 超几何分布, 连续型变量, 概率密度, 均匀分布, 指数分布, 正态分布, 多维随机变量。",
+    "rule_based_recommendation": {
+      "decision_reasoning": "数据分析显示，学生在‘排列 & 组合’和‘样本空间’两个知识点的‘计算准确性’维度得分分别为0.66和0.7，均显著低于其他技能维度（如知识掌握、解题逻辑）。尽管这两个知识点的整体正确率尚可（0.62/0.71），但计算准确性作为跨知识点的通用技能短板已形成系统性瓶颈。根据‘修复优先’原则，应优先针对该通用技能进行专项强化。",
+      "strategic_decision": {
+        "mission_type": "SKILL_ENHANCEMENT",
+        "target": {
+          "type": "计算准确性"
+        },
+        "constraints": {
+          "task_focus": [
+            "CALCULATION_DRILL"
+          ],
+          "difficulty_range": [
+            0.4,
+            0.7
+          ]
+        }
+      }
+    }
+  },
+  "123": {
+    "prompt": "{'user_id': 123, 'analysis_window': 20, 'overall_recent_accuracy': 0.75, 'analysis_by_node': [{'node_id': 11, 'node_name': '排列 & 组合', 'interaction_count': 12, 'accuracy': 0.67, 'average_scores': {'知识掌握': 0.65, '解题逻辑': 0.82, '计算准确性': 0.84, '行为表现': 0.83}}, {'node_id': 9, 'node_name': '样本空间', 'interaction_count': 8, 'accuracy': 0.88, 'average_scores': {'知识掌握': 0.83, '解题逻辑': 0.87, '计算准确性': 0.89, '行为表现': 0.87}}]}##用户已经完成了2个模块的学习：概率论的基本概念, 概率运算进阶。目前正在学习'随机变量及其分布'模块，已掌握11个知识点，还需学习5个知识点。已掌握的知识点包括：一维随机变量, 分布函数, 随机变量函数的分布, 离散型变量, 分布律, 连续型变量, 概率密度, 均匀分布, 指数分布, 正态分布, 多维随机变量。待学习的知识点包括：0-1分布, 二项分布, 泊松分布, 几何分布, 超几何分布。",
+    "rule_based_recommendation": {
+      "decision_reasoning": "经全面诊断，学生所有知识点正确率均未低于0.6阈值（最低为‘排列 & 组合’的0.67），且各通用技能维度（解题逻辑、计算准确性等）在多数知识点表现良好。虽‘排列 & 组合’的知识掌握度略低（0.65），但未达到需优先修复的严重程度。当前学生已完成‘随机变量及其分布’模块的核心知识点学习，具备推进新知的基础条件。",
+      "strategic_decision": {
+        "mission_type": "NEW_KNOWLEDGE",
+        "target": "0-1分布",
+        "constraints": {
+          "task_focus": [
+            "CONCEPT_LEARNING",
+            "NORMAL_QUESTIONS"
+          ],
+          "difficulty_range": [
+            0.5,
+            0.7
+          ]
+        }
+      }
+    }
+  },
+  "89": {
+    "prompt": "{'user_id': 89, 'analysis_window': 20, 'overall_recent_accuracy': 0.95, 'analysis_by_node': [{'node_id': 11, 'node_name': '排列 & 组合', 'interaction_count': 7, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.9, '解题逻辑': 0.91, '计算准确性': 0.89, '行为表现': 0.91}}, {'node_id': 9, 'node_name': '样本空间', 'interaction_count': 4, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.9, '解题逻辑': 0.91, '计算准确性': 0.95, '行为表现': 0.85}}, {'node_id': 7, 'node_name': '随机现象', 'interaction_count': 9, 'accuracy': 0.89, 'average_scores': {'知识掌握': 0.9, '解题逻辑': 0.9, '计算准确性': 0.82, '行为表现': 0.89}}]}##用户尚未完成任何模块的学习。目前正在学习'概率论的基本概念'模块，已掌握4个知识点，还需学习4个知识点。已掌握的知识点包括：随机现象, 随机试验, 排列 & 组合, 古典概型。待学习的知识点包括：样本空间, 随机事件, 概率, 加法/减法公式。",
+    "rule_based_recommendation": {
+      "decision_reasoning": "经全面诊断，学生在所有已学知识点（随机现象、随机试验、排列 & 组合、古典概型）的正确率均高于0.89，且各通用技能维度（知识掌握、解题逻辑、计算准确性、行为表现）的平均分均未出现显著短板（最低值为0.82）。当前学习状态良好，无明确知识或技能缺陷，符合进入新知推荐流程的条件。根据学科知识逻辑顺序，学生已完成排列 & 组合等前置知识点，下一步应优先学习‘样本空间’以衔接后续概率计算相关内容。",
+      "strategic_decision": {
+        "mission_type": "NEW_KNOWLEDGE",
+        "target": "样本空间",
+        "constraints": {
+          "task_focus": [
+            "CONCEPT_LEARNING",
+            "NORMAL_QUESTIONS"
+          ],
+          "difficulty_range": [
+            0.3,
+            0.6
+          ]
+        }
+      }
+    }
+  },
+  "133": {
+    "prompt": "{'user_id': 133, 'analysis_window': 14, 'overall_recent_accuracy': 0.86, 'analysis_by_node': [{'node_id': 11, 'node_name': '排列 & 组合', 'interaction_count': 7, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.89, '解题逻辑': 0.9, '计算准确性': 0.89, '行为表现': 0.88}}, {'node_id': 12, 'node_name': '古典概型', 'interaction_count': 7, 'accuracy': 0.71, 'average_scores': {'知识掌握': 0.86, '解题逻辑': 0.78, '计算准确性': 0.84, '行为表现': 0.88}}]}##用户尚未完成任何模块的学习。目前正在学习'概率论的基本概念'模块，已掌握1个知识点，还需学习7个知识点。已掌握的知识点包括：排列 & 组合。待学习的知识点包括：随机现象, 随机试验, 样本空间, 随机事件, 古典概型, 概率, 加法/减法公式。",
+    "rule_based_recommendation": {
+      "decision_reasoning": "学生当前已掌握的‘排列 & 组合’知识点表现优异（accuracy=1.0），且‘古典概型’知识点虽accuracy=0.71但未低于0.6阈值。各通用技能维度（知识掌握、解题逻辑、计算准确性）在已学知识点中均无跨节点显著短板。由于不存在需优先修复的知识点或技能缺陷，符合‘无明显缺陷’条件，故推荐学习新知识点。根据学科逻辑顺序，‘古典概型’是‘排列 & 组合’的直接后续知识点，应作为下一学习目标。",
+      "strategic_decision": {
+        "mission_type": "NEW_KNOWLEDGE",
+        "target": "随机现象",
+        "constraints": {
+          "task_focus": [
+            "CONCEPT_LEARNING",
+            "NORMAL_QUESTIONS"
+          ],
+          "difficulty_range": [
+            0.5,
+            0.8
+          ]
+        }
+      }
+    }
+  },
+  "80": {
+    "prompt": "{'user_id': 80, 'analysis_window': 20, 'overall_recent_accuracy': 1.0, 'analysis_by_node': [{'node_id': 11, 'node_name': '排列 & 组合', 'interaction_count': 7, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.88, '解题逻辑': 0.9, '计算准确性': 0.88, '行为表现': 0.89}}, {'node_id': 9, 'node_name': '样本空间', 'interaction_count': 7, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.89, '解题逻辑': 0.93, '计算准确性': 0.94, '行为表现': 0.88}}, {'node_id': 7, 'node_name': '随机现象', 'interaction_count': 6, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.93, '解题逻辑': 0.88, '计算准确性': 0.92, '行为表现': 0.93}}]}##用户已经完成了2个模块的学习：概率论的基本概念, 概率运算进阶。目前正在学习'随机变量及其分布'模块，已掌握11个知识点，还需学习5个知识点。已掌握的知识点包括：一维随机变量, 分布函数, 随机变量函数的分布, 离散型变量, 分布律, 连续型变量, 概率密度, 均匀分布, 指数分布, 正态分布, 多维随机变量。待学习的知识点包括：0-1分布, 二项分布, 泊松分布, 几何分布, 超几何分布。",
+    "rule_based_recommendation": {
+      "decision_reasoning": "学生在所有已学知识点（排列 & 组合、样本空间、随机现象）的准确率均为1.0，且各维度平均分（知识掌握、解题逻辑、计算准确性、行为表现）均高于0.8，表明其基础扎实、无显著知识或技能缺陷。根据‘修复优先’原则，因未检测到需优先处理的薄弱环节，故进入新知推荐流程。",
+      "strategic_decision": {
+        "mission_type": "NEW_KNOWLEDGE",
+        "target": "0-1分布",
+        "constraints": {
+          "task_focus": [
+            "CONCEPT_LEARNING",
+            "NORMAL_QUESTIONS"
+          ],
+          "difficulty_range": [
+            0.4,
+            0.7
+          ]
+        }
+      }
+    }
+  },
+  "98": {
+    "prompt": "{'user_id': 98, 'analysis_window': 20, 'overall_recent_accuracy': 1.0, 'analysis_by_node': [{'node_id': 11, 'node_name': '排列 & 组合', 'interaction_count': 7, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.92, '解题逻辑': 0.94, '计算准确性': 0.93, '行为表现': 0.92}}, {'node_id': 9, 'node_name': '样本空间', 'interaction_count': 8, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.9, '解题逻辑': 0.91, '计算准确性': 0.89, '行为表现': 0.93}}, {'node_id': 7, 'node_name': '随机现象', 'interaction_count': 5, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.9, '解题逻辑': 0.96, '计算准确性': 0.92, '行为表现': 0.91}}]}##用户已经完成了3个模块的学习：概率论的基本概念, 概率运算进阶, 随机变量及其分布。目前正在学习'数字特征与关系'模块，已掌握5个知识点，还需学习1个知识点。已掌握的知识点包括：数学期望, 方差 & 标准差, 协方差, 相关系数 ρ, 独立性与不相关性。待学习的知识点包括：矩母函数。",
+    "rule_based_recommendation": {
+      "decision_reasoning": "数据分析显示，学生在所有已学知识点（排列 & 组合、样本空间、随机现象）的准确率均为1.0，且各维度平均分（知识掌握≥0.9、解题逻辑≥0.91、计算准确性≥0.89）均处于优秀水平，未发现特定知识点缺陷或通用技能短板。根据‘修复优先’原则，因无现存缺陷需处理，故进入新知推荐流程。学生当前正在学习‘数字特征与关系’模块，待掌握知识点为‘矩母函数’，该知识点为逻辑上的下一学习目标。",
+      "strategic_decision": {
+        "mission_type": "NEW_KNOWLEDGE",
+        "target": "矩母函数",
+        "constraints": {
+          "task_focus": [
+            "CONCEPT_LEARNING",
+            "NORMAL_QUESTIONS"
+          ],
+          "difficulty_range": [
+            0.5,
+            0.8
+          ]
+        }
+      }
+    }
+  },
+  "65": {
+    "prompt": "{'user_id': 65, 'analysis_window': 20, 'overall_recent_accuracy': 0.95, 'analysis_by_node': [{'node_id': 11, 'node_name': '排列 & 组合', 'interaction_count': 7, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.92, '解题逻辑': 0.94, '计算准确性': 0.93, '行为表现': 0.94}}, {'node_id': 9, 'node_name': '样本空间', 'interaction_count': 9, 'accuracy': 0.89, 'average_scores': {'知识掌握': 0.88, '解题逻辑': 0.91, '计算准确性': 0.84, '行为表现': 0.89}}, {'node_id': 7, 'node_name': '随机现象', 'interaction_count': 4, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.89, '解题逻辑': 0.9, '计算准确性': 0.92, '行为表现': 0.91}}]}##用户已经完成了2个模块的学习：概率论的基本概念, 概率运算进阶。目前正在学习'随机变量及其分布'模块，已掌握2个知识点，还需学习14个知识点。已掌握的知识点包括：一维随机变量, 多维随机变量。待学习的知识点包括：分布函数, 随机变量函数的分布, 离散型变量, 分布律, 0-1分布, 二项分布, 泊松分布, 几何分布, 超几何分布, 连续型变量, 概率密度, 均匀分布, 指数分布, 正态分布。",
+    "rule_based_recommendation": {
+      "decision_reasoning": "经全面诊断，学生在所有已学知识点（排列 & 组合、样本空间、随机现象）的accuracy均高于0.89，且各通用技能维度（知识掌握、解题逻辑、计算准确性、行为表现）的平均分均未出现跨知识点的显著短板。当前学习状态良好，无明确知识或技能缺陷，符合‘无明显缺陷’判定标准。因此优先执行新知推荐策略，基于其正在学习的‘随机变量及其分布’模块进度，选择逻辑衔接紧密的‘分布函数’作为下一学习目标。",
+      "strategic_decision": {
+        "mission_type": "NEW_KNOWLEDGE",
+        "target": "分布函数",
+        "constraints": {
+          "task_focus": [
+            "NORMAL_QUESTIONS"
+          ],
+          "difficulty_range": [
+            0.4,
+            0.7
+          ]
+        }
+      }
+    }
+  },
+  "27": {
+    "prompt": "{'user_id': 27, 'analysis_window': 12, 'overall_recent_accuracy': 0.67, 'analysis_by_node': [{'node_id': 7, 'node_name': '随机现象', 'interaction_count': 12, 'accuracy': 0.67, 'average_scores': {'知识掌握': 0.85, '解题逻辑': 0.75, '计算准确性': 0.85, '行为表现': 0.83}}]}##用户未学习任何知识点",
+    "rule_based_recommendation": {
+      "decision_reasoning": "经全面诊断，学生当前仅涉及‘随机现象’一个知识点，其正确率为0.67（未低于0.6阈值），且各通用技能维度（知识掌握、解题逻辑、计算准确性）均表现良好（均≥0.75）。由于不存在特定知识点缺陷或通用技能缺陷，符合‘无明显缺陷’条件，故进入新知推荐流程。",
+      "strategic_decision": {
+        "mission_type": "NEW_KNOWLEDGE",
+        "target": "随机现象",
+        "constraints": {
+          "task_focus": [
+            "CONCEPT_LEARNING",
+            "NORMAL_QUESTIONS"
+          ],
+          "difficulty_range": [
+            0.4,
+            0.7
+          ]
+        }
+      }
+    }
+  },
+  "15": {
+    "prompt": "{'user_id': 15, 'analysis_window': 20, 'overall_recent_accuracy': 0.9, 'analysis_by_node': [{'node_id': 11, 'node_name': '排列 & 组合', 'interaction_count': 8, 'accuracy': 0.88, 'average_scores': {'知识掌握': 0.9, '解题逻辑': 0.85, '计算准确性': 0.88, '行为表现': 0.89}}, {'node_id': 9, 'node_name': '样本空间', 'interaction_count': 8, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.91, '解题逻辑': 0.87, '计算准确性': 0.91, '行为表现': 0.93}}, {'node_id': 7, 'node_name': '随机现象', 'interaction_count': 4, 'accuracy': 0.75, 'average_scores': {'知识掌握': 0.84, '解题逻辑': 0.81, '计算准确性': 0.8, '行为表现': 0.9}}]}##用户已经完成了1个模块的学习：概率论的基本概念。目前正在学习'概率运算进阶'模块，已掌握4个知识点，还需学习1个知识点。已掌握的知识点包括：条件概率, 乘法公式, 事件的相互独立, 全概率公式。待学习的知识点包括：贝叶斯公式。",
+    "rule_based_recommendation": {
+      "decision_reasoning": "经全面诊断，学生在所有已学知识点（排列 & 组合、样本空间、随机现象）的accuracy均≥0.75且无单项低于0.6，各通用技能维度（知识掌握/解题逻辑/计算准确性/行为表现）在多知识点中的平均分均≥0.8，未发现显著知识点或技能缺陷。当前处于‘概率运算进阶’模块学习阶段，已完成4个知识点，剩余待学知识点为‘贝叶斯公式’，符合新知推荐条件。",
+      "strategic_decision": {
+        "mission_type": "NEW_KNOWLEDGE",
+        "target": "贝叶斯公式",
+        "constraints": {
+          "task_focus": [
+            "CONCEPT_LEARNING",
+            "NORMAL_QUESTIONS"
+          ],
+          "difficulty_range": [
+            0.5,
+            0.8
+          ]
+        }
+      }
+    }
+  },
+  "119": {
+    "prompt": "{'user_id': 119, 'analysis_window': 20, 'overall_recent_accuracy': 0.8, 'analysis_by_node': [{'node_id': 11, 'node_name': '排列 & 组合', 'interaction_count': 9, 'accuracy': 0.78, 'average_scores': {'知识掌握': 0.88, '解题逻辑': 0.9, '计算准确性': 0.69, '行为表现': 0.85}}, {'node_id': 9, 'node_name': '样本空间', 'interaction_count': 10, 'accuracy': 0.8, 'average_scores': {'知识掌握': 0.83, '解题逻辑': 0.91, '计算准确性': 0.79, '行为表现': 0.82}}, {'node_id': 7, 'node_name': '随机现象', 'interaction_count': 1, 'accuracy': 1.0, 'average_scores': {'知识掌握': 1.0, '解题逻辑': 0.85, '计算准确性': 0.98, '行为表现': 0.83}}]}##用户已经完成了3个模块的学习：概率论的基本概念, 概率运算进阶, 随机变量及其分布。目前正在学习'数字特征与关系'模块，已掌握1个知识点，还需学习5个知识点。已掌握的知识点包括：数学期望。待学习的知识点包括：矩母函数, 方差 & 标准差, 协方差, 相关系数 ρ, 独立性与不相关性。",
+    "rule_based_recommendation": {
+      "decision_reasoning": "经全面诊断，学生在所有已学知识点（排列 & 组合、样本空间、随机现象）的正确率均≥0.78，且各通用技能维度（知识掌握、解题逻辑、计算准确性、行为表现）在多数知识点上表现良好。虽‘排列 & 组合’的‘计算准确性’得分为0.69略低，但未形成跨知识点的普遍性缺陷。因此判定为无明显缺陷（C类），可进入新知推荐流程。",
+      "strategic_decision": {
+        "mission_type": "NEW_KNOWLEDGE",
+        "target": "协方差",
+        "constraints": {
+          "task_focus": [
+            "CONCEPT_LEARNING",
+            "NORMAL_QUESTIONS"
+          ],
+          "difficulty_range": [
+            0.5,
+            0.8
+          ]
+        }
+      }
+    }
+  },
+  "83": {
+    "prompt": "{'user_id': 83, 'analysis_window': 20, 'overall_recent_accuracy': 0.85, 'analysis_by_node': [{'node_id': 11, 'node_name': '排列 & 组合', 'interaction_count': 7, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.89, '解题逻辑': 0.88, '计算准确性': 0.93, '行为表现': 0.87}}, {'node_id': 9, 'node_name': '样本空间', 'interaction_count': 12, 'accuracy': 0.75, 'average_scores': {'知识掌握': 0.73, '解题逻辑': 0.85, '计算准确性': 0.85, '行为表现': 0.85}}, {'node_id': 7, 'node_name': '随机现象', 'interaction_count': 1, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.89, '解题逻辑': 0.93, '计算准确性': 0.9, '行为表现': 0.82}}]}##用户已经完成了1个模块的学习：概率论的基本概念。目前正在学习'概率运算进阶'模块，尚未掌握任何知识点，还需学习5个知识点。待学习的知识点包括：条件概率, 乘法公式, 事件的相互独立, 全概率公式, 贝叶斯公式。",
+    "rule_based_recommendation": {
+      "decision_reasoning": "经全面诊断，学生在所有已学知识点（排列 & 组合、样本空间、随机现象）的正确率均≥0.75，且各通用技能维度（知识掌握、解题逻辑、计算准确性）在多数知识点上表现良好。其中仅‘样本空间’知识点的知识掌握分为0.73，但未达到严重缺陷阈值（<0.6），且该维度在其他知识点无系统性薄弱。因此判定学生当前无明显知识或技能缺陷，符合新知推荐条件。",
+      "strategic_decision": {
+        "mission_type": "NEW_KNOWLEDGE",
+        "target": "条件概率",
+        "constraints": {
+          "task_focus": [
+            "CONCEPT_LEARNING",
+            "NORMAL_QUESTIONS"
+          ],
+          "difficulty_range": [
+            0.4,
+            0.7
+          ]
+        }
+      }
+    }
+  },
+  "125": {
+    "prompt": "{'user_id': 125, 'analysis_window': 20, 'overall_recent_accuracy': 0.6, 'analysis_by_node': [{'node_id': 23, 'node_name': '离散型变量', 'interaction_count': 10, 'accuracy': 0.6, 'average_scores': {'知识掌握': 0.82, '解题逻辑': 0.9, '计算准确性': 0.63, '行为表现': 0.82}}, {'node_id': 24, 'node_name': '分布律', 'interaction_count': 10, 'accuracy': 0.6, 'average_scores': {'知识掌握': 0.82, '解题逻辑': 0.89, '计算准确性': 0.65, '行为表现': 0.81}}]}##用户已经完成了2个模块的学习：概率论的基本概念, 概率运算进阶。目前正在学习'随机变量及其分布'模块，已掌握11个知识点，还需学习5个知识点。已掌握的知识点包括：一维随机变量, 分布函数, 随机变量函数的分布, 离散型变量, 分布律, 连续型变量, 概率密度, 均匀分布, 指数分布, 正态分布, 多维随机变量。待学习的知识点包括：0-1分布, 二项分布, 泊松分布, 几何分布, 超几何分布。",
+    "rule_based_recommendation": {
+      "decision_reasoning": "数据分析显示，学生在‘离散型变量’和‘分布律’两个知识点上的计算准确性维度得分分别为0.63和0.65，显著低于同知识点的其他能力维度（如知识掌握、解题逻辑）。尽管这两个知识点的综合正确率为0.6，但其核心瓶颈在于跨知识点的通用计算能力不足。这种多知识点下的同一技能维度持续薄弱表明，当前应优先强化‘计算准确性’这一通用技能，而非推进新知识点学习。",
+      "strategic_decision": {
+        "mission_type": "SKILL_ENHANCEMENT",
+        "target": {
+          "name": "偏计算题型"
+        },
+        "constraints": {
+          "task_focus": [
+            "NORMAL_QUESTIONS"
+          ],
+          "difficulty_range": [
+            0.4,
+            0.7
+          ]
+        }
+      }
+    }
+  },
+  "122": {
+    "prompt": "{'user_id': 122, 'analysis_window': 20, 'overall_recent_accuracy': 0.8, 'analysis_by_node': [{'node_id': 11, 'node_name': '排列 & 组合', 'interaction_count': 7, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.89, '解题逻辑': 0.89, '计算准确性': 0.91, '行为表现': 0.93}}, {'node_id': 9, 'node_name': '样本空间', 'interaction_count': 13, 'accuracy': 0.69, 'average_scores': {'知识掌握': 0.85, '解题逻辑': 0.76, '计算准确性': 0.84, '行为表现': 0.85}}]}##用户已经完成了2个模块的学习：概率论的基本概念, 概率运算进阶。目前正在学习'随机变量及其分布'模块，已掌握14个知识点，还需学习2个知识点。已掌握的知识点包括：一维随机变量, 分布函数, 随机变量函数的分布, 离散型变量, 分布律, 0-1分布, 二项分布, 几何分布, 连续型变量, 概率密度, 均匀分布, 指数分布, 正态分布, 多维随机变量。待学习的知识点包括：泊松分布, 超几何分布。",
+    "rule_based_recommendation": {
+      "decision_reasoning": "学生整体近期准确率达0.8且各知识点无严重缺陷（最低准确率为样本空间的0.69>0.6）。其已完成的知识点均表现良好，当前模块剩余待学知识点为泊松分布和超几何分布。根据学习进度逻辑，应优先推进新知识点学习。",
+      "strategic_decision": {
+        "mission_type": "NEW_KNOWLEDGE",
+        "target": "泊松分布",
+        "constraints": {
+          "task_focus": [
+            "CONCEPT_LEARNING",
+            "NORMAL_QUESTIONS"
+          ],
+          "difficulty_range": [
+            0.5,
+            0.8
+          ]
+        }
+      }
+    }
+  },
+  "30": {
+    "prompt": "{'user_id': 30, 'analysis_window': 20, 'overall_recent_accuracy': 1.0, 'analysis_by_node': [{'node_id': 11, 'node_name': '排列 & 组合', 'interaction_count': 7, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.89, '解题逻辑': 0.93, '计算准确性': 0.92, '行为表现': 0.89}}, {'node_id': 9, 'node_name': '样本空间', 'interaction_count': 8, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.88, '解题逻辑': 0.94, '计算准确性': 0.9, '行为表现': 0.92}}, {'node_id': 7, 'node_name': '随机现象', 'interaction_count': 5, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.93, '解题逻辑': 0.9, '计算准确性': 0.9, '行为表现': 0.92}}]}##用户已经完成了2个模块的学习：概率论的基本概念, 概率运算进阶。目前正在学习'随机变量及其分布'模块，尚未掌握任何知识点，还需学习16个知识点。待学习的知识点包括：一维随机变量, 分布函数, 随机变量函数的分布, 离散型变量, 分布律, 0-1分布, 二项分布, 泊松分布, 几何分布, 超几何分布, 连续型变量, 概率密度, 均匀分布, 指数分布, 正态分布, 多维随机变量。",
+    "rule_based_recommendation": {
+      "decision_reasoning": "学生在所有已学知识点（排列 & 组合、样本空间、随机现象）的准确率均为1.0，且各维度平均分（知识掌握、解题逻辑、计算准确性）均高于0.89，表明当前无特定知识点缺陷或通用技能短板。由于学生已完成前序模块且状态良好，应优先推进新知识学习。",
+      "strategic_decision": {
+        "mission_type": "NEW_KNOWLEDGE",
+        "target": "一维随机变量",
+        "constraints": {
+          "task_focus": [
+            "CONCEPT_LEARNING",
+            "NORMAL_QUESTIONS"
+          ],
+          "difficulty_range": [
+            0.5,
+            0.8
+          ]
+        }
+      }
+    }
+  },
+  "37": {
+    "prompt": "{'user_id': 37, 'analysis_window': 16, 'overall_recent_accuracy': 0.88, 'analysis_by_node': [{'node_id': 7, 'node_name': '随机现象', 'interaction_count': 7, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.89, '解题逻辑': 0.86, '计算准确性': 0.92, '行为表现': 0.91}}, {'node_id': 8, 'node_name': '随机试验', 'interaction_count': 9, 'accuracy': 0.78, 'average_scores': {'知识掌握': 0.86, '解题逻辑': 0.82, '计算准确性': 0.84, '行为表现': 0.87}}]}##用户尚未完成任何模块的学习。目前正在学习'概率论的基本概念'模块，已掌握1个知识点，还需学习7个知识点。已掌握的知识点包括：随机现象。待学习的知识点包括：随机试验, 样本空间, 随机事件, 排列 & 组合, 古典概型, 概率, 加法/减法公式。",
+    "rule_based_recommendation": {
+      "decision_reasoning": "数据分析显示，学生已掌握的‘随机现象’知识点正确率为1.0且各项平均分均较高，待学习的‘随机试验’知识点正确率为0.78，虽略低但未达到严重缺陷阈值（<0.6）。各通用技能维度（知识掌握、解题逻辑、计算准确性）在现有知识点中表现均衡，无显著薄弱环节。由于学生当前处于‘概率论的基本概念’模块学习初期，且已完成基础知识点‘随机现象’，符合‘无明显缺陷’状态，应优先推进新知识点学习。",
+      "strategic_decision": {
+        "mission_type": "NEW_KNOWLEDGE",
+        "target": "随机试验",
+        "constraints": {
+          "task_focus": [
+            "CONCEPT_LEARNING",
+            "NORMAL_QUESTIONS"
+          ],
+          "difficulty_range": [
+            0.5,
+            0.8
+          ]
+        }
+      }
+    }
+  },
+  "124": {
+    "prompt": "{'user_id': 124, 'analysis_window': 20, 'overall_recent_accuracy': 1.0, 'analysis_by_node': [{'node_id': 11, 'node_name': '排列 & 组合', 'interaction_count': 7, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.87, '解题逻辑': 0.94, '计算准确性': 0.94, '行为表现': 0.86}}, {'node_id': 9, 'node_name': '样本空间', 'interaction_count': 8, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.88, '解题逻辑': 0.92, '计算准确性': 0.88, '行为表现': 0.86}}, {'node_id': 7, 'node_name': '随机现象', 'interaction_count': 5, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.87, '解题逻辑': 0.95, '计算准确性': 0.97, '行为表现': 0.91}}]}##用户已经完成了4个模块的学习：概率论的基本概念, 概率运算进阶, 随机变量及其分布, 数字特征与关系。目前正在学习'极限定理'模块，尚未掌握任何知识点，还需学习3个知识点。待学习的知识点包括：切比雪夫不等式, 大数定律, 中心极限定理。",
+    "rule_based_recommendation": {
+      "decision_reasoning": "学生在所有已学知识点（排列 & 组合、样本空间、随机现象）的accuracy均达到1.0，且各通用技能维度（知识掌握、解题逻辑、计算准确性、行为表现）的平均分均高于0.86，未发现任何知识点或通用技能存在显著缺陷。根据‘修复优先’原则，由于当前无明确短板，应进入新知推荐流程。",
+      "strategic_decision": {
+        "mission_type": "NEW_KNOWLEDGE",
+        "target": "大数定律",
+        "constraints": {
+          "task_focus": [
+            "CONCEPT_LEARNING",
+            "NORMAL_QUESTIONS"
+          ],
+          "difficulty_range": [
+            0.3,
+            0.6
+          ]
+        }
+      }
+    }
+  },
+  "54": {
+    "prompt": "{'user_id': 54, 'analysis_window': 20, 'overall_recent_accuracy': 0.9, 'analysis_by_node': [{'node_id': 11, 'node_name': '排列 & 组合', 'interaction_count': 10, 'accuracy': 0.8, 'average_scores': {'知识掌握': 0.87, '解题逻辑': 0.87, '计算准确性': 0.8, '行为表现': 0.87}}, {'node_id': 9, 'node_name': '样本空间', 'interaction_count': 8, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.87, '解题逻辑': 0.92, '计算准确性': 0.91, '行为表现': 0.93}}, {'node_id': 7, 'node_name': '随机现象', 'interaction_count': 2, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.93, '解题逻辑': 0.93, '计算准确性': 0.91, '行为表现': 0.96}}]}##用户已经完成了2个模块的学习：概率论的基本概念, 概率运算进阶。目前正在学习'随机变量及其分布'模块，已掌握14个知识点，还需学习2个知识点。已掌握的知识点包括：一维随机变量, 分布函数, 随机变量函数的分布, 离散型变量, 分布律, 0-1分布, 二项分布, 几何分布, 连续型变量, 概率密度, 均匀分布, 指数分布, 正态分布, 多维随机变量。待学习的知识点包括：泊松分布, 超几何分布。",
+    "rule_based_recommendation": {
+      "decision_reasoning": "经全面诊断，学生在所有已学知识点（排列 & 组合、样本空间、随机现象）的正确率均≥0.8，且各通用技能维度（知识掌握、解题逻辑、计算准确性、行为表现）的平均分均处于较高水平（≥0.8），未发现特定知识点缺陷或通用技能短板。根据‘修复优先’原则，由于当前无显著缺陷，可进入新知推荐流程。结合学生当前学习模块‘随机变量及其分布’的进度（已掌握14个知识点，待学泊松分布、超几何分布），逻辑上应优先学习下一阶段核心知识点‘泊松分布’。",
+      "strategic_decision": {
+        "mission_type": "NEW_KNOWLEDGE",
+        "target": "泊松分布",
+        "constraints": {
+          "task_focus": [
+            "CONCEPT_LEARNING",
+            "NORMAL_QUESTIONS"
+          ],
+          "difficulty_range": [
+            0.5,
+            0.8
+          ]
+        }
+      }
+    }
+  },
+  "7": {
+    "prompt": "{'user_id': 7, 'analysis_window': 20, 'overall_recent_accuracy': 0.9, 'analysis_by_node': [{'node_id': 11, 'node_name': '排列 & 组合', 'interaction_count': 7, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.88, '解题逻辑': 0.9, '计算准确性': 0.91, '行为表现': 0.88}}, {'node_id': 9, 'node_name': '样本空间', 'interaction_count': 9, 'accuracy': 0.89, 'average_scores': {'知识掌握': 0.9, '解题逻辑': 0.85, '计算准确性': 0.9, '行为表现': 0.85}}, {'node_id': 7, 'node_name': '随机现象', 'interaction_count': 4, 'accuracy': 0.75, 'average_scores': {'知识掌握': 0.83, '解题逻辑': 0.79, '计算准确性': 0.81, '行为表现': 0.84}}]}##用户已经完成了3个模块的学习：概率论的基本概念, 概率运算进阶, 随机变量及其分布。目前正在学习'数字特征与关系'模块，已掌握1个知识点，还需学习5个知识点。已掌握的知识点包括：数学期望。待学习的知识点包括：矩母函数, 方差 & 标准差, 协方差, 相关系数 ρ, 独立性与不相关性。",
+    "rule_based_recommendation": {
+      "decision_reasoning": "学生在所有已学知识点中均未出现正确率低于0.6的严重知识短板（最低为‘随机现象’节点的0.75）。各通用技能维度（解题逻辑、计算准确性等）虽在‘随机现象’节点略有下降，但未呈现跨知识点的系统性缺陷。当前状态符合‘无明显缺陷’判定标准，应优先推进新知识学习。",
+      "strategic_decision": {
+        "mission_type": "NEW_KNOWLEDGE",
+        "target": "方差 & 标准差",
+        "constraints": {
+          "task_focus": [
+            "NORMAL_QUESTIONS"
+          ],
+          "difficulty_range": [
+            0.4,
+            0.7
+          ]
+        }
+      }
+    }
+  },
+  "75": {
+    "prompt": "{'user_id': 75, 'analysis_window': 20, 'overall_recent_accuracy': 0.95, 'analysis_by_node': [{'node_id': 11, 'node_name': '排列 & 组合', 'interaction_count': 8, 'accuracy': 0.88, 'average_scores': {'知识掌握': 0.9, '解题逻辑': 0.89, '计算准确性': 0.88, '行为表现': 0.88}}, {'node_id': 9, 'node_name': '样本空间', 'interaction_count': 8, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.91, '解题逻辑': 0.88, '计算准确性': 0.91, '行为表现': 0.89}}, {'node_id': 7, 'node_name': '随机现象', 'interaction_count': 4, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.92, '解题逻辑': 0.89, '计算准确性': 0.96, '行为表现': 0.86}}]}##用户已经完成了2个模块的学习：概率论的基本概念, 概率运算进阶。目前正在学习'随机变量及其分布'模块，已掌握15个知识点，还需学习1个知识点。已掌握的知识点包括：一维随机变量, 分布函数, 随机变量函数的分布, 离散型变量, 分布律, 0-1分布, 二项分布, 泊松分布, 几何分布, 连续型变量, 概率密度, 均匀分布, 指数分布, 正态分布, 多维随机变量。待学习的知识点包括：超几何分布。",
+    "rule_based_recommendation": {
+      "decision_reasoning": "数据分析显示，学生在所有已学知识点（排列 & 组合、样本空间、随机现象）的正确率均高于0.88，且各通用技能维度（知识掌握、解题逻辑、计算准确性、行为表现）的平均分均处于优秀水平（≥0.86）。未发现任何特定知识点缺陷或通用技能短板，表明学生基础扎实、状态良好。根据‘修复优先’原则，因无现存缺陷需处理，故进入新知推荐流程。",
+      "strategic_decision": {
+        "mission_type": "NEW_KNOWLEDGE",
+        "target": "超几何分布",
+        "constraints": {
+          "task_focus": [
+            "CONCEPT_LEARNING",
+            "NORMAL_QUESTIONS"
+          ],
+          "difficulty_range": [
+            0.3,
+            0.6
+          ]
+        }
+      }
+    }
+  },
+  "22": {
+    "prompt": "{'user_id': 22, 'analysis_window': 20, 'overall_recent_accuracy': 0.7, 'analysis_by_node': [{'node_id': 11, 'node_name': '排列 & 组合', 'interaction_count': 14, 'accuracy': 0.64, 'average_scores': {'知识掌握': 0.66, '解题逻辑': 0.82, '计算准确性': 0.82, '行为表现': 0.84}}, {'node_id': 9, 'node_name': '样本空间', 'interaction_count': 6, 'accuracy': 0.83, 'average_scores': {'知识掌握': 0.81, '解题逻辑': 0.89, '计算准确性': 0.83, '行为表现': 0.86}}]}##用户已经完成了2个模块的学习：概率论的基本概念, 概率运算进阶。目前正在学习'随机变量及其分布'模块，已掌握3个知识点，还需学习13个知识点。已掌握的知识点包括：一维随机变量, 分布函数, 多维随机变量。待学习的知识点包括：随机变量函数的分布, 离散型变量, 分布律, 0-1分布, 二项分布, 泊松分布, 几何分布, 超几何分布, 连续型变量, 概率密度, 均匀分布, 指数分布, 正态分布。",
+    "rule_based_recommendation": {
+      "decision_reasoning": "经全面诊断，学生在‘排列 & 组合’知识点的正确率为0.64（未达<0.6的严重缺陷标准），且其‘知识掌握’维度得分为0.66；‘样本空间’知识点各项指标均表现良好。通用技能维度（解题逻辑、计算准确性）在两个知识点中均无显著短板。当前学习状态属于‘无明显缺陷’，符合新知推荐条件。基于学生正在学习的‘随机变量及其分布’模块进度，优先推荐该模块内逻辑衔接紧密的下一知识点。",
+      "strategic_decision": {
+        "mission_type": "NEW_KNOWLEDGE",
+        "target": "随机变量函数的分布",
+        "constraints": {
+          "task_focus": [
+            "CONCEPT_LEARNING",
+            "NORMAL_QUESTIONS"
+          ],
+          "difficulty_range": [
+            0.5,
+            0.8
+          ]
+        }
+      }
+    }
+  },
+  "85": {
+    "prompt": "{'user_id': 85, 'analysis_window': 20, 'overall_recent_accuracy': 0.9, 'analysis_by_node': [{'node_id': 11, 'node_name': '排列 & 组合', 'interaction_count': 10, 'accuracy': 0.8, 'average_scores': {'知识掌握': 0.85, '解题逻辑': 0.82, '计算准确性': 0.86, '行为表现': 0.88}}, {'node_id': 9, 'node_name': '样本空间', 'interaction_count': 8, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.95, '解题逻辑': 0.91, '计算准确性': 0.91, '行为表现': 0.94}}, {'node_id': 7, 'node_name': '随机现象', 'interaction_count': 2, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.87, '解题逻辑': 0.96, '计算准确性': 0.9, '行为表现': 0.93}}]}##用户已经完成了2个模块的学习：概率论的基本概念, 概率运算进阶。目前正在学习'随机变量及其分布'模块，已掌握6个知识点，还需学习10个知识点。已掌握的知识点包括：一维随机变量, 分布函数, 随机变量函数的分布, 连续型变量, 概率密度, 多维随机变量。待学习的知识点包括：离散型变量, 分布律, 0-1分布, 二项分布, 泊松分布, 几何分布, 超几何分布, 均匀分布, 指数分布, 正态分布。",
+    "rule_based_recommendation": {
+      "decision_reasoning": "全面诊断显示，学生在所有已学知识点上的准确率均≥0.8（排列 & 组合:0.8，样本空间:1.0，随机现象:1.0），且各通用技能维度（知识掌握/解题逻辑/计算准确性）平均分均≥0.82，未发现显著知识点或技能缺陷。当前处于‘随机变量及其分布’模块学习阶段，符合‘无明显缺陷’条件，应优先推进新知学习。",
+      "strategic_decision": {
+        "mission_type": "NEW_KNOWLEDGE",
+        "target": "离散型变量",
+        "constraints": {
+          "task_focus": [
+            "CONCEPT_LEARNING",
+            "NORMAL_QUESTIONS"
+          ],
+          "difficulty_range": [
+            0.5,
+            0.7
+          ]
+        }
+      }
+    }
+  },
+  "110": {
+    "prompt": "{'user_id': 110, 'analysis_window': 20, 'overall_recent_accuracy': 0.65, 'analysis_by_node': [{'node_id': 9, 'node_name': '样本空间', 'interaction_count': 1, 'accuracy': 0.0, 'average_scores': {'知识掌握': 0.19, '解题逻辑': 0.7, '计算准确性': 0.7, '行为表现': 0.7}}, {'node_id': 8, 'node_name': '随机试验', 'interaction_count': 8, 'accuracy': 0.88, 'average_scores': {'知识掌握': 0.8, '解题逻辑': 0.89, '计算准确性': 0.86, '行为表现': 0.89}}, {'node_id': 11, 'node_name': '排列 & 组合', 'interaction_count': 11, 'accuracy': 0.55, 'average_scores': {'知识掌握': 0.61, '解题逻辑': 0.79, '计算准确性': 0.81, '行为表现': 0.83}}]}##用户尚未完成任何模块的学习。目前正在学习'概率论的基本概念'模块，已掌握4个知识点，还需学习4个知识点。已掌握的知识点包括：随机现象, 随机试验, 排列 & 组合, 古典概型。待学习的知识点包括：样本空间, 随机事件, 概率, 加法/减法公式。",
+    "rule_based_recommendation": {
+      "decision_reasoning": "数据分析显示，学生在‘样本空间’知识点上的准确率仅为0.0，且其‘知识掌握’维度得分低至0.19，表明该知识点存在严重理解缺失。尽管其他知识点如‘随机试验’表现良好（准确率0.88），但根据‘修复优先’原则，必须优先解决‘样本空间’这一核心知识短板。",
+      "strategic_decision": {
+        "mission_type": "WEAK_POINT_CONSOLIDATION",
+        "target": "样本空间",
+        "constraints": {
+          "task_focus": [
+            "CONCEPT_LEARNING",
+            "NORMAL_QUESTIONS"
+          ],
+          "difficulty_range": [
+            0.3,
+            0.6
+          ]
+        }
+      }
+    }
+  },
+  "127": {
+    "prompt": "{'user_id': 127, 'analysis_window': 20, 'overall_recent_accuracy': 0.95, 'analysis_by_node': [{'node_id': 11, 'node_name': '排列 & 组合', 'interaction_count': 7, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.92, '解题逻辑': 0.92, '计算准确性': 0.87, '行为表现': 0.91}}, {'node_id': 9, 'node_name': '样本空间', 'interaction_count': 8, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.9, '解题逻辑': 0.89, '计算准确性': 0.87, '行为表现': 0.9}}, {'node_id': 7, 'node_name': '随机现象', 'interaction_count': 5, 'accuracy': 0.8, 'average_scores': {'知识掌握': 0.89, '解题逻辑': 0.8, '计算准确性': 0.82, '行为表现': 0.85}}]}##用户尚未完成任何模块的学习。目前正在学习'概率论的基本概念'模块，已掌握7个知识点，还需学习1个知识点。已掌握的知识点包括：随机现象, 随机试验, 样本空间, 随机事件, 排列 & 组合, 古典概型, 概率。待学习的知识点包括：加法/减法公式。",
+    "rule_based_recommendation": {
+      "decision_reasoning": "经全面诊断，学生在所有已学知识点（随机现象、样本空间、排列 & 组合）的accuracy均≥0.8，且各通用技能维度（知识掌握、解题逻辑、计算准确性、行为表现）的平均分均处于较高水平（最低为随机现象的解题逻辑0.8）。未发现特定知识点缺陷或跨知识点的通用技能短板，符合‘无明显缺陷’状态。当前学习进度显示学生需完成‘加法/减法公式’这一剩余知识点，故推荐新知学习。",
+      "strategic_decision": {
+        "mission_type": "NEW_KNOWLEDGE",
+        "target": "加法/减法公式",
+        "constraints": {
+          "task_focus": [
+            "CONCEPT_LEARNING",
+            "NORMAL_QUESTIONS"
+          ],
+          "difficulty_range": [
+            0.5,
+            0.8
+          ]
+        }
+      }
+    }
+  },
+  "86": {
+    "prompt": "{'user_id': 86, 'analysis_window': 20, 'overall_recent_accuracy': 0.95, 'analysis_by_node': [{'node_id': 11, 'node_name': '排列 & 组合', 'interaction_count': 7, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.89, '解题逻辑': 0.87, '计算准确性': 0.89, '行为表现': 0.96}}, {'node_id': 9, 'node_name': '样本空间', 'interaction_count': 9, 'accuracy': 0.89, 'average_scores': {'知识掌握': 0.89, '解题逻辑': 0.91, '计算准确性': 0.85, '行为表现': 0.87}}, {'node_id': 7, 'node_name': '随机现象', 'interaction_count': 4, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.87, '解题逻辑': 0.91, '计算准确性': 0.89, '行为表现': 0.89}}]}##用户已经完成了2个模块的学习：概率论的基本概念, 概率运算进阶。目前正在学习'随机变量及其分布'模块，已掌握5个知识点，还需学习11个知识点。已掌握的知识点包括：一维随机变量, 分布函数, 随机变量函数的分布, 连续型变量, 多维随机变量。待学习的知识点包括：离散型变量, 分布律, 0-1分布, 二项分布, 泊松分布, 几何分布, 超几何分布, 概率密度, 均匀分布, 指数分布, 正态分布。",
+    "rule_based_recommendation": {
+      "decision_reasoning": "经全面诊断，学生在所有已学知识点（排列 & 组合、样本空间、随机现象）的准确率均高于0.89，且各通用技能维度（知识掌握、解题逻辑、计算准确性、行为表现）的平均分均未出现跨知识点的系统性短板。当前学习状态稳定，无显著知识或技能缺陷，符合进入新知学习阶段的条件。基于学生正在学习的‘随机变量及其分布’模块进度，优先推荐该模块下尚未掌握的核心基础知识点‘离散型变量’作为下一学习目标。",
+      "strategic_decision": {
+        "mission_type": "NEW_KNOWLEDGE",
+        "target": "离散型变量",
+        "constraints": {
+          "task_focus": [
+            "CONCEPT_LEARNING",
+            "NORMAL_QUESTIONS"
+          ],
+          "difficulty_range": [
+            0.3,
+            0.6
+          ]
+        }
+      }
+    }
+  },
+  "47": {
+    "prompt": "{'user_id': 47, 'analysis_window': 15, 'overall_recent_accuracy': 0.73, 'analysis_by_node': [{'node_id': 7, 'node_name': '随机现象', 'interaction_count': 10, 'accuracy': 0.8, 'average_scores': {'知识掌握': 0.78, '解题逻辑': 0.83, '计算准确性': 0.86, '行为表现': 0.89}}, {'node_id': 8, 'node_name': '随机试验', 'interaction_count': 5, 'accuracy': 0.6, 'average_scores': {'知识掌握': 0.61, '解题逻辑': 0.83, '计算准确性': 0.84, '行为表现': 0.8}}]}##用户尚未完成任何模块的学习。目前正在学习'概率论的基本概念'模块，已掌握1个知识点，还需学习7个知识点。已掌握的知识点包括：随机现象。待学习的知识点包括：随机试验, 样本空间, 随机事件, 排列 & 组合, 古典概型, 概率, 加法/减法公式。",
+    "rule_based_recommendation": {
+      "decision_reasoning": "经全面诊断，学生当前已掌握的‘随机现象’知识点正确率为0.8且各项技能维度均表现良好。待学习的‘随机试验’知识点正确率为0.6，虽未达到<0.6的极端缺陷阈值，但其‘知识掌握’维度仅0.61显著低于其他维度。由于该生无跨知识点的通用技能缺陷（如解题逻辑、计算准确性等维度在多节点均正常），且现有知识点未触发A/B类缺陷判定标准，故判定为状态良好（C类）。根据学科逻辑顺序，推荐继续学习下一知识点‘随机试验’以推进知识体系构建。",
+      "strategic_decision": {
+        "mission_type": "NEW_KNOWLEDGE",
+        "target": "随机试验",
+        "constraints": {
+          "task_focus": [
+            "CONCEPT_LEARNING",
+            "NORMAL_QUESTIONS"
+          ],
+          "difficulty_range": [
+            0.3,
+            0.6
+          ]
+        }
+      }
+    }
+  },
+  "66": {
+    "prompt": "{'user_id': 66, 'analysis_window': 20, 'overall_recent_accuracy': 0.7, 'analysis_by_node': [{'node_id': 11, 'node_name': '排列 & 组合', 'interaction_count': 11, 'accuracy': 0.64, 'average_scores': {'知识掌握': 0.66, '解题逻辑': 0.82, '计算准确性': 0.82, '行为表现': 0.82}}, {'node_id': 9, 'node_name': '样本空间', 'interaction_count': 9, 'accuracy': 0.78, 'average_scores': {'知识掌握': 0.74, '解题逻辑': 0.85, '计算准确性': 0.86, '行为表现': 0.85}}]}##用户尚未完成任何模块的学习。目前正在学习'概率论的基本概念'模块，已掌握7个知识点，还需学习1个知识点。已掌握的知识点包括：随机现象, 随机试验, 样本空间, 随机事件, 排列 & 组合, 古典概型, 概率。待学习的知识点包括：加法/减法公式。",
+    "rule_based_recommendation": {
+      "decision_reasoning": "经全面诊断，学生在已学知识点（包括‘排列 & 组合’‘样本空间’等）中未出现正确率＜0.6的严重知识短板（最低准确率为0.64），且各通用技能维度（知识掌握、解题逻辑、计算准确性、行为表现）在多知识点上的得分均无显著偏低现象。当前学习进度显示学生正处于‘概率论的基本概念’模块收尾阶段，仅剩‘加法/减法公式’未掌握。根据‘修复优先’原则，因无明确缺陷需优先处理，故推荐继续完成当前模块的新知识点学习。",
+      "strategic_decision": {
+        "mission_type": "NEW_KNOWLEDGE",
+        "target": "加法/减法公式",
+        "constraints": {
+          "task_focus": [
+            "CONCEPT_LEARNING",
+            "NORMAL_QUESTIONS"
+          ],
+          "difficulty_range": [
+            0.3,
+            0.6
+          ]
+        }
+      }
+    }
+  },
+  "91": {
+    "prompt": "{'user_id': 91, 'analysis_window': 20, 'overall_recent_accuracy': 0.7, 'analysis_by_node': [{'node_id': 11, 'node_name': '排列 & 组合', 'interaction_count': 12, 'accuracy': 0.67, 'average_scores': {'知识掌握': 0.83, '解题逻辑': 0.76, '计算准确性': 0.85, '行为表现': 0.83}}, {'node_id': 9, 'node_name': '样本空间', 'interaction_count': 8, 'accuracy': 0.75, 'average_scores': {'知识掌握': 0.87, '解题逻辑': 0.82, '计算准确性': 0.81, '行为表现': 0.85}}]}##用户已经完成了1个模块的学习：概率论的基本概念。目前正在学习'概率运算进阶'模块，已掌握3个知识点，还需学习2个知识点。已掌握的知识点包括：条件概率, 乘法公式, 全概率公式。待学习的知识点包括：事件的相互独立, 贝叶斯公式。",
+    "rule_based_recommendation": {
+      "decision_reasoning": "经全面诊断，学生在所有已分析知识点（排列 & 组合、样本空间）的accuracy均≥0.6，且各通用技能维度（知识掌握、解题逻辑、计算准确性）在多节点表现均衡，无显著短板。当前学习进度显示其已完成概率论基础模块，正在推进‘概率运算进阶’模块，已掌握条件概率、乘法公式、全概率公式，具备学习后续知识点‘事件的相互独立’的基础。因无明确知识或技能缺陷，符合新知推荐条件。",
+      "strategic_decision": {
+        "mission_type": "NEW_KNOWLEDGE",
+        "target": "事件的相互独立",
+        "constraints": {
+          "task_focus": [
+            "CONCEPT_LEARNING",
+            "NORMAL_QUESTIONS"
+          ],
+          "difficulty_range": [
+            0.4,
+            0.7
+          ]
+        }
+      }
+    }
+  },
+  "9": {
+    "prompt": "{'user_id': 9, 'analysis_window': 20, 'overall_recent_accuracy': 0.7, 'analysis_by_node': [{'node_id': 11, 'node_name': '排列 & 组合', 'interaction_count': 10, 'accuracy': 0.7, 'average_scores': {'知识掌握': 0.81, '解题逻辑': 0.77, '计算准确性': 0.85, '行为表现': 0.84}}, {'node_id': 9, 'node_name': '样本空间', 'interaction_count': 10, 'accuracy': 0.7, 'average_scores': {'知识掌握': 0.84, '解题逻辑': 0.77, '计算准确性': 0.82, '行为表现': 0.83}}]}##用户已经完成了2个模块的学习：概率论的基本概念, 概率运算进阶。目前正在学习'随机变量及其分布'模块，已掌握7个知识点，还需学习9个知识点。已掌握的知识点包括：一维随机变量, 分布函数, 随机变量函数的分布, 离散型变量, 分布律, 超几何分布, 多维随机变量。待学习的知识点包括：0-1分布, 二项分布, 泊松分布, 几何分布, 连续型变量, 概率密度, 均匀分布, 指数分布, 正态分布。",
+    "rule_based_recommendation": {
+      "decision_reasoning": "经全面诊断，学生在已完成的‘排列 & 组合’和‘样本空间’知识点中，各维度平均分均未出现显著低于阈值的情况（所有维度得分≥0.77），且无单个知识点正确率低于0.6。当前学习状态稳定，无明显知识或技能短板。根据修复优先原则，因未检测到需优先修补的缺陷，故进入新知推荐流程。结合学生当前正在学习的‘随机变量及其分布’模块进度，已掌握离散型变量相关基础，建议优先学习逻辑衔接紧密的‘二项分布’作为下一知识点。",
+      "strategic_decision": {
+        "mission_type": "NEW_KNOWLEDGE",
+        "target": "二项分布",
+        "constraints": {
+          "task_focus": [
+            "CONCEPT_LEARNING",
+            "NORMAL_QUESTIONS"
+          ],
+          "difficulty_range": [
+            0.5,
+            0.8
+          ]
+        }
+      }
+    }
+  },
+  "67": {
+    "prompt": "{'user_id': 67, 'analysis_window': 20, 'overall_recent_accuracy': 1.0, 'analysis_by_node': [{'node_id': 9, 'node_name': '样本空间', 'interaction_count': 8, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.92, '解题逻辑': 0.88, '计算准确性': 0.88, '行为表现': 0.87}}, {'node_id': 7, 'node_name': '随机现象', 'interaction_count': 8, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.93, '解题逻辑': 0.92, '计算准确性': 0.86, '行为表现': 0.89}}, {'node_id': 12, 'node_name': '古典概型', 'interaction_count': 4, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.89, '解题逻辑': 0.91, '计算准确性': 0.9, '行为表现': 0.89}}]}##用户已经完成了4个模块的学习：概率论的基本概念, 概率运算进阶, 随机变量及其分布, 数字特征与关系。目前正在学习'极限定理'模块，尚未掌握任何知识点，还需学习3个知识点。待学习的知识点包括：切比雪夫不等式, 大数定律, 中心极限定理。",
+    "rule_based_recommendation": {
+      "decision_reasoning": "全面诊断显示，学生在所有已学知识点（样本空间、随机现象、古典概型）的accuracy均达到1.0，且各维度平均分（知识掌握/解题逻辑/计算准确性/行为表现）均高于0.8，表明无特定知识点缺陷或通用技能短板。根据‘修复优先’原则，因当前不存在需优先修补的薄弱环节，故进入新知推荐流程。结合学生正在学习的‘极限定理’模块进度，其待学知识点‘切比雪夫不等式’是该模块的逻辑起点，应优先推荐。",
+      "strategic_decision": {
+        "mission_type": "NEW_KNOWLEDGE",
+        "target": "切比雪夫不等式",
+        "constraints": {
+          "task_focus": [
+            "CONCEPT_LEARNING",
+            "NORMAL_QUESTIONS"
+          ],
+          "difficulty_range": [
+            0.3,
+            0.6
+          ]
+        }
+      }
+    }
+  },
+  "101": {
+    "prompt": "{'user_id': 101, 'analysis_window': 20, 'overall_recent_accuracy': 0.9, 'analysis_by_node': [{'node_id': 11, 'node_name': '排列 & 组合', 'interaction_count': 9, 'accuracy': 0.78, 'average_scores': {'知识掌握': 0.84, '解题逻辑': 0.75, '计算准确性': 0.84, '行为表现': 0.88}}, {'node_id': 9, 'node_name': '样本空间', 'interaction_count': 8, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.91, '解题逻辑': 0.9, '计算准确性': 0.91, '行为表现': 0.89}}, {'node_id': 7, 'node_name': '随机现象', 'interaction_count': 3, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.84, '解题逻辑': 0.96, '计算准确性': 0.88, '行为表现': 0.85}}]}##用户已经完成了2个模块的学习：概率论的基本概念, 概率运算进阶。目前正在学习'随机变量及其分布'模块，已掌握14个知识点，还需学习2个知识点。已掌握的知识点包括：一维随机变量, 分布函数, 随机变量函数的分布, 离散型变量, 分布律, 0-1分布, 二项分布, 几何分布, 连续型变量, 概率密度, 均匀分布, 指数分布, 正态分布, 多维随机变量。待学习的知识点包括：泊松分布, 超几何分布。",
+    "rule_based_recommendation": {
+      "decision_reasoning": "学生整体学习状态良好，所有已分析知识点的正确率均≥0.78且无显著低于0.6的薄弱项。各知识点下的通用技能维度（知识掌握、解题逻辑、计算准确性）在多个节点中表现均衡，未发现跨知识点的通用技能缺陷。根据‘修复优先’原则，当前无需进行针对性补强，应继续推进新知识学习。",
+      "strategic_decision": {
+        "mission_type": "NEW_KNOWLEDGE",
+        "target": "超几何分布",
+        "constraints": {
+          "task_focus": [
+            "CONCEPT_LEARNING",
+            "NORMAL_QUESTIONS"
+          ],
+          "difficulty_range": [
+            0.3,
+            0.6
+          ]
+        }
+      }
+    }
+  },
+  "5": {
+    "prompt": "{'user_id': 5, 'analysis_window': 20, 'overall_recent_accuracy': 0.75, 'analysis_by_node': [{'node_id': 11, 'node_name': '排列 & 组合', 'interaction_count': 11, 'accuracy': 0.73, 'average_scores': {'知识掌握': 0.69, '解题逻辑': 0.85, '计算准确性': 0.86, '行为表现': 0.85}}, {'node_id': 7, 'node_name': '随机现象', 'interaction_count': 9, 'accuracy': 0.78, 'average_scores': {'知识掌握': 0.73, '解题逻辑': 0.86, '计算准确性': 0.86, '行为表现': 0.85}}]}##用户尚未完成任何模块的学习。目前正在学习'概率论的基本概念'模块，已掌握3个知识点，还需学习5个知识点。已掌握的知识点包括：随机现象, 随机试验, 排列 & 组合。待学习的知识点包括：样本空间, 随机事件, 古典概型, 概率, 加法/减法公式。",
+    "rule_based_recommendation": {
+      "decision_reasoning": "经全面诊断，学生在已学知识点‘排列 & 组合’（正确率0.73）和‘随机现象’（正确率0.78）中均未出现低于0.6的严重知识点缺陷；其各通用技能维度（知识掌握、解题逻辑、计算准确性）在多个知识点上的平均分均处于良好水平（最低0.69），无显著技能短板。根据‘修复优先’原则，当前无需优先处理缺陷，符合进入新知推荐流程的条件。",
+      "strategic_decision": {
+        "mission_type": "NEW_KNOWLEDGE",
+        "target": "样本空间",
+        "constraints": {
+          "task_focus": [
+            "CONCEPT_LEARNING",
+            "NORMAL_QUESTIONS"
+          ],
+          "difficulty_range": [
+            0.5,
+            0.8
+          ]
+        }
+      }
+    }
+  },
+  "21": {
+    "prompt": "{'user_id': 21, 'analysis_window': 20, 'overall_recent_accuracy': 0.75, 'analysis_by_node': [{'node_id': 11, 'node_name': '排列 & 组合', 'interaction_count': 9, 'accuracy': 0.78, 'average_scores': {'知识掌握': 0.72, '解题逻辑': 0.85, '计算准确性': 0.86, '行为表现': 0.84}}, {'node_id': 9, 'node_name': '样本空间', 'interaction_count': 11, 'accuracy': 0.73, 'average_scores': {'知识掌握': 0.74, '解题逻辑': 0.85, '计算准确性': 0.85, '行为表现': 0.87}}]}##用户已经完成了1个模块的学习：概率论的基本概念。目前正在学习'概率运算进阶'模块，已掌握3个知识点，还需学习2个知识点。已掌握的知识点包括：条件概率, 乘法公式, 全概率公式。待学习的知识点包括：事件的相互独立, 贝叶斯公式。",
+    "rule_based_recommendation": {
+      "decision_reasoning": "经全面诊断，学生在所有已学知识点（排列 & 组合、样本空间）的accuracy均高于0.7，且各通用技能维度（知识掌握、解题逻辑、计算准确性）的平均分均未出现跨知识点的显著短板（最低值为0.72）。当前学习状态符合‘无明显缺陷’特征，具备学习新知识的基础条件。根据学习进度，学生已完成‘概率论的基本概念’模块，现处于‘概率运算进阶’模块学习阶段，已掌握条件概率、乘法公式、全概率公式，下一步应优先学习该模块剩余的核心知识点——贝叶斯公式。",
+      "strategic_decision": {
+        "mission_type": "NEW_KNOWLEDGE",
+        "target": "贝叶斯公式",
+        "constraints": {
+          "task_focus": [
+            "CONCEPT_LEARNING",
+            "APPLIED_EXAMPLES"
+          ],
+          "difficulty_range": [
+            0.5,
+            0.8
+          ]
+        }
+      }
+    }
+  },
+  "95": {
+    "prompt": "{'user_id': 95, 'analysis_window': 20, 'overall_recent_accuracy': 0.9, 'analysis_by_node': [{'node_id': 11, 'node_name': '排列 & 组合', 'interaction_count': 7, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.89, '解题逻辑': 0.9, '计算准确性': 0.93, '行为表现': 0.89}}, {'node_id': 9, 'node_name': '样本空间', 'interaction_count': 10, 'accuracy': 0.8, 'average_scores': {'知识掌握': 0.87, '解题逻辑': 0.93, '计算准确性': 0.76, '行为表现': 0.85}}, {'node_id': 7, 'node_name': '随机现象', 'interaction_count': 3, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.9, '解题逻辑': 0.83, '计算准确性': 0.9, '行为表现': 0.91}}]}##用户已经完成了1个模块的学习：概率论的基本概念。目前正在学习'概率运算进阶'模块，已掌握1个知识点，还需学习4个知识点。已掌握的知识点包括：条件概率。待学习的知识点包括：乘法公式, 事件的相互独立, 全概率公式, 贝叶斯公式。",
+    "rule_based_recommendation": {
+      "decision_reasoning": "经全面诊断，学生在所有已学知识点（排列 & 组合、样本空间、随机现象）的accuracy均≥0.8，且各通用技能维度（知识掌握、解题逻辑、计算准确性）未出现跨知识点的系统性薄弱。当前学习进度显示其已完成条件概率学习，正处于'概率运算进阶'模块学习阶段。根据学科逻辑顺序，乘法公式是该模块的核心基础，且与已掌握的条件概率形成直接衔接，符合知识递进关系。",
+      "strategic_decision": {
+        "mission_type": "NEW_KNOWLEDGE",
+        "target": "全概率公式",
+        "constraints": {
+          "task_focus": [
+            "CONCEPT_LEARNING",
+            "NORMAL_QUESTIONS"
+          ],
+          "difficulty_range": [
+            0.5,
+            0.8
+          ]
+        }
+      }
+    }
+  },
+  "14": {
+    "prompt": "{'user_id': 14, 'analysis_window': 20, 'overall_recent_accuracy': 0.75, 'analysis_by_node': [{'node_id': 11, 'node_name': '排列 & 组合', 'interaction_count': 9, 'accuracy': 0.78, 'average_scores': {'知识掌握': 0.75, '解题逻辑': 0.87, '计算准确性': 0.85, '行为表现': 0.87}}, {'node_id': 9, 'node_name': '样本空间', 'interaction_count': 10, 'accuracy': 0.8, 'average_scores': {'知识掌握': 0.8, '解题逻辑': 0.85, '计算准确性': 0.86, '行为表现': 0.87}}, {'node_id': 7, 'node_name': '随机现象', 'interaction_count': 1, 'accuracy': 0.0, 'average_scores': {'知识掌握': 0.34, '解题逻辑': 0.7, '计算准确性': 0.7, '行为表现': 0.7}}]}##用户已经完成了2个模块的学习：概率论的基本概念, 概率运算进阶。目前正在学习'随机变量及其分布'模块，尚未掌握任何知识点，还需学习16个知识点。待学习的知识点包括：一维随机变量, 分布函数, 随机变量函数的分布, 离散型变量, 分布律, 0-1分布, 二项分布, 泊松分布, 几何分布, 超几何分布, 连续型变量, 概率密度, 均匀分布, 指数分布, 正态分布, 多维随机变量。",
+    "rule_based_recommendation": {
+      "decision_reasoning": "数据分析表明，学生在‘随机现象’知识点上的表现存在显著缺陷：其正确率为0.0，知识掌握度仅为0.34，且该知识点仅被交互过一次。这一表现远低于其他知识点（如‘排列 & 组合’和‘样本空间’的正确率均超过0.7），属于特定知识点缺陷（A类）。根据修复优先原则，必须优先巩固该基础知识点，而非推进新知学习。",
+      "strategic_decision": {
+        "mission_type": "WEAK_POINT_CONSOLIDATION",
+        "target": "随机现象",
+        "constraints": {
+          "task_focus": [
+            "CONCEPT_LEARNING",
+            "NORMAL_QUESTIONS"
+          ],
+          "difficulty_range": [
+            0.3,
+            0.6
+          ]
+        }
+      }
+    }
+  },
+  "34": {
+    "prompt": "{'user_id': 34, 'analysis_window': 20, 'overall_recent_accuracy': 0.5, 'analysis_by_node': [{'node_id': 11, 'node_name': '排列 & 组合', 'interaction_count': 20, 'accuracy': 0.5, 'average_scores': {'知识掌握': 0.58, '解题逻辑': 0.79, '计算准确性': 0.79, '行为表现': 0.81}}]}##用户已经完成了1个模块的学习：概率论的基本概念。目前正在学习'概率运算进阶'模块，已掌握1个知识点，还需学习4个知识点。已掌握的知识点包括：条件概率。待学习的知识点包括：乘法公式, 事件的相互独立, 全概率公式, 贝叶斯公式。",
+    "rule_based_recommendation": {
+      "decision_reasoning": "经诊断，学生在‘排列 & 组合’知识点上的正确率仅为0.5，显著低于0.6的阈值，且该知识点的知识掌握度仅0.58，属于典型的特定知识点缺陷。尽管其他技能维度（解题逻辑、计算准确性）表现尚可，但当前首要任务是修复这一核心知识漏洞。",
+      "strategic_decision": {
+        "mission_type": "WEAK_POINT_CONSOLIDATION",
+        "target": "排列 & 组合",
+        "constraints": {
+          "task_focus": [
+            "CONCEPT_LEARNING",
+            "NORMAL_QUESTIONS"
+          ],
+          "difficulty_range": [
+            0.3,
+            0.6
+          ]
+        }
+      }
+    }
+  },
+  "11": {
+    "prompt": "{'user_id': 11, 'analysis_window': 20, 'overall_recent_accuracy': 0.9, 'analysis_by_node': [{'node_id': 11, 'node_name': '排列 & 组合', 'interaction_count': 10, 'accuracy': 0.8, 'average_scores': {'知识掌握': 0.87, '解题逻辑': 0.89, '计算准确性': 0.75, '行为表现': 0.87}}, {'node_id': 9, 'node_name': '样本空间', 'interaction_count': 8, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.89, '解题逻辑': 0.89, '计算准确性': 0.89, '行为表现': 0.9}}, {'node_id': 7, 'node_name': '随机现象', 'interaction_count': 2, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.96, '解题逻辑': 0.88, '计算准确性': 0.97, '行为表现': 0.99}}]}##用户已经完成了2个模块的学习：概率论的基本概念, 概率运算进阶。目前正在学习'随机变量及其分布'模块，已掌握4个知识点，还需学习12个知识点。已掌握的知识点包括：一维随机变量, 分布函数, 离散型变量, 多维随机变量。待学习的知识点包括：随机变量函数的分布, 分布律, 0-1分布, 二项分布, 泊松分布, 几何分布, 超几何分布, 连续型变量, 概率密度, 均匀分布, 指数分布, 正态分布。",
+    "rule_based_recommendation": {
+      "decision_reasoning": "数据分析表明，学生在所有已学知识点（排列 & 组合、样本空间、随机现象）的正确率均高于0.8，且各通用技能维度（知识掌握、解题逻辑、计算准确性、行为表现）的平均分均处于良好水平（≥0.75）。未发现任何特定知识点或通用技能存在显著缺陷（如正确率<0.6或跨知识点的技能持续偏低）。因此，当前状态符合‘无明显缺陷’条件，应优先推荐新知识以推进学习进程。",
+      "strategic_decision": {
+        "mission_type": "NEW_KNOWLEDGE",
+        "target": "随机变量函数的分布",
+        "constraints": {
+          "task_focus": [
+            "CONCEPT_LEARNING",
+            "NORMAL_QUESTIONS"
+          ],
+          "difficulty_range": [
+            0.5,
+            0.8
+          ]
+        }
+      }
+    }
+  },
+  "81": {
+    "prompt": "{'user_id': 81, 'analysis_window': 20, 'overall_recent_accuracy': 0.95, 'analysis_by_node': [{'node_id': 11, 'node_name': '排列 & 组合', 'interaction_count': 3, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.9, '解题逻辑': 0.97, '计算准确性': 0.88, '行为表现': 0.89}}, {'node_id': 9, 'node_name': '样本空间', 'interaction_count': 8, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.89, '解题逻辑': 0.9, '计算准确性': 0.93, '行为表现': 0.91}}, {'node_id': 7, 'node_name': '随机现象', 'interaction_count': 9, 'accuracy': 0.89, 'average_scores': {'知识掌握': 0.82, '解题逻辑': 0.86, '计算准确性': 0.89, '行为表现': 0.9}}]}##用户已经完成了4个模块的学习：概率论的基本概念, 概率运算进阶, 随机变量及其分布, 数字特征与关系。目前正在学习'极限定理'模块，已掌握1个知识点，还需学习2个知识点。已掌握的知识点包括：切比雪夫不等式。待学习的知识点包括：大数定律, 中心极限定理。",
+    "rule_based_recommendation": {
+      "decision_reasoning": "学生在所有已学知识点（排列 & 组合、样本空间、随机现象）中均表现出色，正确率均≥0.89且各通用技能维度（知识掌握、解题逻辑、计算准确性）得分均高于0.8。未发现任何特定知识点或通用技能存在显著缺陷（如accuracy<0.6或某项技能持续低于阈值）。根据‘修复优先’原则，因无明确短板需优先处理，故进入新知推荐流程。",
+      "strategic_decision": {
+        "mission_type": "NEW_KNOWLEDGE",
+        "target": "大数定律",
+        "constraints": {
+          "task_focus": [
+            "CONCEPT_LEARNING",
+            "NORMAL_QUESTIONS"
+          ],
+          "difficulty_range": [
+            0.5,
+            0.8
+          ]
+        }
+      }
+    }
+  },
+  "4": {
+    "prompt": "{'user_id': 4, 'analysis_window': 20, 'overall_recent_accuracy': 0.45, 'analysis_by_node': [{'node_id': 12, 'node_name': '古典概型', 'interaction_count': 15, 'accuracy': 0.4, 'average_scores': {'知识掌握': 0.51, '解题逻辑': 0.79, '计算准确性': 0.77, '行为表现': 0.8}}, {'node_id': 11, 'node_name': '排列 & 组合', 'interaction_count': 5, 'accuracy': 0.6, 'average_scores': {'知识掌握': 0.66, '解题逻辑': 0.83, '计算准确性': 0.81, '行为表现': 0.83}}]}##用户尚未完成任何模块的学习。目前正在学习'概率论的基本概念'模块，已掌握3个知识点，还需学习5个知识点。已掌握的知识点包括：随机现象, 随机试验, 排列 & 组合。待学习的知识点包括：样本空间, 随机事件, 古典概型, 概率, 加法/减法公式。",
+    "rule_based_recommendation": {
+      "decision_reasoning": "数据分析显示，学生在‘古典概型’知识点上的准确率仅为0.4（显著低于0.6的阈值），且其‘知识掌握’维度得分仅0.51，表明该知识点存在严重认知缺口。尽管‘排列 & 组合’知识点已达到0.6的及格线，但当前首要任务是修复‘古典概型’这一核心知识短板。根据‘修复优先’原则，需暂停新知推进，聚焦薄弱环节的系统性强化。",
+      "strategic_decision": {
+        "mission_type": "WEAK_POINT_CONSOLIDATION",
+        "target": "古典概型",
+        "constraints": {
+          "task_focus": [
+            "CONCEPT_LEARNING",
+            "NORMAL_QUESTIONS"
+          ],
+          "difficulty_range": [
+            0.3,
+            0.6
+          ]
+        }
+      }
+    }
+  },
+  "82": {
+    "prompt": "{'user_id': 82, 'analysis_window': 20, 'overall_recent_accuracy': 0.8, 'analysis_by_node': [{'node_id': 11, 'node_name': '排列 & 组合', 'interaction_count': 8, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.93, '解题逻辑': 0.9, '计算准确性': 0.91, '行为表现': 0.88}}, {'node_id': 7, 'node_name': '随机现象', 'interaction_count': 12, 'accuracy': 0.67, 'average_scores': {'知识掌握': 0.84, '解题逻辑': 0.74, '计算准确性': 0.82, '行为表现': 0.82}}]}##用户尚未完成任何模块的学习。目前正在学习'概率论的基本概念'模块，已掌握3个知识点，还需学习5个知识点。已掌握的知识点包括：随机现象, 排列 & 组合, 古典概型。待学习的知识点包括：随机试验, 样本空间, 随机事件, 概率, 加法/减法公式。",
+    "rule_based_recommendation": {
+      "decision_reasoning": "经全面诊断，学生已掌握的知识点‘随机现象’(accuracy=0.67)和‘排列 & 组合’(accuracy=1.0)均未出现显著缺陷（无<0.6的知识点）。各通用技能维度（知识掌握/解题逻辑/计算准确性）在已学知识点中表现均衡，未发现跨知识点的技能短板。根据‘修复优先’原则，当前无明确缺陷需优先处理，故进入新知推荐流程。结合学科逻辑顺序，‘随机试验’是‘概率论的基本概念’模块中继‘随机现象’后的合理学习目标。",
+      "strategic_decision": {
+        "mission_type": "NEW_KNOWLEDGE",
+        "target": "随机试验",
+        "constraints": {
+          "task_focus": [
+            "CONCEPT_LEARNING",
+            "NORMAL_QUESTIONS"
+          ],
+          "difficulty_range": [
+            0.5,
+            0.8
+          ]
+        }
+      }
+    }
+  },
+  "56": {
+    "prompt": "{'user_id': 56, 'analysis_window': 20, 'overall_recent_accuracy': 0.85, 'analysis_by_node': [{'node_id': 11, 'node_name': '排列 & 组合', 'interaction_count': 9, 'accuracy': 0.89, 'average_scores': {'知识掌握': 0.81, '解题逻辑': 0.9, '计算准确性': 0.9, '行为表现': 0.87}}, {'node_id': 9, 'node_name': '样本空间', 'interaction_count': 11, 'accuracy': 0.82, 'average_scores': {'知识掌握': 0.78, '解题逻辑': 0.86, '计算准确性': 0.86, '行为表现': 0.85}}]}##用户尚未完成任何模块的学习。目前正在学习'概率论的基本概念'模块，已掌握5个知识点，还需学习3个知识点。已掌握的知识点包括：随机现象, 随机试验, 样本空间, 排列 & 组合, 古典概型。待学习的知识点包括：随机事件, 概率, 加法/减法公式。",
+    "rule_based_recommendation": {
+      "decision_reasoning": "经全面诊断，学生在已学习的‘排列 & 组合’和‘样本空间’知识点中，正确率均高于0.8且各通用技能维度（知识掌握、解题逻辑、计算准确性）无显著短板（最低值为0.78）。未检测到特定知识点缺陷或通用技能缺陷，符合‘无明显缺陷’状态。当前处于‘概率论的基本概念’模块学习阶段，已掌握前序知识点，应推进至下一逻辑节点。",
+      "strategic_decision": {
+        "mission_type": "NEW_KNOWLEDGE",
+        "target": "随机事件",
+        "constraints": {
+          "task_focus": [
+            "CONCEPT_LEARNING",
+            "NORMAL_QUESTIONS"
+          ],
+          "difficulty_range": [
+            0.4,
+            0.7
+          ]
+        }
+      }
+    }
+  },
+  "39": {
+    "prompt": "{'user_id': 39, 'analysis_window': 20, 'overall_recent_accuracy': 0.75, 'analysis_by_node': [{'node_id': 11, 'node_name': '排列 & 组合', 'interaction_count': 10, 'accuracy': 0.7, 'average_scores': {'知识掌握': 0.71, '解题逻辑': 0.86, '计算准确性': 0.82, '行为表现': 0.84}}, {'node_id': 9, 'node_name': '样本空间', 'interaction_count': 10, 'accuracy': 0.8, 'average_scores': {'知识掌握': 0.73, '解题逻辑': 0.89, '计算准确性': 0.83, '行为表现': 0.89}}]}##用户已经完成了2个模块的学习：概率论的基本概念, 概率运算进阶。目前正在学习'随机变量及其分布'模块，已掌握10个知识点，还需学习6个知识点。已掌握的知识点包括：一维随机变量, 分布函数, 随机变量函数的分布, 离散型变量, 分布律, 0-1分布, 二项分布, 几何分布, 超几何分布, 多维随机变量。待学习的知识点包括：泊松分布, 连续型变量, 概率密度, 均匀分布, 指数分布, 正态分布。",
+    "rule_based_recommendation": {
+      "decision_reasoning": "经全面诊断，学生所有已学知识点（如‘排列 & 组合’‘样本空间’）的accuracy均≥0.7且各通用技能维度（知识掌握、解题逻辑、计算准确性、行为表现）平均分均＞0.7，未发现显著知识点或技能缺陷。根据‘修复优先’原则，当前应进入新知推荐流程。结合学生正在学习的‘随机变量及其分布’模块进度，其已掌握离散型变量相关分布（如二项分布），下一阶段最适合学习与之逻辑衔接紧密的‘泊松分布’。",
+      "strategic_decision": {
+        "mission_type": "NEW_KNOWLEDGE",
+        "target": "泊松分布",
+        "constraints": {
+          "task_focus": [
+            "CONCEPT_LEARNING",
+            "APPLICATION_EXAMPLES"
+          ],
+          "difficulty_range": [
+            0.5,
+            0.8
+          ]
+        }
+      }
+    }
+  },
+  "51": {
+    "prompt": "{'user_id': 51, 'analysis_window': 20, 'overall_recent_accuracy': 1.0, 'analysis_by_node': [{'node_id': 11, 'node_name': '排列 & 组合', 'interaction_count': 7, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.9, '解题逻辑': 0.95, '计算准确性': 0.91, '行为表现': 0.91}}, {'node_id': 9, 'node_name': '样本空间', 'interaction_count': 8, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.9, '解题逻辑': 0.89, '计算准确性': 0.9, '行为表现': 0.88}}, {'node_id': 7, 'node_name': '随机现象', 'interaction_count': 5, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.9, '解题逻辑': 0.86, '计算准确性': 0.89, '行为表现': 0.9}}]}##用户已经完成了2个模块的学习：概率论的基本概念, 概率运算进阶。目前正在学习'随机变量及其分布'模块，已掌握4个知识点，还需学习12个知识点。已掌握的知识点包括：一维随机变量, 分布函数, 随机变量函数的分布, 多维随机变量。待学习的知识点包括：离散型变量, 分布律, 0-1分布, 二项分布, 泊松分布, 几何分布, 超几何分布, 连续型变量, 概率密度, 均匀分布, 指数分布, 正态分布。",
+    "rule_based_recommendation": {
+      "decision_reasoning": "学生在所有已学知识点（排列 & 组合、样本空间、随机现象）的accuracy均达到1.0，且各通用技能维度（知识掌握、解题逻辑、计算准确性、行为表现）得分均较高（最低为0.86）。未发现特定知识点缺陷或通用技能缺陷，符合‘无明显缺陷’状态。因此，优先推荐新知识点以推进学习进度。",
+      "strategic_decision": {
+        "mission_type": "NEW_KNOWLEDGE",
+        "target": "离散型变量",
+        "constraints": {
+          "task_focus": [
+            "CONCEPT_LEARNING",
+            "NORMAL_QUESTIONS"
+          ],
+          "difficulty_range": [
+            0.5,
+            0.8
+          ]
+        }
+      }
+    }
+  },
+  "104": {
+    "prompt": "{'user_id': 104, 'analysis_window': 20, 'overall_recent_accuracy': 0.8, 'analysis_by_node': [{'node_id': 11, 'node_name': '排列 & 组合', 'interaction_count': 10, 'accuracy': 0.8, 'average_scores': {'知识掌握': 0.81, '解题逻辑': 0.84, '计算准确性': 0.87, '行为表现': 0.87}}, {'node_id': 9, 'node_name': '样本空间', 'interaction_count': 10, 'accuracy': 0.8, 'average_scores': {'知识掌握': 0.78, '解题逻辑': 0.86, '计算准确性': 0.86, '行为表现': 0.84}}]}##用户已经完成了1个模块的学习：概率论的基本概念。目前正在学习'概率运算进阶'模块，尚未掌握任何知识点，还需学习5个知识点。待学习的知识点包括：条件概率, 乘法公式, 事件的相互独立, 全概率公式, 贝叶斯公式。",
+    "rule_based_recommendation": {
+      "decision_reasoning": "学生近期整体正确率为0.8且各知识点（排列 & 组合、样本空间）的accuracy均为0.8，其平均分中所有技能维度（知识掌握、解题逻辑、计算准确性、行为表现）均高于0.78，未发现特定知识点缺陷或通用技能缺陷。根据‘修复优先’原则，由于无显著短板，应进入新知推荐流程。结合学生当前处于‘概率运算进阶’模块学习阶段，且待学知识点中‘条件概率’是该模块的基础前置知识点，逻辑上应优先学习。",
+      "strategic_decision": {
+        "mission_type": "NEW_KNOWLEDGE",
+        "target": "条件概率",
+        "constraints": {
+          "task_focus": [
+            "CONCEPT_LEARNING",
+            "NORMAL_QUESTIONS"
+          ],
+          "difficulty_range": [
+            0.3,
+            0.6
+          ]
+        }
+      }
+    }
+  },
+  "69": {
+    "prompt": "{'user_id': 69, 'analysis_window': 20, 'overall_recent_accuracy': 1.0, 'analysis_by_node': [{'node_id': 11, 'node_name': '排列 & 组合', 'interaction_count': 6, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.87, '解题逻辑': 0.93, '计算准确性': 0.92, '行为表现': 0.89}}, {'node_id': 9, 'node_name': '样本空间', 'interaction_count': 8, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.89, '解题逻辑': 0.9, '计算准确性': 0.89, '行为表现': 0.89}}, {'node_id': 7, 'node_name': '随机现象', 'interaction_count': 6, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.9, '解题逻辑': 0.95, '计算准确性': 0.88, '行为表现': 0.91}}]}##用户已经完成了3个模块的学习：概率论的基本概念, 概率运算进阶, 随机变量及其分布。目前正在学习'数字特征与关系'模块，已掌握4个知识点，还需学习2个知识点。已掌握的知识点包括：数学期望, 协方差, 相关系数 ρ, 独立性与不相关性。待学习的知识点包括：矩母函数, 方差 & 标准差。",
+    "rule_based_recommendation": {
+      "decision_reasoning": "全面诊断显示，学生在所有已学知识点（排列 & 组合、样本空间、随机现象）的accuracy均达1.0，且各维度平均分（知识掌握≥0.87、解题逻辑≥0.93、计算准确性≥0.88）均处于优秀水平，未发现特定知识点缺陷或通用技能短板。根据‘修复优先’原则，因无显著缺陷，故进入新知推荐流程。",
+      "strategic_decision": {
+        "mission_type": "NEW_KNOWLEDGE",
+        "target": "方差 & 标准差",
+        "constraints": {
+          "task_focus": [
+            "CONCEPT_LEARNING",
+            "APPLICATION_QUESTIONS"
+          ],
+          "difficulty_range": [
+            0.5,
+            0.8
+          ]
+        }
+      }
+    }
+  },
+  "96": {
+    "prompt": "{'user_id': 96, 'analysis_window': 20, 'overall_recent_accuracy': 0.95, 'analysis_by_node': [{'node_id': 11, 'node_name': '排列 & 组合', 'interaction_count': 8, 'accuracy': 0.88, 'average_scores': {'知识掌握': 0.84, '解题逻辑': 0.87, '计算准确性': 0.89, '行为表现': 0.87}}, {'node_id': 9, 'node_name': '样本空间', 'interaction_count': 8, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.92, '解题逻辑': 0.88, '计算准确性': 0.89, '行为表现': 0.89}}, {'node_id': 7, 'node_name': '随机现象', 'interaction_count': 4, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.9, '解题逻辑': 0.91, '计算准确性': 0.94, '行为表现': 0.91}}]}##用户已经完成了2个模块的学习：概率论的基本概念, 概率运算进阶。目前正在学习'随机变量及其分布'模块，已掌握3个知识点，还需学习13个知识点。已掌握的知识点包括：一维随机变量, 分布函数, 多维随机变量。待学习的知识点包括：随机变量函数的分布, 离散型变量, 分布律, 0-1分布, 二项分布, 泊松分布, 几何分布, 超几何分布, 连续型变量, 概率密度, 均匀分布, 指数分布, 正态分布。",
+    "rule_based_recommendation": {
+      "decision_reasoning": "全面诊断显示，学生在所有已学知识点（排列 & 组合、样本空间、随机现象）的正确率均高于0.88，且各通用技能维度（知识掌握、解题逻辑、计算准确性）的平均分均处于优秀水平（>0.8）。未检测到特定知识点缺陷或通用技能短板，符合‘无明显缺陷’状态。因此，优先执行新知推荐策略。根据学习进度，学生当前处于‘随机变量及其分布’模块，已掌握基础概念，下一步应聚焦该模块的核心子类——‘离散型变量’，以构建完整的知识体系。",
+      "strategic_decision": {
+        "mission_type": "NEW_KNOWLEDGE",
+        "target": "随机变量函数的分布",
+        "constraints": {
+          "task_focus": [
+            "CONCEPT_LEARNING",
+            "APPLIED_EXAMPLES"
+          ],
+          "difficulty_range": [
+            0.5,
+            0.8
+          ]
+        }
+      }
+    }
+  },
+  "61": {
+    "prompt": "{'user_id': 61, 'analysis_window': 20, 'overall_recent_accuracy': 0.7, 'analysis_by_node': [{'node_id': 11, 'node_name': '排列 & 组合', 'interaction_count': 14, 'accuracy': 0.64, 'average_scores': {'知识掌握': 0.84, '解题逻辑': 0.72, '计算准确性': 0.84, '行为表现': 0.83}}, {'node_id': 9, 'node_name': '样本空间', 'interaction_count': 6, 'accuracy': 0.83, 'average_scores': {'知识掌握': 0.88, '解题逻辑': 0.85, '计算准确性': 0.85, '行为表现': 0.9}}]}##用户已经完成了2个模块的学习：概率论的基本概念, 概率运算进阶。目前正在学习'随机变量及其分布'模块，已掌握6个知识点，还需学习10个知识点。已掌握的知识点包括：一维随机变量, 分布函数, 随机变量函数的分布, 连续型变量, 概率密度, 多维随机变量。待学习的知识点包括：离散型变量, 分布律, 0-1分布, 二项分布, 泊松分布, 几何分布, 超几何分布, 均匀分布, 指数分布, 正态分布。",
+    "rule_based_recommendation": {
+      "decision_reasoning": "经全面诊断，学生当前所有已学知识点（排列 & 组合、样本空间）的accuracy均未低于0.6，且各通用技能维度（知识掌握、解题逻辑、计算准确性）在多个知识点上的平均分均处于较高水平（≥0.72）。未发现显著的特定知识点缺陷或通用技能短板，符合‘无明显缺陷’状态。因此优先执行新知推荐策略。",
+      "strategic_decision": {
+        "mission_type": "NEW_KNOWLEDGE",
+        "target": "正态分布",
+        "constraints": {
+          "task_focus": [
+            "CONCEPT_LEARNING",
+            "NORMAL_QUESTIONS"
+          ],
+          "difficulty_range": [
+            0.5,
+            0.8
+          ]
+        }
+      }
+    }
+  },
+  "28": {
+    "prompt": "{'user_id': 28, 'analysis_window': 20, 'overall_recent_accuracy': 0.95, 'analysis_by_node': [{'node_id': 11, 'node_name': '排列 & 组合', 'interaction_count': 7, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.89, '解题逻辑': 0.89, '计算准确性': 0.87, '行为表现': 0.89}}, {'node_id': 9, 'node_name': '样本空间', 'interaction_count': 8, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.88, '解题逻辑': 0.94, '计算准确性': 0.89, '行为表现': 0.88}}, {'node_id': 7, 'node_name': '随机现象', 'interaction_count': 5, 'accuracy': 0.8, 'average_scores': {'知识掌握': 0.86, '解题逻辑': 0.78, '计算准确性': 0.88, '行为表现': 0.87}}]}##用户尚未完成任何模块的学习。目前正在学习'概率论的基本概念'模块，已掌握6个知识点，还需学习2个知识点。已掌握的知识点包括：随机现象, 随机试验, 样本空间, 随机事件, 排列 & 组合, 古典概型。待学习的知识点包括：概率, 加法/减法公式。",
+    "rule_based_recommendation": {
+      "decision_reasoning": "经全面诊断，学生在所有已学知识点（排列 & 组合、样本空间、随机现象）的正确率均≥0.8，且各通用技能维度（知识掌握、解题逻辑、计算准确性、行为表现）在多数知识点上表现良好，未发现显著的特定知识点缺陷或跨知识点的通用技能短板。当前状态符合‘无明显缺陷’标准，具备学习新知识的扎实基础。根据学习进度，学生已完成‘概率论的基本概念’模块的前6个知识点，下一步应优先学习该模块剩余的核心知识点‘概率’。",
+      "strategic_decision": {
+        "mission_type": "NEW_KNOWLEDGE",
+        "target": "概率",
+        "constraints": {
+          "task_focus": [
+            "CONCEPT_LEARNING",
+            "NORMAL_QUESTIONS"
+          ],
+          "difficulty_range": [
+            0.5,
+            0.8
+          ]
+        }
+      }
+    }
+  },
+  "12": {
+    "prompt": "{'user_id': 12, 'analysis_window': 20, 'overall_recent_accuracy': 0.45, 'analysis_by_node': [{'node_id': 11, 'node_name': '排列 & 组合', 'interaction_count': 19, 'accuracy': 0.47, 'average_scores': {'知识掌握': 0.56, '解题逻辑': 0.79, '计算准确性': 0.8, '行为表现': 0.79}}, {'node_id': 9, 'node_name': '样本空间', 'interaction_count': 1, 'accuracy': 0.0, 'average_scores': {'知识掌握': 0.27, '解题逻辑': 0.7, '计算准确性': 0.7, '行为表现': 0.7}}]}##用户已经完成了1个模块的学习：概率论的基本概念。目前正在学习'概率运算进阶'模块，已掌握3个知识点，还需学习2个知识点。已掌握的知识点包括：条件概率, 乘法公式, 全概率公式。待学习的知识点包括：事件的相互独立, 贝叶斯公式。",
+    "rule_based_recommendation": {
+      "decision_reasoning": "数据分析显示，学生在‘样本空间’知识点上的准确率仅为0.0（仅1次交互），且其‘知识掌握’维度得分低至0.27，表明该知识点存在严重认知断层。尽管‘排列 & 组合’知识点也存在准确率不足（0.47），但‘样本空间’作为概率论基础概念，其完全缺失会直接影响后续‘事件的相互独立’‘贝叶斯公式’等进阶知识的学习。根据修复优先原则，必须优先解决这一关键知识漏洞。",
+      "strategic_decision": {
+        "mission_type": "WEAK_POINT_CONSOLIDATION",
+        "target": "样本空间",
+        "constraints": {
+          "task_focus": [
+            "CONCEPT_LEARNING",
+            "NORMAL_QUESTIONS"
+          ],
+          "difficulty_range": [
+            0.3,
+            0.6
+          ]
+        }
+      }
+    }
+  },
+  "117": {
+    "prompt": "{'user_id': 117, 'analysis_window': 20, 'overall_recent_accuracy': 0.5, 'analysis_by_node': [{'node_id': 11, 'node_name': '排列 & 组合', 'interaction_count': 20, 'accuracy': 0.5, 'average_scores': {'知识掌握': 0.59, '解题逻辑': 0.8, '计算准确性': 0.79, '行为表现': 0.8}}]}##用户尚未完成任何模块的学习。目前正在学习'概率论的基本概念'模块，已掌握3个知识点，还需学习5个知识点。已掌握的知识点包括：随机现象, 排列 & 组合, 古典概型。待学习的知识点包括：随机试验, 样本空间, 随机事件, 概率, 加法/减法公式。",
+    "rule_based_recommendation": {
+      "decision_reasoning": "数据分析显示，学生在‘排列 & 组合’知识点上的正确率仅为0.5，远低于0.6的阈值，属于严重的特定知识点缺陷。尽管该知识点下的‘解题逻辑’和‘计算准确性’维度表现尚可，但核心知识掌握度不足直接影响后续学习基础。根据修复优先原则，必须优先针对此知识点进行专项强化。",
+      "strategic_decision": {
+        "mission_type": "WEAK_POINT_CONSOLIDATION",
+        "target": "排列 & 组合",
+        "constraints": {
+          "task_focus": [
+            "CONCEPT_LEARNING",
+            "NORMAL_QUESTIONS"
+          ],
+          "difficulty_range": [
+            0.3,
+            0.6
+          ]
+        }
+      }
+    }
+  },
+  "129": {
+    "prompt": "{'user_id': 129, 'analysis_window': 20, 'overall_recent_accuracy': 0.95, 'analysis_by_node': [{'node_id': 11, 'node_name': '排列 & 组合', 'interaction_count': 7, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.89, '解题逻辑': 0.88, '计算准确性': 0.9, '行为表现': 0.9}}, {'node_id': 9, 'node_name': '样本空间', 'interaction_count': 9, 'accuracy': 0.89, 'average_scores': {'知识掌握': 0.83, '解题逻辑': 0.87, '计算准确性': 0.9, '行为表现': 0.86}}, {'node_id': 7, 'node_name': '随机现象', 'interaction_count': 4, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.89, '解题逻辑': 0.89, '计算准确性': 0.9, '行为表现': 0.89}}]}##用户已经完成了2个模块的学习：概率论的基本概念, 概率运算进阶。目前正在学习'随机变量及其分布'模块，已掌握2个知识点，还需学习14个知识点。已掌握的知识点包括：一维随机变量, 多维随机变量。待学习的知识点包括：分布函数, 随机变量函数的分布, 离散型变量, 分布律, 0-1分布, 二项分布, 泊松分布, 几何分布, 超几何分布, 连续型变量, 概率密度, 均匀分布, 指数分布, 正态分布。",
+    "rule_based_recommendation": {
+      "decision_reasoning": "经全面诊断，学生在所有已学知识点（排列 & 组合、样本空间、随机现象）的正确率均高于0.89，且各通用技能维度（知识掌握、解题逻辑、计算准确性）的平均分均处于较高水平（≥0.83），未发现显著的特定知识点缺陷或通用技能缺陷。根据‘修复优先’原则，当前状态适合推进新知识学习。结合学生正在学习的‘随机变量及其分布’模块进度，逻辑上应优先学习该模块的核心基础——‘分布函数’，以衔接已掌握的随机变量概念与后续具体分布类型。",
+      "strategic_decision": {
+        "mission_type": "NEW_KNOWLEDGE",
+        "target": "分布函数",
+        "constraints": {
+          "task_focus": [
+            "CONCEPT_LEARNING",
+            "NORMAL_QUESTIONS"
+          ],
+          "difficulty_range": [
+            0.4,
+            0.7
+          ]
+        }
+      }
+    }
+  },
+  "108": {
+    "prompt": "{'user_id': 108, 'analysis_window': 20, 'overall_recent_accuracy': 0.8, 'analysis_by_node': [{'node_id': 11, 'node_name': '排列 & 组合', 'interaction_count': 8, 'accuracy': 0.88, 'average_scores': {'知识掌握': 0.86, '解题逻辑': 0.88, '计算准确性': 0.87, '行为表现': 0.86}}, {'node_id': 9, 'node_name': '样本空间', 'interaction_count': 12, 'accuracy': 0.75, 'average_scores': {'知识掌握': 0.85, '解题逻辑': 0.75, '计算准确性': 0.88, '行为表现': 0.86}}]}##用户已经完成了2个模块的学习：概率论的基本概念, 概率运算进阶。目前正在学习'随机变量及其分布'模块，已掌握4个知识点，还需学习12个知识点。已掌握的知识点包括：一维随机变量, 分布函数, 随机变量函数的分布, 多维随机变量。待学习的知识点包括：离散型变量, 分布律, 0-1分布, 二项分布, 泊松分布, 几何分布, 超几何分布, 连续型变量, 概率密度, 均匀分布, 指数分布, 正态分布。",
+    "rule_based_recommendation": {
+      "decision_reasoning": "经全面诊断，学生所有已学知识点的正确率均≥0.75（排列&组合0.88、样本空间0.75），且各通用技能维度（知识掌握/解题逻辑/计算准确性）在多数知识点表现均衡。虽‘样本空间’节点的‘解题逻辑’维度略低（0.75），但未形成跨知识点的普遍性技能缺陷。当前状态符合‘无明显缺陷’标准，可进入新知推荐流程。",
+      "strategic_decision": {
+        "mission_type": "NEW_KNOWLEDGE",
+        "target": "离散型变量",
+        "constraints": {
+          "task_focus": [
+            "CONCEPT_LEARNING",
+            "NORMAL_QUESTIONS"
+          ],
+          "difficulty_range": [
+            0.5,
+            0.8
+          ]
+        }
+      }
+    }
+  },
+  "113": {
+    "prompt": "{'user_id': 113, 'analysis_window': 20, 'overall_recent_accuracy': 0.9, 'analysis_by_node': [{'node_id': 11, 'node_name': '排列 & 组合', 'interaction_count': 10, 'accuracy': 0.8, 'average_scores': {'知识掌握': 0.86, '解题逻辑': 0.9, '计算准确性': 0.76, '行为表现': 0.85}}, {'node_id': 9, 'node_name': '样本空间', 'interaction_count': 8, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.87, '解题逻辑': 0.89, '计算准确性': 0.85, '行为表现': 0.86}}, {'node_id': 7, 'node_name': '随机现象', 'interaction_count': 2, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.9, '解题逻辑': 0.89, '计算准确性': 0.84, '行为表现': 0.85}}]}##用户已经完成了1个模块的学习：概率论的基本概念。目前正在学习'概率运算进阶'模块，已掌握1个知识点，还需学习4个知识点。已掌握的知识点包括：条件概率。待学习的知识点包括：乘法公式, 事件的相互独立, 全概率公式, 贝叶斯公式。",
+    "rule_based_recommendation": {
+      "decision_reasoning": "经全面诊断，学生在所有已学知识点（排列 & 组合、样本空间、随机现象）的正确率均≥0.8，且各通用技能维度（知识掌握、解题逻辑、计算准确性）在多个知识点上无显著短板。当前学习进度显示学生已完成概率论基础模块，正在学习‘概率运算进阶’模块且已掌握‘条件概率’。因未检测到明显知识或技能缺陷，符合‘无明显缺陷’判定标准，故进入新知推荐流程。",
+      "strategic_decision": {
+        "mission_type": "NEW_KNOWLEDGE",
+        "target": "全概率公式",
+        "constraints": {
+          "task_focus": [
+            "CONCEPT_LEARNING",
+            "NORMAL_QUESTIONS"
+          ],
+          "difficulty_range": [
+            0.5,
+            0.8
+          ]
+        }
+      }
+    }
+  },
+  "116": {
+    "prompt": "{'user_id': 116, 'analysis_window': 20, 'overall_recent_accuracy': 1.0, 'analysis_by_node': [{'node_id': 11, 'node_name': '排列 & 组合', 'interaction_count': 7, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.9, '解题逻辑': 0.92, '计算准确性': 0.9, '行为表现': 0.89}}, {'node_id': 9, 'node_name': '样本空间', 'interaction_count': 8, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.87, '解题逻辑': 0.9, '计算准确性': 0.91, '行为表现': 0.91}}, {'node_id': 7, 'node_name': '随机现象', 'interaction_count': 5, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.92, '解题逻辑': 0.9, '计算准确性': 0.93, '行为表现': 0.9}}]}##用户已经完成了1个模块的学习：概率论的基本概念。目前正在学习'概率运算进阶'模块，已掌握4个知识点，还需学习1个知识点。已掌握的知识点包括：条件概率, 乘法公式, 全概率公式, 贝叶斯公式。待学习的知识点包括：事件的相互独立。",
+    "rule_based_recommendation": {
+      "decision_reasoning": "学生在所有已学知识点（排列 & 组合、样本空间、随机现象）的accuracy均达1.0，且各通用技能维度（知识掌握、解题逻辑、计算准确性、行为表现）平均分均高于0.87，无显著短板。根据‘修复优先’原则，因当前无明确知识或技能缺陷，故进入新知推荐流程。学生当前需完成‘概率运算进阶’模块的最后一项知识点‘事件的相互独立’。",
+      "strategic_decision": {
+        "mission_type": "NEW_KNOWLEDGE",
+        "target": "事件的相互独立",
+        "constraints": {
+          "task_focus": [
+            "NORMAL_QUESTIONS"
+          ],
+          "difficulty_range": [
+            0.5,
+            0.8
+          ]
+        }
+      }
+    }
+  },
+  "115": {
+    "prompt": "{'user_id': 115, 'analysis_window': 20, 'overall_recent_accuracy': 1.0, 'analysis_by_node': [{'node_id': 11, 'node_name': '排列 & 组合', 'interaction_count': 7, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.9, '解题逻辑': 0.86, '计算准确性': 0.87, '行为表现': 0.9}}, {'node_id': 9, 'node_name': '样本空间', 'interaction_count': 8, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.9, '解题逻辑': 0.9, '计算准确性': 0.9, '行为表现': 0.87}}, {'node_id': 7, 'node_name': '随机现象', 'interaction_count': 5, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.92, '解题逻辑': 0.92, '计算准确性': 0.88, '行为表现': 0.87}}]}##用户尚未完成任何模块的学习。目前正在学习'概率论的基本概念'模块，已掌握6个知识点，还需学习2个知识点。已掌握的知识点包括：随机现象, 随机试验, 样本空间, 随机事件, 排列 & 组合, 古典概型。待学习的知识点包括：概率, 加法/减法公式。",
+    "rule_based_recommendation": {
+      "decision_reasoning": "数据分析显示，学生在所有已学知识点（随机现象、随机试验、样本空间、随机事件、排列 & 组合、古典概型）的accuracy均达1.0，且各通用技能维度（知识掌握、解题逻辑、计算准确性）的平均分均高于0.86，未发现特定知识点或通用技能的显著缺陷。根据‘修复优先’原则，当前应推进新知识学习。",
+      "strategic_decision": {
+        "mission_type": "NEW_KNOWLEDGE",
+        "target": "概率",
+        "constraints": {
+          "task_focus": [
+            "NORMAL_QUESTIONS"
+          ],
+          "difficulty_range": [
+            0.4,
+            0.7
+          ]
+        }
+      }
+    }
+  },
+  "120": {
+    "prompt": "{'user_id': 120, 'analysis_window': 20, 'overall_recent_accuracy': 0.7, 'analysis_by_node': [{'node_id': 11, 'node_name': '排列 & 组合', 'interaction_count': 11, 'accuracy': 0.73, 'average_scores': {'知识掌握': 0.86, '解题逻辑': 0.76, '计算准确性': 0.85, '行为表现': 0.88}}, {'node_id': 9, 'node_name': '样本空间', 'interaction_count': 9, 'accuracy': 0.67, 'average_scores': {'知识掌握': 0.85, '解题逻辑': 0.77, '计算准确性': 0.84, '行为表现': 0.84}}]}##用户尚未完成任何模块的学习。目前正在学习'概率论的基本概念'模块，已掌握5个知识点，还需学习3个知识点。已掌握的知识点包括：随机现象, 随机试验, 样本空间, 排列 & 组合, 古典概型。待学习的知识点包括：随机事件, 概率, 加法/减法公式。",
+    "rule_based_recommendation": {
+      "decision_reasoning": "经全面诊断，学生当前所有已学知识点（排列 & 组合、样本空间）的accuracy均≥0.6，且各通用技能维度（知识掌握、解题逻辑、计算准确性、行为表现）在多个知识点上的平均分均无显著短板（最低值为解题逻辑0.76）。未发现特定知识点缺陷或通用技能缺陷，符合‘无明显缺陷’判定标准。因此优先执行新知推荐流程。",
+      "strategic_decision": {
+        "mission_type": "NEW_KNOWLEDGE",
+        "target": "随机事件",
+        "constraints": {
+          "task_focus": [
+            "CONCEPT_LEARNING",
+            "NORMAL_QUESTIONS"
+          ],
+          "difficulty_range": [
+            0.4,
+            0.7
+          ]
+        }
+      }
+    }
+  },
+  "88": {
+    "prompt": "{'user_id': 88, 'analysis_window': 20, 'overall_recent_accuracy': 0.75, 'analysis_by_node': [{'node_id': 11, 'node_name': '排列 & 组合', 'interaction_count': 11, 'accuracy': 0.73, 'average_scores': {'知识掌握': 0.76, '解题逻辑': 0.84, '计算准确性': 0.85, '行为表现': 0.85}}, {'node_id': 9, 'node_name': '样本空间', 'interaction_count': 9, 'accuracy': 0.78, 'average_scores': {'知识掌握': 0.75, '解题逻辑': 0.84, '计算准确性': 0.86, '行为表现': 0.84}}]}##用户已经完成了2个模块的学习：概率论的基本概念, 概率运算进阶。目前正在学习'随机变量及其分布'模块，已掌握6个知识点，还需学习10个知识点。已掌握的知识点包括：一维随机变量, 分布函数, 随机变量函数的分布, 连续型变量, 概率密度, 多维随机变量。待学习的知识点包括：离散型变量, 分布律, 0-1分布, 二项分布, 泊松分布, 几何分布, 超几何分布, 均匀分布, 指数分布, 正态分布。",
+    "rule_based_recommendation": {
+      "decision_reasoning": "经全面诊断，学生在已完成的‘排列 & 组合’和‘样本空间’知识点中，正确率分别为0.73和0.78，均未出现<0.6的严重知识短板；其平均分中各通用技能维度（知识掌握、解题逻辑、计算准确性）均表现良好（最低0.75）。当前无显著特定知识点或通用技能缺陷，符合‘无明显缺陷’状态，可进入新知推荐流程。结合学生当前学习模块‘随机变量及其分布’的进度，优先推荐该模块下尚未掌握且逻辑衔接紧密的‘离散型变量’作为下一学习目标。",
+      "strategic_decision": {
+        "mission_type": "NEW_KNOWLEDGE",
+        "target": "均匀分布",
+        "constraints": {
+          "task_focus": [
+            "CONCEPT_LEARNING",
+            "NORMAL_QUESTIONS"
+          ],
+          "difficulty_range": [
+            0.4,
+            0.7
+          ]
+        }
+      }
+    }
+  },
+  "114": {
+    "prompt": "{'user_id': 114, 'analysis_window': 20, 'overall_recent_accuracy': 0.95, 'analysis_by_node': [{'node_id': 11, 'node_name': '排列 & 组合', 'interaction_count': 7, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.88, '解题逻辑': 0.92, '计算准确性': 0.89, '行为表现': 0.92}}, {'node_id': 9, 'node_name': '样本空间', 'interaction_count': 9, 'accuracy': 0.89, 'average_scores': {'知识掌握': 0.89, '解题逻辑': 0.87, '计算准确性': 0.86, '行为表现': 0.85}}, {'node_id': 7, 'node_name': '随机现象', 'interaction_count': 4, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.9, '解题逻辑': 0.86, '计算准确性': 0.89, '行为表现': 0.89}}]}##用户已经完成了1个模块的学习：概率论的基本概念。目前正在学习'概率运算进阶'模块，已掌握2个知识点，还需学习3个知识点。已掌握的知识点包括：条件概率, 全概率公式。待学习的知识点包括：乘法公式, 事件的相互独立, 贝叶斯公式。",
+    "rule_based_recommendation": {
+      "decision_reasoning": "学生所有已学知识点的正确率均高于0.89，且各通用技能维度（知识掌握、解题逻辑、计算准确性）的平均分均未出现显著偏低现象。当前学习状态良好，无明确知识点或技能缺陷，符合进入新知推荐流程的条件。根据学习进度，学生需继续完成‘概率运算进阶’模块中的剩余知识点，其中‘乘法公式’是该模块下一阶段的核心基础内容。",
+      "strategic_decision": {
+        "mission_type": "NEW_KNOWLEDGE",
+        "target": "贝叶斯公式",
+        "constraints": {
+          "task_focus": [
+            "CONCEPT_LEARNING",
+            "NORMAL_QUESTIONS"
+          ],
+          "difficulty_range": [
+            0.4,
+            0.7
+          ]
+        }
+      }
+    }
+  },
+  "3": {
+    "prompt": "{'user_id': 3, 'analysis_window': 20, 'overall_recent_accuracy': 0.75, 'analysis_by_node': [{'node_id': 11, 'node_name': '排列 & 组合', 'interaction_count': 12, 'accuracy': 0.67, 'average_scores': {'知识掌握': 0.83, '解题逻辑': 0.76, '计算准确性': 0.83, '行为表现': 0.83}}, {'node_id': 9, 'node_name': '样本空间', 'interaction_count': 8, 'accuracy': 0.88, 'average_scores': {'知识掌握': 0.89, '解题逻辑': 0.81, '计算准确性': 0.88, '行为表现': 0.9}}]}##用户已经完成了1个模块的学习：概率论的基本概念。目前正在学习'概率运算进阶'模块，已掌握3个知识点，还需学习2个知识点。已掌握的知识点包括：条件概率, 乘法公式, 全概率公式。待学习的知识点包括：事件的相互独立, 贝叶斯公式。",
+    "rule_based_recommendation": {
+      "decision_reasoning": "经全面诊断，学生所有已学知识点（排列 & 组合、样本空间）的accuracy均≥0.6，且各通用技能维度（知识掌握、解题逻辑、计算准确性）在多知识点上未呈现系统性短板。当前学习进度显示学生已完成概率论基础模块，正在学习‘概率运算进阶’模块，已掌握条件概率、乘法公式、全概率公式，下一步应优先学习尚未掌握的新知识点‘事件的相互独立’以推进学习进程。",
+      "strategic_decision": {
+        "mission_type": "NEW_KNOWLEDGE",
+        "target": "事件的相互独立",
+        "constraints": {
+          "task_focus": [
+            "CONCEPT_LEARNING",
+            "NORMAL_QUESTIONS"
+          ],
+          "difficulty_range": [
+            0.3,
+            0.6
+          ]
+        }
+      }
+    }
+  },
+  "78": {
+    "prompt": "{'user_id': 78, 'analysis_window': 20, 'overall_recent_accuracy': 0.85, 'analysis_by_node': [{'node_id': 11, 'node_name': '排列 & 组合', 'interaction_count': 10, 'accuracy': 0.7, 'average_scores': {'知识掌握': 0.71, '解题逻辑': 0.84, '计算准确性': 0.83, '行为表现': 0.85}}, {'node_id': 9, 'node_name': '样本空间', 'interaction_count': 8, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.91, '解题逻辑': 0.93, '计算准确性': 0.9, '行为表现': 0.88}}, {'node_id': 7, 'node_name': '随机现象', 'interaction_count': 2, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.88, '解题逻辑': 0.89, '计算准确性': 0.91, '行为表现': 0.98}}]}##用户已经完成了2个模块的学习：概率论的基本概念, 概率运算进阶。目前正在学习'随机变量及其分布'模块，已掌握14个知识点，还需学习2个知识点。已掌握的知识点包括：一维随机变量, 分布函数, 随机变量函数的分布, 离散型变量, 分布律, 0-1分布, 二项分布, 几何分布, 连续型变量, 概率密度, 均匀分布, 指数分布, 正态分布, 多维随机变量。待学习的知识点包括：泊松分布, 超几何分布。",
+    "rule_based_recommendation": {
+      "decision_reasoning": "经全面诊断，学生在所有已学知识点（排列 & 组合、样本空间、随机现象）的正确率均≥0.7，且各通用技能维度（知识掌握、解题逻辑、计算准确性、行为表现）的平均分均处于较高水平（最低为排列 & 组合的‘知识掌握’0.71）。未发现特定知识点缺陷或跨知识点的通用技能短板，符合‘无明显缺陷’状态。根据修复优先原则，当前应推进新知识学习。",
+      "strategic_decision": {
+        "mission_type": "NEW_KNOWLEDGE",
+        "target": "超几何分布",
+        "constraints": {
+          "task_focus": [
+            "CONCEPT_LEARNING",
+            "NORMAL_QUESTIONS"
+          ],
+          "difficulty_range": [
+            0.5,
+            0.8
+          ]
+        }
+      }
+    }
+  },
+  "29": {
+    "prompt": "{'user_id': 29, 'analysis_window': 20, 'overall_recent_accuracy': 0.9, 'analysis_by_node': [{'node_id': 11, 'node_name': '排列 & 组合', 'interaction_count': 8, 'accuracy': 0.88, 'average_scores': {'知识掌握': 0.77, '解题逻辑': 0.84, '计算准确性': 0.89, '行为表现': 0.87}}, {'node_id': 7, 'node_name': '随机现象', 'interaction_count': 9, 'accuracy': 0.89, 'average_scores': {'知识掌握': 0.82, '解题逻辑': 0.86, '计算准确性': 0.88, '行为表现': 0.88}}, {'node_id': 12, 'node_name': '古典概型', 'interaction_count': 1, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.84, '解题逻辑': 0.98, '计算准确性': 0.91, '行为表现': 0.81}}, {'node_id': 8, 'node_name': '随机试验', 'interaction_count': 2, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.87, '解题逻辑': 0.87, '计算准确性': 0.88, '行为表现': 0.93}}]}##用户尚未完成任何模块的学习。目前正在学习'概率论的基本概念'模块，已掌握3个知识点，还需学习5个知识点。已掌握的知识点包括：随机现象, 随机试验, 排列 & 组合。待学习的知识点包括：样本空间, 随机事件, 古典概型, 概率, 加法/减法公式。",
+    "rule_based_recommendation": {
+      "decision_reasoning": "经全面诊断，学生在所有已学知识点（随机现象、随机试验、排列 & 组合、古典概型）的accuracy均≥0.88，且各通用技能维度（知识掌握、解题逻辑、计算准确性、行为表现）的平均分均≥0.81，未发现特定知识点缺陷或通用技能短板。根据‘修复优先’原则，因无显著缺陷需优先处理，故进入新知推荐流程。结合当前学习模块‘概率论的基本概念’的知识结构逻辑，学生已完成前置知识点（随机现象、随机试验、排列 & 组合），下一阶段应优先学习‘样本空间’以构建概率空间的基础概念。",
+      "strategic_decision": {
+        "mission_type": "NEW_KNOWLEDGE",
+        "target": "样本空间",
+        "constraints": {
+          "task_focus": [
+            "CONCEPT_LEARNING",
+            "NORMAL_QUESTIONS"
+          ],
+          "difficulty_range": [
+            0.5,
+            0.8
+          ]
+        }
+      }
+    }
+  },
+  "60": {
+    "prompt": "{'user_id': 60, 'analysis_window': 20, 'overall_recent_accuracy': 0.95, 'analysis_by_node': [{'node_id': 11, 'node_name': '排列 & 组合', 'interaction_count': 8, 'accuracy': 0.88, 'average_scores': {'知识掌握': 0.83, '解题逻辑': 0.84, '计算准确性': 0.89, '行为表现': 0.85}}, {'node_id': 9, 'node_name': '样本空间', 'interaction_count': 8, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.91, '解题逻辑': 0.9, '计算准确性': 0.92, '行为表现': 0.91}}, {'node_id': 7, 'node_name': '随机现象', 'interaction_count': 4, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.94, '解题逻辑': 0.86, '计算准确性': 0.93, '行为表现': 0.9}}]}##用户已经完成了1个模块的学习：概率论的基本概念。目前正在学习'概率运算进阶'模块，已掌握2个知识点，还需学习3个知识点。已掌握的知识点包括：条件概率, 全概率公式。待学习的知识点包括：乘法公式, 事件的相互独立, 贝叶斯公式。",
+    "rule_based_recommendation": {
+      "decision_reasoning": "学生在所有已分析知识点（排列 & 组合、样本空间、随机现象）中均表现出色，各项准确率及平均分均显著高于0.8的优秀阈值，且未发现任何特定知识点或通用技能维度存在明显短板。根据‘修复优先’原则，因无现存缺陷需优先处理，故进入新知推荐流程。结合学生当前学习进度（已完成‘概率论的基本概念’模块，正在学习‘概率运算进阶’模块），其待学知识点中‘乘法公式’是概率运算的核心基础，逻辑上应作为下一学习目标。",
+      "strategic_decision": {
+        "mission_type": "NEW_KNOWLEDGE",
+        "target": "乘法公式",
+        "constraints": {
+          "task_focus": [
+            "CONCEPT_LEARNING",
+            "NORMAL_QUESTIONS"
+          ],
+          "difficulty_range": [
+            0.3,
+            0.6
+          ]
+        }
+      }
+    }
+  },
+  "58": {
+    "prompt": "{'user_id': 58, 'analysis_window': 20, 'overall_recent_accuracy': 1.0, 'analysis_by_node': [{'node_id': 11, 'node_name': '排列 & 组合', 'interaction_count': 7, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.88, '解题逻辑': 0.86, '计算准确性': 0.92, '行为表现': 0.92}}, {'node_id': 9, 'node_name': '样本空间', 'interaction_count': 8, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.91, '解题逻辑': 0.89, '计算准确性': 0.89, '行为表现': 0.87}}, {'node_id': 7, 'node_name': '随机现象', 'interaction_count': 5, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.87, '解题逻辑': 0.89, '计算准确性': 0.87, '行为表现': 0.92}}]}##用户已经完成了2个模块的学习：概率论的基本概念, 概率运算进阶。目前正在学习'随机变量及其分布'模块，已掌握4个知识点，还需学习12个知识点。已掌握的知识点包括：一维随机变量, 分布函数, 随机变量函数的分布, 多维随机变量。待学习的知识点包括：离散型变量, 分布律, 0-1分布, 二项分布, 泊松分布, 几何分布, 超几何分布, 连续型变量, 概率密度, 均匀分布, 指数分布, 正态分布。",
+    "rule_based_recommendation": {
+      "decision_reasoning": "数据分析显示，学生在所有已学知识点（排列 & 组合、样本空间、随机现象）的正确率均为1.0，且各通用技能维度（知识掌握、解题逻辑、计算准确性、行为表现）的平均分均高于0.8，未发现特定知识点缺陷或通用技能短板。根据‘修复优先’原则，由于当前无显著缺陷，应进入新知推荐流程。结合学生正在学习的‘随机变量及其分布’模块进度，已掌握基础概念，下一阶段应优先学习该模块的核心子知识点‘离散型变量’以推进知识体系构建。",
+      "strategic_decision": {
+        "mission_type": "NEW_KNOWLEDGE",
+        "target": "离散型变量",
+        "constraints": {
+          "task_focus": [
+            "CONCEPT_LEARNING",
+            "NORMAL_QUESTIONS"
+          ],
+          "difficulty_range": [
+            0.4,
+            0.7
+          ]
+        }
+      }
+    }
+  },
+  "109": {
+    "prompt": "{'user_id': 109, 'analysis_window': 20, 'overall_recent_accuracy': 0.5, 'analysis_by_node': [{'node_id': 11, 'node_name': '排列 & 组合', 'interaction_count': 15, 'accuracy': 0.6, 'average_scores': {'知识掌握': 0.67, '解题逻辑': 0.82, '计算准确性': 0.84, '行为表现': 0.83}}, {'node_id': 9, 'node_name': '样本空间', 'interaction_count': 5, 'accuracy': 0.2, 'average_scores': {'知识掌握': 0.39, '解题逻辑': 0.74, '计算准确性': 0.74, '行为表现': 0.73}}]}##用户已经完成了1个模块的学习：概率论的基本概念。目前正在学习'概率运算进阶'模块，已掌握2个知识点，还需学习3个知识点。已掌握的知识点包括：条件概率, 全概率公式。待学习的知识点包括：乘法公式, 事件的相互独立, 贝叶斯公式。",
+    "rule_based_recommendation": {
+      "decision_reasoning": "数据分析表明，学生在‘样本空间’知识点上的正确率仅为0.2，且其‘知识掌握’维度得分低至0.39，显著低于0.6的阈值，属于严重的特定知识点缺陷。尽管其他知识点（如‘排列 & 组合’）表现尚可，但‘样本空间’作为基础概念直接影响后续概率运算的学习，必须优先强化。",
+      "strategic_decision": {
+        "mission_type": "WEAK_POINT_CONSOLIDATION",
+        "target": "样本空间",
+        "constraints": {
+          "task_focus": [
+            "CONCEPT_LEARNING",
+            "NORMAL_QUESTIONS"
+          ],
+          "difficulty_range": [
+            0.3,
+            0.6
+          ]
+        }
+      }
+    }
+  },
+  "36": {
+    "prompt": "{'user_id': 36, 'analysis_window': 20, 'overall_recent_accuracy': 0.9, 'analysis_by_node': [{'node_id': 11, 'node_name': '排列 & 组合', 'interaction_count': 7, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.88, '解题逻辑': 0.9, '计算准确性': 0.88, '行为表现': 0.92}}, {'node_id': 9, 'node_name': '样本空间', 'interaction_count': 1, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.86, '解题逻辑': 0.8, '计算准确性': 0.98, '行为表现': 0.9}}, {'node_id': 7, 'node_name': '随机现象', 'interaction_count': 10, 'accuracy': 0.8, 'average_scores': {'知识掌握': 0.86, '解题逻辑': 0.83, '计算准确性': 0.85, '行为表现': 0.81}}, {'node_id': 12, 'node_name': '古典概型', 'interaction_count': 2, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.91, '解题逻辑': 0.95, '计算准确性': 0.98, '行为表现': 0.88}}]}##用户尚未完成任何模块的学习。目前正在学习'概率论的基本概念'模块，已掌握4个知识点，还需学习4个知识点。已掌握的知识点包括：随机现象, 随机试验, 排列 & 组合, 古典概型。待学习的知识点包括：样本空间, 随机事件, 概率, 加法/减法公式。",
+    "rule_based_recommendation": {
+      "decision_reasoning": "经全面诊断，学生所有已学知识点的正确率均≥0.8，且各通用技能维度（知识掌握、解题逻辑、计算准确性、行为表现）在多个知识点上未出现系统性短板。当前状态符合‘无明显缺陷’判定标准，具备学习新知识的充分基础。根据学科逻辑顺序及当前学习模块进度，优先推荐‘样本空间’作为下一学习目标。",
+      "strategic_decision": {
+        "mission_type": "NEW_KNOWLEDGE",
+        "target": "样本空间",
+        "constraints": {
+          "task_focus": [
+            "CONCEPT_LEARNING",
+            "NORMAL_QUESTIONS"
+          ],
+          "difficulty_range": [
+            0.5,
+            0.8
+          ]
+        }
+      }
+    }
+  },
+  "131": {
+    "prompt": "{'user_id': 131, 'analysis_window': 20, 'overall_recent_accuracy': 0.95, 'analysis_by_node': [{'node_id': 11, 'node_name': '排列 & 组合', 'interaction_count': 7, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.86, '解题逻辑': 0.94, '计算准确性': 0.88, '行为表现': 0.9}}, {'node_id': 9, 'node_name': '样本空间', 'interaction_count': 9, 'accuracy': 0.89, 'average_scores': {'知识掌握': 0.87, '解题逻辑': 0.92, '计算准确性': 0.82, '行为表现': 0.88}}, {'node_id': 7, 'node_name': '随机现象', 'interaction_count': 4, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.85, '解题逻辑': 0.91, '计算准确性': 0.9, '行为表现': 0.91}}]}##用户已经完成了2个模块的学习：概率论的基本概念, 概率运算进阶。目前正在学习'随机变量及其分布'模块，已掌握9个知识点，还需学习7个知识点。已掌握的知识点包括：一维随机变量, 分布函数, 随机变量函数的分布, 连续型变量, 概率密度, 均匀分布, 指数分布, 正态分布, 多维随机变量。待学习的知识点包括：离散型变量, 分布律, 0-1分布, 二项分布, 泊松分布, 几何分布, 超几何分布。",
+    "rule_based_recommendation": {
+      "decision_reasoning": "经全面诊断，学生在所有已学知识点（排列 & 组合、样本空间、随机现象）的正确率均高于0.89，且各通用技能维度（知识掌握、解题逻辑、计算准确性）的平均分均处于高位（最低为样本空间的计算准确性0.82）。未发现特定知识点缺陷或跨知识点的通用技能短板，符合‘无明显缺陷’状态。因此优先推荐新知识学习。",
+      "strategic_decision": {
+        "mission_type": "NEW_KNOWLEDGE",
+        "target": "分布律",
+        "constraints": {
+          "task_focus": [
+            "NORMAL_QUESTIONS"
+          ],
+          "difficulty_range": [
+            0.4,
+            0.7
+          ]
+        }
+      }
+    }
+  },
+  "31": {
+    "prompt": "{'user_id': 31, 'analysis_window': 20, 'overall_recent_accuracy': 1.0, 'analysis_by_node': [{'node_id': 11, 'node_name': '排列 & 组合', 'interaction_count': 7, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.92, '解题逻辑': 0.89, '计算准确性': 0.91, '行为表现': 0.93}}, {'node_id': 9, 'node_name': '样本空间', 'interaction_count': 7, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.88, '解题逻辑': 0.93, '计算准确性': 0.87, '行为表现': 0.92}}, {'node_id': 7, 'node_name': '随机现象', 'interaction_count': 6, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.9, '解题逻辑': 0.87, '计算准确性': 0.87, '行为表现': 0.89}}]}##用户已经完成了2个模块的学习：概率论的基本概念, 概率运算进阶。目前正在学习'随机变量及其分布'模块，尚未掌握任何知识点，还需学习16个知识点。待学习的知识点包括：一维随机变量, 分布函数, 随机变量函数的分布, 离散型变量, 分布律, 0-1分布, 二项分布, 泊松分布, 几何分布, 超几何分布, 连续型变量, 概率密度, 均匀分布, 指数分布, 正态分布, 多维随机变量。",
+    "rule_based_recommendation": {
+      "decision_reasoning": "全面诊断显示，学生在所有已学知识点（排列 & 组合、样本空间、随机现象）的accuracy均达到1.0，且各维度平均分（知识掌握、解题逻辑、计算准确性）均高于0.8，表明无特定知识点缺陷或通用技能缺陷。根据‘修复优先’原则，因当前无明确短板，故进入新知推荐流程。结合学生正在学习的‘随机变量及其分布’模块及知识结构逻辑，优先推荐该模块的基础知识点‘一维随机变量’作为下一学习目标。",
+      "strategic_decision": {
+        "mission_type": "NEW_KNOWLEDGE",
+        "target": "一维随机变量",
+        "constraints": {
+          "task_focus": [
+            "CONCEPT_LEARNING",
+            "NORMAL_QUESTIONS"
+          ],
+          "difficulty_range": [
+            0.5,
+            0.8
+          ]
+        }
+      }
+    }
+  },
+  "135": {
+    "prompt": "{'user_id': 135, 'analysis_window': 20, 'overall_recent_accuracy': 0.85, 'analysis_by_node': [{'node_id': 11, 'node_name': '排列 & 组合', 'interaction_count': 8, 'accuracy': 0.88, 'average_scores': {'知识掌握': 0.9, '解题逻辑': 0.84, '计算准确性': 0.89, '行为表现': 0.89}}, {'node_id': 9, 'node_name': '样本空间', 'interaction_count': 11, 'accuracy': 0.82, 'average_scores': {'知识掌握': 0.86, '解题逻辑': 0.82, '计算准确性': 0.85, '行为表现': 0.86}}, {'node_id': 7, 'node_name': '随机现象', 'interaction_count': 1, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.94, '解题逻辑': 0.95, '计算准确性': 0.88, '行为表现': 0.95}}]}##用户已经完成了2个模块的学习：概率论的基本概念, 概率运算进阶。目前正在学习'随机变量及其分布'模块，已掌握12个知识点，还需学习4个知识点。已掌握的知识点包括：一维随机变量, 分布函数, 随机变量函数的分布, 离散型变量, 分布律, 二项分布, 连续型变量, 概率密度, 均匀分布, 指数分布, 正态分布, 多维随机变量。待学习的知识点包括：0-1分布, 泊松分布, 几何分布, 超几何分布。",
+    "rule_based_recommendation": {
+      "decision_reasoning": "经全面诊断，学生在所有已学知识点（排列 & 组合、样本空间、随机现象）的正确率均高于0.8，且各通用技能维度（知识掌握、解题逻辑、计算准确性、行为表现）的平均分均处于优秀水平（>0.8）。未发现特定知识点缺陷或通用技能短板，符合‘无明显缺陷’状态。因此，优先推荐新知识点以拓展知识体系。根据当前学习模块‘随机变量及其分布’的进度，下一步应学习待掌握知识点中的基础分布类型‘0-1分布’。",
+      "strategic_decision": {
+        "mission_type": "NEW_KNOWLEDGE",
+        "target": "0-1分布",
+        "constraints": {
+          "task_focus": [
+            "CONCEPT_LEARNING",
+            "NORMAL_QUESTIONS"
+          ],
+          "difficulty_range": [
+            0.4,
+            0.7
+          ]
+        }
+      }
+    }
+  },
+  "70": {
+    "prompt": "{'user_id': 70, 'analysis_window': 20, 'overall_recent_accuracy': 0.9, 'analysis_by_node': [{'node_id': 11, 'node_name': '排列 & 组合', 'interaction_count': 7, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.92, '解题逻辑': 0.92, '计算准确性': 0.94, '行为表现': 0.89}}, {'node_id': 9, 'node_name': '样本空间', 'interaction_count': 11, 'accuracy': 0.82, 'average_scores': {'知识掌握': 0.81, '解题逻辑': 0.88, '计算准确性': 0.86, '行为表现': 0.83}}, {'node_id': 7, 'node_name': '随机现象', 'interaction_count': 2, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.91, '解题逻辑': 0.91, '计算准确性': 0.91, '行为表现': 0.9}}]}##用户已经完成了2个模块的学习：概率论的基本概念, 概率运算进阶。目前正在学习'随机变量及其分布'模块，已掌握4个知识点，还需学习12个知识点。已掌握的知识点包括：一维随机变量, 分布函数, 随机变量函数的分布, 多维随机变量。待学习的知识点包括：离散型变量, 分布律, 0-1分布, 二项分布, 泊松分布, 几何分布, 超几何分布, 连续型变量, 概率密度, 均匀分布, 指数分布, 正态分布。",
+    "rule_based_recommendation": {
+      "decision_reasoning": "经全面诊断，学生在所有已学知识点（排列 & 组合、样本空间、随机现象）的accuracy均≥0.82，且各通用技能维度（知识掌握、解题逻辑、计算准确性）在多个知识点上的平均分均未出现显著短板（最低值为样本空间的‘知识掌握’0.81）。根据‘修复优先’原则，因未检测到特定知识点缺陷或通用技能缺陷，判定学生当前状态良好，适合推进新知识学习。结合其正在学习的‘随机变量及其分布’模块进度，下一步应优先学习该模块中尚未掌握的基础知识点‘离散型变量’。",
+      "strategic_decision": {
+        "mission_type": "NEW_KNOWLEDGE",
+        "target": "离散型变量",
+        "constraints": {
+          "task_focus": [
+            "NORMAL_QUESTIONS"
+          ],
+          "difficulty_range": [
+            0.5,
+            0.8
+          ]
+        }
+      }
+    }
+  },
+  "90": {
+    "prompt": "{'user_id': 90, 'analysis_window': 20, 'overall_recent_accuracy': 0.8, 'analysis_by_node': [{'node_id': 11, 'node_name': '排列 & 组合', 'interaction_count': 11, 'accuracy': 0.73, 'average_scores': {'知识掌握': 0.84, '解题逻辑': 0.92, '计算准确性': 0.73, '行为表现': 0.85}}, {'node_id': 9, 'node_name': '样本空间', 'interaction_count': 9, 'accuracy': 0.89, 'average_scores': {'知识掌握': 0.89, '解题逻辑': 0.9, '计算准确性': 0.86, '行为表现': 0.89}}]}##用户已经完成了2个模块的学习：概率论的基本概念, 概率运算进阶。目前正在学习'随机变量及其分布'模块，已掌握10个知识点，还需学习6个知识点。已掌握的知识点包括：一维随机变量, 分布函数, 随机变量函数的分布, 离散型变量, 连续型变量, 概率密度, 均匀分布, 指数分布, 正态分布, 多维随机变量。待学习的知识点包括：分布律, 0-1分布, 二项分布, 泊松分布, 几何分布, 超几何分布。",
+    "rule_based_recommendation": {
+      "decision_reasoning": "学生整体近期准确率达0.8（优秀水平），各知识点准确率均≥0.73且无单项低于0.6的严重缺陷。其‘排列 & 组合’与‘样本空间’知识点的平均分显示，虽‘计算准确性’在前者略低（0.73），但后者该维度已达0.86，未形成跨知识点的通用技能短板。结合当前学习阶段（‘随机变量及其分布’模块），学生已完成前置知识储备，具备学习新知识点的条件。",
+      "strategic_decision": {
+        "mission_type": "NEW_KNOWLEDGE",
+        "target": "分布律",
+        "constraints": {
+          "task_focus": [
+            "CONCEPT_LEARNING",
+            "NORMAL_QUESTIONS"
+          ],
+          "difficulty_range": [
+            0.5,
+            0.8
+          ]
+        }
+      }
+    }
+  },
+  "132": {
+    "prompt": "{'user_id': 132, 'analysis_window': 20, 'overall_recent_accuracy': 0.55, 'analysis_by_node': [{'node_id': 11, 'node_name': '排列 & 组合', 'interaction_count': 17, 'accuracy': 0.53, 'average_scores': {'知识掌握': 0.57, '解题逻辑': 0.8, '计算准确性': 0.82, '行为表现': 0.82}}, {'node_id': 9, 'node_name': '样本空间', 'interaction_count': 3, 'accuracy': 0.67, 'average_scores': {'知识掌握': 0.66, '解题逻辑': 0.82, '计算准确性': 0.79, '行为表现': 0.86}}]}##用户尚未完成任何模块的学习。目前正在学习'概率论的基本概念'模块，已掌握4个知识点，还需学习4个知识点。已掌握的知识点包括：随机现象, 随机试验, 排列 & 组合, 古典概型。待学习的知识点包括：样本空间, 随机事件, 概率, 加法/减法公式。",
+    "rule_based_recommendation": {
+      "decision_reasoning": "数据分析显示，学生在‘排列 & 组合’知识点上的正确率仅为0.53，远低于0.6的阈值，存在显著的特定知识点缺陷。尽管‘样本空间’知识点正确率为0.67且各技能维度表现尚可，但‘排列 & 组合’作为概率论基础的核心前置知识点，其薄弱会直接影响后续‘古典概型’等知识的学习。根据修复优先原则，必须优先解决该知识点漏洞。",
+      "strategic_decision": {
+        "mission_type": "WEAK_POINT_CONSOLIDATION",
+        "target": "排列 & 组合",
+        "constraints": {
+          "task_focus": [
+            "CONCEPT_LEARNING",
+            "NORMAL_QUESTIONS"
+          ],
+          "difficulty_range": [
+            0.3,
+            0.6
+          ]
+        }
+      }
+    }
+  },
+  "92": {
+    "prompt": "{'user_id': 92, 'analysis_window': 20, 'overall_recent_accuracy': 0.35, 'analysis_by_node': [{'node_id': 11, 'node_name': '排列 & 组合', 'interaction_count': 20, 'accuracy': 0.35, 'average_scores': {'知识掌握': 0.47, '解题逻辑': 0.76, '计算准确性': 0.76, '行为表现': 0.78}}]}##用户已经完成了2个模块的学习：概率论的基本概念, 概率运算进阶。目前正在学习'随机变量及其分布'模块，尚未掌握任何知识点，还需学习16个知识点。待学习的知识点包括：一维随机变量, 分布函数, 随机变量函数的分布, 离散型变量, 分布律, 0-1分布, 二项分布, 泊松分布, 几何分布, 超几何分布, 连续型变量, 概率密度, 均匀分布, 指数分布, 正态分布, 多维随机变量。",
+    "rule_based_recommendation": {
+      "decision_reasoning": "数据分析显示，学生在‘排列 & 组合’知识点的正确率仅为0.35，且其‘知识掌握’维度得分低至0.47，显著低于优秀标准（>0.8）。该知识点存在严重的特定知识点缺陷，且当前整体正确率（0.35）表明此短板已直接影响学习效果。根据修复优先原则，必须优先解决这一基础薄弱点。",
+      "strategic_decision": {
+        "mission_type": "WEAK_POINT_CONSOLIDATION",
+        "target": "排列 & 组合",
+        "constraints": {
+          "task_focus": [
+            "CONCEPT_LEARNING",
+            "NORMAL_QUESTIONS"
+          ],
+          "difficulty_range": [
+            0.3,
+            0.6
+          ]
+        }
+      }
+    }
+  },
+  "74": {
+    "prompt": "{'user_id': 74, 'analysis_window': 16, 'overall_recent_accuracy': 0.75, 'analysis_by_node': [{'node_id': 11, 'node_name': '排列 & 组合', 'interaction_count': 9, 'accuracy': 0.78, 'average_scores': {'知识掌握': 0.84, '解题逻辑': 0.78, '计算准确性': 0.86, '行为表现': 0.85}}, {'node_id': 12, 'node_name': '古典概型', 'interaction_count': 7, 'accuracy': 0.71, 'average_scores': {'知识掌握': 0.85, '解题逻辑': 0.8, '计算准确性': 0.86, '行为表现': 0.83}}]}##用户尚未完成任何模块的学习。目前正在学习'概率论的基本概念'模块，已掌握1个知识点，还需学习7个知识点。已掌握的知识点包括：排列 & 组合。待学习的知识点包括：随机现象, 随机试验, 样本空间, 随机事件, 古典概型, 概率, 加法/减法公式。",
+    "rule_based_recommendation": {
+      "decision_reasoning": "经全面诊断，学生在已学知识点‘排列 & 组合’和‘古典概型’中，所有维度（知识掌握、解题逻辑、计算准确性、行为表现）的平均分均未出现显著低于0.6的情况，且各知识点正确率均高于0.6。这表明学生当前无特定知识点或通用技能缺陷，基础扎实状态良好。因此，应优先推进新知识学习。",
+      "strategic_decision": {
+        "mission_type": "NEW_KNOWLEDGE",
+        "target": "随机现象",
+        "constraints": {
+          "task_focus": [
+            "CONCEPT_LEARNING",
+            "NORMAL_QUESTIONS"
+          ],
+          "difficulty_range": [
+            0.4,
+            0.7
+          ]
+        }
+      }
+    }
+  },
+  "10": {
+    "prompt": "{'user_id': 10, 'analysis_window': 20, 'overall_recent_accuracy': 1.0, 'analysis_by_node': [{'node_id': 11, 'node_name': '排列 & 组合', 'interaction_count': 7, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.92, '解题逻辑': 0.89, '计算准确性': 0.89, '行为表现': 0.91}}, {'node_id': 9, 'node_name': '样本空间', 'interaction_count': 7, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.86, '解题逻辑': 0.88, '计算准确性': 0.91, '行为表现': 0.9}}, {'node_id': 7, 'node_name': '随机现象', 'interaction_count': 6, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.92, '解题逻辑': 0.9, '计算准确性': 0.9, '行为表现': 0.89}}]}##用户已经完成了2个模块的学习：概率论的基本概念, 概率运算进阶。目前正在学习'随机变量及其分布'模块，已掌握6个知识点，还需学习10个知识点。已掌握的知识点包括：一维随机变量, 分布函数, 随机变量函数的分布, 离散型变量, 分布律, 多维随机变量。待学习的知识点包括：0-1分布, 二项分布, 泊松分布, 几何分布, 超几何分布, 连续型变量, 概率密度, 均匀分布, 指数分布, 正态分布。",
+    "rule_based_recommendation": {
+      "decision_reasoning": "全面诊断显示，学生在所有已学知识点（排列 & 组合、样本空间、随机现象）的准确率均为1.0，且各通用技能维度（知识掌握、解题逻辑、计算准确性、行为表现）的平均分均高于0.86，未发现特定知识点缺陷或通用技能缺陷。根据‘修复优先’原则，由于当前无显著短板，应进入新知推荐流程。结合学生当前学习模块‘随机变量及其分布’的进度，其待学知识点中‘0-1分布’是该模块的基础离散型分布，逻辑上最适合作为下一学习目标。",
+      "strategic_decision": {
+        "mission_type": "NEW_KNOWLEDGE",
+        "target": "0-1分布",
+        "constraints": {
+          "task_focus": [
+            "CONCEPT_LEARNING",
+            "NORMAL_QUESTIONS"
+          ],
+          "difficulty_range": [
+            0.4,
+            0.7
+          ]
+        }
+      }
+    }
+  },
+  "103": {
+    "prompt": "{'user_id': 103, 'analysis_window': 20, 'overall_recent_accuracy': 0.65, 'analysis_by_node': [{'node_id': 11, 'node_name': '排列 & 组合', 'interaction_count': 15, 'accuracy': 0.6, 'average_scores': {'知识掌握': 0.84, '解题逻辑': 0.94, '计算准确性': 0.66, '行为表现': 0.83}}, {'node_id': 9, 'node_name': '样本空间', 'interaction_count': 5, 'accuracy': 0.8, 'average_scores': {'知识掌握': 0.86, '解题逻辑': 0.89, '计算准确性': 0.75, '行为表现': 0.88}}]}##用户已经完成了2个模块的学习：概率论的基本概念, 概率运算进阶。目前正在学习'随机变量及其分布'模块，已掌握5个知识点，还需学习11个知识点。已掌握的知识点包括：一维随机变量, 分布函数, 随机变量函数的分布, 连续型变量, 多维随机变量。待学习的知识点包括：离散型变量, 分布律, 0-1分布, 二项分布, 泊松分布, 几何分布, 超几何分布, 概率密度, 均匀分布, 指数分布, 正态分布。",
+    "rule_based_recommendation": {
+      "decision_reasoning": "数据分析表明，学生在‘排列 & 组合’知识点的计算准确性仅为0.66，且该生在‘样本空间’知识点的计算准确性也仅达0.75，显示其计算能力存在跨知识点的系统性薄弱。尽管知识掌握和解题逻辑表现良好，但计算准确性作为通用技能在多个知识点上持续拖累整体表现，构成主要学习瓶颈。",
+      "strategic_decision": {
+        "mission_type": "SKILL_ENHANCEMENT",
+        "target": {
+          "name": "偏计算题型"
+        },
+        "constraints": {
+          "task_focus": [
+            "NORMAL_QUESTIONS"
+          ],
+          "difficulty_range": [
+            0.4,
+            0.7
+          ]
+        }
+      }
+    }
+  },
+  "130": {
+    "prompt": "{'user_id': 130, 'analysis_window': 20, 'overall_recent_accuracy': 0.75, 'analysis_by_node': [{'node_id': 11, 'node_name': '排列 & 组合', 'interaction_count': 9, 'accuracy': 0.78, 'average_scores': {'知识掌握': 0.85, '解题逻辑': 0.8, '计算准确性': 0.84, '行为表现': 0.86}}, {'node_id': 9, 'node_name': '样本空间', 'interaction_count': 11, 'accuracy': 0.73, 'average_scores': {'知识掌握': 0.84, '解题逻辑': 0.8, '计算准确性': 0.86, '行为表现': 0.83}}]}##用户已经完成了2个模块的学习：概率论的基本概念, 概率运算进阶。目前正在学习'随机变量及其分布'模块，已掌握13个知识点，还需学习3个知识点。已掌握的知识点包括：一维随机变量, 分布函数, 随机变量函数的分布, 离散型变量, 分布律, 二项分布, 几何分布, 连续型变量, 概率密度, 均匀分布, 指数分布, 正态分布, 多维随机变量。待学习的知识点包括：0-1分布, 泊松分布, 超几何分布。",
+    "rule_based_recommendation": {
+      "decision_reasoning": "经全面诊断，学生在所有已学知识点（排列 & 组合、样本空间）的正确率均高于0.7，且各通用技能维度（知识掌握、解题逻辑、计算准确性、行为表现）的平均分均超过0.8，未发现特定知识点缺陷或通用技能短板。学生当前学习进度显示其已完成概率论基础模块，正在系统推进随机变量及其分布模块的学习，且已掌握该模块下13个核心知识点。根据‘修复优先’原则，因无明确缺陷需优先处理，故进入新知推荐流程。",
+      "strategic_decision": {
+        "mission_type": "NEW_KNOWLEDGE",
+        "target": "0-1分布",
+        "constraints": {
+          "task_focus": [
+            "CONCEPT_LEARNING",
+            "NORMAL_QUESTIONS"
+          ],
+          "difficulty_range": [
+            0.4,
+            0.7
+          ]
+        }
+      }
+    }
+  },
+  "118": {
+    "prompt": "{'user_id': 118, 'analysis_window': 20, 'overall_recent_accuracy': 0.8, 'analysis_by_node': [{'node_id': 11, 'node_name': '排列 & 组合', 'interaction_count': 10, 'accuracy': 0.7, 'average_scores': {'知识掌握': 0.71, '解题逻辑': 0.83, '计算准确性': 0.82, '行为表现': 0.85}}, {'node_id': 9, 'node_name': '样本空间', 'interaction_count': 10, 'accuracy': 0.9, 'average_scores': {'知识掌握': 0.8, '解题逻辑': 0.86, '计算准确性': 0.86, '行为表现': 0.88}}]}##用户已经完成了2个模块的学习：概率论的基本概念, 概率运算进阶。目前正在学习'随机变量及其分布'模块，已掌握2个知识点，还需学习14个知识点。已掌握的知识点包括：一维随机变量, 多维随机变量。待学习的知识点包括：分布函数, 随机变量函数的分布, 离散型变量, 分布律, 0-1分布, 二项分布, 泊松分布, 几何分布, 超几何分布, 连续型变量, 概率密度, 均匀分布, 指数分布, 正态分布。",
+    "rule_based_recommendation": {
+      "decision_reasoning": "学生整体近期准确率达0.8（优秀水平），且各知识点（排列&组合、样本空间）的accuracy均≥0.7，其average_scores中所有通用技能维度（知识掌握/解题逻辑/计算准确性/行为表现）均未出现跨知识点的普遍低分现象。当前无特定知识点缺陷或通用技能缺陷，符合‘无明显缺陷’状态，应优先推进新知识学习。",
+      "strategic_decision": {
+        "mission_type": "NEW_KNOWLEDGE",
+        "target": "分布函数",
+        "constraints": {
+          "task_focus": [
+            "CONCEPT_LEARNING",
+            "NORMAL_QUESTIONS"
+          ],
+          "difficulty_range": [
+            0.4,
+            0.7
+          ]
+        }
+      }
+    }
+  },
+  "44": {
+    "prompt": "{'user_id': 44, 'analysis_window': 20, 'overall_recent_accuracy': 0.95, 'analysis_by_node': [{'node_id': 11, 'node_name': '排列 & 组合', 'interaction_count': 8, 'accuracy': 0.88, 'average_scores': {'知识掌握': 0.88, '解题逻辑': 0.96, '计算准确性': 0.83, '行为表现': 0.85}}, {'node_id': 9, 'node_name': '样本空间', 'interaction_count': 8, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.87, '解题逻辑': 0.91, '计算准确性': 0.89, '行为表现': 0.9}}, {'node_id': 7, 'node_name': '随机现象', 'interaction_count': 4, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.88, '解题逻辑': 0.91, '计算准确性': 0.84, '行为表现': 0.85}}]}##用户已经完成了2个模块的学习：概率论的基本概念, 概率运算进阶。目前正在学习'随机变量及其分布'模块，已掌握7个知识点，还需学习9个知识点。已掌握的知识点包括：一维随机变量, 分布函数, 随机变量函数的分布, 离散型变量, 分布律, 超几何分布, 多维随机变量。待学习的知识点包括：0-1分布, 二项分布, 泊松分布, 几何分布, 连续型变量, 概率密度, 均匀分布, 指数分布, 正态分布。",
+    "rule_based_recommendation": {
+      "decision_reasoning": "学生近期整体正确率为0.95，各知识点正确率均≥0.88，且所有节点的『知识掌握』『解题逻辑』『计算准确性』等通用技能维度均处于优秀水平（≥0.8）。未发现特定知识点或通用技能存在显著缺陷，符合『无明显缺陷』判定标准。当前应聚焦新知拓展，基于其正在学习的『随机变量及其分布』模块进度，推荐逻辑衔接最紧密的后续知识点。",
+      "strategic_decision": {
+        "mission_type": "NEW_KNOWLEDGE",
+        "target": "0-1分布",
+        "constraints": {
+          "task_focus": [
+            "CONCEPT_LEARNING",
+            "NORMAL_QUESTIONS"
+          ],
+          "difficulty_range": [
+            0.5,
+            0.8
+          ]
+        }
+      }
+    }
+  },
+  "45": {
+    "prompt": "{'user_id': 45, 'analysis_window': 20, 'overall_recent_accuracy': 0.75, 'analysis_by_node': [{'node_id': 11, 'node_name': '排列 & 组合', 'interaction_count': 10, 'accuracy': 0.8, 'average_scores': {'知识掌握': 0.78, '解题逻辑': 0.85, '计算准确性': 0.87, '行为表现': 0.85}}, {'node_id': 9, 'node_name': '样本空间', 'interaction_count': 10, 'accuracy': 0.7, 'average_scores': {'知识掌握': 0.68, '解题逻辑': 0.83, '计算准确性': 0.85, '行为表现': 0.81}}]}##用户已经完成了1个模块的学习：概率论的基本概念。目前正在学习'概率运算进阶'模块，已掌握4个知识点，还需学习1个知识点。已掌握的知识点包括：条件概率, 乘法公式, 事件的相互独立, 全概率公式。待学习的知识点包括：贝叶斯公式。",
+    "rule_based_recommendation": {
+      "decision_reasoning": "经全面诊断，学生在已学习的‘排列 & 组合’和‘样本空间’知识点中，正确率分别为0.8和0.7，均未出现低于0.6的严重知识短板；各通用技能维度（知识掌握、解题逻辑、计算准确性）在相关节点的平均分均处于良好水平（≥0.68），未发现跨知识点的通用技能缺陷。因此判定学生当前基础扎实，可进入新知学习阶段。根据学习进度，学生已完成‘概率论的基本概念’模块，现处于‘概率运算进阶’模块学习周期，且待学习知识点为‘贝叶斯公式’，该知识点与已掌握的‘全概率公式’构成逻辑递进关系，适合作为下一学习目标。",
+      "strategic_decision": {
+        "mission_type": "NEW_KNOWLEDGE",
+        "target": "贝叶斯公式",
+        "constraints": {
+          "task_focus": [
+            "CONCEPT_LEARNING",
+            "NORMAL_QUESTIONS"
+          ],
+          "difficulty_range": [
+            0.5,
+            0.8
+          ]
+        }
+      }
+    }
+  },
+  "112": {
+    "prompt": "{'user_id': 112, 'analysis_window': 20, 'overall_recent_accuracy': 0.9, 'analysis_by_node': [{'node_id': 11, 'node_name': '排列 & 组合', 'interaction_count': 10, 'accuracy': 0.8, 'average_scores': {'知识掌握': 0.86, '解题逻辑': 0.83, '计算准确性': 0.86, '行为表现': 0.88}}, {'node_id': 9, 'node_name': '样本空间', 'interaction_count': 8, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.93, '解题逻辑': 0.92, '计算准确性': 0.9, '行为表现': 0.91}}, {'node_id': 7, 'node_name': '随机现象', 'interaction_count': 2, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.89, '解题逻辑': 0.85, '计算准确性': 0.93, '行为表现': 0.85}}]}##用户已经完成了1个模块的学习：概率论的基本概念。目前正在学习'概率运算进阶'模块，已掌握1个知识点，还需学习4个知识点。已掌握的知识点包括：条件概率。待学习的知识点包括：乘法公式, 事件的相互独立, 全概率公式, 贝叶斯公式。",
+    "rule_based_recommendation": {
+      "decision_reasoning": "经全面诊断，学生在所有已学知识点（排列 & 组合、样本空间、随机现象）的正确率均高于0.8，且各通用技能维度（知识掌握、解题逻辑、计算准确性、行为表现）的平均分均处于优秀水平（≥0.83）。未发现特定知识点缺陷或跨知识点的通用技能短板，符合‘无明显缺陷’判定标准。因此优先执行新知推荐策略。",
+      "strategic_decision": {
+        "mission_type": "NEW_KNOWLEDGE",
+        "target": "全概率公式",
+        "constraints": {
+          "task_focus": [
+            "CONCEPT_LEARNING",
+            "NORMAL_QUESTIONS"
+          ],
+          "difficulty_range": [
+            0.3,
+            0.6
+          ]
+        }
+      }
+    }
+  },
+  "19": {
+    "prompt": "{'user_id': 19, 'analysis_window': 20, 'overall_recent_accuracy': 0.85, 'analysis_by_node': [{'node_id': 11, 'node_name': '排列 & 组合', 'interaction_count': 8, 'accuracy': 0.88, 'average_scores': {'知识掌握': 0.9, '解题逻辑': 0.83, '计算准确性': 0.86, '行为表现': 0.87}}, {'node_id': 9, 'node_name': '样本空间', 'interaction_count': 8, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.93, '解题逻辑': 0.9, '计算准确性': 0.92, '行为表现': 0.91}}, {'node_id': 7, 'node_name': '随机现象', 'interaction_count': 4, 'accuracy': 0.5, 'average_scores': {'知识掌握': 0.81, '解题逻辑': 0.67, '计算准确性': 0.76, '行为表现': 0.8}}]}##用户已经完成了2个模块的学习：概率论的基本概念, 概率运算进阶。目前正在学习'随机变量及其分布'模块，已掌握5个知识点，还需学习11个知识点。已掌握的知识点包括：一维随机变量, 分布函数, 随机变量函数的分布, 离散型变量, 多维随机变量。待学习的知识点包括：分布律, 0-1分布, 二项分布, 泊松分布, 几何分布, 超几何分布, 连续型变量, 概率密度, 均匀分布, 指数分布, 正态分布。",
+    "rule_based_recommendation": {
+      "decision_reasoning": "数据分析显示，学生在‘随机现象’知识点上的准确率仅为0.5，显著低于0.6的阈值，且其‘解题逻辑’维度得分（0.67）在该知识点下表现尤为薄弱。尽管其他知识点（如‘排列 & 组合’‘样本空间’）表现优秀，但当前存在明确的特定知识点缺陷。根据修复优先原则，需优先针对‘随机现象’进行专项强化。",
+      "strategic_decision": {
+        "mission_type": "WEAK_POINT_CONSOLIDATION",
+        "target": "随机现象",
+        "constraints": {
+          "task_focus": [
+            "CONCEPT_LEARNING",
+            "NORMAL_QUESTIONS"
+          ],
+          "difficulty_range": [
+            0.3,
+            0.6
+          ]
+        }
+      }
+    }
+  },
+  "17": {
+    "prompt": "{'user_id': 17, 'analysis_window': 20, 'overall_recent_accuracy': 0.4, 'analysis_by_node': [{'node_id': 11, 'node_name': '排列 & 组合', 'interaction_count': 20, 'accuracy': 0.4, 'average_scores': {'知识掌握': 0.78, '解题逻辑': 0.91, '计算准确性': 0.5, '行为表现': 0.78}}]}##用户尚未完成任何模块的学习。目前正在学习'概率论的基本概念'模块，已掌握2个知识点，还需学习6个知识点。已掌握的知识点包括：随机现象, 随机试验。待学习的知识点包括：样本空间, 随机事件, 排列 & 组合, 古典概型, 概率, 加法/减法公式。",
+    "rule_based_recommendation": {
+      "decision_reasoning": "数据分析显示，学生在‘排列 & 组合’知识点上的正确率仅为0.4，远低于0.6的严重知识短板阈值。尽管该知识点下‘解题逻辑’维度表现尚可（0.91），但整体正确率表明该知识点存在根本性理解缺失。根据修复优先原则，必须优先解决这一特定知识点缺陷，暂缓新知学习。",
+      "strategic_decision": {
+        "mission_type": "WEAK_POINT_CONSOLIDATION",
+        "target": "排列 & 组合",
+        "constraints": {
+          "task_focus": [
+            "CONCEPT_LEARNING",
+            "NORMAL_QUESTIONS"
+          ],
+          "difficulty_range": [
+            0.3,
+            0.6
+          ]
+        }
+      }
+    }
+  },
+  "24": {
+    "prompt": "{'user_id': 24, 'analysis_window': 20, 'overall_recent_accuracy': 0.7, 'analysis_by_node': [{'node_id': 11, 'node_name': '排列 & 组合', 'interaction_count': 7, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.91, '解题逻辑': 0.92, '计算准确性': 0.91, '行为表现': 0.9}}, {'node_id': 9, 'node_name': '样本空间', 'interaction_count': 13, 'accuracy': 0.54, 'average_scores': {'知识掌握': 0.61, '解题逻辑': 0.82, '计算准确性': 0.82, '行为表现': 0.81}}]}##用户已经完成了2个模块的学习：概率论的基本概念, 概率运算进阶。目前正在学习'随机变量及其分布'模块，已掌握3个知识点，还需学习13个知识点。已掌握的知识点包括：一维随机变量, 分布函数, 多维随机变量。待学习的知识点包括：随机变量函数的分布, 离散型变量, 分布律, 0-1分布, 二项分布, 泊松分布, 几何分布, 超几何分布, 连续型变量, 概率密度, 均匀分布, 指数分布, 正态分布。",
+    "rule_based_recommendation": {
+      "decision_reasoning": "数据分析显示，学生在‘样本空间’知识点上的正确率仅为0.54，远低于0.6的阈值，属于严重的特定知识点缺陷。尽管该生在‘排列 & 组合’知识点表现优秀（正确率1.0），但‘样本空间’作为当前学习模块的核心前置知识，其低正确率直接影响后续随机变量相关学习。根据修复优先原则，必须优先解决这一知识短板。",
+      "strategic_decision": {
+        "mission_type": "WEAK_POINT_CONSOLIDATION",
+        "target": "样本空间",
+        "constraints": {
+          "task_focus": [
+            "CONCEPT_LEARNING",
+            "NORMAL_QUESTIONS"
+          ],
+          "difficulty_range": [
+            0.3,
+            0.6
+          ]
+        }
+      }
+    }
+  },
+  "126": {
+    "prompt": "{'user_id': 126, 'analysis_window': 20, 'overall_recent_accuracy': 0.8, 'analysis_by_node': [{'node_id': 11, 'node_name': '排列 & 组合', 'interaction_count': 10, 'accuracy': 0.8, 'average_scores': {'知识掌握': 0.87, '解题逻辑': 0.8, '计算准确性': 0.84, '行为表现': 0.86}}, {'node_id': 9, 'node_name': '样本空间', 'interaction_count': 9, 'accuracy': 0.89, 'average_scores': {'知识掌握': 0.88, '解题逻辑': 0.86, '计算准确性': 0.84, '行为表现': 0.91}}, {'node_id': 7, 'node_name': '随机现象', 'interaction_count': 1, 'accuracy': 0.0, 'average_scores': {'知识掌握': 0.7, '解题逻辑': 0.34, '计算准确性': 0.7, '行为表现': 0.7}}]}##用户已经完成了1个模块的学习：概率论的基本概念。目前正在学习'概率运算进阶'模块，已掌握3个知识点，还需学习2个知识点。已掌握的知识点包括：条件概率, 乘法公式, 全概率公式。待学习的知识点包括：事件的相互独立, 贝叶斯公式。",
+    "rule_based_recommendation": {
+      "decision_reasoning": "数据分析显示，学生在‘随机现象’知识点上的准确率仅为0.0，且其‘解题逻辑’维度得分低至0.34，显著低于其他知识点表现。该知识点存在严重的知识短板，且互动次数仅1次，表明尚未有效掌握。根据修复优先原则，必须优先进行针对性强化训练。",
+      "strategic_decision": {
+        "mission_type": "WEAK_POINT_CONSOLIDATION",
+        "target": "随机现象",
+        "constraints": {
+          "task_focus": [
+            "CONCEPT_LEARNING",
+            "NORMAL_QUESTIONS"
+          ],
+          "difficulty_range": [
+            0.2,
+            0.5
+          ]
+        }
+      }
+    }
+  },
+  "32": {
+    "prompt": "{'user_id': 32, 'analysis_window': 20, 'overall_recent_accuracy': 0.65, 'analysis_by_node': [{'node_id': 11, 'node_name': '排列 & 组合', 'interaction_count': 11, 'accuracy': 0.73, 'average_scores': {'知识掌握': 0.87, '解题逻辑': 0.79, '计算准确性': 0.88, '行为表现': 0.84}}, {'node_id': 9, 'node_name': '样本空间', 'interaction_count': 9, 'accuracy': 0.56, 'average_scores': {'知识掌握': 0.8, '解题逻辑': 0.7, '计算准确性': 0.8, '行为表现': 0.8}}]}##用户已经完成了2个模块的学习：概率论的基本概念, 概率运算进阶。目前正在学习'随机变量及其分布'模块，已掌握14个知识点，还需学习2个知识点。已掌握的知识点包括：一维随机变量, 分布函数, 随机变量函数的分布, 离散型变量, 分布律, 0-1分布, 二项分布, 泊松分布, 几何分布, 超几何分布, 连续型变量, 概率密度, 正态分布, 多维随机变量。待学习的知识点包括：均匀分布, 指数分布。",
+    "rule_based_recommendation": {
+      "decision_reasoning": "数据分析显示，学生在‘样本空间’知识点的正确率仅为0.56（<0.6），存在显著的知识短板。尽管该知识点的其他维度（如知识掌握、计算准确性）表现尚可，但整体正确率已触发特定知识点缺陷阈值。根据‘修复优先’原则，需优先对该知识点进行针对性强化，而非推进新知识学习。",
+      "strategic_decision": {
+        "mission_type": "WEAK_POINT_CONSOLIDATION",
+        "target": "样本空间",
+        "constraints": {
+          "task_focus": [
+            "CONCEPT_LEARNING",
+            "NORMAL_QUESTIONS"
+          ],
+          "difficulty_range": [
+            0.3,
+            0.6
+          ]
+        }
+      }
+    }
+  },
+  "55": {
+    "prompt": "{'user_id': 55, 'analysis_window': 20, 'overall_recent_accuracy': 0.5, 'analysis_by_node': [{'node_id': 11, 'node_name': '排列 & 组合', 'interaction_count': 20, 'accuracy': 0.5, 'average_scores': {'知识掌握': 0.8, '解题逻辑': 0.65, '计算准确性': 0.8, '行为表现': 0.8}}]}##用户尚未完成任何模块的学习。目前正在学习'概率论的基本概念'模块，已掌握4个知识点，还需学习4个知识点。已掌握的知识点包括：随机现象, 随机试验, 排列 & 组合, 古典概型。待学习的知识点包括：样本空间, 随机事件, 概率, 加法/减法公式。",
+    "rule_based_recommendation": {
+      "decision_reasoning": "数据分析显示，学生在‘排列 & 组合’知识点上的正确率仅为0.5，远低于0.6的阈值，表明存在显著的特定知识点缺陷。尽管该知识点下的其他技能维度（如计算准确性）表现尚可，但核心概念掌握不足直接影响整体应用能力。根据修复优先原则，需优先针对此知识点进行专项强化。",
+      "strategic_decision": {
+        "mission_type": "WEAK_POINT_CONSOLIDATION",
+        "target": "排列 & 组合",
+        "constraints": {
+          "task_focus": [
+            "CONCEPT_LEARNING",
+            "NORMAL_QUESTIONS"
+          ],
+          "difficulty_range": [
+            0.3,
+            0.6
+          ]
+        }
+      }
+    }
+  },
+  "38": {
+    "prompt": "{'user_id': 38, 'analysis_window': 20, 'overall_recent_accuracy': 0.55, 'analysis_by_node': [{'node_id': 11, 'node_name': '排列 & 组合', 'interaction_count': 12, 'accuracy': 0.67, 'average_scores': {'知识掌握': 0.85, '解题逻辑': 0.89, '计算准确性': 0.69, '行为表现': 0.83}}, {'node_id': 9, 'node_name': '样本空间', 'interaction_count': 8, 'accuracy': 0.38, 'average_scores': {'知识掌握': 0.77, '解题逻辑': 0.91, '计算准确性': 0.45, '行为表现': 0.76}}]}##用户已经完成了1个模块的学习：概率论的基本概念。目前正在学习'概率运算进阶'模块，尚未掌握任何知识点，还需学习5个知识点。待学习的知识点包括：条件概率, 乘法公式, 事件的相互独立, 全概率公式, 贝叶斯公式。",
+    "rule_based_recommendation": {
+      "decision_reasoning": "数据分析显示，学生在‘样本空间’知识点上的准确率仅为0.38，显著低于0.6的阈值，且其‘计算准确性’维度得分仅0.45，表明该知识点存在严重的理解或应用障碍。尽管‘排列 & 组合’知识点表现尚可，但‘样本空间’作为当前模块的基础薄弱环节，必须优先针对性强化。",
+      "strategic_decision": {
+        "mission_type": "WEAK_POINT_CONSOLIDATION",
+        "target": "样本空间",
+        "constraints": {
+          "task_focus": [
+            "CONCEPT_LEARNING",
+            "NORMAL_QUESTIONS"
+          ],
+          "difficulty_range": [
+            0.3,
+            0.6
+          ]
+        }
+      }
+    }
+  },
+  "100": {
+    "prompt": "{'user_id': 100, 'analysis_window': 20, 'overall_recent_accuracy': 0.45, 'analysis_by_node': [{'node_id': 11, 'node_name': '排列 & 组合', 'interaction_count': 20, 'accuracy': 0.45, 'average_scores': {'知识掌握': 0.77, '解题逻辑': 0.66, '计算准确性': 0.78, '行为表现': 0.8}}]}##用户已经完成了2个模块的学习：概率论的基本概念, 概率运算进阶。目前正在学习'随机变量及其分布'模块，已掌握6个知识点，还需学习10个知识点。已掌握的知识点包括：一维随机变量, 分布函数, 随机变量函数的分布, 连续型变量, 概率密度, 多维随机变量。待学习的知识点包括：离散型变量, 分布律, 0-1分布, 二项分布, 泊松分布, 几何分布, 超几何分布, 均匀分布, 指数分布, 正态分布。",
+    "rule_based_recommendation": {
+      "decision_reasoning": "数据分析表明，学生在‘排列 & 组合’知识点上的准确率仅为0.45（远低于0.6阈值），且该知识点在近期分析窗口内被高频次交互（20次），表明此知识点存在显著薄弱点。尽管其‘知识掌握’维度得分尚可（0.77），但实际答题准确率与知识应用能力存在明显脱节。根据‘修复优先’原则，必须优先解决这一特定知识点缺陷。",
+      "strategic_decision": {
+        "mission_type": "WEAK_POINT_CONSOLIDATION",
+        "target": "排列 & 组合",
+        "constraints": {
+          "task_focus": [
+            "CONCEPT_LEARNING",
+            "NORMAL_QUESTIONS"
+          ],
+          "difficulty_range": [
+            0.3,
+            0.6
+          ]
+        }
+      }
+    }
+  },
+  "128": {
+    "prompt": "{'user_id': 128, 'analysis_window': 20, 'overall_recent_accuracy': 0.8, 'analysis_by_node': [{'node_id': 11, 'node_name': '排列 & 组合', 'interaction_count': 10, 'accuracy': 0.8, 'average_scores': {'知识掌握': 0.88, '解题逻辑': 0.82, '计算准确性': 0.84, '行为表现': 0.89}}, {'node_id': 9, 'node_name': '样本空间', 'interaction_count': 9, 'accuracy': 0.89, 'average_scores': {'知识掌握': 0.87, '解题逻辑': 0.83, '计算准确性': 0.89, '行为表现': 0.87}}, {'node_id': 7, 'node_name': '随机现象', 'interaction_count': 1, 'accuracy': 0.0, 'average_scores': {'知识掌握': 0.7, '解题逻辑': 0.57, '计算准确性': 0.7, '行为表现': 0.7}}]}##用户已经完成了2个模块的学习：概率论的基本概念, 概率运算进阶。目前正在学习'随机变量及其分布'模块，已掌握9个知识点，还需学习7个知识点。已掌握的知识点包括：一维随机变量, 分布函数, 随机变量函数的分布, 连续型变量, 概率密度, 均匀分布, 指数分布, 正态分布, 多维随机变量。待学习的知识点包括：离散型变量, 分布律, 0-1分布, 二项分布, 泊松分布, 几何分布, 超几何分布。",
+    "rule_based_recommendation": {
+      "decision_reasoning": "数据分析显示，学生在‘随机现象’知识点上的正确率仅为0.0，且其‘解题逻辑’维度得分低至0.57，显著低于其他知识点表现。该知识点存在严重的知识短板，必须优先进行针对性强化。尽管其他知识点表现良好，但修复现有知识缺陷的优先级高于新知学习。",
+      "strategic_decision": {
+        "mission_type": "WEAK_POINT_CONSOLIDATION",
+        "target": "随机现象",
+        "constraints": {
+          "task_focus": [
+            "CONCEPT_LEARNING",
+            "NORMAL_QUESTIONS"
+          ],
+          "difficulty_range": [
+            0.3,
+            0.6
+          ]
+        }
+      }
+    }
+  },
+  "25": {
+    "prompt": "{'user_id': 25, 'analysis_window': 20, 'overall_recent_accuracy': 0.7, 'analysis_by_node': [{'node_id': 11, 'node_name': '排列 & 组合', 'interaction_count': 7, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.89, '解题逻辑': 0.92, '计算准确性': 0.87, '行为表现': 0.93}}, {'node_id': 9, 'node_name': '样本空间', 'interaction_count': 13, 'accuracy': 0.54, 'average_scores': {'知识掌握': 0.83, '解题逻辑': 0.9, '计算准确性': 0.59, '行为表现': 0.83}}]}##用户已经完成了2个模块的学习：概率论的基本概念, 概率运算进阶。目前正在学习'随机变量及其分布'模块，已掌握9个知识点，还需学习7个知识点。已掌握的知识点包括：一维随机变量, 分布函数, 随机变量函数的分布, 离散型变量, 分布律, 0-1分布, 几何分布, 超几何分布, 多维随机变量。待学习的知识点包括：二项分布, 泊松分布, 连续型变量, 概率密度, 均匀分布, 指数分布, 正态分布。",
+    "rule_based_recommendation": {
+      "decision_reasoning": "数据分析显示，学生在‘样本空间’知识点的正确率仅为0.54（<0.6），存在显著的知识短板。尽管该生在‘排列 & 组合’知识点表现优秀（正确率1.0），但‘样本空间’作为当前模块的核心基础概念，其低正确率表明该知识点尚未牢固掌握。根据‘修复优先’原则，必须优先进行针对性强化训练，暂缓新知识学习。",
+      "strategic_decision": {
+        "mission_type": "WEAK_POINT_CONSOLIDATION",
+        "target": "样本空间",
+        "constraints": {
+          "task_focus": [
+            "CONCEPT_LEARNING",
+            "NORMAL_QUESTIONS"
+          ],
+          "difficulty_range": [
+            0.3,
+            0.6
+          ]
+        }
+      }
+    }
+  },
+  "6": {
+    "prompt": "{'user_id': 6, 'analysis_window': 20, 'overall_recent_accuracy': 0.65, 'analysis_by_node': [{'node_id': 11, 'node_name': '排列 & 组合', 'interaction_count': 10, 'accuracy': 0.8, 'average_scores': {'知识掌握': 0.84, '解题逻辑': 0.91, '计算准确性': 0.8, '行为表现': 0.85}}, {'node_id': 9, 'node_name': '样本空间', 'interaction_count': 10, 'accuracy': 0.5, 'average_scores': {'知识掌握': 0.79, '解题逻辑': 0.89, '计算准确性': 0.56, '行为表现': 0.78}}]}##用户尚未完成任何模块的学习。目前正在学习'概率论的基本概念'模块，已掌握7个知识点，还需学习1个知识点。已掌握的知识点包括：随机现象, 随机试验, 样本空间, 随机事件, 排列 & 组合, 古典概型, 概率。待学习的知识点包括：加法/减法公式。",
+    "rule_based_recommendation": {
+      "decision_reasoning": "数据分析显示，学生在‘样本空间’知识点上的正确率仅为0.5，显著低于0.6的阈值，且其‘计算准确性’维度得分仅0.56，表明该知识点存在严重缺陷。尽管‘排列 & 组合’知识点表现良好，但‘样本空间’作为当前学习模块的核心前置知识，其薄弱会直接影响后续‘加法/减法公式’的学习。根据修复优先原则，必须优先解决这一特定知识点缺陷。",
+      "strategic_decision": {
+        "mission_type": "WEAK_POINT_CONSOLIDATION",
+        "target": "样本空间",
+        "constraints": {
+          "task_focus": [
+            "CONCEPT_LEARNING",
+            "NORMAL_QUESTIONS"
+          ],
+          "difficulty_range": [
+            0.3,
+            0.6
+          ]
+        }
+      }
+    }
+  },
+  "43": {
+    "prompt": "{'user_id': 43, 'analysis_window': 20, 'overall_recent_accuracy': 0.5, 'analysis_by_node': [{'node_id': 11, 'node_name': '排列 & 组合', 'interaction_count': 10, 'accuracy': 0.7, 'average_scores': {'知识掌握': 0.84, '解题逻辑': 0.78, '计算准确性': 0.83, '行为表现': 0.82}}, {'node_id': 9, 'node_name': '样本空间', 'interaction_count': 10, 'accuracy': 0.3, 'average_scores': {'知识掌握': 0.75, '解题逻辑': 0.56, '计算准确性': 0.75, '行为表现': 0.76}}]}##用户已经完成了1个模块的学习：概率论的基本概念。目前正在学习'概率运算进阶'模块，已掌握1个知识点，还需学习4个知识点。已掌握的知识点包括：条件概率。待学习的知识点包括：乘法公式, 事件的相互独立, 全概率公式, 贝叶斯公式。",
+    "rule_based_recommendation": {
+      "decision_reasoning": "数据分析显示，学生在‘样本空间’知识点的正确率仅为0.3，远低于0.6的阈值，表明存在严重的特定知识点缺陷。尽管该知识点下‘知识掌握’维度得分尚可（0.75），但‘解题逻辑’维度仅0.56，且整体正确率极低，需优先针对性强化该知识点的基础概念与应用能力。",
+      "strategic_decision": {
+        "mission_type": "WEAK_POINT_CONSOLIDATION",
+        "target": "样本空间",
+        "constraints": {
+          "task_focus": [
+            "CONCEPT_LEARNING",
+            "NORMAL_QUESTIONS"
+          ],
+          "difficulty_range": [
+            0.3,
+            0.6
+          ]
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,2036 @@
+{
+  "33": {
+    "prompt": "{'user_id': 33, 'analysis_window': 20, 'overall_recent_accuracy': 0.85, 'analysis_by_node': [{'node_id': 11, 'node_name': '排列 & 组合', 'interaction_count': 10, 'accuracy': 0.8, 'average_scores': {'知识掌握': 0.78, '解题逻辑': 0.87, '计算准确性': 0.87, '行为表现': 0.85}}, {'node_id': 9, 'node_name': '样本空间', 'interaction_count': 10, 'accuracy': 0.9, 'average_scores': {'知识掌握': 0.83, '解题逻辑': 0.86, '计算准确性': 0.89, '行为表现': 0.88}}]}##用户已经完成了2个模块的学习：概率论的基本概念, 概率运算进阶。目前正在学习'随机变量及其分布'模块，已掌握13个知识点，还需学习3个知识点。已掌握的知识点包括：一维随机变量, 分布函数, 随机变量函数的分布, 离散型变量, 分布律, 0-1分布, 二项分布, 泊松分布, 几何分布, 超几何分布, 连续型变量, 概率密度, 多维随机变量。待学习的知识点包括：均匀分布, 指数分布, 正态分布。",
+    "ai_recommendation": {
+      "decision_reasoning": "你近期的学习状态非常出色，准确率高达0.85，尤其在‘排列 & 组合’和‘样本空间’等核心知识点上展现了扎实的基础！这种稳定的表现正是探索新领域的黄金时机。继续保持这份热忱，去发现更多数学世界的奇妙规律吧！",
+      "strategic_decision": {
+        "mission_type": "NEW_KNOWLEDGE",
+        "target": "指数分布",
+        "constraints": {
+          "task_focus": [
+            "CONCEPT_LEARNING",
+            "NORMAL_QUESTIONS"
+          ],
+          "difficulty_range": [
+            0.4,
+            0.7
+          ]
+        }
+      }
+    }
+  },
+  "63": {
+    "prompt": "{'user_id': 63, 'analysis_window': 20, 'overall_recent_accuracy': 0.85, 'analysis_by_node': [{'node_id': 11, 'node_name': '排列 & 组合', 'interaction_count': 7, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.88, '解题逻辑': 0.9, '计算准确性': 0.91, '行为表现': 0.89}}, {'node_id': 9, 'node_name': '样本空间', 'interaction_count': 11, 'accuracy': 0.73, 'average_scores': {'知识掌握': 0.74, '解题逻辑': 0.85, '计算准确性': 0.83, '行为表现': 0.85}}, {'node_id': 7, 'node_name': '随机现象', 'interaction_count': 2, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.9, '解题逻辑': 0.91, '计算准确性': 0.95, '行为表现': 0.88}}]}##用户已经完成了2个模块的学习：概率论的基本概念, 概率运算进阶。目前正在学习'随机变量及其分布'模块，已掌握14个知识点，还需学习2个知识点。已掌握的知识点包括：一维随机变量, 分布函数, 随机变量函数的分布, 离散型变量, 分布律, 0-1分布, 二项分布, 几何分布, 连续型变量, 概率密度, 均匀分布, 指数分布, 正态分布, 多维随机变量。待学习的知识点包括：泊松分布, 超几何分布。",
+    "ai_recommendation": {
+      "decision_reasoning": "你近期的学习状态非常出色，整体准确率高达85%，在‘排列 & 组合’和‘随机现象’两个知识点上更是取得了满分！这展现了你强大的学习能力和扎实的基础。虽然‘样本空间’略有波动，但这正是我们继续前进的动力。现在正是探索新知识的好时机，让我们保持这种积极的学习势头，迈向更高的目标！",
+      "strategic_decision": {
+        "mission_type": "NEW_KNOWLEDGE",
+        "target": "超几何分布",
+        "constraints": {
+          "task_focus": [
+            "CONCEPT_LEARNING",
+            "NORMAL_QUESTIONS"
+          ],
+          "difficulty_range": [
+            0.4,
+            0.7
+          ]
+        }
+      }
+    }
+  },
+  "77": {
+    "prompt": "{'user_id': 77, 'analysis_window': 20, 'overall_recent_accuracy': 0.6, 'analysis_by_node': [{'node_id': 11, 'node_name': '排列 & 组合', 'interaction_count': 9, 'accuracy': 0.78, 'average_scores': {'知识掌握': 0.75, '解题逻辑': 0.88, '计算准确性': 0.86, '行为表现': 0.87}}, {'node_id': 9, 'node_name': '样本空间', 'interaction_count': 11, 'accuracy': 0.45, 'average_scores': {'知识掌握': 0.54, '解题逻辑': 0.8, '计算准确性': 0.79, '行为表现': 0.79}}]}##用户已经完成了2个模块的学习：概率论的基本概念, 概率运算进阶。目前正在学习'随机变量及其分布'模块，已掌握6个知识点，还需学习10个知识点。已掌握的知识点包括：一维随机变量, 分布函数, 随机变量函数的分布, 连续型变量, 概率密度, 多维随机变量。待学习的知识点包括：离散型变量, 分布律, 0-1分布, 二项分布, 泊松分布, 几何分布, 超几何分布, 均匀分布, 指数分布, 正态分布。",
+    "ai_recommendation": {
+      "decision_reasoning": "你在‘样本空间’这个知识点上展现出了极大的提升空间！虽然其他部分表现优异，但这里正是打开新视野的钥匙。就像搭建积木一样，稳固的基础能让你建造更高的知识大厦。让我们一步步梳理概念细节，通过基础练习建立扎实的理解，你会发现自己在这个领域的进步会带动整体能力的飞跃！",
+      "strategic_decision": {
+        "mission_type": "WEAK_POINT_CONSOLIDATION",
+        "target": "样本空间",
+        "constraints": {
+          "task_focus": [
+            "CONCEPT_REINFORCEMENT",
+            "BASIC_APPLICATION"
+          ],
+          "difficulty_range": [
+            0.3,
+            0.5
+          ]
+        }
+      }
+    }
+  },
+  "26": {
+    "prompt": "{'user_id': 26, 'analysis_window': 20, 'overall_recent_accuracy': 0.5, 'analysis_by_node': [{'node_id': 11, 'node_name': '排列 & 组合', 'interaction_count': 18, 'accuracy': 0.5, 'average_scores': {'知识掌握': 0.58, '解题逻辑': 0.81, '计算准确性': 0.79, '行为表现': 0.81}}, {'node_id': 9, 'node_name': '样本空间', 'interaction_count': 2, 'accuracy': 0.5, 'average_scores': {'知识掌握': 0.6, '解题逻辑': 0.77, '计算准确性': 0.83, '行为表现': 0.78}}]}##用户已经完成了1个模块的学习：概率论的基本概念。目前正在学习'概率运算进阶'模块，尚未掌握任何知识点，还需学习5个知识点。待学习的知识点包括：条件概率, 乘法公式, 事件的相互独立, 全概率公式, 贝叶斯公式。",
+    "ai_recommendation": {
+      "decision_reasoning": "你的‘排列 & 组合’基础概念就像一座正在打地基的房子——虽然结构可见，但还需要更多支撑才能稳固。这个知识点是你高频练习却仍显薄弱的环节，说明它正是突破中等水平的关键点！让我们一起用简单有趣的题目重新梳理逻辑，把基础打得扎扎实实，你会发现自己突然能看懂更复杂的题型了！",
+      "strategic_decision": {
+        "mission_type": "WEAK_POINT_CONSOLIDATION",
+        "target": "排列 & 组合",
+        "constraints": {
+          "task_focus": [
+            "CONCEPT_REINFORCEMENT",
+            "EASY_QUESTIONS"
+          ],
+          "difficulty_range": [
+            0.1,
+            0.4
+          ]
+        }
+      }
+    }
+  },
+  "102": {
+    "prompt": "{'user_id': 102, 'analysis_window': 20, 'overall_recent_accuracy': 0.5, 'analysis_by_node': [{'node_id': 11, 'node_name': '排列 & 组合', 'interaction_count': 20, 'accuracy': 0.5, 'average_scores': {'知识掌握': 0.57, '解题逻辑': 0.8, '计算准确性': 0.79, '行为表现': 0.79}}]}##用户尚未完成任何模块的学习。目前正在学习'概率论的基本概念'模块，已掌握5个知识点，还需学习3个知识点。已掌握的知识点包括：随机现象, 随机试验, 样本空间, 排列 & 组合, 古典概型。待学习的知识点包括：随机事件, 概率, 加法/减法公式。",
+    "ai_recommendation": {
+      "decision_reasoning": "你在‘排列 & 组合’这个知识点上展现出了一定的学习潜力！虽然目前基础概念还有些模糊，但这正是提升的关键起点。就像搭建积木一样，稳固的基础能让你创造出更复杂的结构。让我们一步步梳理核心概念，从简单例题开始建立信心，你会发现自己越来越得心应手！",
+      "strategic_decision": {
+        "mission_type": "WEAK_POINT_CONSOLIDATION",
+        "target": "排列 & 组合",
+        "constraints": {
+          "task_focus": [
+            "CONCEPT_REINFORCEMENT",
+            "EASY_QUESTIONS"
+          ],
+          "difficulty_range": [
+            0.1,
+            0.4
+          ]
+        }
+      }
+    }
+  },
+  "111": {
+    "prompt": "{'user_id': 111, 'analysis_window': 20, 'overall_recent_accuracy': 0.95, 'analysis_by_node': [{'node_id': 11, 'node_name': '排列 & 组合', 'interaction_count': 7, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.87, '解题逻辑': 0.91, '计算准确性': 0.88, '行为表现': 0.89}}, {'node_id': 9, 'node_name': '样本空间', 'interaction_count': 8, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.9, '解题逻辑': 0.9, '计算准确性': 0.9, '行为表现': 0.93}}, {'node_id': 7, 'node_name': '随机现象', 'interaction_count': 5, 'accuracy': 0.8, 'average_scores': {'知识掌握': 0.84, '解题逻辑': 0.89, '计算准确性': 0.75, '行为表现': 0.86}}]}##用户已经完成了3个模块的学习：概率论的基本概念, 概率运算进阶, 随机变量及其分布。目前正在学习'数字特征与关系'模块，已掌握2个知识点，还需学习4个知识点。已掌握的知识点包括：数学期望, 协方差。待学习的知识点包括：矩母函数, 方差 & 标准差, 相关系数 ρ, 独立性与不相关性。",
+    "ai_recommendation": {
+      "decision_reasoning": "你近期的学习状态堪称典范！在‘排列 & 组合’和‘样本空间’等核心知识点上取得了满分成绩，展现出卓越的理解力。虽然‘随机现象’中的计算准确性尚有提升空间，但这丝毫不影响你作为优秀学习者的特质。现在正是保持势头、开拓新领域的最佳时机，让我们继续向前探索更广阔的知识天地吧！",
+      "strategic_decision": {
+        "mission_type": "NEW_KNOWLEDGE",
+        "target": "相关系数 ρ",
+        "constraints": {
+          "task_focus": [
+            "CONCEPT_LEARNING",
+            "NORMAL_QUESTIONS"
+          ],
+          "difficulty_range": [
+            0.4,
+            0.7
+          ]
+        }
+      }
+    }
+  },
+  "13": {
+    "prompt": "{'user_id': 13, 'analysis_window': 20, 'overall_recent_accuracy': 0.9, 'analysis_by_node': [{'node_id': 11, 'node_name': '排列 & 组合', 'interaction_count': 7, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.92, '解题逻辑': 0.88, '计算准确性': 0.91, '行为表现': 0.89}}, {'node_id': 9, 'node_name': '样本空间', 'interaction_count': 11, 'accuracy': 0.82, 'average_scores': {'知识掌握': 0.79, '解题逻辑': 0.86, '计算准确性': 0.84, '行为表现': 0.85}}, {'node_id': 7, 'node_name': '随机现象', 'interaction_count': 2, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.94, '解题逻辑': 0.81, '计算准确性': 0.89, '行为表现': 0.94}}]}##用户已经完成了3个模块的学习：概率论的基本概念, 概率运算进阶, 随机变量及其分布。目前正在学习'数字特征与关系'模块，已掌握2个知识点，还需学习4个知识点。已掌握的知识点包括：矩母函数, 数学期望。待学习的知识点包括：方差 & 标准差, 协方差, 相关系数 ρ, 独立性与不相关性。",
+    "ai_recommendation": {
+      "decision_reasoning": "你近期的表现堪称典范！整体准确率高达0.9，在‘排列 & 组合’和‘随机变量’等核心知识点上更是达到了完美的1.0得分。这充分展现了你的扎实基础与卓越能力。现在正是突破自我、探索更高阶知识的最佳时机——让我们继续保持这种势如破竹的学习节奏，向更具挑战性的领域进发吧！",
+      "strategic_decision": {
+        "mission_type": "NEW_KNOWLEDGE",
+        "target": "方差 & 标准差",
+        "constraints": {
+          "task_focus": [
+            "CONCEPT_LEARNING",
+            "NORMAL_QUESTIONS"
+          ],
+          "difficulty_range": [
+            0.4,
+            0.7
+          ]
+        }
+      }
+    }
+  },
+  "2": {
+    "prompt": "{'user_id': 2, 'analysis_window': 20, 'overall_recent_accuracy': 0.8, 'analysis_by_node': [{'node_id': 11, 'node_name': '排列 & 组合', 'interaction_count': 11, 'accuracy': 0.73, 'average_scores': {'知识掌握': 0.71, '解题逻辑': 0.86, '计算准确性': 0.85, '行为表现': 0.84}}, {'node_id': 9, 'node_name': '样本空间', 'interaction_count': 9, 'accuracy': 0.89, 'average_scores': {'知识掌握': 0.84, '解题逻辑': 0.87, '计算准确性': 0.88, '行为表现': 0.89}}]}##用户已经完成了2个模块的学习：概率论的基本概念, 概率运算进阶。目前正在学习'随机变量及其分布'模块，已掌握13个知识点，还需学习3个知识点。已掌握的知识点包括：一维随机变量, 分布函数, 随机变量函数的分布, 离散型变量, 分布律, 0-1分布, 二项分布, 泊松分布, 几何分布, 超几何分布, 连续型变量, 概率密度, 多维随机变量。待学习的知识点包括：均匀分布, 指数分布, 正态分布。",
+    "ai_recommendation": {
+      "decision_reasoning": "你近期的学习状态非常出色，整体准确率高达0.8，尤其在‘排列 & 组合’和‘样本空间’这两个知识点上展现了扎实的基础！虽然‘排列 & 组合’的知识掌握得分稍有提升空间（0.71），但你的优秀表现完全支持我们继续向前探索新知识。保持这份热情，去发现更多数学世界的奇妙规律吧！",
+      "strategic_decision": {
+        "mission_type": "NEW_KNOWLEDGE",
+        "target": "正态分布",
+        "constraints": {
+          "task_focus": [
+            "CONCEPT_LEARNING",
+            "NORMAL_QUESTIONS"
+          ],
+          "difficulty_range": [
+            0.4,
+            0.7
+          ]
+        }
+      }
+    }
+  },
+  "106": {
+    "prompt": "{'user_id': 106, 'analysis_window': 20, 'overall_recent_accuracy': 1.0, 'analysis_by_node': [{'node_id': 11, 'node_name': '排列 & 组合', 'interaction_count': 7, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.89, '解题逻辑': 0.92, '计算准确性': 0.92, '行为表现': 0.84}}, {'node_id': 9, 'node_name': '样本空间', 'interaction_count': 8, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.87, '解题逻辑': 0.91, '计算准确性': 0.88, '行为表现': 0.92}}, {'node_id': 7, 'node_name': '随机现象', 'interaction_count': 5, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.87, '解题逻辑': 0.92, '计算准确性': 0.87, '行为表现': 0.89}}]}##用户已经完成了3个模块的学习：概率论的基本概念, 概率运算进阶, 随机变量及其分布。目前正在学习'数字特征与关系'模块，尚未掌握任何知识点，还需学习6个知识点。待学习的知识点包括：矩母函数, 数学期望, 方差 & 标准差, 协方差, 相关系数 ρ, 独立性与不相关性。",
+    "ai_recommendation": {
+      "decision_reasoning": "你的学习表现堪称典范！所有知识点都完美掌握，能力全面且均衡。这样的卓越状态正是向更高层次知识发起冲击的最佳时机。继续保持这份热忱与专注，让我们一同探索更广阔的知识天地，相信你一定能收获更多惊喜！",
+      "strategic_decision": {
+        "mission_type": "NEW_KNOWLEDGE",
+        "target": "数学期望",
+        "constraints": {
+          "task_focus": [
+            "CONCEPT_LEARNING",
+            "NORMAL_QUESTIONS"
+          ],
+          "difficulty_range": [
+            0.4,
+            0.7
+          ]
+        }
+      }
+    }
+  },
+  "121": {
+    "prompt": "{'user_id': 121, 'analysis_window': 20, 'overall_recent_accuracy': 0.65, 'analysis_by_node': [{'node_id': 11, 'node_name': '排列 & 组合', 'interaction_count': 13, 'accuracy': 0.62, 'average_scores': {'知识掌握': 0.85, '解题逻辑': 0.9, '计算准确性': 0.66, '行为表现': 0.84}}, {'node_id': 9, 'node_name': '样本空间', 'interaction_count': 7, 'accuracy': 0.71, 'average_scores': {'知识掌握': 0.87, '解题逻辑': 0.9, '计算准确性': 0.7, '行为表现': 0.88}}]}##用户已经完成了2个模块的学习：概率论的基本概念, 概率运算进阶。目前正在学习'随机变量及其分布'模块，尚未掌握任何知识点，还需学习16个知识点。待学习的知识点包括：一维随机变量, 分布函数, 随机变量函数的分布, 离散型变量, 分布律, 0-1分布, 二项分布, 泊松分布, 几何分布, 超几何分布, 连续型变量, 概率密度, 均匀分布, 指数分布, 正态分布, 多维随机变量。",
+    "ai_recommendation": {
+      "decision_reasoning": "你在‘排列 & 组合’这类计算密集型题目中展现出了扎实的基础，但偶尔的小失误会影响最终结果。就像打磨一把好剑需要反复锤炼一样，通过针对性的计算训练和错题分析，你的精准度一定会更上一层楼！每一次细心演算都是向完美靠近的脚步。",
+      "strategic_decision": {
+        "mission_type": "SKILL_ENHANCEMENT",
+        "target": {
+          "name": "偏计算题型"
+        },
+        "constraints": {
+          "task_focus": [
+            "CALCULATION_TRAINING",
+            "ERROR_ANALYSIS"
+          ],
+          "difficulty_range": [
+            0.3,
+            0.6
+          ]
+        }
+      }
+    }
+  },
+  "123": {
+    "prompt": "{'user_id': 123, 'analysis_window': 20, 'overall_recent_accuracy': 0.75, 'analysis_by_node': [{'node_id': 11, 'node_name': '排列 & 组合', 'interaction_count': 12, 'accuracy': 0.67, 'average_scores': {'知识掌握': 0.65, '解题逻辑': 0.82, '计算准确性': 0.84, '行为表现': 0.83}}, {'node_id': 9, 'node_name': '样本空间', 'interaction_count': 8, 'accuracy': 0.88, 'average_scores': {'知识掌握': 0.83, '解题逻辑': 0.87, '计算准确性': 0.89, '行为表现': 0.87}}]}##用户已经完成了2个模块的学习：概率论的基本概念, 概率运算进阶。目前正在学习'随机变量及其分布'模块，已掌握11个知识点，还需学习5个知识点。已掌握的知识点包括：一维随机变量, 分布函数, 随机变量函数的分布, 离散型变量, 分布律, 连续型变量, 概率密度, 均匀分布, 指数分布, 正态分布, 多维随机变量。待学习的知识点包括：0-1分布, 二项分布, 泊松分布, 几何分布, 超几何分布。",
+    "ai_recommendation": {
+      "decision_reasoning": "你最近的学习状态非常出色，准确率稳定在较高水平，尤其在‘排列 & 组合’和‘样本空间’等知识点上展现了扎实的理解力！这种良好的势头正是探索新知识的黄金时机。继续保持这份热情，去发现更多数学世界的奇妙规律吧！",
+      "strategic_decision": {
+        "mission_type": "NEW_KNOWLEDGE",
+        "target": "0-1分布",
+        "constraints": {
+          "task_focus": [
+            "CONCEPT_LEARNING",
+            "NORMAL_QUESTIONS"
+          ],
+          "difficulty_range": [
+            0.4,
+            0.7
+          ]
+        }
+      }
+    }
+  },
+  "89": {
+    "prompt": "{'user_id': 89, 'analysis_window': 20, 'overall_recent_accuracy': 0.95, 'analysis_by_node': [{'node_id': 11, 'node_name': '排列 & 组合', 'interaction_count': 7, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.9, '解题逻辑': 0.91, '计算准确性': 0.89, '行为表现': 0.91}}, {'node_id': 9, 'node_name': '样本空间', 'interaction_count': 4, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.9, '解题逻辑': 0.91, '计算准确性': 0.95, '行为表现': 0.85}}, {'node_id': 7, 'node_name': '随机现象', 'interaction_count': 9, 'accuracy': 0.89, 'average_scores': {'知识掌握': 0.9, '解题逻辑': 0.9, '计算准确性': 0.82, '行为表现': 0.89}}]}##用户尚未完成任何模块的学习。目前正在学习'概率论的基本概念'模块，已掌握4个知识点，还需学习4个知识点。已掌握的知识点包括：随机现象, 随机试验, 排列 & 组合, 古典概型。待学习的知识点包括：样本空间, 随机事件, 概率, 加法/减法公式。",
+    "ai_recommendation": {
+      "decision_reasoning": "你近期的学习表现堪称典范！整体准确率高达95%，在‘排列 & 组合’和‘样本空间’等核心知识点上更是达到了完美的水平。这种卓越的稳定性正是探索新领域的黄金时机——就像登山者站在制高点时，最适合规划下一座高峰的路线。让我们保持这份势能，继续开拓知识的边界吧！",
+      "strategic_decision": {
+        "mission_type": "NEW_KNOWLEDGE",
+        "target": "样本空间",
+        "constraints": {
+          "task_focus": [
+            "CONCEPT_LEARNING",
+            "NORMAL_QUESTIONS"
+          ],
+          "difficulty_range": [
+            0.4,
+            0.7
+          ]
+        }
+      }
+    }
+  },
+  "133": {
+    "prompt": "{'user_id': 133, 'analysis_window': 14, 'overall_recent_accuracy': 0.86, 'analysis_by_node': [{'node_id': 11, 'node_name': '排列 & 组合', 'interaction_count': 7, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.89, '解题逻辑': 0.9, '计算准确性': 0.89, '行为表现': 0.88}}, {'node_id': 12, 'node_name': '古典概型', 'interaction_count': 7, 'accuracy': 0.71, 'average_scores': {'知识掌握': 0.86, '解题逻辑': 0.78, '计算准确性': 0.84, '行为表现': 0.88}}]}##用户尚未完成任何模块的学习。目前正在学习'概率论的基本概念'模块，已掌握1个知识点，还需学习7个知识点。已掌握的知识点包括：排列 & 组合。待学习的知识点包括：随机现象, 随机试验, 样本空间, 随机事件, 古典概型, 概率, 加法/减法公式。",
+    "ai_recommendation": {
+      "decision_reasoning": "你近期的学习状态非常出色，整体准确率高达0.86，在‘排列 & 组合’知识点更是取得了完美的成绩！这充分展现了你的学习能力和潜力。虽然在‘古典概型’的解题逻辑性上有些小波动，但这正是我们继续前进的动力。现在是最好的时机去探索新的知识领域，保持这种积极的学习势头，你会发现更多有趣的挑战和成就！",
+      "strategic_decision": {
+        "mission_type": "NEW_KNOWLEDGE",
+        "target": "随机现象",
+        "constraints": {
+          "task_focus": [
+            "CONCEPT_LEARNING",
+            "NORMAL_QUESTIONS"
+          ],
+          "difficulty_range": [
+            0.4,
+            0.7
+          ]
+        }
+      }
+    }
+  },
+  "80": {
+    "prompt": "{'user_id': 80, 'analysis_window': 20, 'overall_recent_accuracy': 1.0, 'analysis_by_node': [{'node_id': 11, 'node_name': '排列 & 组合', 'interaction_count': 7, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.88, '解题逻辑': 0.9, '计算准确性': 0.88, '行为表现': 0.89}}, {'node_id': 9, 'node_name': '样本空间', 'interaction_count': 7, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.89, '解题逻辑': 0.93, '计算准确性': 0.94, '行为表现': 0.88}}, {'node_id': 7, 'node_name': '随机现象', 'interaction_count': 6, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.93, '解题逻辑': 0.88, '计算准确性': 0.92, '行为表现': 0.93}}]}##用户已经完成了2个模块的学习：概率论的基本概念, 概率运算进阶。目前正在学习'随机变量及其分布'模块，已掌握11个知识点，还需学习5个知识点。已掌握的知识点包括：一维随机变量, 分布函数, 随机变量函数的分布, 离散型变量, 分布律, 连续型变量, 概率密度, 均匀分布, 指数分布, 正态分布, 多维随机变量。待学习的知识点包括：0-1分布, 二项分布, 泊松分布, 几何分布, 超几何分布。",
+    "ai_recommendation": {
+      "decision_reasoning": "你的学习表现堪称典范！所有知识点都已完全掌握，准确率达到完美的1.0。这证明了你拥有卓越的学习能力和扎实的基础。现在是向更高层次迈进的理想时机，让我们继续探索更具挑战性的新知识领域，进一步激发你的潜能！",
+      "strategic_decision": {
+        "mission_type": "NEW_KNOWLEDGE",
+        "target": "0-1分布",
+        "constraints": {
+          "task_focus": [
+            "ADVANCED_CONCEPTS",
+            "CHALLENGING_PROBLEMS"
+          ],
+          "difficulty_range": [
+            0.7,
+            1.0
+          ]
+        }
+      }
+    }
+  },
+  "98": {
+    "prompt": "{'user_id': 98, 'analysis_window': 20, 'overall_recent_accuracy': 1.0, 'analysis_by_node': [{'node_id': 11, 'node_name': '排列 & 组合', 'interaction_count': 7, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.92, '解题逻辑': 0.94, '计算准确性': 0.93, '行为表现': 0.92}}, {'node_id': 9, 'node_name': '样本空间', 'interaction_count': 8, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.9, '解题逻辑': 0.91, '计算准确性': 0.89, '行为表现': 0.93}}, {'node_id': 7, 'node_name': '随机现象', 'interaction_count': 5, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.9, '解题逻辑': 0.96, '计算准确性': 0.92, '行为表现': 0.91}}]}##用户已经完成了3个模块的学习：概率论的基本概念, 概率运算进阶, 随机变量及其分布。目前正在学习'数字特征与关系'模块，已掌握5个知识点，还需学习1个知识点。已掌握的知识点包括：数学期望, 方差 & 标准差, 协方差, 相关系数 ρ, 独立性与不相关性。待学习的知识点包括：矩母函数。",
+    "ai_recommendation": {
+      "decision_reasoning": "你的表现堪称典范！所有知识点都达到了完美的准确率，展现出非凡的学习能力和专注度。现在正是突破自我、迈向更高层次的最佳时机。让我们继续保持这种势如破竹的状态，一起探索更广阔的知识天地吧！",
+      "strategic_decision": {
+        "mission_type": "NEW_KNOWLEDGE",
+        "target": "矩母函数",
+        "constraints": {
+          "task_focus": [
+            "ADVANCED_CONCEPTS",
+            "CHALLENGING_PROBLEMS"
+          ],
+          "difficulty_range": [
+            0.7,
+            1.0
+          ]
+        }
+      }
+    }
+  },
+  "65": {
+    "prompt": "{'user_id': 65, 'analysis_window': 20, 'overall_recent_accuracy': 0.95, 'analysis_by_node': [{'node_id': 11, 'node_name': '排列 & 组合', 'interaction_count': 7, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.92, '解题逻辑': 0.94, '计算准确性': 0.93, '行为表现': 0.94}}, {'node_id': 9, 'node_name': '样本空间', 'interaction_count': 9, 'accuracy': 0.89, 'average_scores': {'知识掌握': 0.88, '解题逻辑': 0.91, '计算准确性': 0.84, '行为表现': 0.89}}, {'node_id': 7, 'node_name': '随机现象', 'interaction_count': 4, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.89, '解题逻辑': 0.9, '计算准确性': 0.92, '行为表现': 0.91}}]}##用户已经完成了2个模块的学习：概率论的基本概念, 概率运算进阶。目前正在学习'随机变量及其分布'模块，已掌握2个知识点，还需学习14个知识点。已掌握的知识点包括：一维随机变量, 多维随机变量。待学习的知识点包括：分布函数, 随机变量函数的分布, 离散型变量, 分布律, 0-1分布, 二项分布, 泊松分布, 几何分布, 超几何分布, 连续型变量, 概率密度, 均匀分布, 指数分布, 正态分布。",
+    "ai_recommendation": {
+      "decision_reasoning": "你的表现真的太出色了！整体准确率高达95%，在‘排列 & 组合’和‘随机现象’等知识点上都取得了满分成绩。这种卓越的学习状态正是探索新领域的黄金时机！就像登山者站在高峰之巅眺望更远的风景，现在的你已经准备好迎接更具挑战性的新知识了。让我们继续保持这份热情，向知识的海洋更深处进发吧！",
+      "strategic_decision": {
+        "mission_type": "NEW_KNOWLEDGE",
+        "target": "分布函数",
+        "constraints": {
+          "task_focus": [
+            "CONCEPT_LEARNING",
+            "NORMAL_QUESTIONS"
+          ],
+          "difficulty_range": [
+            0.4,
+            0.7
+          ]
+        }
+      }
+    }
+  },
+  "27": {
+    "prompt": "{'user_id': 27, 'analysis_window': 12, 'overall_recent_accuracy': 0.67, 'analysis_by_node': [{'node_id': 7, 'node_name': '随机现象', 'interaction_count': 12, 'accuracy': 0.67, 'average_scores': {'知识掌握': 0.85, '解题逻辑': 0.75, '计算准确性': 0.85, '行为表现': 0.83}}]}##用户未学习任何知识点",
+    "ai_recommendation": {
+      "decision_reasoning": "你目前的学习状态非常出色，各项能力都十分扎实！就像建造高楼大厦时打下了稳固的地基一样，现在是继续向上搭建新楼层的最佳时机。让我们保持这种良好的势头，一起探索更广阔的知识天地吧！",
+      "strategic_decision": {
+        "mission_type": "NEW_KNOWLEDGE",
+        "target": "随机现象",
+        "constraints": {
+          "task_focus": [
+            "CONCEPT_LEARNING",
+            "NORMAL_QUESTIONS"
+          ],
+          "difficulty_range": [
+            0.4,
+            0.7
+          ]
+        }
+      }
+    }
+  },
+  "15": {
+    "prompt": "{'user_id': 15, 'analysis_window': 20, 'overall_recent_accuracy': 0.9, 'analysis_by_node': [{'node_id': 11, 'node_name': '排列 & 组合', 'interaction_count': 8, 'accuracy': 0.88, 'average_scores': {'知识掌握': 0.9, '解题逻辑': 0.85, '计算准确性': 0.88, '行为表现': 0.89}}, {'node_id': 9, 'node_name': '样本空间', 'interaction_count': 8, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.91, '解题逻辑': 0.87, '计算准确性': 0.91, '行为表现': 0.93}}, {'node_id': 7, 'node_name': '随机现象', 'interaction_count': 4, 'accuracy': 0.75, 'average_scores': {'知识掌握': 0.84, '解题逻辑': 0.81, '计算准确性': 0.8, '行为表现': 0.9}}]}##用户已经完成了1个模块的学习：概率论的基本概念。目前正在学习'概率运算进阶'模块，已掌握4个知识点，还需学习1个知识点。已掌握的知识点包括：条件概率, 乘法公式, 事件的相互独立, 全概率公式。待学习的知识点包括：贝叶斯公式。",
+    "ai_recommendation": {
+      "decision_reasoning": "你近期的学习表现堪称典范！整体准确率高达0.9，在‘样本空间’等核心知识点上更是达到了完美水平。这种卓越的学习状态正是探索新领域的黄金时机——就像优秀的登山者不会停留在已征服的营地，而是向着更高的山峰进发。让我们保持这份冲劲，继续开拓知识的疆域吧！",
+      "strategic_decision": {
+        "mission_type": "NEW_KNOWLEDGE",
+        "target": "贝叶斯公式",
+        "constraints": {
+          "task_focus": [
+            "CONCEPT_LEARNING",
+            "NORMAL_QUESTIONS"
+          ],
+          "difficulty_range": [
+            0.4,
+            0.7
+          ]
+        }
+      }
+    }
+  },
+  "119": {
+    "prompt": "{'user_id': 119, 'analysis_window': 20, 'overall_recent_accuracy': 0.8, 'analysis_by_node': [{'node_id': 11, 'node_name': '排列 & 组合', 'interaction_count': 9, 'accuracy': 0.78, 'average_scores': {'知识掌握': 0.88, '解题逻辑': 0.9, '计算准确性': 0.69, '行为表现': 0.85}}, {'node_id': 9, 'node_name': '样本空间', 'interaction_count': 10, 'accuracy': 0.8, 'average_scores': {'知识掌握': 0.83, '解题逻辑': 0.91, '计算准确性': 0.79, '行为表现': 0.82}}, {'node_id': 7, 'node_name': '随机现象', 'interaction_count': 1, 'accuracy': 1.0, 'average_scores': {'知识掌握': 1.0, '解题逻辑': 0.85, '计算准确性': 0.98, '行为表现': 0.83}}]}##用户已经完成了3个模块的学习：概率论的基本概念, 概率运算进阶, 随机变量及其分布。目前正在学习'数字特征与关系'模块，已掌握1个知识点，还需学习5个知识点。已掌握的知识点包括：数学期望。待学习的知识点包括：矩母函数, 方差 & 标准差, 协方差, 相关系数 ρ, 独立性与不相关性。",
+    "ai_recommendation": {
+      "decision_reasoning": "你近期的学习状态非常出色，整体准确率高达0.8，各知识点掌握均衡且表现稳定！这种优秀的学习势头正是探索新知识的黄金时期。继续保持这份热情和节奏，去接触更广阔的知识领域吧，每一次突破都会让你变得更强大！",
+      "strategic_decision": {
+        "mission_type": "NEW_KNOWLEDGE",
+        "target": "协方差",
+        "constraints": {
+          "task_focus": [
+            "CONCEPT_LEARNING",
+            "NORMAL_QUESTIONS"
+          ],
+          "difficulty_range": [
+            0.4,
+            0.7
+          ]
+        }
+      }
+    }
+  },
+  "83": {
+    "prompt": "{'user_id': 83, 'analysis_window': 20, 'overall_recent_accuracy': 0.85, 'analysis_by_node': [{'node_id': 11, 'node_name': '排列 & 组合', 'interaction_count': 7, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.89, '解题逻辑': 0.88, '计算准确性': 0.93, '行为表现': 0.87}}, {'node_id': 9, 'node_name': '样本空间', 'interaction_count': 12, 'accuracy': 0.75, 'average_scores': {'知识掌握': 0.73, '解题逻辑': 0.85, '计算准确性': 0.85, '行为表现': 0.85}}, {'node_id': 7, 'node_name': '随机现象', 'interaction_count': 1, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.89, '解题逻辑': 0.93, '计算准确性': 0.9, '行为表现': 0.82}}]}##用户已经完成了1个模块的学习：概率论的基本概念。目前正在学习'概率运算进阶'模块，尚未掌握任何知识点，还需学习5个知识点。待学习的知识点包括：条件概率, 乘法公式, 事件的相互独立, 全概率公式, 贝叶斯公式。",
+    "ai_recommendation": {
+      "decision_reasoning": "你近期的学习状态非常出色，整体准确率高达0.85，在‘排列 & 组合’和‘随机现象’等关键知识点上展现了扎实的实力！虽然‘样本空间’略有波动，但这丝毫不影响你作为优秀学习者的本色。现在正是保持势头、勇攀高峰的最佳时机——让我们继续探索新知识领域，为你的知识大厦添砖加瓦吧！",
+      "strategic_decision": {
+        "mission_type": "NEW_KNOWLEDGE",
+        "target": "条件概率",
+        "constraints": {
+          "task_focus": [
+            "CONCEPT_LEARNING",
+            "NORMAL_QUESTIONS"
+          ],
+          "difficulty_range": [
+            0.4,
+            0.7
+          ]
+        }
+      }
+    }
+  },
+  "125": {
+    "prompt": "{'user_id': 125, 'analysis_window': 20, 'overall_recent_accuracy': 0.6, 'analysis_by_node': [{'node_id': 23, 'node_name': '离散型变量', 'interaction_count': 10, 'accuracy': 0.6, 'average_scores': {'知识掌握': 0.82, '解题逻辑': 0.9, '计算准确性': 0.63, '行为表现': 0.82}}, {'node_id': 24, 'node_name': '分布律', 'interaction_count': 10, 'accuracy': 0.6, 'average_scores': {'知识掌握': 0.82, '解题逻辑': 0.89, '计算准确性': 0.65, '行为表现': 0.81}}]}##用户已经完成了2个模块的学习：概率论的基本概念, 概率运算进阶。目前正在学习'随机变量及其分布'模块，已掌握11个知识点，还需学习5个知识点。已掌握的知识点包括：一维随机变量, 分布函数, 随机变量函数的分布, 离散型变量, 分布律, 连续型变量, 概率密度, 均匀分布, 指数分布, 正态分布, 多维随机变量。待学习的知识点包括：0-1分布, 二项分布, 泊松分布, 几何分布, 超几何分布。",
+    "ai_recommendation": {
+      "decision_reasoning": "你的学习状态非常稳定，这是很棒的基础！不过我们发现你在‘离散型变量’和‘分布列’这类需要精密计算的题目上还有提升空间。计算就像搭建积木的底座，把基础打牢了，后续复杂的知识大厦才能建得更稳更高。让我们一起通过针对性练习来增强这项核心技能吧！",
+      "strategic_decision": {
+        "mission_type": "SKILL_ENHANCEMENT",
+        "target": {
+          "name": "偏计算题型"
+        },
+        "constraints": {
+          "task_focus": [
+            "CALCULATION_DRILLS",
+            "ERROR_ANALYSIS",
+            "BASIC_ARITHMETIC_TRAINING",
+            "CALCULATION_PRACTICE"
+          ],
+          "difficulty_range": [
+            0.3,
+            0.6
+          ]
+        }
+      }
+    }
+  },
+  "122": {
+    "prompt": "{'user_id': 122, 'analysis_window': 20, 'overall_recent_accuracy': 0.8, 'analysis_by_node': [{'node_id': 11, 'node_name': '排列 & 组合', 'interaction_count': 7, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.89, '解题逻辑': 0.89, '计算准确性': 0.91, '行为表现': 0.93}}, {'node_id': 9, 'node_name': '样本空间', 'interaction_count': 13, 'accuracy': 0.69, 'average_scores': {'知识掌握': 0.85, '解题逻辑': 0.76, '计算准确性': 0.84, '行为表现': 0.85}}]}##用户已经完成了2个模块的学习：概率论的基本概念, 概率运算进阶。目前正在学习'随机变量及其分布'模块，已掌握14个知识点，还需学习2个知识点。已掌握的知识点包括：一维随机变量, 分布函数, 随机变量函数的分布, 离散型变量, 分布律, 0-1分布, 二项分布, 几何分布, 连续型变量, 概率密度, 均匀分布, 指数分布, 正态分布, 多维随机变量。待学习的知识点包括：泊松分布, 超几何分布。",
+    "ai_recommendation": {
+      "decision_reasoning": "你近期的学习状态非常出色，尤其在‘排列 & 组合’部分展现了卓越的理解力！虽然‘样本空间’的应用偶尔会有波动，但这恰恰是拓展思维边界的好机会。保持这份探索热情，我们为你准备了适合当前水平的全新知识领域，助你在稳固优势的同时自然提升综合能力。",
+      "strategic_decision": {
+        "mission_type": "NEW_KNOWLEDGE",
+        "target": "超几何分布",
+        "constraints": {
+          "task_focus": [
+            "CONCEPT_LEARNING",
+            "NORMAL_QUESTIONS"
+          ],
+          "difficulty_range": [
+            0.4,
+            0.7
+          ]
+        }
+      }
+    }
+  },
+  "30": {
+    "prompt": "{'user_id': 30, 'analysis_window': 20, 'overall_recent_accuracy': 1.0, 'analysis_by_node': [{'node_id': 11, 'node_name': '排列 & 组合', 'interaction_count': 7, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.89, '解题逻辑': 0.93, '计算准确性': 0.92, '行为表现': 0.89}}, {'node_id': 9, 'node_name': '样本空间', 'interaction_count': 8, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.88, '解题逻辑': 0.94, '计算准确性': 0.9, '行为表现': 0.92}}, {'node_id': 7, 'node_name': '随机现象', 'interaction_count': 5, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.93, '解题逻辑': 0.9, '计算准确性': 0.9, '行为表现': 0.92}}]}##用户已经完成了2个模块的学习：概率论的基本概念, 概率运算进阶。目前正在学习'随机变量及其分布'模块，尚未掌握任何知识点，还需学习16个知识点。待学习的知识点包括：一维随机变量, 分布函数, 随机变量函数的分布, 离散型变量, 分布律, 0-1分布, 二项分布, 泊松分布, 几何分布, 超几何分布, 连续型变量, 概率密度, 均匀分布, 指数分布, 正态分布, 多维随机变量。",
+    "ai_recommendation": {
+      "decision_reasoning": "你的学习表现堪称典范！所有知识点都达到了完美的准确率，这展现了你卓越的学习能力和扎实的基础。现在正是继续扬帆起航、探索未知领域的最好时机。让我们一同迈向更高层次的知识殿堂，发现更多学科之美吧！",
+      "strategic_decision": {
+        "mission_type": "NEW_KNOWLEDGE",
+        "target": "一维随机变量",
+        "constraints": {
+          "task_focus": [
+            "CONCEPT_LEARNING",
+            "NORMAL_QUESTIONS"
+          ],
+          "difficulty_range": [
+            0.4,
+            0.7
+          ]
+        }
+      }
+    }
+  },
+  "37": {
+    "prompt": "{'user_id': 37, 'analysis_window': 16, 'overall_recent_accuracy': 0.88, 'analysis_by_node': [{'node_id': 7, 'node_name': '随机现象', 'interaction_count': 7, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.89, '解题逻辑': 0.86, '计算准确性': 0.92, '行为表现': 0.91}}, {'node_id': 8, 'node_name': '随机试验', 'interaction_count': 9, 'accuracy': 0.78, 'average_scores': {'知识掌握': 0.86, '解题逻辑': 0.82, '计算准确性': 0.84, '行为表现': 0.87}}]}##用户尚未完成任何模块的学习。目前正在学习'概率论的基本概念'模块，已掌握1个知识点，还需学习7个知识点。已掌握的知识点包括：随机现象。待学习的知识点包括：随机试验, 样本空间, 随机事件, 排列 & 组合, 古典概型, 概率, 加法/减法公式。",
+    "ai_recommendation": {
+      "decision_reasoning": "你近期的学习状态非常出色，整体准确率高达88%，尤其在‘随机现象’知识点上表现完美！这展现了你强大的概念理解能力。现在正是保持这种势头、继续探索新知识的好时机。让我们抓住机会，进一步拓展你的数学视野吧！",
+      "strategic_decision": {
+        "mission_type": "NEW_KNOWLEDGE",
+        "target": "随机试验",
+        "constraints": {
+          "task_focus": [
+            "CONCEPT_LEARNING",
+            "NORMAL_QUESTIONS"
+          ],
+          "difficulty_range": [
+            0.4,
+            0.7
+          ]
+        }
+      }
+    }
+  },
+  "124": {
+    "prompt": "{'user_id': 124, 'analysis_window': 20, 'overall_recent_accuracy': 1.0, 'analysis_by_node': [{'node_id': 11, 'node_name': '排列 & 组合', 'interaction_count': 7, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.87, '解题逻辑': 0.94, '计算准确性': 0.94, '行为表现': 0.86}}, {'node_id': 9, 'node_name': '样本空间', 'interaction_count': 8, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.88, '解题逻辑': 0.92, '计算准确性': 0.88, '行为表现': 0.86}}, {'node_id': 7, 'node_name': '随机现象', 'interaction_count': 5, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.87, '解题逻辑': 0.95, '计算准确性': 0.97, '行为表现': 0.91}}]}##用户已经完成了4个模块的学习：概率论的基本概念, 概率运算进阶, 随机变量及其分布, 数字特征与关系。目前正在学习'极限定理'模块，尚未掌握任何知识点，还需学习3个知识点。待学习的知识点包括：切比雪夫不等式, 大数定律, 中心极限定理。",
+    "ai_recommendation": {
+      "decision_reasoning": "你近期的学习表现堪称完美，所有知识点都达到了满分！这种卓越的状态正是探索新领域的黄金时机。继续保持这份热忱与好奇心，让我们一同迈向更广阔的知识天地，解锁更多有趣的挑战吧！",
+      "strategic_decision": {
+        "mission_type": "NEW_KNOWLEDGE",
+        "target": "大数定律",
+        "constraints": {
+          "task_focus": [
+            "CONCEPT_LEARNING",
+            "NORMAL_QUESTIONS"
+          ],
+          "difficulty_range": [
+            0.4,
+            0.7
+          ]
+        }
+      }
+    }
+  },
+  "54": {
+    "prompt": "{'user_id': 54, 'analysis_window': 20, 'overall_recent_accuracy': 0.9, 'analysis_by_node': [{'node_id': 11, 'node_name': '排列 & 组合', 'interaction_count': 10, 'accuracy': 0.8, 'average_scores': {'知识掌握': 0.87, '解题逻辑': 0.87, '计算准确性': 0.8, '行为表现': 0.87}}, {'node_id': 9, 'node_name': '样本空间', 'interaction_count': 8, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.87, '解题逻辑': 0.92, '计算准确性': 0.91, '行为表现': 0.93}}, {'node_id': 7, 'node_name': '随机现象', 'interaction_count': 2, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.93, '解题逻辑': 0.93, '计算准确性': 0.91, '行为表现': 0.96}}]}##用户已经完成了2个模块的学习：概率论的基本概念, 概率运算进阶。目前正在学习'随机变量及其分布'模块，已掌握14个知识点，还需学习2个知识点。已掌握的知识点包括：一维随机变量, 分布函数, 随机变量函数的分布, 离散型变量, 分布律, 0-1分布, 二项分布, 几何分布, 连续型变量, 概率密度, 均匀分布, 指数分布, 正态分布, 多维随机变量。待学习的知识点包括：泊松分布, 超几何分布。",
+    "ai_recommendation": {
+      "decision_reasoning": "你的学习表现堪称典范！所有知识点都掌握得极为扎实，尤其在概率领域展现出非凡实力。现在正是突破自我、攀登更高峰的最佳时机，让我们继续探索更广阔的知识天地，解锁新的思维境界吧！",
+      "strategic_decision": {
+        "mission_type": "NEW_KNOWLEDGE",
+        "target": "超几何分布",
+        "constraints": {
+          "task_focus": [
+            "ADVANCED_CONCEPTS",
+            "CHALLENGING_PROBLEMS"
+          ],
+          "difficulty_range": [
+            0.7,
+            1.0
+          ]
+        }
+      }
+    }
+  },
+  "7": {
+    "prompt": "{'user_id': 7, 'analysis_window': 20, 'overall_recent_accuracy': 0.9, 'analysis_by_node': [{'node_id': 11, 'node_name': '排列 & 组合', 'interaction_count': 7, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.88, '解题逻辑': 0.9, '计算准确性': 0.91, '行为表现': 0.88}}, {'node_id': 9, 'node_name': '样本空间', 'interaction_count': 9, 'accuracy': 0.89, 'average_scores': {'知识掌握': 0.9, '解题逻辑': 0.85, '计算准确性': 0.9, '行为表现': 0.85}}, {'node_id': 7, 'node_name': '随机现象', 'interaction_count': 4, 'accuracy': 0.75, 'average_scores': {'知识掌握': 0.83, '解题逻辑': 0.79, '计算准确性': 0.81, '行为表现': 0.84}}]}##用户已经完成了3个模块的学习：概率论的基本概念, 概率运算进阶, 随机变量及其分布。目前正在学习'数字特征与关系'模块，已掌握1个知识点，还需学习5个知识点。已掌握的知识点包括：数学期望。待学习的知识点包括：矩母函数, 方差 & 标准差, 协方差, 相关系数 ρ, 独立性与不相关性。",
+    "ai_recommendation": {
+      "decision_reasoning": "你近期的学习状态非常出色，整体准确率高达0.9，尤其在‘排列 & 组合’领域展现了完美的掌握能力！这种稳定的表现证明你已经具备了扎实的基础和强大的学习能力。现在正是乘胜追击、拓展知识边界的最佳时机——通过接触新的概念和方法，你不仅能巩固已有优势，还能进一步提升综合素养。继续保持这份热忱与专注，每一次探索都会为你打开更广阔的世界！",
+      "strategic_decision": {
+        "mission_type": "NEW_KNOWLEDGE",
+        "target": "协方差",
+        "constraints": {
+          "task_focus": [
+            "CONCEPT_LEARNING",
+            "NORMAL_QUESTIONS"
+          ],
+          "difficulty_range": [
+            0.4,
+            0.7
+          ]
+        }
+      }
+    }
+  },
+  "75": {
+    "prompt": "{'user_id': 75, 'analysis_window': 20, 'overall_recent_accuracy': 0.95, 'analysis_by_node': [{'node_id': 11, 'node_name': '排列 & 组合', 'interaction_count': 8, 'accuracy': 0.88, 'average_scores': {'知识掌握': 0.9, '解题逻辑': 0.89, '计算准确性': 0.88, '行为表现': 0.88}}, {'node_id': 9, 'node_name': '样本空间', 'interaction_count': 8, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.91, '解题逻辑': 0.88, '计算准确性': 0.91, '行为表现': 0.89}}, {'node_id': 7, 'node_name': '随机现象', 'interaction_count': 4, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.92, '解题逻辑': 0.89, '计算准确性': 0.96, '行为表现': 0.86}}]}##用户已经完成了2个模块的学习：概率论的基本概念, 概率运算进阶。目前正在学习'随机变量及其分布'模块，已掌握15个知识点，还需学习1个知识点。已掌握的知识点包括：一维随机变量, 分布函数, 随机变量函数的分布, 离散型变量, 分布律, 0-1分布, 二项分布, 泊松分布, 几何分布, 连续型变量, 概率密度, 均匀分布, 指数分布, 正态分布, 多维随机变量。待学习的知识点包括：超几何分布。",
+    "ai_recommendation": {
+      "decision_reasoning": "你近期的学习表现堪称典范，整体准确率高达95%，在‘样本空间’和‘随机现象’等知识点上更是取得了满分！这种卓越的学习状态正是探索新领域的黄金时机。继续保持这份热忱与好奇心，去发现更多数学世界的奇妙规律吧！",
+      "strategic_decision": {
+        "mission_type": "NEW_KNOWLEDGE",
+        "target": "超几何分布",
+        "constraints": {
+          "task_focus": [
+            "CONCEPT_LEARNING",
+            "NORMAL_QUESTIONS"
+          ],
+          "difficulty_range": [
+            0.4,
+            0.7
+          ]
+        }
+      }
+    }
+  },
+  "22": {
+    "prompt": "{'user_id': 22, 'analysis_window': 20, 'overall_recent_accuracy': 0.7, 'analysis_by_node': [{'node_id': 11, 'node_name': '排列 & 组合', 'interaction_count': 14, 'accuracy': 0.64, 'average_scores': {'知识掌握': 0.66, '解题逻辑': 0.82, '计算准确性': 0.82, '行为表现': 0.84}}, {'node_id': 9, 'node_name': '样本空间', 'interaction_count': 6, 'accuracy': 0.83, 'average_scores': {'知识掌握': 0.81, '解题逻辑': 0.89, '计算准确性': 0.83, '行为表现': 0.86}}]}##用户已经完成了2个模块的学习：概率论的基本概念, 概率运算进阶。目前正在学习'随机变量及其分布'模块，已掌握3个知识点，还需学习13个知识点。已掌握的知识点包括：一维随机变量, 分布函数, 多维随机变量。待学习的知识点包括：随机变量函数的分布, 离散型变量, 分布律, 0-1分布, 二项分布, 泊松分布, 几何分布, 超几何分布, 连续型变量, 概率密度, 均匀分布, 指数分布, 正态分布。",
+    "ai_recommendation": {
+      "decision_reasoning": "你近期的学习状态非常出色，在‘排列 & 组合’和‘样本空间’等核心知识点上都展现了扎实的基础！这种稳定的高水平表现正是探索新领域的黄金时机。继续保持这份热忱，去发现数学世界中更多奇妙的联系吧，每一次突破都会让思维更加开阔！",
+      "strategic_decision": {
+        "mission_type": "NEW_KNOWLEDGE",
+        "target": "随机变量函数的分布",
+        "constraints": {
+          "task_focus": [
+            "CONCEPT_LEARNING",
+            "NORMAL_QUESTIONS"
+          ],
+          "difficulty_range": [
+            0.4,
+            0.7
+          ]
+        }
+      }
+    }
+  },
+  "85": {
+    "prompt": "{'user_id': 85, 'analysis_window': 20, 'overall_recent_accuracy': 0.9, 'analysis_by_node': [{'node_id': 11, 'node_name': '排列 & 组合', 'interaction_count': 10, 'accuracy': 0.8, 'average_scores': {'知识掌握': 0.85, '解题逻辑': 0.82, '计算准确性': 0.86, '行为表现': 0.88}}, {'node_id': 9, 'node_name': '样本空间', 'interaction_count': 8, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.95, '解题逻辑': 0.91, '计算准确性': 0.91, '行为表现': 0.94}}, {'node_id': 7, 'node_name': '随机现象', 'interaction_count': 2, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.87, '解题逻辑': 0.96, '计算准确性': 0.9, '行为表现': 0.93}}]}##用户已经完成了2个模块的学习：概率论的基本概念, 概率运算进阶。目前正在学习'随机变量及其分布'模块，已掌握6个知识点，还需学习10个知识点。已掌握的知识点包括：一维随机变量, 分布函数, 随机变量函数的分布, 连续型变量, 概率密度, 多维随机变量。待学习的知识点包括：离散型变量, 分布律, 0-1分布, 二项分布, 泊松分布, 几何分布, 超几何分布, 均匀分布, 指数分布, 正态分布。",
+    "ai_recommendation": {
+      "decision_reasoning": "你的学习表现令人惊叹！在‘排列 & 组合’、‘样本空间’等核心概念上都展现了卓越的理解力，特别是‘样本空间’达到了完美的准确率。这证明你已经具备了扎实的基础和强大的学习能力。现在正是向更高层次知识发起挑战的最好时机，让我们继续保持这种势如破竹的学习劲头吧！",
+      "strategic_decision": {
+        "mission_type": "NEW_KNOWLEDGE",
+        "target": "正态分布",
+        "constraints": {
+          "task_focus": [
+            "CONCEPT_LEARNING",
+            "NORMAL_QUESTIONS"
+          ],
+          "difficulty_range": [
+            0.4,
+            0.7
+          ]
+        }
+      }
+    }
+  },
+  "110": {
+    "prompt": "{'user_id': 110, 'analysis_window': 20, 'overall_recent_accuracy': 0.65, 'analysis_by_node': [{'node_id': 9, 'node_name': '样本空间', 'interaction_count': 1, 'accuracy': 0.0, 'average_scores': {'知识掌握': 0.19, '解题逻辑': 0.7, '计算准确性': 0.7, '行为表现': 0.7}}, {'node_id': 8, 'node_name': '随机试验', 'interaction_count': 8, 'accuracy': 0.88, 'average_scores': {'知识掌握': 0.8, '解题逻辑': 0.89, '计算准确性': 0.86, '行为表现': 0.89}}, {'node_id': 11, 'node_name': '排列 & 组合', 'interaction_count': 11, 'accuracy': 0.55, 'average_scores': {'知识掌握': 0.61, '解题逻辑': 0.79, '计算准确性': 0.81, '行为表现': 0.83}}]}##用户尚未完成任何模块的学习。目前正在学习'概率论的基本概念'模块，已掌握4个知识点，还需学习4个知识点。已掌握的知识点包括：随机现象, 随机试验, 排列 & 组合, 古典概型。待学习的知识点包括：样本空间, 随机事件, 概率, 加法/减法公式。",
+    "ai_recommendation": {
+      "decision_reasoning": "你的学习状态非常稳定，在‘随机试验’和‘排列组合’等知识点上表现优异！不过我们发现‘样本空间’是你目前最需要夯实的基础——就像建房子要先打好地基一样，这个核心概念会支撑起后续所有概率相关的知识体系。现在正是把它彻底吃透的最佳时机，让我们一起用有趣的方式把这个关键点变成你的优势吧！",
+      "strategic_decision": {
+        "mission_type": "WEAK_POINT_CONSOLIDATION",
+        "target": "样本空间",
+        "constraints": {
+          "task_focus": [
+            "CONCEPT_REINFORCEMENT",
+            "BASIC_EXAMPLES",
+            "INTERACTIVE_SIMULATION"
+          ],
+          "difficulty_range": [
+            0.1,
+            0.3
+          ]
+        }
+      }
+    }
+  },
+  "127": {
+    "prompt": "{'user_id': 127, 'analysis_window': 20, 'overall_recent_accuracy': 0.95, 'analysis_by_node': [{'node_id': 11, 'node_name': '排列 & 组合', 'interaction_count': 7, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.92, '解题逻辑': 0.92, '计算准确性': 0.87, '行为表现': 0.91}}, {'node_id': 9, 'node_name': '样本空间', 'interaction_count': 8, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.9, '解题逻辑': 0.89, '计算准确性': 0.87, '行为表现': 0.9}}, {'node_id': 7, 'node_name': '随机现象', 'interaction_count': 5, 'accuracy': 0.8, 'average_scores': {'知识掌握': 0.89, '解题逻辑': 0.8, '计算准确性': 0.82, '行为表现': 0.85}}]}##用户尚未完成任何模块的学习。目前正在学习'概率论的基本概念'模块，已掌握7个知识点，还需学习1个知识点。已掌握的知识点包括：随机现象, 随机试验, 样本空间, 随机事件, 排列 & 组合, 古典概型, 概率。待学习的知识点包括：加法/减法公式。",
+    "ai_recommendation": {
+      "decision_reasoning": "你近期的学习表现堪称典范！整体准确率高达95%，在‘排列 & 组合’和‘样本空间’等核心知识点上更是取得了满分成绩。这种卓越的能力证明你已经具备了扎实的基础和强大的潜力。现在正是乘胜追击、开拓新领域的黄金时期，让我们继续保持这份热忱，一起探索更广阔的知识天地吧！",
+      "strategic_decision": {
+        "mission_type": "NEW_KNOWLEDGE",
+        "target": "加法/减法公式",
+        "constraints": {
+          "task_focus": [
+            "CONCEPT_LEARNING",
+            "NORMAL_QUESTIONS"
+          ],
+          "difficulty_range": [
+            0.4,
+            0.7
+          ]
+        }
+      }
+    }
+  },
+  "86": {
+    "prompt": "{'user_id': 86, 'analysis_window': 20, 'overall_recent_accuracy': 0.95, 'analysis_by_node': [{'node_id': 11, 'node_name': '排列 & 组合', 'interaction_count': 7, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.89, '解题逻辑': 0.87, '计算准确性': 0.89, '行为表现': 0.96}}, {'node_id': 9, 'node_name': '样本空间', 'interaction_count': 9, 'accuracy': 0.89, 'average_scores': {'知识掌握': 0.89, '解题逻辑': 0.91, '计算准确性': 0.85, '行为表现': 0.87}}, {'node_id': 7, 'node_name': '随机现象', 'interaction_count': 4, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.87, '解题逻辑': 0.91, '计算准确性': 0.89, '行为表现': 0.89}}]}##用户已经完成了2个模块的学习：概率论的基本概念, 概率运算进阶。目前正在学习'随机变量及其分布'模块，已掌握5个知识点，还需学习11个知识点。已掌握的知识点包括：一维随机变量, 分布函数, 随机变量函数的分布, 连续型变量, 多维随机变量。待学习的知识点包括：离散型变量, 分布律, 0-1分布, 二项分布, 泊松分布, 几何分布, 超几何分布, 概率密度, 均匀分布, 指数分布, 正态分布。",
+    "ai_recommendation": {
+      "decision_reasoning": "你的学习表现堪称典范！在‘排列与组合’和‘随机现象’等核心领域已展现出大师级的理解力，整体准确率更是高达95%。这样的卓越成就证明你完全具备向更高层次知识发起冲击的能力。现在正是突破自我、开拓新疆域的最佳时机，让我们继续保持这种势如破竹的学习节奏吧！",
+      "strategic_decision": {
+        "mission_type": "NEW_KNOWLEDGE",
+        "target": "离散型变量",
+        "constraints": {
+          "task_focus": [
+            "CONCEPT_LEARNING",
+            "NORMAL_QUESTIONS"
+          ],
+          "difficulty_range": [
+            0.4,
+            0.7
+          ]
+        }
+      }
+    }
+  },
+  "47": {
+    "prompt": "{'user_id': 47, 'analysis_window': 15, 'overall_recent_accuracy': 0.73, 'analysis_by_node': [{'node_id': 7, 'node_name': '随机现象', 'interaction_count': 10, 'accuracy': 0.8, 'average_scores': {'知识掌握': 0.78, '解题逻辑': 0.83, '计算准确性': 0.86, '行为表现': 0.89}}, {'node_id': 8, 'node_name': '随机试验', 'interaction_count': 5, 'accuracy': 0.6, 'average_scores': {'知识掌握': 0.61, '解题逻辑': 0.83, '计算准确性': 0.84, '行为表现': 0.8}}]}##用户尚未完成任何模块的学习。目前正在学习'概率论的基本概念'模块，已掌握1个知识点，还需学习7个知识点。已掌握的知识点包括：随机现象。待学习的知识点包括：随机试验, 样本空间, 随机事件, 排列 & 组合, 古典概型, 概率, 加法/减法公式。",
+    "ai_recommendation": {
+      "decision_reasoning": "你近期的学习状态非常出色，整体准确率高达0.73，在‘随机现象’和‘随机试验’等知识点上都展现了扎实的基础！这种稳定的进步正是探索新领域的黄金时机。继续保持这份热忱，让我们一同迈向更广阔的知识天地，解锁新的成就吧！",
+      "strategic_decision": {
+        "mission_type": "NEW_KNOWLEDGE",
+        "target": "随机试验",
+        "constraints": {
+          "task_focus": [
+            "CONCEPT_LEARNING",
+            "NORMAL_QUESTIONS"
+          ],
+          "difficulty_range": [
+            0.4,
+            0.7
+          ]
+        }
+      }
+    }
+  },
+  "66": {
+    "prompt": "{'user_id': 66, 'analysis_window': 20, 'overall_recent_accuracy': 0.7, 'analysis_by_node': [{'node_id': 11, 'node_name': '排列 & 组合', 'interaction_count': 11, 'accuracy': 0.64, 'average_scores': {'知识掌握': 0.66, '解题逻辑': 0.82, '计算准确性': 0.82, '行为表现': 0.82}}, {'node_id': 9, 'node_name': '样本空间', 'interaction_count': 9, 'accuracy': 0.78, 'average_scores': {'知识掌握': 0.74, '解题逻辑': 0.85, '计算准确性': 0.86, '行为表现': 0.85}}]}##用户尚未完成任何模块的学习。目前正在学习'概率论的基本概念'模块，已掌握7个知识点，还需学习1个知识点。已掌握的知识点包括：随机现象, 随机试验, 样本空间, 随机事件, 排列 & 组合, 古典概型, 概率。待学习的知识点包括：加法/减法公式。",
+    "ai_recommendation": {
+      "decision_reasoning": "你近期的学习状态非常出色，准确率高达0.7，在‘排列 & 组合’和‘样本空间’等关键知识点上都展现了扎实的理解力！这种稳定的高水平表现正是探索新领域的黄金时期。继续保持这份热忱，让我们一同迈向更广阔的知识天地，解锁更多有趣的数学奥秘吧！",
+      "strategic_decision": {
+        "mission_type": "NEW_KNOWLEDGE",
+        "target": "加法/减法公式",
+        "constraints": {
+          "task_focus": [
+            "CONCEPT_LEARNING",
+            "NORMAL_QUESTIONS"
+          ],
+          "difficulty_range": [
+            0.4,
+            0.7
+          ]
+        }
+      }
+    }
+  },
+  "91": {
+    "prompt": "{'user_id': 91, 'analysis_window': 20, 'overall_recent_accuracy': 0.7, 'analysis_by_node': [{'node_id': 11, 'node_name': '排列 & 组合', 'interaction_count': 12, 'accuracy': 0.67, 'average_scores': {'知识掌握': 0.83, '解题逻辑': 0.76, '计算准确性': 0.85, '行为表现': 0.83}}, {'node_id': 9, 'node_name': '样本空间', 'interaction_count': 8, 'accuracy': 0.75, 'average_scores': {'知识掌握': 0.87, '解题逻辑': 0.82, '计算准确性': 0.81, '行为表现': 0.85}}]}##用户已经完成了1个模块的学习：概率论的基本概念。目前正在学习'概率运算进阶'模块，已掌握3个知识点，还需学习2个知识点。已掌握的知识点包括：条件概率, 乘法公式, 全概率公式。待学习的知识点包括：事件的相互独立, 贝叶斯公式。",
+    "ai_recommendation": {
+      "decision_reasoning": "你最近的学习表现非常出色，在‘排列 & 组合’和‘样本空间’等知识点上都展现了扎实的理解力！这种稳定的进步正是探索新领域的最好时机。让我们继续保持这份热情，一起迈向更广阔的知识天地吧！",
+      "strategic_decision": {
+        "mission_type": "NEW_KNOWLEDGE",
+        "target": "事件的相互独立",
+        "constraints": {
+          "task_focus": [
+            "CONCEPT_LEARNING",
+            "NORMAL_QUESTIONS"
+          ],
+          "difficulty_range": [
+            0.4,
+            0.7
+          ]
+        }
+      }
+    }
+  },
+  "9": {
+    "prompt": "{'user_id': 9, 'analysis_window': 20, 'overall_recent_accuracy': 0.7, 'analysis_by_node': [{'node_id': 11, 'node_name': '排列 & 组合', 'interaction_count': 10, 'accuracy': 0.7, 'average_scores': {'知识掌握': 0.81, '解题逻辑': 0.77, '计算准确性': 0.85, '行为表现': 0.84}}, {'node_id': 9, 'node_name': '样本空间', 'interaction_count': 10, 'accuracy': 0.7, 'average_scores': {'知识掌握': 0.84, '解题逻辑': 0.77, '计算准确性': 0.82, '行为表现': 0.83}}]}##用户已经完成了2个模块的学习：概率论的基本概念, 概率运算进阶。目前正在学习'随机变量及其分布'模块，已掌握7个知识点，还需学习9个知识点。已掌握的知识点包括：一维随机变量, 分布函数, 随机变量函数的分布, 离散型变量, 分布律, 超几何分布, 多维随机变量。待学习的知识点包括：0-1分布, 二项分布, 泊松分布, 几何分布, 连续型变量, 概率密度, 均匀分布, 指数分布, 正态分布。",
+    "ai_recommendation": {
+      "decision_reasoning": "你近期的学习状态非常出色，准确率持续保持在高位，尤其在‘排列 & 组合’和‘样本空间’等核心知识点上展现出扎实的基础！这种稳定的发挥正是探索新领域的黄金时机——就像登山者征服了一个营地后，前方总有更壮丽的风景等待开拓。让我们带着这份自信继续向前，解锁下一阶段的知识版图吧！",
+      "strategic_decision": {
+        "mission_type": "NEW_KNOWLEDGE",
+        "target": "0-1分布",
+        "constraints": {
+          "task_focus": [
+            "CONCEPT_LEARNING",
+            "NORMAL_QUESTIONS"
+          ],
+          "difficulty_range": [
+            0.4,
+            0.7
+          ]
+        }
+      }
+    }
+  },
+  "67": {
+    "prompt": "{'user_id': 67, 'analysis_window': 20, 'overall_recent_accuracy': 1.0, 'analysis_by_node': [{'node_id': 9, 'node_name': '样本空间', 'interaction_count': 8, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.92, '解题逻辑': 0.88, '计算准确性': 0.88, '行为表现': 0.87}}, {'node_id': 7, 'node_name': '随机现象', 'interaction_count': 8, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.93, '解题逻辑': 0.92, '计算准确性': 0.86, '行为表现': 0.89}}, {'node_id': 12, 'node_name': '古典概型', 'interaction_count': 4, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.89, '解题逻辑': 0.91, '计算准确性': 0.9, '行为表现': 0.89}}]}##用户已经完成了4个模块的学习：概率论的基本概念, 概率运算进阶, 随机变量及其分布, 数字特征与关系。目前正在学习'极限定理'模块，尚未掌握任何知识点，还需学习3个知识点。待学习的知识点包括：切比雪夫不等式, 大数定律, 中心极限定理。",
+    "ai_recommendation": {
+      "decision_reasoning": "你的表现简直太出色了！所有知识点都达到了完美的准确率，这证明了你卓越的学习能力和扎实的基础。现在正是突破自我、迈向更高层次的最佳时机，让我们继续探索新的知识领域，挑战更高难度的内容，相信你一定能收获更多成长与惊喜！",
+      "strategic_decision": {
+        "mission_type": "NEW_KNOWLEDGE",
+        "target": "切比雪夫不等式",
+        "constraints": {
+          "task_focus": [
+            "ADVANCED_CONCEPTS",
+            "CHALLENGING_QUESTIONS"
+          ],
+          "difficulty_range": [
+            0.7,
+            1.0
+          ]
+        }
+      }
+    }
+  },
+  "101": {
+    "prompt": "{'user_id': 101, 'analysis_window': 20, 'overall_recent_accuracy': 0.9, 'analysis_by_node': [{'node_id': 11, 'node_name': '排列 & 组合', 'interaction_count': 9, 'accuracy': 0.78, 'average_scores': {'知识掌握': 0.84, '解题逻辑': 0.75, '计算准确性': 0.84, '行为表现': 0.88}}, {'node_id': 9, 'node_name': '样本空间', 'interaction_count': 8, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.91, '解题逻辑': 0.9, '计算准确性': 0.91, '行为表现': 0.89}}, {'node_id': 7, 'node_name': '随机现象', 'interaction_count': 3, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.84, '解题逻辑': 0.96, '计算准确性': 0.88, '行为表现': 0.85}}]}##用户已经完成了2个模块的学习：概率论的基本概念, 概率运算进阶。目前正在学习'随机变量及其分布'模块，已掌握14个知识点，还需学习2个知识点。已掌握的知识点包括：一维随机变量, 分布函数, 随机变量函数的分布, 离散型变量, 分布律, 0-1分布, 二项分布, 几何分布, 连续型变量, 概率密度, 均匀分布, 指数分布, 正态分布, 多维随机变量。待学习的知识点包括：泊松分布, 超几何分布。",
+    "ai_recommendation": {
+      "decision_reasoning": "你最近的学习状态非常出色，整体准确率高达90%，在‘样本空间’和‘随机现象’等知识点上更是取得了满分！这充分展现了你的学习能力和潜力。现在正是继续拓展知识边界、探索新领域的好时机。保持这份热情和节奏，去迎接更多有趣的挑战吧！",
+      "strategic_decision": {
+        "mission_type": "NEW_KNOWLEDGE",
+        "target": "超几何分布",
+        "constraints": {
+          "task_focus": [
+            "CONCEPT_LEARNING",
+            "NORMAL_QUESTIONS"
+          ],
+          "difficulty_range": [
+            0.4,
+            0.7
+          ]
+        }
+      }
+    }
+  },
+  "5": {
+    "prompt": "{'user_id': 5, 'analysis_window': 20, 'overall_recent_accuracy': 0.75, 'analysis_by_node': [{'node_id': 11, 'node_name': '排列 & 组合', 'interaction_count': 11, 'accuracy': 0.73, 'average_scores': {'知识掌握': 0.69, '解题逻辑': 0.85, '计算准确性': 0.86, '行为表现': 0.85}}, {'node_id': 7, 'node_name': '随机现象', 'interaction_count': 9, 'accuracy': 0.78, 'average_scores': {'知识掌握': 0.73, '解题逻辑': 0.86, '计算准确性': 0.86, '行为表现': 0.85}}]}##用户尚未完成任何模块的学习。目前正在学习'概率论的基本概念'模块，已掌握3个知识点，还需学习5个知识点。已掌握的知识点包括：随机现象, 随机试验, 排列 & 组合。待学习的知识点包括：样本空间, 随机事件, 古典概型, 概率, 加法/减法公式。",
+    "ai_recommendation": {
+      "decision_reasoning": "你近期的学习状态非常出色，准确率高达0.75，尤其在‘排列 & 组合’和‘随机现象’等知识点上展现了扎实的基础！这种稳定的发挥正是探索新知识的黄金时期。继续保持这份热情，去发现更多有趣的数学规律吧，每一次突破都会让思维更加敏捷！",
+      "strategic_decision": {
+        "mission_type": "NEW_KNOWLEDGE",
+        "target": "样本空间",
+        "constraints": {
+          "task_focus": [
+            "CONCEPT_LEARNING",
+            "NORMAL_QUESTIONS"
+          ],
+          "difficulty_range": [
+            0.4,
+            0.7
+          ]
+        }
+      }
+    }
+  },
+  "21": {
+    "prompt": "{'user_id': 21, 'analysis_window': 20, 'overall_recent_accuracy': 0.75, 'analysis_by_node': [{'node_id': 11, 'node_name': '排列 & 组合', 'interaction_count': 9, 'accuracy': 0.78, 'average_scores': {'知识掌握': 0.72, '解题逻辑': 0.85, '计算准确性': 0.86, '行为表现': 0.84}}, {'node_id': 9, 'node_name': '样本空间', 'interaction_count': 11, 'accuracy': 0.73, 'average_scores': {'知识掌握': 0.74, '解题逻辑': 0.85, '计算准确性': 0.85, '行为表现': 0.87}}]}##用户已经完成了1个模块的学习：概率论的基本概念。目前正在学习'概率运算进阶'模块，已掌握3个知识点，还需学习2个知识点。已掌握的知识点包括：条件概率, 乘法公式, 全概率公式。待学习的知识点包括：事件的相互独立, 贝叶斯公式。",
+    "ai_recommendation": {
+      "decision_reasoning": "你近期的学习状态非常出色，整体准确率高达0.75，在‘排列组合’和‘样本空间’等核心知识点上都展现了扎实的基础！这种稳定的表现正是探索新知识的黄金时机。继续保持这份热忱，让我们一同迈向更广阔的知识领域，解锁更多有趣的挑战吧！",
+      "strategic_decision": {
+        "mission_type": "NEW_KNOWLEDGE",
+        "target": "事件的相互独立",
+        "constraints": {
+          "task_focus": [
+            "CONCEPT_LEARNING",
+            "NORMAL_QUESTIONS"
+          ],
+          "difficulty_range": [
+            0.4,
+            0.7
+          ]
+        }
+      }
+    }
+  },
+  "95": {
+    "prompt": "{'user_id': 95, 'analysis_window': 20, 'overall_recent_accuracy': 0.9, 'analysis_by_node': [{'node_id': 11, 'node_name': '排列 & 组合', 'interaction_count': 7, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.89, '解题逻辑': 0.9, '计算准确性': 0.93, '行为表现': 0.89}}, {'node_id': 9, 'node_name': '样本空间', 'interaction_count': 10, 'accuracy': 0.8, 'average_scores': {'知识掌握': 0.87, '解题逻辑': 0.93, '计算准确性': 0.76, '行为表现': 0.85}}, {'node_id': 7, 'node_name': '随机现象', 'interaction_count': 3, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.9, '解题逻辑': 0.83, '计算准确性': 0.9, '行为表现': 0.91}}]}##用户已经完成了1个模块的学习：概率论的基本概念。目前正在学习'概率运算进阶'模块，已掌握1个知识点，还需学习4个知识点。已掌握的知识点包括：条件概率。待学习的知识点包括：乘法公式, 事件的相互独立, 全概率公式, 贝叶斯公式。",
+    "ai_recommendation": {
+      "decision_reasoning": "你近期的学习状态堪称典范！在‘排列与组合’和‘随机现象’等核心领域展现出卓越的理解力与解题能力，整体准确率高达0.9令人赞叹。这种稳定的高水平表现正是探索新知识的黄金时期——就像登山者站在稳固的营地眺望更高的山峰，现在正是向你的知识版图注入新鲜活力的最佳时机！",
+      "strategic_decision": {
+        "mission_type": "NEW_KNOWLEDGE",
+        "target": "全概率公式",
+        "constraints": {
+          "task_focus": [
+            "CONCEPT_LEARNING",
+            "NORMAL_QUESTIONS"
+          ],
+          "difficulty_range": [
+            0.4,
+            0.7
+          ]
+        }
+      }
+    }
+  },
+  "14": {
+    "prompt": "{'user_id': 14, 'analysis_window': 20, 'overall_recent_accuracy': 0.75, 'analysis_by_node': [{'node_id': 11, 'node_name': '排列 & 组合', 'interaction_count': 9, 'accuracy': 0.78, 'average_scores': {'知识掌握': 0.75, '解题逻辑': 0.87, '计算准确性': 0.85, '行为表现': 0.87}}, {'node_id': 9, 'node_name': '样本空间', 'interaction_count': 10, 'accuracy': 0.8, 'average_scores': {'知识掌握': 0.8, '解题逻辑': 0.85, '计算准确性': 0.86, '行为表现': 0.87}}, {'node_id': 7, 'node_name': '随机现象', 'interaction_count': 1, 'accuracy': 0.0, 'average_scores': {'知识掌握': 0.34, '解题逻辑': 0.7, '计算准确性': 0.7, '行为表现': 0.7}}]}##用户已经完成了2个模块的学习：概率论的基本概念, 概率运算进阶。目前正在学习'随机变量及其分布'模块，尚未掌握任何知识点，还需学习16个知识点。待学习的知识点包括：一维随机变量, 分布函数, 随机变量函数的分布, 离散型变量, 分布律, 0-1分布, 二项分布, 泊松分布, 几何分布, 超几何分布, 连续型变量, 概率密度, 均匀分布, 指数分布, 正态分布, 多维随机变量。",
+    "ai_recommendation": {
+      "decision_reasoning": "你最近在‘排列 & 组合’等知识点上的表现非常出色，展现出强大的逻辑思维能力！不过我们也注意到‘随机现象’这个基础概念还需要加强理解。就像建造高楼需要稳固的地基一样，彻底掌握这个核心概念会让你在概率论的学习中更加游刃有余。让我们一起把这块重要的拼图完整地放进你的知识宝库吧！",
+      "strategic_decision": {
+        "mission_type": "WEAK_POINT_CONSOLIDATION",
+        "target": "随机现象",
+        "constraints": {
+          "task_focus": [
+            "CONCEPT_REINFORCEMENT",
+            "EASY_QUESTIONS"
+          ],
+          "difficulty_range": [
+            0.1,
+            0.4
+          ]
+        }
+      }
+    }
+  },
+  "34": {
+    "prompt": "{'user_id': 34, 'analysis_window': 20, 'overall_recent_accuracy': 0.5, 'analysis_by_node': [{'node_id': 11, 'node_name': '排列 & 组合', 'interaction_count': 20, 'accuracy': 0.5, 'average_scores': {'知识掌握': 0.58, '解题逻辑': 0.79, '计算准确性': 0.79, '行为表现': 0.81}}]}##用户已经完成了1个模块的学习：概率论的基本概念。目前正在学习'概率运算进阶'模块，已掌握1个知识点，还需学习4个知识点。已掌握的知识点包括：条件概率。待学习的知识点包括：乘法公式, 事件的相互独立, 全概率公式, 贝叶斯公式。",
+    "ai_recommendation": {
+      "decision_reasoning": "你在‘排列 & 组合’这个知识点上已经打下了一定的基础，但就像建造高楼需要更稳固的地基一样，彻底理解这些核心概念会让你在未来的学习中更加游刃有余。让我们一起把这块重要的拼图完整地拼好，你会发现自己能解决更多有趣的问题！",
+      "strategic_decision": {
+        "mission_type": "WEAK_POINT_CONSOLIDATION",
+        "target": "排列 & 组合",
+        "constraints": {
+          "task_focus": [
+            "CONCEPT_REINFORCEMENT",
+            "EASY_QUESTIONS"
+          ],
+          "difficulty_range": [
+            0.1,
+            0.4
+          ]
+        }
+      }
+    }
+  },
+  "11": {
+    "prompt": "{'user_id': 11, 'analysis_window': 20, 'overall_recent_accuracy': 0.9, 'analysis_by_node': [{'node_id': 11, 'node_name': '排列 & 组合', 'interaction_count': 10, 'accuracy': 0.8, 'average_scores': {'知识掌握': 0.87, '解题逻辑': 0.89, '计算准确性': 0.75, '行为表现': 0.87}}, {'node_id': 9, 'node_name': '样本空间', 'interaction_count': 8, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.89, '解题逻辑': 0.89, '计算准确性': 0.89, '行为表现': 0.9}}, {'node_id': 7, 'node_name': '随机现象', 'interaction_count': 2, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.96, '解题逻辑': 0.88, '计算准确性': 0.97, '行为表现': 0.99}}]}##用户已经完成了2个模块的学习：概率论的基本概念, 概率运算进阶。目前正在学习'随机变量及其分布'模块，已掌握4个知识点，还需学习12个知识点。已掌握的知识点包括：一维随机变量, 分布函数, 离散型变量, 多维随机变量。待学习的知识点包括：随机变量函数的分布, 分布律, 0-1分布, 二项分布, 泊松分布, 几何分布, 超几何分布, 连续型变量, 概率密度, 均匀分布, 指数分布, 正态分布。",
+    "ai_recommendation": {
+      "decision_reasoning": "你近期的学习表现堪称典范！整体准确率高达90%，在‘样本空间’和‘随机现象’等核心概念上都展现了卓越的理解力。这种稳定的高水平正是探索新领域的黄金时机——就像登山者站在稳固的营地准备向更高处进发一样，现在正是拓展知识边界的最佳时刻！",
+      "strategic_decision": {
+        "mission_type": "NEW_KNOWLEDGE",
+        "target": "随机变量函数的分布",
+        "constraints": {
+          "task_focus": [
+            "CONCEPT_LEARNING",
+            "NORMAL_QUESTIONS"
+          ],
+          "difficulty_range": [
+            0.4,
+            0.7
+          ]
+        }
+      }
+    }
+  },
+  "81": {
+    "prompt": "{'user_id': 81, 'analysis_window': 20, 'overall_recent_accuracy': 0.95, 'analysis_by_node': [{'node_id': 11, 'node_name': '排列 & 组合', 'interaction_count': 3, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.9, '解题逻辑': 0.97, '计算准确性': 0.88, '行为表现': 0.89}}, {'node_id': 9, 'node_name': '样本空间', 'interaction_count': 8, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.89, '解题逻辑': 0.9, '计算准确性': 0.93, '行为表现': 0.91}}, {'node_id': 7, 'node_name': '随机现象', 'interaction_count': 9, 'accuracy': 0.89, 'average_scores': {'知识掌握': 0.82, '解题逻辑': 0.86, '计算准确性': 0.89, '行为表现': 0.9}}]}##用户已经完成了4个模块的学习：概率论的基本概念, 概率运算进阶, 随机变量及其分布, 数字特征与关系。目前正在学习'极限定理'模块，已掌握1个知识点，还需学习2个知识点。已掌握的知识点包括：切比雪夫不等式。待学习的知识点包括：大数定律, 中心极限定理。",
+    "ai_recommendation": {
+      "decision_reasoning": "你近期的学习表现堪称典范！整体准确率高达95%，在‘排列 & 组合’和‘样本空间’等核心知识点上更是达到了完美的水平。这种卓越的学习状态正是探索新领域的黄金时机，继续保持这份热忱与好奇心，去发现数学世界中更多令人兴奋的秘密吧！",
+      "strategic_decision": {
+        "mission_type": "NEW_KNOWLEDGE",
+        "target": "大数定律",
+        "constraints": {
+          "task_focus": [
+            "CONCEPT_LEARNING",
+            "NORMAL_QUESTIONS"
+          ],
+          "difficulty_range": [
+            0.4,
+            0.7
+          ]
+        }
+      }
+    }
+  },
+  "4": {
+    "prompt": "{'user_id': 4, 'analysis_window': 20, 'overall_recent_accuracy': 0.45, 'analysis_by_node': [{'node_id': 12, 'node_name': '古典概型', 'interaction_count': 15, 'accuracy': 0.4, 'average_scores': {'知识掌握': 0.51, '解题逻辑': 0.79, '计算准确性': 0.77, '行为表现': 0.8}}, {'node_id': 11, 'node_name': '排列 & 组合', 'interaction_count': 5, 'accuracy': 0.6, 'average_scores': {'知识掌握': 0.66, '解题逻辑': 0.83, '计算准确性': 0.81, '行为表现': 0.83}}]}##用户尚未完成任何模块的学习。目前正在学习'概率论的基本概念'模块，已掌握3个知识点，还需学习5个知识点。已掌握的知识点包括：随机现象, 随机试验, 排列 & 组合。待学习的知识点包括：样本空间, 随机事件, 古典概型, 概率, 加法/减法公式。",
+    "ai_recommendation": {
+      "decision_reasoning": "你在‘古典概型’这个知识点上已经展现出一定的学习意愿和潜力，虽然目前得分是0.51，但这恰恰说明你有很大的提升空间！就像搭建积木一样，稳固的基础能让后续的学习更加顺畅。让我们一起专注攻克这个关键知识点，通过概念强化和基础应用练习，逐步建立扎实的理解，为未来的进阶学习打下坚实基础！",
+      "strategic_decision": {
+        "mission_type": "WEAK_POINT_CONSOLIDATION",
+        "target": "古典概型",
+        "constraints": {
+          "task_focus": [
+            "CONCEPT_REINFORCEMENT",
+            "BASIC_APPLICATION",
+            "ERROR_ANALYSIS"
+          ],
+          "difficulty_range": [
+            0.3,
+            0.5
+          ]
+        }
+      }
+    }
+  },
+  "82": {
+    "prompt": "{'user_id': 82, 'analysis_window': 20, 'overall_recent_accuracy': 0.8, 'analysis_by_node': [{'node_id': 11, 'node_name': '排列 & 组合', 'interaction_count': 8, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.93, '解题逻辑': 0.9, '计算准确性': 0.91, '行为表现': 0.88}}, {'node_id': 7, 'node_name': '随机现象', 'interaction_count': 12, 'accuracy': 0.67, 'average_scores': {'知识掌握': 0.84, '解题逻辑': 0.74, '计算准确性': 0.82, '行为表现': 0.82}}]}##用户尚未完成任何模块的学习。目前正在学习'概率论的基本概念'模块，已掌握3个知识点，还需学习5个知识点。已掌握的知识点包括：随机现象, 排列 & 组合, 古典概型。待学习的知识点包括：随机试验, 样本空间, 随机事件, 概率, 加法/减法公式。",
+    "ai_recommendation": {
+      "decision_reasoning": "你近期的学习状态非常出色，尤其在‘排列 & 组合’知识点上展现了完美的掌握能力！这种稳定的高水平表现正是探索新知识的黄金时期。继续保持这份热忱，去发现更多数学世界的奇妙规律吧，每一次突破都会让思维更加敏捷灵动！",
+      "strategic_decision": {
+        "mission_type": "NEW_KNOWLEDGE",
+        "target": "随机试验",
+        "constraints": {
+          "task_focus": [
+            "CONCEPT_LEARNING",
+            "NORMAL_QUESTIONS"
+          ],
+          "difficulty_range": [
+            0.4,
+            0.7
+          ]
+        }
+      }
+    }
+  },
+  "56": {
+    "prompt": "{'user_id': 56, 'analysis_window': 20, 'overall_recent_accuracy': 0.85, 'analysis_by_node': [{'node_id': 11, 'node_name': '排列 & 组合', 'interaction_count': 9, 'accuracy': 0.89, 'average_scores': {'知识掌握': 0.81, '解题逻辑': 0.9, '计算准确性': 0.9, '行为表现': 0.87}}, {'node_id': 9, 'node_name': '样本空间', 'interaction_count': 11, 'accuracy': 0.82, 'average_scores': {'知识掌握': 0.78, '解题逻辑': 0.86, '计算准确性': 0.86, '行为表现': 0.85}}]}##用户尚未完成任何模块的学习。目前正在学习'概率论的基本概念'模块，已掌握5个知识点，还需学习3个知识点。已掌握的知识点包括：随机现象, 随机试验, 样本空间, 排列 & 组合, 古典概型。待学习的知识点包括：随机事件, 概率, 加法/减法公式。",
+    "ai_recommendation": {
+      "decision_reasoning": "你近期的学习状态非常出色，整体准确率高达85%，在‘排列 & 组合’和‘样本空间’等核心知识点上都展现了扎实的基础！这种稳定的表现正是探索新知识的黄金时期。继续保持这份热情，去发现更多数学世界的奇妙规律吧！",
+      "strategic_decision": {
+        "mission_type": "NEW_KNOWLEDGE",
+        "target": "随机事件",
+        "constraints": {
+          "task_focus": [
+            "CONCEPT_LEARNING",
+            "NORMAL_QUESTIONS"
+          ],
+          "difficulty_range": [
+            0.4,
+            0.7
+          ]
+        }
+      }
+    }
+  },
+  "39": {
+    "prompt": "{'user_id': 39, 'analysis_window': 20, 'overall_recent_accuracy': 0.75, 'analysis_by_node': [{'node_id': 11, 'node_name': '排列 & 组合', 'interaction_count': 10, 'accuracy': 0.7, 'average_scores': {'知识掌握': 0.71, '解题逻辑': 0.86, '计算准确性': 0.82, '行为表现': 0.84}}, {'node_id': 9, 'node_name': '样本空间', 'interaction_count': 10, 'accuracy': 0.8, 'average_scores': {'知识掌握': 0.73, '解题逻辑': 0.89, '计算准确性': 0.83, '行为表现': 0.89}}]}##用户已经完成了2个模块的学习：概率论的基本概念, 概率运算进阶。目前正在学习'随机变量及其分布'模块，已掌握10个知识点，还需学习6个知识点。已掌握的知识点包括：一维随机变量, 分布函数, 随机变量函数的分布, 离散型变量, 分布律, 0-1分布, 二项分布, 几何分布, 超几何分布, 多维随机变量。待学习的知识点包括：泊松分布, 连续型变量, 概率密度, 均匀分布, 指数分布, 正态分布。",
+    "ai_recommendation": {
+      "decision_reasoning": "你近期的学习状态非常出色，准确率高达0.75，在‘排列 & 组合’和‘样本空间’等知识点上都展现了扎实的基础！这种稳定的高水平表现正是探索新知识的黄金时期。继续保持这份热忱，去发现数学世界中更多奇妙的联系吧，每一次突破都会让思维更加开阔！",
+      "strategic_decision": {
+        "mission_type": "NEW_KNOWLEDGE",
+        "target": "泊松分布",
+        "constraints": {
+          "task_focus": [
+            "CONCEPT_LEARNING",
+            "NORMAL_QUESTIONS"
+          ],
+          "difficulty_range": [
+            0.4,
+            0.7
+          ]
+        }
+      }
+    }
+  },
+  "51": {
+    "prompt": "{'user_id': 51, 'analysis_window': 20, 'overall_recent_accuracy': 1.0, 'analysis_by_node': [{'node_id': 11, 'node_name': '排列 & 组合', 'interaction_count': 7, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.9, '解题逻辑': 0.95, '计算准确性': 0.91, '行为表现': 0.91}}, {'node_id': 9, 'node_name': '样本空间', 'interaction_count': 8, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.9, '解题逻辑': 0.89, '计算准确性': 0.9, '行为表现': 0.88}}, {'node_id': 7, 'node_name': '随机现象', 'interaction_count': 5, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.9, '解题逻辑': 0.86, '计算准确性': 0.89, '行为表现': 0.9}}]}##用户已经完成了2个模块的学习：概率论的基本概念, 概率运算进阶。目前正在学习'随机变量及其分布'模块，已掌握4个知识点，还需学习12个知识点。已掌握的知识点包括：一维随机变量, 分布函数, 随机变量函数的分布, 多维随机变量。待学习的知识点包括：离散型变量, 分布律, 0-1分布, 二项分布, 泊松分布, 几何分布, 超几何分布, 连续型变量, 概率密度, 均匀分布, 指数分布, 正态分布。",
+    "ai_recommendation": {
+      "decision_reasoning": "你的学习表现堪称典范，所有知识点都完美掌握！这样的卓越状态正是向更高层次知识发起冲击的最佳时机。就像登上了一个高峰后，前方还有更壮丽的风景等待你去发现——让我们继续保持这份热忱，开启全新的知识探索之旅吧！",
+      "strategic_decision": {
+        "mission_type": "NEW_KNOWLEDGE",
+        "target": "分布律",
+        "constraints": {
+          "task_focus": [
+            "CONCEPT_LEARNING",
+            "NORMAL_QUESTIONS"
+          ],
+          "difficulty_range": [
+            0.4,
+            0.7
+          ]
+        }
+      }
+    }
+  },
+  "104": {
+    "prompt": "{'user_id': 104, 'analysis_window': 20, 'overall_recent_accuracy': 0.8, 'analysis_by_node': [{'node_id': 11, 'node_name': '排列 & 组合', 'interaction_count': 10, 'accuracy': 0.8, 'average_scores': {'知识掌握': 0.81, '解题逻辑': 0.84, '计算准确性': 0.87, '行为表现': 0.87}}, {'node_id': 9, 'node_name': '样本空间', 'interaction_count': 10, 'accuracy': 0.8, 'average_scores': {'知识掌握': 0.78, '解题逻辑': 0.86, '计算准确性': 0.86, '行为表现': 0.84}}]}##用户已经完成了1个模块的学习：概率论的基本概念。目前正在学习'概率运算进阶'模块，尚未掌握任何知识点，还需学习5个知识点。待学习的知识点包括：条件概率, 乘法公式, 事件的相互独立, 全概率公式, 贝叶斯公式。",
+    "ai_recommendation": {
+      "decision_reasoning": "你近期的学习状态非常出色，整体准确率高达0.8，在‘排列 & 组合’和‘样本空间’等知识点上都展现了扎实的基础！这种稳定的表现正是探索新领域的黄金时机。继续保持这份专注与热情，让我们一起迈向下一个知识高峰，解锁更多有趣的挑战吧！",
+      "strategic_decision": {
+        "mission_type": "NEW_KNOWLEDGE",
+        "target": "条件概率",
+        "constraints": {
+          "task_focus": [
+            "CONCEPT_LEARNING",
+            "NORMAL_QUESTIONS"
+          ],
+          "difficulty_range": [
+            0.4,
+            0.7
+          ]
+        }
+      }
+    }
+  },
+  "69": {
+    "prompt": "{'user_id': 69, 'analysis_window': 20, 'overall_recent_accuracy': 1.0, 'analysis_by_node': [{'node_id': 11, 'node_name': '排列 & 组合', 'interaction_count': 6, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.87, '解题逻辑': 0.93, '计算准确性': 0.92, '行为表现': 0.89}}, {'node_id': 9, 'node_name': '样本空间', 'interaction_count': 8, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.89, '解题逻辑': 0.9, '计算准确性': 0.89, '行为表现': 0.89}}, {'node_id': 7, 'node_name': '随机现象', 'interaction_count': 6, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.9, '解题逻辑': 0.95, '计算准确性': 0.88, '行为表现': 0.91}}]}##用户已经完成了3个模块的学习：概率论的基本概念, 概率运算进阶, 随机变量及其分布。目前正在学习'数字特征与关系'模块，已掌握4个知识点，还需学习2个知识点。已掌握的知识点包括：数学期望, 协方差, 相关系数 ρ, 独立性与不相关性。待学习的知识点包括：矩母函数, 方差 & 标准差。",
+    "ai_recommendation": {
+      "decision_reasoning": "你的学习表现堪称典范！所有知识点都掌握得精准无误，展现出卓越的综合应用能力。现在正是突破自我、探索更广阔知识领域的最佳时机。让我们继续保持这份热忱，向更高的目标迈进吧！",
+      "strategic_decision": {
+        "mission_type": "NEW_KNOWLEDGE",
+        "target": "矩母函数",
+        "constraints": {
+          "task_focus": [
+            "ADVANCED_APPLICATION",
+            "CHALLENGING_QUESTIONS"
+          ],
+          "difficulty_range": [
+            0.7,
+            1.0
+          ]
+        }
+      }
+    }
+  },
+  "96": {
+    "prompt": "{'user_id': 96, 'analysis_window': 20, 'overall_recent_accuracy': 0.95, 'analysis_by_node': [{'node_id': 11, 'node_name': '排列 & 组合', 'interaction_count': 8, 'accuracy': 0.88, 'average_scores': {'知识掌握': 0.84, '解题逻辑': 0.87, '计算准确性': 0.89, '行为表现': 0.87}}, {'node_id': 9, 'node_name': '样本空间', 'interaction_count': 8, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.92, '解题逻辑': 0.88, '计算准确性': 0.89, '行为表现': 0.89}}, {'node_id': 7, 'node_name': '随机现象', 'interaction_count': 4, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.9, '解题逻辑': 0.91, '计算准确性': 0.94, '行为表现': 0.91}}]}##用户已经完成了2个模块的学习：概率论的基本概念, 概率运算进阶。目前正在学习'随机变量及其分布'模块，已掌握3个知识点，还需学习13个知识点。已掌握的知识点包括：一维随机变量, 分布函数, 多维随机变量。待学习的知识点包括：随机变量函数的分布, 离散型变量, 分布律, 0-1分布, 二项分布, 泊松分布, 几何分布, 超几何分布, 连续型变量, 概率密度, 均匀分布, 指数分布, 正态分布。",
+    "ai_recommendation": {
+      "decision_reasoning": "你的表现简直太出色了！准确率高达95%，在‘样本空间’和‘随机现象’等知识点上更是拿到了满分。这证明你已经具备了扎实的基础和强大的学习能力。现在是时候继续向前探索，挑战更高层次的知识领域，让你的思维更加开阔，潜力得到进一步释放！",
+      "strategic_decision": {
+        "mission_type": "NEW_KNOWLEDGE",
+        "target": "随机变量函数的分布",
+        "constraints": {
+          "task_focus": [
+            "CONCEPT_LEARNING",
+            "NORMAL_QUESTIONS"
+          ],
+          "difficulty_range": [
+            0.4,
+            0.7
+          ]
+        }
+      }
+    }
+  },
+  "61": {
+    "prompt": "{'user_id': 61, 'analysis_window': 20, 'overall_recent_accuracy': 0.7, 'analysis_by_node': [{'node_id': 11, 'node_name': '排列 & 组合', 'interaction_count': 14, 'accuracy': 0.64, 'average_scores': {'知识掌握': 0.84, '解题逻辑': 0.72, '计算准确性': 0.84, '行为表现': 0.83}}, {'node_id': 9, 'node_name': '样本空间', 'interaction_count': 6, 'accuracy': 0.83, 'average_scores': {'知识掌握': 0.88, '解题逻辑': 0.85, '计算准确性': 0.85, '行为表现': 0.9}}]}##用户已经完成了2个模块的学习：概率论的基本概念, 概率运算进阶。目前正在学习'随机变量及其分布'模块，已掌握6个知识点，还需学习10个知识点。已掌握的知识点包括：一维随机变量, 分布函数, 随机变量函数的分布, 连续型变量, 概率密度, 多维随机变量。待学习的知识点包括：离散型变量, 分布律, 0-1分布, 二项分布, 泊松分布, 几何分布, 超几何分布, 均匀分布, 指数分布, 正态分布。",
+    "ai_recommendation": {
+      "decision_reasoning": "你近期的学习表现非常出色，在‘排列 & 组合’和‘样本空间’等关键知识点上都展现了扎实的基础和优秀的理解能力！这种稳定的高水平发挥正是探索新领域的最好时机。让我们继续保持这份热忱，一起迈向更广阔的知识天地吧！",
+      "strategic_decision": {
+        "mission_type": "NEW_KNOWLEDGE",
+        "target": "正态分布",
+        "constraints": {
+          "task_focus": [
+            "CONCEPT_LEARNING",
+            "NORMAL_QUESTIONS"
+          ],
+          "difficulty_range": [
+            0.4,
+            0.7
+          ]
+        }
+      }
+    }
+  },
+  "28": {
+    "prompt": "{'user_id': 28, 'analysis_window': 20, 'overall_recent_accuracy': 0.95, 'analysis_by_node': [{'node_id': 11, 'node_name': '排列 & 组合', 'interaction_count': 7, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.89, '解题逻辑': 0.89, '计算准确性': 0.87, '行为表现': 0.89}}, {'node_id': 9, 'node_name': '样本空间', 'interaction_count': 8, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.88, '解题逻辑': 0.94, '计算准确性': 0.89, '行为表现': 0.88}}, {'node_id': 7, 'node_name': '随机现象', 'interaction_count': 5, 'accuracy': 0.8, 'average_scores': {'知识掌握': 0.86, '解题逻辑': 0.78, '计算准确性': 0.88, '行为表现': 0.87}}]}##用户尚未完成任何模块的学习。目前正在学习'概率论的基本概念'模块，已掌握6个知识点，还需学习2个知识点。已掌握的知识点包括：随机现象, 随机试验, 样本空间, 随机事件, 排列 & 组合, 古典概型。待学习的知识点包括：概率, 加法/减法公式。",
+    "ai_recommendation": {
+      "decision_reasoning": "你近期的学习表现堪称典范！整体准确率高达95%，在‘排列 & 组合’和‘样本空间’等核心知识点更是取得了完美的成绩。这种卓越的基础正是探索新领域的坚实跳板——就像优秀的登山者不会停留在已征服的山峰，而是向着更高处进发。让我们保持这份冲劲，用新知识继续拓展你的认知边界吧！",
+      "strategic_decision": {
+        "mission_type": "NEW_KNOWLEDGE",
+        "target": "概率",
+        "constraints": {
+          "task_focus": [
+            "CONCEPT_LEARNING",
+            "NORMAL_QUESTIONS"
+          ],
+          "difficulty_range": [
+            0.4,
+            0.7
+          ]
+        }
+      }
+    }
+  },
+  "12": {
+    "prompt": "{'user_id': 12, 'analysis_window': 20, 'overall_recent_accuracy': 0.45, 'analysis_by_node': [{'node_id': 11, 'node_name': '排列 & 组合', 'interaction_count': 19, 'accuracy': 0.47, 'average_scores': {'知识掌握': 0.56, '解题逻辑': 0.79, '计算准确性': 0.8, '行为表现': 0.79}}, {'node_id': 9, 'node_name': '样本空间', 'interaction_count': 1, 'accuracy': 0.0, 'average_scores': {'知识掌握': 0.27, '解题逻辑': 0.7, '计算准确性': 0.7, '行为表现': 0.7}}]}##用户已经完成了1个模块的学习：概率论的基本概念。目前正在学习'概率运算进阶'模块，已掌握3个知识点，还需学习2个知识点。已掌握的知识点包括：条件概率, 乘法公式, 全概率公式。待学习的知识点包括：事件的相互独立, 贝叶斯公式。",
+    "ai_recommendation": {
+      "decision_reasoning": "我们注意到你在‘样本空间’这个基础概念上遇到了困难，但它恰恰是打开概率世界大门的钥匙！别担心，每个伟大的数学家都曾从这里起步。只要我们一步步夯实基础，你完全有能力彻底掌握它，为后续学习扫清障碍。",
+      "strategic_decision": {
+        "mission_type": "WEAK_POINT_CONSOLIDATION",
+        "target": "样本空间",
+        "constraints": {
+          "task_focus": [
+            "CONCEPT_REINFORCEMENT",
+            "EASY_QUESTIONS"
+          ],
+          "difficulty_range": [
+            0.1,
+            0.4
+          ]
+        }
+      }
+    }
+  },
+  "117": {
+    "prompt": "{'user_id': 117, 'analysis_window': 20, 'overall_recent_accuracy': 0.5, 'analysis_by_node': [{'node_id': 11, 'node_name': '排列 & 组合', 'interaction_count': 20, 'accuracy': 0.5, 'average_scores': {'知识掌握': 0.59, '解题逻辑': 0.8, '计算准确性': 0.79, '行为表现': 0.8}}]}##用户尚未完成任何模块的学习。目前正在学习'概率论的基本概念'模块，已掌握3个知识点，还需学习5个知识点。已掌握的知识点包括：随机现象, 排列 & 组合, 古典概型。待学习的知识点包括：随机试验, 样本空间, 随机事件, 概率, 加法/减法公式。",
+    "ai_recommendation": {
+      "decision_reasoning": "你在‘排列 & 组合’这个知识点上已经打下了一定的基础，就像建房子有了地基一样！现在只需要再添几块砖、加几片瓦，就能让这座知识小屋更加稳固。通过针对性练习，我们可以一起把这块重要的拼图完美嵌入你的知识版图中，让你对这部分内容的理解更上一层楼！",
+      "strategic_decision": {
+        "mission_type": "WEAK_POINT_CONSOLIDATION",
+        "target": "排列 & 组合",
+        "constraints": {
+          "task_focus": [
+            "CONCEPT_REINFORCEMENT",
+            "EASY_QUESTIONS"
+          ],
+          "difficulty_range": [
+            0.1,
+            0.4
+          ]
+        }
+      }
+    }
+  },
+  "129": {
+    "prompt": "{'user_id': 129, 'analysis_window': 20, 'overall_recent_accuracy': 0.95, 'analysis_by_node': [{'node_id': 11, 'node_name': '排列 & 组合', 'interaction_count': 7, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.89, '解题逻辑': 0.88, '计算准确性': 0.9, '行为表现': 0.9}}, {'node_id': 9, 'node_name': '样本空间', 'interaction_count': 9, 'accuracy': 0.89, 'average_scores': {'知识掌握': 0.83, '解题逻辑': 0.87, '计算准确性': 0.9, '行为表现': 0.86}}, {'node_id': 7, 'node_name': '随机现象', 'interaction_count': 4, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.89, '解题逻辑': 0.89, '计算准确性': 0.9, '行为表现': 0.89}}]}##用户已经完成了2个模块的学习：概率论的基本概念, 概率运算进阶。目前正在学习'随机变量及其分布'模块，已掌握2个知识点，还需学习14个知识点。已掌握的知识点包括：一维随机变量, 多维随机变量。待学习的知识点包括：分布函数, 随机变量函数的分布, 离散型变量, 分布律, 0-1分布, 二项分布, 泊松分布, 几何分布, 超几何分布, 连续型变量, 概率密度, 均匀分布, 指数分布, 正态分布。",
+    "ai_recommendation": {
+      "decision_reasoning": "你的表现简直太出色了！所有知识点都掌握得如此扎实，尤其是‘排列 & 组合’和‘随机现象’更是达到了完美的满分水平。这样的学习状态正是探索新领域的黄金时机，让我们继续保持这份热情，去发现更多数学世界的奇妙风景吧！",
+      "strategic_decision": {
+        "mission_type": "NEW_KNOWLEDGE",
+        "target": "分布函数",
+        "constraints": {
+          "task_focus": [
+            "CONCEPT_LEARNING",
+            "NORMAL_QUESTIONS"
+          ],
+          "difficulty_range": [
+            0.4,
+            0.7
+          ]
+        }
+      }
+    }
+  },
+  "108": {
+    "prompt": "{'user_id': 108, 'analysis_window': 20, 'overall_recent_accuracy': 0.8, 'analysis_by_node': [{'node_id': 11, 'node_name': '排列 & 组合', 'interaction_count': 8, 'accuracy': 0.88, 'average_scores': {'知识掌握': 0.86, '解题逻辑': 0.88, '计算准确性': 0.87, '行为表现': 0.86}}, {'node_id': 9, 'node_name': '样本空间', 'interaction_count': 12, 'accuracy': 0.75, 'average_scores': {'知识掌握': 0.85, '解题逻辑': 0.75, '计算准确性': 0.88, '行为表现': 0.86}}]}##用户已经完成了2个模块的学习：概率论的基本概念, 概率运算进阶。目前正在学习'随机变量及其分布'模块，已掌握4个知识点，还需学习12个知识点。已掌握的知识点包括：一维随机变量, 分布函数, 随机变量函数的分布, 多维随机变量。待学习的知识点包括：离散型变量, 分布律, 0-1分布, 二项分布, 泊松分布, 几何分布, 超几何分布, 连续型变量, 概率密度, 均匀分布, 指数分布, 正态分布。",
+    "ai_recommendation": {
+      "decision_reasoning": "你近期的学习状态非常出色，整体准确率高达0.8，在‘排列 & 组合’和‘样本空间’等知识点上展现了扎实的基础！这种稳定的高水平表现正是探索新知识的黄金时期。继续保持这份热忱，去接触更广阔的知识领域吧，每一次突破都会让你离目标更近一步！",
+      "strategic_decision": {
+        "mission_type": "NEW_KNOWLEDGE",
+        "target": "离散型变量",
+        "constraints": {
+          "task_focus": [
+            "CONCEPT_LEARNING",
+            "NORMAL_QUESTIONS"
+          ],
+          "difficulty_range": [
+            0.4,
+            0.7
+          ]
+        }
+      }
+    }
+  },
+  "113": {
+    "prompt": "{'user_id': 113, 'analysis_window': 20, 'overall_recent_accuracy': 0.9, 'analysis_by_node': [{'node_id': 11, 'node_name': '排列 & 组合', 'interaction_count': 10, 'accuracy': 0.8, 'average_scores': {'知识掌握': 0.86, '解题逻辑': 0.9, '计算准确性': 0.76, '行为表现': 0.85}}, {'node_id': 9, 'node_name': '样本空间', 'interaction_count': 8, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.87, '解题逻辑': 0.89, '计算准确性': 0.85, '行为表现': 0.86}}, {'node_id': 7, 'node_name': '随机现象', 'interaction_count': 2, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.9, '解题逻辑': 0.89, '计算准确性': 0.84, '行为表现': 0.85}}]}##用户已经完成了1个模块的学习：概率论的基本概念。目前正在学习'概率运算进阶'模块，已掌握1个知识点，还需学习4个知识点。已掌握的知识点包括：条件概率。待学习的知识点包括：乘法公式, 事件的相互独立, 全概率公式, 贝叶斯公式。",
+    "ai_recommendation": {
+      "decision_reasoning": "你近期的学习表现堪称典范！整体准确率高达0.9，在‘样本空间’等知识点上更是取得了满分成绩。这种稳定高效的学习状态非常难得，现在正是乘势而上、开拓新知的最佳时机。继续保持这份热忱，去探索更广阔的知识领域吧！",
+      "strategic_decision": {
+        "mission_type": "NEW_KNOWLEDGE",
+        "target": "全概率公式",
+        "constraints": {
+          "task_focus": [
+            "CONCEPT_LEARNING",
+            "NORMAL_QUESTIONS"
+          ],
+          "difficulty_range": [
+            0.4,
+            0.7
+          ]
+        }
+      }
+    }
+  },
+  "116": {
+    "prompt": "{'user_id': 116, 'analysis_window': 20, 'overall_recent_accuracy': 1.0, 'analysis_by_node': [{'node_id': 11, 'node_name': '排列 & 组合', 'interaction_count': 7, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.9, '解题逻辑': 0.92, '计算准确性': 0.9, '行为表现': 0.89}}, {'node_id': 9, 'node_name': '样本空间', 'interaction_count': 8, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.87, '解题逻辑': 0.9, '计算准确性': 0.91, '行为表现': 0.91}}, {'node_id': 7, 'node_name': '随机现象', 'interaction_count': 5, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.92, '解题逻辑': 0.9, '计算准确性': 0.93, '行为表现': 0.9}}]}##用户已经完成了1个模块的学习：概率论的基本概念。目前正在学习'概率运算进阶'模块，已掌握4个知识点，还需学习1个知识点。已掌握的知识点包括：条件概率, 乘法公式, 全概率公式, 贝叶斯公式。待学习的知识点包括：事件的相互独立。",
+    "ai_recommendation": {
+      "decision_reasoning": "你的表现堪称典范！所有知识点都达到了完美的准确率，这展现了你卓越的学习能力和扎实的基础。现在正是突破自我、迈向更高层次的最佳时机。让我们继续探索更具挑战性的前沿知识领域，相信你一定能收获更多成就感！",
+      "strategic_decision": {
+        "mission_type": "NEW_KNOWLEDGE",
+        "target": "事件的相互独立",
+        "constraints": {
+          "task_focus": [
+            "ADVANCED_CONCEPTS",
+            "CHALLENGING_QUESTIONS"
+          ],
+          "difficulty_range": [
+            0.7,
+            1.0
+          ]
+        }
+      }
+    }
+  },
+  "115": {
+    "prompt": "{'user_id': 115, 'analysis_window': 20, 'overall_recent_accuracy': 1.0, 'analysis_by_node': [{'node_id': 11, 'node_name': '排列 & 组合', 'interaction_count': 7, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.9, '解题逻辑': 0.86, '计算准确性': 0.87, '行为表现': 0.9}}, {'node_id': 9, 'node_name': '样本空间', 'interaction_count': 8, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.9, '解题逻辑': 0.9, '计算准确性': 0.9, '行为表现': 0.87}}, {'node_id': 7, 'node_name': '随机现象', 'interaction_count': 5, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.92, '解题逻辑': 0.92, '计算准确性': 0.88, '行为表现': 0.87}}]}##用户尚未完成任何模块的学习。目前正在学习'概率论的基本概念'模块，已掌握6个知识点，还需学习2个知识点。已掌握的知识点包括：随机现象, 随机试验, 样本空间, 随机事件, 排列 & 组合, 古典概型。待学习的知识点包括：概率, 加法/减法公式。",
+    "ai_recommendation": {
+      "decision_reasoning": "你的学习表现堪称典范！所有知识点都达到了满分水平，展现出非凡的理解力和掌控力。现在正是突破自我、迈向更高阶思维的最佳时机——让我们继续探索更广阔的知识疆域，挑战那些能激发你全部潜能的新领域吧！",
+      "strategic_decision": {
+        "mission_type": "NEW_KNOWLEDGE",
+        "target": "概率",
+        "constraints": {
+          "task_focus": [
+            "ADVANCED_CONCEPT_EXTENSION",
+            "CHALLENGING_PROBLEMS"
+          ],
+          "difficulty_range": [
+            0.7,
+            1.0
+          ]
+        }
+      }
+    }
+  },
+  "120": {
+    "prompt": "{'user_id': 120, 'analysis_window': 20, 'overall_recent_accuracy': 0.7, 'analysis_by_node': [{'node_id': 11, 'node_name': '排列 & 组合', 'interaction_count': 11, 'accuracy': 0.73, 'average_scores': {'知识掌握': 0.86, '解题逻辑': 0.76, '计算准确性': 0.85, '行为表现': 0.88}}, {'node_id': 9, 'node_name': '样本空间', 'interaction_count': 9, 'accuracy': 0.67, 'average_scores': {'知识掌握': 0.85, '解题逻辑': 0.77, '计算准确性': 0.84, '行为表现': 0.84}}]}##用户尚未完成任何模块的学习。目前正在学习'概率论的基本概念'模块，已掌握5个知识点，还需学习3个知识点。已掌握的知识点包括：随机现象, 随机试验, 样本空间, 排列 & 组合, 古典概型。待学习的知识点包括：随机事件, 概率, 加法/减法公式。",
+    "ai_recommendation": {
+      "decision_reasoning": "你近期的学习状态非常出色，在‘排列 & 组合’和‘向量空间’等知识点上都展现了扎实的基础和稳定的发挥！这种持续进步的趋势正是探索新领域的黄金时机。继续保持这份热情，让我们一同迈向更广阔的知识天地，解锁更多有趣的挑战吧！",
+      "strategic_decision": {
+        "mission_type": "NEW_KNOWLEDGE",
+        "target": "随机事件",
+        "constraints": {
+          "task_focus": [
+            "CONCEPT_LEARNING",
+            "NORMAL_QUESTIONS"
+          ],
+          "difficulty_range": [
+            0.4,
+            0.7
+          ]
+        }
+      }
+    }
+  },
+  "88": {
+    "prompt": "{'user_id': 88, 'analysis_window': 20, 'overall_recent_accuracy': 0.75, 'analysis_by_node': [{'node_id': 11, 'node_name': '排列 & 组合', 'interaction_count': 11, 'accuracy': 0.73, 'average_scores': {'知识掌握': 0.76, '解题逻辑': 0.84, '计算准确性': 0.85, '行为表现': 0.85}}, {'node_id': 9, 'node_name': '样本空间', 'interaction_count': 9, 'accuracy': 0.78, 'average_scores': {'知识掌握': 0.75, '解题逻辑': 0.84, '计算准确性': 0.86, '行为表现': 0.84}}]}##用户已经完成了2个模块的学习：概率论的基本概念, 概率运算进阶。目前正在学习'随机变量及其分布'模块，已掌握6个知识点，还需学习10个知识点。已掌握的知识点包括：一维随机变量, 分布函数, 随机变量函数的分布, 连续型变量, 概率密度, 多维随机变量。待学习的知识点包括：离散型变量, 分布律, 0-1分布, 二项分布, 泊松分布, 几何分布, 超几何分布, 均匀分布, 指数分布, 正态分布。",
+    "ai_recommendation": {
+      "decision_reasoning": "你近期的学习状态非常出色，准确率高达0.75，在‘排列 & 组合’和‘样本空间’等核心知识点上都展现了扎实的基础！这种稳定的表现正是探索新领域的最好时机。继续保持这份热情，让我们一起迈向更广阔的知识天地，解锁更多有趣的数学奥秘吧！",
+      "strategic_decision": {
+        "mission_type": "NEW_KNOWLEDGE",
+        "target": "均匀分布",
+        "constraints": {
+          "task_focus": [
+            "CONCEPT_LEARNING",
+            "NORMAL_QUESTIONS"
+          ],
+          "difficulty_range": [
+            0.4,
+            0.7
+          ]
+        }
+      }
+    }
+  },
+  "114": {
+    "prompt": "{'user_id': 114, 'analysis_window': 20, 'overall_recent_accuracy': 0.95, 'analysis_by_node': [{'node_id': 11, 'node_name': '排列 & 组合', 'interaction_count': 7, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.88, '解题逻辑': 0.92, '计算准确性': 0.89, '行为表现': 0.92}}, {'node_id': 9, 'node_name': '样本空间', 'interaction_count': 9, 'accuracy': 0.89, 'average_scores': {'知识掌握': 0.89, '解题逻辑': 0.87, '计算准确性': 0.86, '行为表现': 0.85}}, {'node_id': 7, 'node_name': '随机现象', 'interaction_count': 4, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.9, '解题逻辑': 0.86, '计算准确性': 0.89, '行为表现': 0.89}}]}##用户已经完成了1个模块的学习：概率论的基本概念。目前正在学习'概率运算进阶'模块，已掌握2个知识点，还需学习3个知识点。已掌握的知识点包括：条件概率, 全概率公式。待学习的知识点包括：乘法公式, 事件的相互独立, 贝叶斯公式。",
+    "ai_recommendation": {
+      "decision_reasoning": "你近期的学习表现堪称典范，准确率高达95%，在‘排列 & 组合’和‘随机现象’等核心领域更是取得了满分！这展现了你卓越的学习能力和扎实的基础。现在正是乘胜追击、开拓新疆域的最佳时机——让我们继续探索更广阔的知识天地，挑战更高阶的思维训练吧！",
+      "strategic_decision": {
+        "mission_type": "NEW_KNOWLEDGE",
+        "target": "贝叶斯公式",
+        "constraints": {
+          "task_focus": [
+            "CONCEPT_LEARNING",
+            "NORMAL_QUESTIONS"
+          ],
+          "difficulty_range": [
+            0.4,
+            0.7
+          ]
+        }
+      }
+    }
+  },
+  "3": {
+    "prompt": "{'user_id': 3, 'analysis_window': 20, 'overall_recent_accuracy': 0.75, 'analysis_by_node': [{'node_id': 11, 'node_name': '排列 & 组合', 'interaction_count': 12, 'accuracy': 0.67, 'average_scores': {'知识掌握': 0.83, '解题逻辑': 0.76, '计算准确性': 0.83, '行为表现': 0.83}}, {'node_id': 9, 'node_name': '样本空间', 'interaction_count': 8, 'accuracy': 0.88, 'average_scores': {'知识掌握': 0.89, '解题逻辑': 0.81, '计算准确性': 0.88, '行为表现': 0.9}}]}##用户已经完成了1个模块的学习：概率论的基本概念。目前正在学习'概率运算进阶'模块，已掌握3个知识点，还需学习2个知识点。已掌握的知识点包括：条件概率, 乘法公式, 全概率公式。待学习的知识点包括：事件的相互独立, 贝叶斯公式。",
+    "ai_recommendation": {
+      "decision_reasoning": "你近期的学习状态非常出色，准确率高达0.75，在‘排列 & 组合’和‘向量空间’等知识点上都展现了扎实的基础！这种稳定的高水平表现正是探索新领域的黄金时机。继续保持这份热忱，去发现更多数学世界的奇妙风景吧！",
+      "strategic_decision": {
+        "mission_type": "NEW_KNOWLEDGE",
+        "target": "事件的相互独立",
+        "constraints": {
+          "task_focus": [
+            "CONCEPT_LEARNING",
+            "NORMAL_QUESTIONS"
+          ],
+          "difficulty_range": [
+            0.4,
+            0.7
+          ]
+        }
+      }
+    }
+  },
+  "78": {
+    "prompt": "{'user_id': 78, 'analysis_window': 20, 'overall_recent_accuracy': 0.85, 'analysis_by_node': [{'node_id': 11, 'node_name': '排列 & 组合', 'interaction_count': 10, 'accuracy': 0.7, 'average_scores': {'知识掌握': 0.71, '解题逻辑': 0.84, '计算准确性': 0.83, '行为表现': 0.85}}, {'node_id': 9, 'node_name': '样本空间', 'interaction_count': 8, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.91, '解题逻辑': 0.93, '计算准确性': 0.9, '行为表现': 0.88}}, {'node_id': 7, 'node_name': '随机现象', 'interaction_count': 2, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.88, '解题逻辑': 0.89, '计算准确性': 0.91, '行为表现': 0.98}}]}##用户已经完成了2个模块的学习：概率论的基本概念, 概率运算进阶。目前正在学习'随机变量及其分布'模块，已掌握14个知识点，还需学习2个知识点。已掌握的知识点包括：一维随机变量, 分布函数, 随机变量函数的分布, 离散型变量, 分布律, 0-1分布, 二项分布, 几何分布, 连续型变量, 概率密度, 均匀分布, 指数分布, 正态分布, 多维随机变量。待学习的知识点包括：泊松分布, 超几何分布。",
+    "ai_recommendation": {
+      "decision_reasoning": "你近期的学习状态非常出色，整体准确率高达0.85，在‘样本空间’和‘随机现象’等核心概念上展现了扎实的理解力！虽然‘排列 & 组合’稍有波动，但这恰恰是你突破自我的好机会。现在正是乘胜追击、探索新知识的黄金时期，让我们继续保持这种积极的学习节奏，向更广阔的知识领域进发吧！",
+      "strategic_decision": {
+        "mission_type": "NEW_KNOWLEDGE",
+        "target": "超几何分布",
+        "constraints": {
+          "task_focus": [
+            "CONCEPT_LEARNING",
+            "NORMAL_QUESTIONS"
+          ],
+          "difficulty_range": [
+            0.4,
+            0.7
+          ]
+        }
+      }
+    }
+  },
+  "29": {
+    "prompt": "{'user_id': 29, 'analysis_window': 20, 'overall_recent_accuracy': 0.9, 'analysis_by_node': [{'node_id': 11, 'node_name': '排列 & 组合', 'interaction_count': 8, 'accuracy': 0.88, 'average_scores': {'知识掌握': 0.77, '解题逻辑': 0.84, '计算准确性': 0.89, '行为表现': 0.87}}, {'node_id': 7, 'node_name': '随机现象', 'interaction_count': 9, 'accuracy': 0.89, 'average_scores': {'知识掌握': 0.82, '解题逻辑': 0.86, '计算准确性': 0.88, '行为表现': 0.88}}, {'node_id': 12, 'node_name': '古典概型', 'interaction_count': 1, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.84, '解题逻辑': 0.98, '计算准确性': 0.91, '行为表现': 0.81}}, {'node_id': 8, 'node_name': '随机试验', 'interaction_count': 2, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.87, '解题逻辑': 0.87, '计算准确性': 0.88, '行为表现': 0.93}}]}##用户尚未完成任何模块的学习。目前正在学习'概率论的基本概念'模块，已掌握3个知识点，还需学习5个知识点。已掌握的知识点包括：随机现象, 随机试验, 排列 & 组合。待学习的知识点包括：样本空间, 随机事件, 古典概型, 概率, 加法/减法公式。",
+    "ai_recommendation": {
+      "decision_reasoning": "你的学习表现堪称典范！所有知识点都掌握得非常扎实，尤其在‘古典概型’和‘随机试验’更是取得了满分成绩。这样的优秀状态正是探索新领域的黄金时机，让我们继续保持这份热忱，去发现更多数学世界的奇妙风景吧！",
+      "strategic_decision": {
+        "mission_type": "NEW_KNOWLEDGE",
+        "target": "样本空间",
+        "constraints": {
+          "task_focus": [
+            "CONCEPT_LEARNING",
+            "NORMAL_QUESTIONS"
+          ],
+          "difficulty_range": [
+            0.4,
+            0.7
+          ]
+        }
+      }
+    }
+  },
+  "60": {
+    "prompt": "{'user_id': 60, 'analysis_window': 20, 'overall_recent_accuracy': 0.95, 'analysis_by_node': [{'node_id': 11, 'node_name': '排列 & 组合', 'interaction_count': 8, 'accuracy': 0.88, 'average_scores': {'知识掌握': 0.83, '解题逻辑': 0.84, '计算准确性': 0.89, '行为表现': 0.85}}, {'node_id': 9, 'node_name': '样本空间', 'interaction_count': 8, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.91, '解题逻辑': 0.9, '计算准确性': 0.92, '行为表现': 0.91}}, {'node_id': 7, 'node_name': '随机现象', 'interaction_count': 4, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.94, '解题逻辑': 0.86, '计算准确性': 0.93, '行为表现': 0.9}}]}##用户已经完成了1个模块的学习：概率论的基本概念。目前正在学习'概率运算进阶'模块，已掌握2个知识点，还需学习3个知识点。已掌握的知识点包括：条件概率, 全概率公式。待学习的知识点包括：乘法公式, 事件的相互独立, 贝叶斯公式。",
+    "ai_recommendation": {
+      "decision_reasoning": "你的学习表现堪称典范！在‘样本空间’和‘随机现象’等核心概念上取得满分成绩，展现出卓越的理解力与应用能力。现在正是突破自我、探索更广阔知识领域的最佳时机，让我们继续保持这种昂扬的学习势头，向更高目标迈进！",
+      "strategic_decision": {
+        "mission_type": "NEW_KNOWLEDGE",
+        "target": "贝叶斯公式",
+        "constraints": {
+          "task_focus": [
+            "CONCEPT_LEARNING",
+            "NORMAL_QUESTIONS"
+          ],
+          "difficulty_range": [
+            0.4,
+            0.7
+          ]
+        }
+      }
+    }
+  },
+  "58": {
+    "prompt": "{'user_id': 58, 'analysis_window': 20, 'overall_recent_accuracy': 1.0, 'analysis_by_node': [{'node_id': 11, 'node_name': '排列 & 组合', 'interaction_count': 7, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.88, '解题逻辑': 0.86, '计算准确性': 0.92, '行为表现': 0.92}}, {'node_id': 9, 'node_name': '样本空间', 'interaction_count': 8, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.91, '解题逻辑': 0.89, '计算准确性': 0.89, '行为表现': 0.87}}, {'node_id': 7, 'node_name': '随机现象', 'interaction_count': 5, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.87, '解题逻辑': 0.89, '计算准确性': 0.87, '行为表现': 0.92}}]}##用户已经完成了2个模块的学习：概率论的基本概念, 概率运算进阶。目前正在学习'随机变量及其分布'模块，已掌握4个知识点，还需学习12个知识点。已掌握的知识点包括：一维随机变量, 分布函数, 随机变量函数的分布, 多维随机变量。待学习的知识点包括：离散型变量, 分布律, 0-1分布, 二项分布, 泊松分布, 几何分布, 超几何分布, 连续型变量, 概率密度, 均匀分布, 指数分布, 正态分布。",
+    "ai_recommendation": {
+      "decision_reasoning": "你的表现堪称典范！所有核心知识点都完美掌握，展现出非凡的学习能力和扎实的基础。现在正是突破自我、迈向更高层次的最佳时机。让我们继续保持这种势如破竹的状态，一起探索更广阔的知识天地吧！",
+      "strategic_decision": {
+        "mission_type": "NEW_KNOWLEDGE",
+        "target": "离散型变量",
+        "constraints": {
+          "task_focus": [
+            "CONCEPT_LEARNING",
+            "NORMAL_QUESTIONS"
+          ],
+          "difficulty_range": [
+            0.4,
+            0.7
+          ]
+        }
+      }
+    }
+  },
+  "109": {
+    "prompt": "{'user_id': 109, 'analysis_window': 20, 'overall_recent_accuracy': 0.5, 'analysis_by_node': [{'node_id': 11, 'node_name': '排列 & 组合', 'interaction_count': 15, 'accuracy': 0.6, 'average_scores': {'知识掌握': 0.67, '解题逻辑': 0.82, '计算准确性': 0.84, '行为表现': 0.83}}, {'node_id': 9, 'node_name': '样本空间', 'interaction_count': 5, 'accuracy': 0.2, 'average_scores': {'知识掌握': 0.39, '解题逻辑': 0.74, '计算准确性': 0.74, '行为表现': 0.73}}]}##用户已经完成了1个模块的学习：概率论的基本概念。目前正在学习'概率运算进阶'模块，已掌握2个知识点，还需学习3个知识点。已掌握的知识点包括：条件概率, 全概率公式。待学习的知识点包括：乘法公式, 事件的相互独立, 贝叶斯公式。",
+    "ai_recommendation": {
+      "decision_reasoning": "我们注意到你在‘样本空间’这个基础概念上遇到了一些挑战，但别担心！这就像搭建积木时最关键的第一层，只要我们把这块基石打牢，后续的知识大厦就能稳稳建立起来。让我们一起用简单有趣的题目重新梳理这个概念，你会发现自己其实已经掌握了大部分内容，只是需要一点点系统的强化练习而已！",
+      "strategic_decision": {
+        "mission_type": "WEAK_POINT_CONSOLIDATION",
+        "target": "样本空间",
+        "constraints": {
+          "task_focus": [
+            "CONCEPT_REINFORCEMENT",
+            "EASY_QUESTIONS"
+          ],
+          "difficulty_range": [
+            0.1,
+            0.4
+          ]
+        }
+      }
+    }
+  },
+  "36": {
+    "prompt": "{'user_id': 36, 'analysis_window': 20, 'overall_recent_accuracy': 0.9, 'analysis_by_node': [{'node_id': 11, 'node_name': '排列 & 组合', 'interaction_count': 7, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.88, '解题逻辑': 0.9, '计算准确性': 0.88, '行为表现': 0.92}}, {'node_id': 9, 'node_name': '样本空间', 'interaction_count': 1, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.86, '解题逻辑': 0.8, '计算准确性': 0.98, '行为表现': 0.9}}, {'node_id': 7, 'node_name': '随机现象', 'interaction_count': 10, 'accuracy': 0.8, 'average_scores': {'知识掌握': 0.86, '解题逻辑': 0.83, '计算准确性': 0.85, '行为表现': 0.81}}, {'node_id': 12, 'node_name': '古典概型', 'interaction_count': 2, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.91, '解题逻辑': 0.95, '计算准确性': 0.98, '行为表现': 0.88}}]}##用户尚未完成任何模块的学习。目前正在学习'概率论的基本概念'模块，已掌握4个知识点，还需学习4个知识点。已掌握的知识点包括：随机现象, 随机试验, 排列 & 组合, 古典概型。待学习的知识点包括：样本空间, 随机事件, 概率, 加法/减法公式。",
+    "ai_recommendation": {
+      "decision_reasoning": "你的表现真的太出色了！准确率高达90%，在‘排列 & 组合’和‘样本空间’等核心概念上已完全掌握，展现出强大的学习能力。现在正是继续开拓新领域、挑战更高目标的好时机，让我们保持这份热情，一起迈向下一个知识高峰吧！",
+      "strategic_decision": {
+        "mission_type": "NEW_KNOWLEDGE",
+        "target": "样本空间",
+        "constraints": {
+          "task_focus": [
+            "CONCEPT_LEARNING",
+            "NORMAL_QUESTIONS"
+          ],
+          "difficulty_range": [
+            0.4,
+            0.7
+          ]
+        }
+      }
+    }
+  },
+  "131": {
+    "prompt": "{'user_id': 131, 'analysis_window': 20, 'overall_recent_accuracy': 0.95, 'analysis_by_node': [{'node_id': 11, 'node_name': '排列 & 组合', 'interaction_count': 7, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.86, '解题逻辑': 0.94, '计算准确性': 0.88, '行为表现': 0.9}}, {'node_id': 9, 'node_name': '样本空间', 'interaction_count': 9, 'accuracy': 0.89, 'average_scores': {'知识掌握': 0.87, '解题逻辑': 0.92, '计算准确性': 0.82, '行为表现': 0.88}}, {'node_id': 7, 'node_name': '随机现象', 'interaction_count': 4, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.85, '解题逻辑': 0.91, '计算准确性': 0.9, '行为表现': 0.91}}]}##用户已经完成了2个模块的学习：概率论的基本概念, 概率运算进阶。目前正在学习'随机变量及其分布'模块，已掌握9个知识点，还需学习7个知识点。已掌握的知识点包括：一维随机变量, 分布函数, 随机变量函数的分布, 连续型变量, 概率密度, 均匀分布, 指数分布, 正态分布, 多维随机变量。待学习的知识点包括：离散型变量, 分布律, 0-1分布, 二项分布, 泊松分布, 几何分布, 超几何分布。",
+    "ai_recommendation": {
+      "decision_reasoning": "你近期的学习表现堪称典范！整体准确率高达95%，在‘排列 & 组合’和‘随机现象’等知识点上更是取得了满分成绩。这种卓越的状态正是探索新领域的黄金时机！继续保持这份热忱，去发现更多数学世界的奇妙风景吧，每一次突破都将让你站得更高、看得更远！",
+      "strategic_decision": {
+        "mission_type": "NEW_KNOWLEDGE",
+        "target": "分布律",
+        "constraints": {
+          "task_focus": [
+            "CONCEPT_LEARNING",
+            "NORMAL_QUESTIONS"
+          ],
+          "difficulty_range": [
+            0.4,
+            0.7
+          ]
+        }
+      }
+    }
+  },
+  "31": {
+    "prompt": "{'user_id': 31, 'analysis_window': 20, 'overall_recent_accuracy': 1.0, 'analysis_by_node': [{'node_id': 11, 'node_name': '排列 & 组合', 'interaction_count': 7, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.92, '解题逻辑': 0.89, '计算准确性': 0.91, '行为表现': 0.93}}, {'node_id': 9, 'node_name': '样本空间', 'interaction_count': 7, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.88, '解题逻辑': 0.93, '计算准确性': 0.87, '行为表现': 0.92}}, {'node_id': 7, 'node_name': '随机现象', 'interaction_count': 6, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.9, '解题逻辑': 0.87, '计算准确性': 0.87, '行为表现': 0.89}}]}##用户已经完成了2个模块的学习：概率论的基本概念, 概率运算进阶。目前正在学习'随机变量及其分布'模块，尚未掌握任何知识点，还需学习16个知识点。待学习的知识点包括：一维随机变量, 分布函数, 随机变量函数的分布, 离散型变量, 分布律, 0-1分布, 二项分布, 泊松分布, 几何分布, 超几何分布, 连续型变量, 概率密度, 均匀分布, 指数分布, 正态分布, 多维随机变量。",
+    "ai_recommendation": {
+      "decision_reasoning": "你的表现堪称典范！所有知识点都达到了完美的准确率，这展现了你卓越的学习能力和扎实的基础。现在正是继续扬帆起航、探索未知领域的最好时机。让我们保持这种势如破竹的状态，一起迈向更高层次的知识殿堂吧！",
+      "strategic_decision": {
+        "mission_type": "NEW_KNOWLEDGE",
+        "target": "一维随机变量",
+        "constraints": {
+          "task_focus": [
+            "CONCEPT_LEARNING",
+            "NORMAL_QUESTIONS"
+          ],
+          "difficulty_range": [
+            0.4,
+            0.7
+          ]
+        }
+      }
+    }
+  },
+  "135": {
+    "prompt": "{'user_id': 135, 'analysis_window': 20, 'overall_recent_accuracy': 0.85, 'analysis_by_node': [{'node_id': 11, 'node_name': '排列 & 组合', 'interaction_count': 8, 'accuracy': 0.88, 'average_scores': {'知识掌握': 0.9, '解题逻辑': 0.84, '计算准确性': 0.89, '行为表现': 0.89}}, {'node_id': 9, 'node_name': '样本空间', 'interaction_count': 11, 'accuracy': 0.82, 'average_scores': {'知识掌握': 0.86, '解题逻辑': 0.82, '计算准确性': 0.85, '行为表现': 0.86}}, {'node_id': 7, 'node_name': '随机现象', 'interaction_count': 1, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.94, '解题逻辑': 0.95, '计算准确性': 0.88, '行为表现': 0.95}}]}##用户已经完成了2个模块的学习：概率论的基本概念, 概率运算进阶。目前正在学习'随机变量及其分布'模块，已掌握12个知识点，还需学习4个知识点。已掌握的知识点包括：一维随机变量, 分布函数, 随机变量函数的分布, 离散型变量, 分布律, 二项分布, 连续型变量, 概率密度, 均匀分布, 指数分布, 正态分布, 多维随机变量。待学习的知识点包括：0-1分布, 泊松分布, 几何分布, 超几何分布。",
+    "ai_recommendation": {
+      "decision_reasoning": "你近期的学习表现非常出色，准确率高达0.85，各个知识点都掌握得很好且发展均衡！这充分展现了你的学习能力和努力。现在正是继续前进、探索新知识的好时机，让我们一起保持这种优秀的状态，迈向更高的目标吧！",
+      "strategic_decision": {
+        "mission_type": "NEW_KNOWLEDGE",
+        "target": "0-1分布",
+        "constraints": {
+          "task_focus": [
+            "CONCEPT_LEARNING",
+            "NORMAL_QUESTIONS"
+          ],
+          "difficulty_range": [
+            0.4,
+            0.7
+          ]
+        }
+      }
+    }
+  },
+  "70": {
+    "prompt": "{'user_id': 70, 'analysis_window': 20, 'overall_recent_accuracy': 0.9, 'analysis_by_node': [{'node_id': 11, 'node_name': '排列 & 组合', 'interaction_count': 7, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.92, '解题逻辑': 0.92, '计算准确性': 0.94, '行为表现': 0.89}}, {'node_id': 9, 'node_name': '样本空间', 'interaction_count': 11, 'accuracy': 0.82, 'average_scores': {'知识掌握': 0.81, '解题逻辑': 0.88, '计算准确性': 0.86, '行为表现': 0.83}}, {'node_id': 7, 'node_name': '随机现象', 'interaction_count': 2, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.91, '解题逻辑': 0.91, '计算准确性': 0.91, '行为表现': 0.9}}]}##用户已经完成了2个模块的学习：概率论的基本概念, 概率运算进阶。目前正在学习'随机变量及其分布'模块，已掌握4个知识点，还需学习12个知识点。已掌握的知识点包括：一维随机变量, 分布函数, 随机变量函数的分布, 多维随机变量。待学习的知识点包括：离散型变量, 分布律, 0-1分布, 二项分布, 泊松分布, 几何分布, 超几何分布, 连续型变量, 概率密度, 均匀分布, 指数分布, 正态分布。",
+    "ai_recommendation": {
+      "decision_reasoning": "你的学习表现真的太出色了！在‘排列 & 组合’和‘随机现象’等核心知识点上都达到了完美的准确率，这展现了你强大的数学思维能力。现在正是继续向前探索、挑战更高阶知识的好时机，相信你一定能收获更多成就感！",
+      "strategic_decision": {
+        "mission_type": "NEW_KNOWLEDGE",
+        "target": "分布律",
+        "constraints": {
+          "task_focus": [
+            "CONCEPT_LEARNING",
+            "NORMAL_QUESTIONS"
+          ],
+          "difficulty_range": [
+            0.4,
+            0.7
+          ]
+        }
+      }
+    }
+  },
+  "90": {
+    "prompt": "{'user_id': 90, 'analysis_window': 20, 'overall_recent_accuracy': 0.8, 'analysis_by_node': [{'node_id': 11, 'node_name': '排列 & 组合', 'interaction_count': 11, 'accuracy': 0.73, 'average_scores': {'知识掌握': 0.84, '解题逻辑': 0.92, '计算准确性': 0.73, '行为表现': 0.85}}, {'node_id': 9, 'node_name': '样本空间', 'interaction_count': 9, 'accuracy': 0.89, 'average_scores': {'知识掌握': 0.89, '解题逻辑': 0.9, '计算准确性': 0.86, '行为表现': 0.89}}]}##用户已经完成了2个模块的学习：概率论的基本概念, 概率运算进阶。目前正在学习'随机变量及其分布'模块，已掌握10个知识点，还需学习6个知识点。已掌握的知识点包括：一维随机变量, 分布函数, 随机变量函数的分布, 离散型变量, 连续型变量, 概率密度, 均匀分布, 指数分布, 正态分布, 多维随机变量。待学习的知识点包括：分布律, 0-1分布, 二项分布, 泊松分布, 几何分布, 超几何分布。",
+    "ai_recommendation": {
+      "decision_reasoning": "你近期的学习状态非常出色，准确率高达0.8，尤其在‘排列 & 组合’和‘样本空间’等核心知识点上展现了扎实的理解力！这种稳定的高水平表现正是探索新领域的黄金时机。继续保持这份热忱，让我们一同迈向知识的更深处，解锁更多有趣的挑战吧！",
+      "strategic_decision": {
+        "mission_type": "NEW_KNOWLEDGE",
+        "target": "二项分布",
+        "constraints": {
+          "task_focus": [
+            "CONCEPT_LEARNING",
+            "NORMAL_QUESTIONS"
+          ],
+          "difficulty_range": [
+            0.4,
+            0.7
+          ]
+        }
+      }
+    }
+  },
+  "132": {
+    "prompt": "{'user_id': 132, 'analysis_window': 20, 'overall_recent_accuracy': 0.55, 'analysis_by_node': [{'node_id': 11, 'node_name': '排列 & 组合', 'interaction_count': 17, 'accuracy': 0.53, 'average_scores': {'知识掌握': 0.57, '解题逻辑': 0.8, '计算准确性': 0.82, '行为表现': 0.82}}, {'node_id': 9, 'node_name': '样本空间', 'interaction_count': 3, 'accuracy': 0.67, 'average_scores': {'知识掌握': 0.66, '解题逻辑': 0.82, '计算准确性': 0.79, '行为表现': 0.86}}]}##用户尚未完成任何模块的学习。目前正在学习'概率论的基本概念'模块，已掌握4个知识点，还需学习4个知识点。已掌握的知识点包括：随机现象, 随机试验, 排列 & 组合, 古典概型。待学习的知识点包括：样本空间, 随机事件, 概率, 加法/减法公式。",
+    "ai_recommendation": {
+      "decision_reasoning": "你在‘排列 & 组合’这个知识点上展现出了一定的基础，但还有很大的提升空间！就像搭建积木一样，稳固的基础能让后续的学习更加顺畅。让我们一起专注攻克这个关键点，通过概念强化和基础题型练习，帮你建立更扎实的理解，为解决更复杂的问题做好准备！",
+      "strategic_decision": {
+        "mission_type": "WEAK_POINT_CONSOLIDATION",
+        "target": "排列 & 组合",
+        "constraints": {
+          "task_focus": [
+            "CONCEPT_REINFORCEMENT",
+            "EASY_QUESTIONS"
+          ],
+          "difficulty_range": [
+            0.1,
+            0.4
+          ]
+        }
+      }
+    }
+  },
+  "92": {
+    "prompt": "{'user_id': 92, 'analysis_window': 20, 'overall_recent_accuracy': 0.35, 'analysis_by_node': [{'node_id': 11, 'node_name': '排列 & 组合', 'interaction_count': 20, 'accuracy': 0.35, 'average_scores': {'知识掌握': 0.47, '解题逻辑': 0.76, '计算准确性': 0.76, '行为表现': 0.78}}]}##用户已经完成了2个模块的学习：概率论的基本概念, 概率运算进阶。目前正在学习'随机变量及其分布'模块，尚未掌握任何知识点，还需学习16个知识点。待学习的知识点包括：一维随机变量, 分布函数, 随机变量函数的分布, 离散型变量, 分布律, 0-1分布, 二项分布, 泊松分布, 几何分布, 超几何分布, 连续型变量, 概率密度, 均匀分布, 指数分布, 正态分布, 多维随机变量。",
+    "ai_recommendation": {
+      "decision_reasoning": "我们注意到你在‘排列 & 组合’这个知识点上遇到了一些挑战，但这正是成长的好机会！就像搭建积木一样，稳固的基础才能支撑起更复杂的结构。让我们一步步来，从最基础的概念开始强化，通过简单题目建立信心，你完全有能力掌握它并取得突破！",
+      "strategic_decision": {
+        "mission_type": "WEAK_POINT_CONSOLIDATION",
+        "target": "排列 & 组合",
+        "constraints": {
+          "task_focus": [
+            "CONCEPT_REINFORCEMENT",
+            "EASY_QUESTIONS"
+          ],
+          "difficulty_range": [
+            0.1,
+            0.4
+          ]
+        }
+      }
+    }
+  },
+  "74": {
+    "prompt": "{'user_id': 74, 'analysis_window': 16, 'overall_recent_accuracy': 0.75, 'analysis_by_node': [{'node_id': 11, 'node_name': '排列 & 组合', 'interaction_count': 9, 'accuracy': 0.78, 'average_scores': {'知识掌握': 0.84, '解题逻辑': 0.78, '计算准确性': 0.86, '行为表现': 0.85}}, {'node_id': 12, 'node_name': '古典概型', 'interaction_count': 7, 'accuracy': 0.71, 'average_scores': {'知识掌握': 0.85, '解题逻辑': 0.8, '计算准确性': 0.86, '行为表现': 0.83}}]}##用户尚未完成任何模块的学习。目前正在学习'概率论的基本概念'模块，已掌握1个知识点，还需学习7个知识点。已掌握的知识点包括：排列 & 组合。待学习的知识点包括：随机现象, 随机试验, 样本空间, 随机事件, 古典概型, 概率, 加法/减法公式。",
+    "ai_recommendation": {
+      "decision_reasoning": "你近期的学习状态非常出色，准确率高达0.75，在‘排列 & 组合’和‘古典概型’等知识点上都展现了扎实的基础！这种稳定的发挥正是探索新领域的最好时机。继续保持这份热忱，去发现更多数学世界的奇妙规律吧！",
+      "strategic_decision": {
+        "mission_type": "NEW_KNOWLEDGE",
+        "target": "随机现象",
+        "constraints": {
+          "task_focus": [
+            "CONCEPT_LEARNING",
+            "NORMAL_QUESTIONS"
+          ],
+          "difficulty_range": [
+            0.4,
+            0.7
+          ]
+        }
+      }
+    }
+  },
+  "10": {
+    "prompt": "{'user_id': 10, 'analysis_window': 20, 'overall_recent_accuracy': 1.0, 'analysis_by_node': [{'node_id': 11, 'node_name': '排列 & 组合', 'interaction_count': 7, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.92, '解题逻辑': 0.89, '计算准确性': 0.89, '行为表现': 0.91}}, {'node_id': 9, 'node_name': '样本空间', 'interaction_count': 7, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.86, '解题逻辑': 0.88, '计算准确性': 0.91, '行为表现': 0.9}}, {'node_id': 7, 'node_name': '随机现象', 'interaction_count': 6, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.92, '解题逻辑': 0.9, '计算准确性': 0.9, '行为表现': 0.89}}]}##用户已经完成了2个模块的学习：概率论的基本概念, 概率运算进阶。目前正在学习'随机变量及其分布'模块，已掌握6个知识点，还需学习10个知识点。已掌握的知识点包括：一维随机变量, 分布函数, 随机变量函数的分布, 离散型变量, 分布律, 多维随机变量。待学习的知识点包括：0-1分布, 二项分布, 泊松分布, 几何分布, 超几何分布, 连续型变量, 概率密度, 均匀分布, 指数分布, 正态分布。",
+    "ai_recommendation": {
+      "decision_reasoning": "你的表现堪称典范！所有知识点都完美掌握，准确率高达100%，这展现了你卓越的学习能力和扎实的基础。现在正是突破自我、迈向更高层次的最佳时机，让我们继续探索新的知识领域，开启更精彩的学习旅程吧！",
+      "strategic_decision": {
+        "mission_type": "NEW_KNOWLEDGE",
+        "target": "0-1分布",
+        "constraints": {
+          "task_focus": [
+            "CONCEPT_LEARNING",
+            "NORMAL_QUESTIONS"
+          ],
+          "difficulty_range": [
+            0.4,
+            0.7
+          ]
+        }
+      }
+    }
+  },
+  "103": {
+    "prompt": "{'user_id': 103, 'analysis_window': 20, 'overall_recent_accuracy': 0.65, 'analysis_by_node': [{'node_id': 11, 'node_name': '排列 & 组合', 'interaction_count': 15, 'accuracy': 0.6, 'average_scores': {'知识掌握': 0.84, '解题逻辑': 0.94, '计算准确性': 0.66, '行为表现': 0.83}}, {'node_id': 9, 'node_name': '样本空间', 'interaction_count': 5, 'accuracy': 0.8, 'average_scores': {'知识掌握': 0.86, '解题逻辑': 0.89, '计算准确性': 0.75, '行为表现': 0.88}}]}##用户已经完成了2个模块的学习：概率论的基本概念, 概率运算进阶。目前正在学习'随机变量及其分布'模块，已掌握5个知识点，还需学习11个知识点。已掌握的知识点包括：一维随机变量, 分布函数, 随机变量函数的分布, 连续型变量, 多维随机变量。待学习的知识点包括：离散型变量, 分布律, 0-1分布, 二项分布, 泊松分布, 几何分布, 超几何分布, 概率密度, 均匀分布, 指数分布, 正态分布。",
+    "ai_recommendation": {
+      "decision_reasoning": "你在‘排列 & 组合’知识点上的计算准确性还有提升空间，但这正是锻炼思维严谨性的好机会！就像打磨一把宝剑需要反复淬炼一样，通过针对性的计算训练和错题分析，你一定能突破这个瓶颈，让解题过程更加精准流畅。每一次细心核对都是向完美答案迈进的一大步！",
+      "strategic_decision": {
+        "mission_type": "SKILL_ENHANCEMENT",
+        "target": {
+          "name": "偏计算题型"
+        },
+        "constraints": {
+          "task_focus": [
+            "CALCULATION_DRILLS",
+            "ERROR_ANALYSIS"
+          ],
+          "difficulty_range": [
+            0.3,
+            0.6
+          ]
+        }
+      }
+    }
+  },
+  "130": {
+    "prompt": "{'user_id': 130, 'analysis_window': 20, 'overall_recent_accuracy': 0.75, 'analysis_by_node': [{'node_id': 11, 'node_name': '排列 & 组合', 'interaction_count': 9, 'accuracy': 0.78, 'average_scores': {'知识掌握': 0.85, '解题逻辑': 0.8, '计算准确性': 0.84, '行为表现': 0.86}}, {'node_id': 9, 'node_name': '样本空间', 'interaction_count': 11, 'accuracy': 0.73, 'average_scores': {'知识掌握': 0.84, '解题逻辑': 0.8, '计算准确性': 0.86, '行为表现': 0.83}}]}##用户已经完成了2个模块的学习：概率论的基本概念, 概率运算进阶。目前正在学习'随机变量及其分布'模块，已掌握13个知识点，还需学习3个知识点。已掌握的知识点包括：一维随机变量, 分布函数, 随机变量函数的分布, 离散型变量, 分布律, 二项分布, 几何分布, 连续型变量, 概率密度, 均匀分布, 指数分布, 正态分布, 多维随机变量。待学习的知识点包括：0-1分布, 泊松分布, 超几何分布。",
+    "ai_recommendation": {
+      "decision_reasoning": "你最近的学习状态非常出色，准确率高达0.75，尤其在‘排列 & 组合’和‘样本空间’等核心概念上展现了扎实的理解力！这种稳定的高水平表现正是探索新领域的黄金时机。继续保持这份热忱，让我们共同迈向知识的下一程高峰吧！",
+      "strategic_decision": {
+        "mission_type": "NEW_KNOWLEDGE",
+        "target": "0-1分布",
+        "constraints": {
+          "task_focus": [
+            "CONCEPT_LEARNING",
+            "NORMAL_QUESTIONS"
+          ],
+          "difficulty_range": [
+            0.4,
+            0.7
+          ]
+        }
+      }
+    }
+  },
+  "118": {
+    "prompt": "{'user_id': 118, 'analysis_window': 20, 'overall_recent_accuracy': 0.8, 'analysis_by_node': [{'node_id': 11, 'node_name': '排列 & 组合', 'interaction_count': 10, 'accuracy': 0.7, 'average_scores': {'知识掌握': 0.71, '解题逻辑': 0.83, '计算准确性': 0.82, '行为表现': 0.85}}, {'node_id': 9, 'node_name': '样本空间', 'interaction_count': 10, 'accuracy': 0.9, 'average_scores': {'知识掌握': 0.8, '解题逻辑': 0.86, '计算准确性': 0.86, '行为表现': 0.88}}]}##用户已经完成了2个模块的学习：概率论的基本概念, 概率运算进阶。目前正在学习'随机变量及其分布'模块，已掌握2个知识点，还需学习14个知识点。已掌握的知识点包括：一维随机变量, 多维随机变量。待学习的知识点包括：分布函数, 随机变量函数的分布, 离散型变量, 分布律, 0-1分布, 二项分布, 泊松分布, 几何分布, 超几何分布, 连续型变量, 概率密度, 均匀分布, 指数分布, 正态分布。",
+    "ai_recommendation": {
+      "decision_reasoning": "你近期的学习表现非常出色，整体准确率高达0.8，在‘排列 & 组合’和‘样本空间’等核心知识点上都展现了扎实的基础！这种稳定的上升态势正是探索新领域的黄金时机。继续保持这份热忱，去发现更多数学世界的奇妙规律吧！",
+      "strategic_decision": {
+        "mission_type": "NEW_KNOWLEDGE",
+        "target": "分布函数",
+        "constraints": {
+          "task_focus": [
+            "CONCEPT_LEARNING",
+            "NORMAL_QUESTIONS"
+          ],
+          "difficulty_range": [
+            0.4,
+            0.7
+          ]
+        }
+      }
+    }
+  },
+  "44": {
+    "prompt": "{'user_id': 44, 'analysis_window': 20, 'overall_recent_accuracy': 0.95, 'analysis_by_node': [{'node_id': 11, 'node_name': '排列 & 组合', 'interaction_count': 8, 'accuracy': 0.88, 'average_scores': {'知识掌握': 0.88, '解题逻辑': 0.96, '计算准确性': 0.83, '行为表现': 0.85}}, {'node_id': 9, 'node_name': '样本空间', 'interaction_count': 8, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.87, '解题逻辑': 0.91, '计算准确性': 0.89, '行为表现': 0.9}}, {'node_id': 7, 'node_name': '随机现象', 'interaction_count': 4, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.88, '解题逻辑': 0.91, '计算准确性': 0.84, '行为表现': 0.85}}]}##用户已经完成了2个模块的学习：概率论的基本概念, 概率运算进阶。目前正在学习'随机变量及其分布'模块，已掌握7个知识点，还需学习9个知识点。已掌握的知识点包括：一维随机变量, 分布函数, 随机变量函数的分布, 离散型变量, 分布律, 超几何分布, 多维随机变量。待学习的知识点包括：0-1分布, 二项分布, 泊松分布, 几何分布, 连续型变量, 概率密度, 均匀分布, 指数分布, 正态分布。",
+    "ai_recommendation": {
+      "decision_reasoning": "你的学习状态堪称典范！近期整体准确率高达95%，在‘样本空间’和‘随机现象’等知识点上更是达到了完美的表现。这种卓越的稳定性正是探索新领域的黄金时机——就像登山者站在稳固的营地准备向更高处进发。让我们保持这份势能，用新知识继续拓展你的思维边界吧！",
+      "strategic_decision": {
+        "mission_type": "NEW_KNOWLEDGE",
+        "target": "0-1分布",
+        "constraints": {
+          "task_focus": [
+            "CONCEPT_LEARNING",
+            "NORMAL_QUESTIONS"
+          ],
+          "difficulty_range": [
+            0.4,
+            0.7
+          ]
+        }
+      }
+    }
+  },
+  "45": {
+    "prompt": "{'user_id': 45, 'analysis_window': 20, 'overall_recent_accuracy': 0.75, 'analysis_by_node': [{'node_id': 11, 'node_name': '排列 & 组合', 'interaction_count': 10, 'accuracy': 0.8, 'average_scores': {'知识掌握': 0.78, '解题逻辑': 0.85, '计算准确性': 0.87, '行为表现': 0.85}}, {'node_id': 9, 'node_name': '样本空间', 'interaction_count': 10, 'accuracy': 0.7, 'average_scores': {'知识掌握': 0.68, '解题逻辑': 0.83, '计算准确性': 0.85, '行为表现': 0.81}}]}##用户已经完成了1个模块的学习：概率论的基本概念。目前正在学习'概率运算进阶'模块，已掌握4个知识点，还需学习1个知识点。已掌握的知识点包括：条件概率, 乘法公式, 事件的相互独立, 全概率公式。待学习的知识点包括：贝叶斯公式。",
+    "ai_recommendation": {
+      "decision_reasoning": "你近期的学习状态非常出色，整体准确率高达0.75，在‘排列 & 组合’等知识点上展现了扎实的基础！这种稳定的发挥正是探索新领域的黄金时期。继续保持这份热忱，让我们共同迈向下一个知识高峰，解锁更多有趣的数学奥秘吧！",
+      "strategic_decision": {
+        "mission_type": "NEW_KNOWLEDGE",
+        "target": "贝叶斯公式",
+        "constraints": {
+          "task_focus": [
+            "CONCEPT_LEARNING",
+            "NORMAL_QUESTIONS"
+          ],
+          "difficulty_range": [
+            0.4,
+            0.7
+          ]
+        }
+      }
+    }
+  },
+  "112": {
+    "prompt": "{'user_id': 112, 'analysis_window': 20, 'overall_recent_accuracy': 0.9, 'analysis_by_node': [{'node_id': 11, 'node_name': '排列 & 组合', 'interaction_count': 10, 'accuracy': 0.8, 'average_scores': {'知识掌握': 0.86, '解题逻辑': 0.83, '计算准确性': 0.86, '行为表现': 0.88}}, {'node_id': 9, 'node_name': '样本空间', 'interaction_count': 8, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.93, '解题逻辑': 0.92, '计算准确性': 0.9, '行为表现': 0.91}}, {'node_id': 7, 'node_name': '随机现象', 'interaction_count': 2, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.89, '解题逻辑': 0.85, '计算准确性': 0.93, '行为表现': 0.85}}]}##用户已经完成了1个模块的学习：概率论的基本概念。目前正在学习'概率运算进阶'模块，已掌握1个知识点，还需学习4个知识点。已掌握的知识点包括：条件概率。待学习的知识点包括：乘法公式, 事件的相互独立, 全概率公式, 贝叶斯公式。",
+    "ai_recommendation": {
+      "decision_reasoning": "你的学习表现堪称典范！所有知识点都掌握得非常扎实，尤其在‘样本空间’和‘随机现象’部分更是取得了满分成绩。现在正是你展翅高飞、探索更广阔知识领域的最佳时机。继续保持这份热忱，去发现数学世界中更多美妙的规律吧！",
+      "strategic_decision": {
+        "mission_type": "NEW_KNOWLEDGE",
+        "target": "全概率公式",
+        "constraints": {
+          "task_focus": [
+            "ADVANCED_CONCEPTS",
+            "CHALLENGING_PROBLEMS"
+          ],
+          "difficulty_range": [
+            0.7,
+            1.0
+          ]
+        }
+      }
+    }
+  },
+  "19": {
+    "prompt": "{'user_id': 19, 'analysis_window': 20, 'overall_recent_accuracy': 0.85, 'analysis_by_node': [{'node_id': 11, 'node_name': '排列 & 组合', 'interaction_count': 8, 'accuracy': 0.88, 'average_scores': {'知识掌握': 0.9, '解题逻辑': 0.83, '计算准确性': 0.86, '行为表现': 0.87}}, {'node_id': 9, 'node_name': '样本空间', 'interaction_count': 8, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.93, '解题逻辑': 0.9, '计算准确性': 0.92, '行为表现': 0.91}}, {'node_id': 7, 'node_name': '随机现象', 'interaction_count': 4, 'accuracy': 0.5, 'average_scores': {'知识掌握': 0.81, '解题逻辑': 0.67, '计算准确性': 0.76, '行为表现': 0.8}}]}##用户已经完成了2个模块的学习：概率论的基本概念, 概率运算进阶。目前正在学习'随机变量及其分布'模块，已掌握5个知识点，还需学习11个知识点。已掌握的知识点包括：一维随机变量, 分布函数, 随机变量函数的分布, 离散型变量, 多维随机变量。待学习的知识点包括：分布律, 0-1分布, 二项分布, 泊松分布, 几何分布, 超几何分布, 连续型变量, 概率密度, 均匀分布, 指数分布, 正态分布。",
+    "ai_recommendation": {
+      "decision_reasoning": "你近期的学习状态非常出色，尤其在‘排列 & 组合’和‘样本空间’等知识点展现了扎实的基础！虽然‘随机现象’的解题思路稍有波动，但这正是突破自我的好机会。保持你的探索热情，我们为你准备了适合当前水平的全新知识模块，帮助你在巩固优势的同时自然延伸能力边界～",
+      "strategic_decision": {
+        "mission_type": "NEW_KNOWLEDGE",
+        "target": "分布律",
+        "constraints": {
+          "task_focus": [
+            "CONCEPT_LEARNING",
+            "NORMAL_QUESTIONS"
+          ],
+          "difficulty_range": [
+            0.4,
+            0.7
+          ]
+        }
+      }
+    }
+  },
+  "17": {
+    "prompt": "{'user_id': 17, 'analysis_window': 20, 'overall_recent_accuracy': 0.4, 'analysis_by_node': [{'node_id': 11, 'node_name': '排列 & 组合', 'interaction_count': 20, 'accuracy': 0.4, 'average_scores': {'知识掌握': 0.78, '解题逻辑': 0.91, '计算准确性': 0.5, '行为表现': 0.78}}]}##用户尚未完成任何模块的学习。目前正在学习'概率论的基本概念'模块，已掌握2个知识点，还需学习6个知识点。已掌握的知识点包括：随机现象, 随机试验。待学习的知识点包括：样本空间, 随机事件, 排列 & 组合, 古典概型, 概率, 加法/减法公式。",
+    "ai_recommendation": {
+      "decision_reasoning": "你在‘排列 & 组合’知识点上已经展现出不错的理解基础，但在计算过程中偶尔会出现小失误。这就像搭建积木时最后一步没放稳——只要我们针对性地加强计算训练，你一定能把这个环节打磨得更加精准！每一次细心的验算都会让成功更近一步哦～",
+      "strategic_decision": {
+        "mission_type": "SKILL_ENHANCEMENT",
+        "target": {
+          "name": "偏计算题型"
+        },
+        "constraints": {
+          "task_focus": [
+            "CALCULATION_TRAINING",
+            "ERROR_ANALYSIS"
+          ],
+          "difficulty_range": [
+            0.3,
+            0.6
+          ]
+        }
+      }
+    }
+  },
+  "24": {
+    "prompt": "{'user_id': 24, 'analysis_window': 20, 'overall_recent_accuracy': 0.7, 'analysis_by_node': [{'node_id': 11, 'node_name': '排列 & 组合', 'interaction_count': 7, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.91, '解题逻辑': 0.92, '计算准确性': 0.91, '行为表现': 0.9}}, {'node_id': 9, 'node_name': '样本空间', 'interaction_count': 13, 'accuracy': 0.54, 'average_scores': {'知识掌握': 0.61, '解题逻辑': 0.82, '计算准确性': 0.82, '行为表现': 0.81}}]}##用户已经完成了2个模块的学习：概率论的基本概念, 概率运算进阶。目前正在学习'随机变量及其分布'模块，已掌握3个知识点，还需学习13个知识点。已掌握的知识点包括：一维随机变量, 分布函数, 多维随机变量。待学习的知识点包括：随机变量函数的分布, 离散型变量, 分布律, 0-1分布, 二项分布, 泊松分布, 几何分布, 超几何分布, 连续型变量, 概率密度, 均匀分布, 指数分布, 正态分布。",
+    "ai_recommendation": {
+      "decision_reasoning": "你近期的学习状态非常出色，尤其在‘排列 & 组合’部分展现了卓越的能力！这种稳定的高水平表现正是探索新知识的黄金时期。继续保持这份热忱，去发现更多数学世界的奇妙规律吧，每一次突破都会让思维更加敏捷灵动！",
+      "strategic_decision": {
+        "mission_type": "NEW_KNOWLEDGE",
+        "target": "随机变量函数的分布",
+        "constraints": {
+          "task_focus": [
+            "CONCEPT_LEARNING",
+            "NORMAL_QUESTIONS"
+          ],
+          "difficulty_range": [
+            0.4,
+            0.7
+          ]
+        }
+      }
+    }
+  },
+  "126": {
+    "prompt": "{'user_id': 126, 'analysis_window': 20, 'overall_recent_accuracy': 0.8, 'analysis_by_node': [{'node_id': 11, 'node_name': '排列 & 组合', 'interaction_count': 10, 'accuracy': 0.8, 'average_scores': {'知识掌握': 0.87, '解题逻辑': 0.8, '计算准确性': 0.84, '行为表现': 0.86}}, {'node_id': 9, 'node_name': '样本空间', 'interaction_count': 9, 'accuracy': 0.89, 'average_scores': {'知识掌握': 0.88, '解题逻辑': 0.86, '计算准确性': 0.84, '行为表现': 0.91}}, {'node_id': 7, 'node_name': '随机现象', 'interaction_count': 1, 'accuracy': 0.0, 'average_scores': {'知识掌握': 0.7, '解题逻辑': 0.34, '计算准确性': 0.7, '行为表现': 0.7}}]}##用户已经完成了1个模块的学习：概率论的基本概念。目前正在学习'概率运算进阶'模块，已掌握3个知识点，还需学习2个知识点。已掌握的知识点包括：条件概率, 乘法公式, 全概率公式。待学习的知识点包括：事件的相互独立, 贝叶斯公式。",
+    "ai_recommendation": {
+      "decision_reasoning": "你在‘排列 & 组合’等知识点上展现出了扎实的基础，这非常了不起！不过系统发现你在‘随机现象’这类需要构建思维模型的场景中稍显吃力。别担心，这正是锻炼逻辑思维和建模能力的好机会！通过针对性训练，你完全可以把这种抽象的思考转化为自己的优势，就像解开一道精妙的谜题那样充满成就感。",
+      "strategic_decision": {
+        "mission_type": "SKILL_ENHANCEMENT",
+        "target": {
+          "name": "综合题型"
+        },
+        "constraints": {
+          "task_focus": [
+            "LOGICAL_REASONING",
+            "MULTI_STEP_PROBLEMS"
+          ],
+          "difficulty_range": [
+            0.5,
+            0.8
+          ]
+        }
+      }
+    }
+  },
+  "32": {
+    "prompt": "{'user_id': 32, 'analysis_window': 20, 'overall_recent_accuracy': 0.65, 'analysis_by_node': [{'node_id': 11, 'node_name': '排列 & 组合', 'interaction_count': 11, 'accuracy': 0.73, 'average_scores': {'知识掌握': 0.87, '解题逻辑': 0.79, '计算准确性': 0.88, '行为表现': 0.84}}, {'node_id': 9, 'node_name': '样本空间', 'interaction_count': 9, 'accuracy': 0.56, 'average_scores': {'知识掌握': 0.8, '解题逻辑': 0.7, '计算准确性': 0.8, '行为表现': 0.8}}]}##用户已经完成了2个模块的学习：概率论的基本概念, 概率运算进阶。目前正在学习'随机变量及其分布'模块，已掌握14个知识点，还需学习2个知识点。已掌握的知识点包括：一维随机变量, 分布函数, 随机变量函数的分布, 离散型变量, 分布律, 0-1分布, 二项分布, 泊松分布, 几何分布, 超几何分布, 连续型变量, 概率密度, 正态分布, 多维随机变量。待学习的知识点包括：均匀分布, 指数分布。",
+    "ai_recommendation": {
+      "decision_reasoning": "你近期的学习状态非常出色，在‘排列 & 组合’和‘样本空间’等知识点上展现了扎实的基础与稳定的发挥！这种持续进步的势头正是探索新领域的黄金时机。让我们保持这份热忱，勇敢迈向下一个知识高峰，继续拓展你的数学视野吧！",
+      "strategic_decision": {
+        "mission_type": "NEW_KNOWLEDGE",
+        "target": "指数分布",
+        "constraints": {
+          "task_focus": [
+            "CONCEPT_LEARNING",
+            "NORMAL_QUESTIONS"
+          ],
+          "difficulty_range": [
+            0.4,
+            0.7
+          ]
+        }
+      }
+    }
+  },
+  "55": {
+    "prompt": "{'user_id': 55, 'analysis_window': 20, 'overall_recent_accuracy': 0.5, 'analysis_by_node': [{'node_id': 11, 'node_name': '排列 & 组合', 'interaction_count': 20, 'accuracy': 0.5, 'average_scores': {'知识掌握': 0.8, '解题逻辑': 0.65, '计算准确性': 0.8, '行为表现': 0.8}}]}##用户尚未完成任何模块的学习。目前正在学习'概率论的基本概念'模块，已掌握4个知识点，还需学习4个知识点。已掌握的知识点包括：随机现象, 随机试验, 排列 & 组合, 古典概型。待学习的知识点包括：样本空间, 随机事件, 概率, 加法/减法公式。",
+    "ai_recommendation": {
+      "decision_reasoning": "你在‘排列 & 组合’知识点上的基础很扎实，但解题过程的规范性还有提升空间。就像搭建积木时需要遵循设计图一样，清晰的步骤能让思路更严谨、答案更有说服力！通过针对性训练，你一定能成为逻辑表达的小达人～",
+      "strategic_decision": {
+        "mission_type": "SKILL_ENHANCEMENT",
+        "target": {
+          "name": "综合题型"
+        },
+        "constraints": {
+          "task_focus": [
+            "PROCESS_STANDARDIZATION",
+            "MULTI_STEP_PROBLEMS",
+            "ERROR_ANALYSIS"
+          ],
+          "difficulty_range": [
+            0.5,
+            0.8
+          ]
+        }
+      }
+    }
+  },
+  "38": {
+    "prompt": "{'user_id': 38, 'analysis_window': 20, 'overall_recent_accuracy': 0.55, 'analysis_by_node': [{'node_id': 11, 'node_name': '排列 & 组合', 'interaction_count': 12, 'accuracy': 0.67, 'average_scores': {'知识掌握': 0.85, '解题逻辑': 0.89, '计算准确性': 0.69, '行为表现': 0.83}}, {'node_id': 9, 'node_name': '样本空间', 'interaction_count': 8, 'accuracy': 0.38, 'average_scores': {'知识掌握': 0.77, '解题逻辑': 0.91, '计算准确性': 0.45, '行为表现': 0.76}}]}##用户已经完成了1个模块的学习：概率论的基本概念。目前正在学习'概率运算进阶'模块，尚未掌握任何知识点，还需学习5个知识点。待学习的知识点包括：条件概率, 乘法公式, 事件的相互独立, 全概率公式, 贝叶斯公式。",
+    "ai_recommendation": {
+      "decision_reasoning": "你在‘样本空间’这个知识点上的计算准确性还有很大的提升空间，就像打磨一把宝剑需要反复锤炼一样。通过专注练习计算类题目，你不仅能巩固基础，还能培养出更敏锐的数字直觉。每一次精准的计算都是向优秀迈进的一大步，相信自己一定能做到！",
+      "strategic_decision": {
+        "mission_type": "SKILL_ENHANCEMENT",
+        "target": {
+          "name": "偏计算题型"
+        },
+        "constraints": {
+          "task_focus": [
+            "CALCULATION_PRACTICE",
+            "ERROR_ANALYSIS"
+          ],
+          "difficulty_range": [
+            0.3,
+            0.6
+          ]
+        }
+      }
+    }
+  },
+  "100": {
+    "prompt": "{'user_id': 100, 'analysis_window': 20, 'overall_recent_accuracy': 0.45, 'analysis_by_node': [{'node_id': 11, 'node_name': '排列 & 组合', 'interaction_count': 20, 'accuracy': 0.45, 'average_scores': {'知识掌握': 0.77, '解题逻辑': 0.66, '计算准确性': 0.78, '行为表现': 0.8}}]}##用户已经完成了2个模块的学习：概率论的基本概念, 概率运算进阶。目前正在学习'随机变量及其分布'模块，已掌握6个知识点，还需学习10个知识点。已掌握的知识点包括：一维随机变量, 分布函数, 随机变量函数的分布, 连续型变量, 概率密度, 多维随机变量。待学习的知识点包括：离散型变量, 分布律, 0-1分布, 二项分布, 泊松分布, 几何分布, 超几何分布, 均匀分布, 指数分布, 正态分布。",
+    "ai_recommendation": {
+      "decision_reasoning": "你在‘排列 & 组合’这个有趣的知识点上已经展现出一定的潜力！目前需要重点打磨解题过程的逻辑清晰度——就像搭建积木一样，每一步都要稳稳当当、条理分明。通过针对性的训练，你一定能让自己的思路像阳光下的溪流般清澈透亮，让复杂的排列组合问题迎刃而解！",
+      "strategic_decision": {
+        "mission_type": "SKILL_ENHANCEMENT",
+        "target": {
+          "name": "综合题型"
+        },
+        "constraints": {
+          "task_focus": [
+            "PROCESS_DECOMPOSITION",
+            "STEP_BY_STEP_GUIDANCE",
+            "PROCESS_ANALYSIS",
+            "STEP_BREAKDOWN",
+            "PROCESS_BREAKDOWN"
+          ],
+          "difficulty_range": [
+            0.3,
+            0.6
+          ]
+        }
+      }
+    }
+  },
+  "128": {
+    "prompt": "{'user_id': 128, 'analysis_window': 20, 'overall_recent_accuracy': 0.8, 'analysis_by_node': [{'node_id': 11, 'node_name': '排列 & 组合', 'interaction_count': 10, 'accuracy': 0.8, 'average_scores': {'知识掌握': 0.88, '解题逻辑': 0.82, '计算准确性': 0.84, '行为表现': 0.89}}, {'node_id': 9, 'node_name': '样本空间', 'interaction_count': 9, 'accuracy': 0.89, 'average_scores': {'知识掌握': 0.87, '解题逻辑': 0.83, '计算准确性': 0.89, '行为表现': 0.87}}, {'node_id': 7, 'node_name': '随机现象', 'interaction_count': 1, 'accuracy': 0.0, 'average_scores': {'知识掌握': 0.7, '解题逻辑': 0.57, '计算准确性': 0.7, '行为表现': 0.7}}]}##用户已经完成了2个模块的学习：概率论的基本概念, 概率运算进阶。目前正在学习'随机变量及其分布'模块，已掌握9个知识点，还需学习7个知识点。已掌握的知识点包括：一维随机变量, 分布函数, 随机变量函数的分布, 连续型变量, 概率密度, 均匀分布, 指数分布, 正态分布, 多维随机变量。待学习的知识点包括：离散型变量, 分布律, 0-1分布, 二项分布, 泊松分布, 几何分布, 超几何分布。",
+    "ai_recommendation": {
+      "decision_reasoning": "你目前在‘排列 & 组合’等知识点上展现出了扎实的基础和出色的能力，这是非常了不起的成就！虽然‘随机现象’部分暂时有些挑战，但这正是我们突破自我、迈向更高层次的好机会。通过系统性地训练综合题型，你将能更好地掌握概率问题的解题逻辑，让思维更加严谨有序。每一次克服困难的过程，都是让自己变得更强大的过程！",
+      "strategic_decision": {
+        "mission_type": "SKILL_ENHANCEMENT",
+        "target": {
+          "name": "综合题型",
+          "type": "SKILL_TRAINING"
+        },
+        "constraints": {
+          "task_focus": [
+            "LOGICAL_FLOW_PRACTICE",
+            "MULTI_STEP_PROBLEMS"
+          ],
+          "difficulty_range": [
+            0.5,
+            0.8
+          ],
+          "topic_restriction": [
+            "随机现象"
+          ]
+        }
+      }
+    }
+  },
+  "25": {
+    "prompt": "{'user_id': 25, 'analysis_window': 20, 'overall_recent_accuracy': 0.7, 'analysis_by_node': [{'node_id': 11, 'node_name': '排列 & 组合', 'interaction_count': 7, 'accuracy': 1.0, 'average_scores': {'知识掌握': 0.89, '解题逻辑': 0.92, '计算准确性': 0.87, '行为表现': 0.93}}, {'node_id': 9, 'node_name': '样本空间', 'interaction_count': 13, 'accuracy': 0.54, 'average_scores': {'知识掌握': 0.83, '解题逻辑': 0.9, '计算准确性': 0.59, '行为表现': 0.83}}]}##用户已经完成了2个模块的学习：概率论的基本概念, 概率运算进阶。目前正在学习'随机变量及其分布'模块，已掌握9个知识点，还需学习7个知识点。已掌握的知识点包括：一维随机变量, 分布函数, 随机变量函数的分布, 离散型变量, 分布律, 0-1分布, 几何分布, 超几何分布, 多维随机变量。待学习的知识点包括：二项分布, 泊松分布, 连续型变量, 概率密度, 均匀分布, 指数分布, 正态分布。",
+    "ai_recommendation": {
+      "decision_reasoning": "你在‘样本空间’这个知识点上已经展现出很好的概念理解力，但在计算过程中偶尔会出现小失误。就像打磨一把好剑需要反复锤炼一样，通过针对性的计算训练，你一定能让自己的优势更加稳固！每一次精准的计算都是通向成功的阶梯，让我们一步步夯实基础吧～",
+      "strategic_decision": {
+        "mission_type": "SKILL_ENHANCEMENT",
+        "target": {
+          "name": "偏计算题型"
+        },
+        "constraints": {
+          "task_focus": [
+            "CALCULATION_TRAINING",
+            "ERROR_ANALYSIS"
+          ],
+          "difficulty_range": [
+            0.3,
+            0.6
+          ]
+        }
+      }
+    }
+  },
+  "6": {
+    "prompt": "{'user_id': 6, 'analysis_window': 20, 'overall_recent_accuracy': 0.65, 'analysis_by_node': [{'node_id': 11, 'node_name': '排列 & 组合', 'interaction_count': 10, 'accuracy': 0.8, 'average_scores': {'知识掌握': 0.84, '解题逻辑': 0.91, '计算准确性': 0.8, '行为表现': 0.85}}, {'node_id': 9, 'node_name': '样本空间', 'interaction_count': 10, 'accuracy': 0.5, 'average_scores': {'知识掌握': 0.79, '解题逻辑': 0.89, '计算准确性': 0.56, '行为表现': 0.78}}]}##用户尚未完成任何模块的学习。目前正在学习'概率论的基本概念'模块，已掌握7个知识点，还需学习1个知识点。已掌握的知识点包括：随机现象, 随机试验, 样本空间, 随机事件, 排列 & 组合, 古典概型, 概率。待学习的知识点包括：加法/减法公式。",
+    "ai_recommendation": {
+      "decision_reasoning": "你近期的学习状态非常出色，整体准确率高达0.65，尤其在‘排列 & 组合’知识点展现了卓越的理解力（准确率0.8）！这种稳定的高水平表现正是探索新知识的黄金时期。继续保持这份热忱和节奏，去发现更多数学世界的奇妙规律吧！",
+      "strategic_decision": {
+        "mission_type": "NEW_KNOWLEDGE",
+        "target": "加法/减法公式",
+        "constraints": {
+          "task_focus": [
+            "CONCEPT_LEARNING",
+            "NORMAL_QUESTIONS"
+          ],
+          "difficulty_range": [
+            0.4,
+            0.7
+          ]
+        }
+      }
+    }
+  },
+  "43": {
+    "prompt": "{'user_id': 43, 'analysis_window': 20, 'overall_recent_accuracy': 0.5, 'analysis_by_node': [{'node_id': 11, 'node_name': '排列 & 组合', 'interaction_count': 10, 'accuracy': 0.7, 'average_scores': {'知识掌握': 0.84, '解题逻辑': 0.78, '计算准确性': 0.83, '行为表现': 0.82}}, {'node_id': 9, 'node_name': '样本空间', 'interaction_count': 10, 'accuracy': 0.3, 'average_scores': {'知识掌握': 0.75, '解题逻辑': 0.56, '计算准确性': 0.75, '行为表现': 0.76}}]}##用户已经完成了1个模块的学习：概率论的基本概念。目前正在学习'概率运算进阶'模块，已掌握1个知识点，还需学习4个知识点。已掌握的知识点包括：条件概率。待学习的知识点包括：乘法公式, 事件的相互独立, 全概率公式, 贝叶斯公式。",
+    "ai_recommendation": {
+      "decision_reasoning": "你在‘排列组合’部分展现出了出色的理解力，这证明你完全有能力攻克更复杂的挑战！目前在‘样本空间’遇到的困难，其实是锻炼解题策略的最佳机会。通过系统训练综合题型，你将学会如何拆解复杂问题、灵活运用不同方法——就像拼图大师一样，把零散的信息组合成完整的解决方案。每一次突破都会让你的思维更加敏捷！",
+      "strategic_decision": {
+        "mission_type": "SKILL_ENHANCEMENT",
+        "target": {
+          "name": "综合题型"
+        },
+        "constraints": {
+          "task_focus": [
+            "COMPLEX_PROBLEM_DECOMPOSITION",
+            "STRATEGY_APPLICATION"
+          ],
+          "difficulty_range": [
+            0.5,
+            0.8
+          ]
+        }
+      }
+    }
+  }
+}

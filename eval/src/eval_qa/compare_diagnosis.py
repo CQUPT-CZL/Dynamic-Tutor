@@ -9,8 +9,8 @@ def load_json_file(file_path):
 def compare_diagnosis_results():
     """比较两个诊断结果文件"""
     # 文件路径
-    file1 = "/Users/cuiziliang/Projects/unveiling-the-list/eval/eval_data/题目诊断/解题进度_llm_langchain批改_progress.json"
-    file2 = "/Users/cuiziliang/Projects/unveiling-the-list/eval/eval_data/题目诊断/eval_results_20250731_230403.json"
+    file1 = "/Users/cuiziliang/Projects/unveiling-the-list/eval/eval_data/题目诊断/解题进度_llm_langchain批改_过滤后v1.json"
+    file2 = "/Users/cuiziliang/Projects/unveiling-the-list/eval/eval_data/题目诊断/eval_results_20250804_170903.json"
     
     # 检查文件是否存在
     if not os.path.exists(file1):
@@ -53,7 +53,7 @@ def compare_diagnosis_results():
         item1 = items1_dict[question_id]
         item2 = items2_dict[question_id]
         
-        print(f"\n📝 题号: {question_id}")
+        # print(f"\n📝 题号: {question_id}")
         # print(f"题目: {item1.get('题目', '')[:50]}...")
         
         # 比较正确性判断
@@ -67,13 +67,13 @@ def compare_diagnosis_results():
             false_questions.append(question_id)
             continue
             
-        print(f"\n🎯 正确性判断比较:")
-        print(f"  文件1 (langchain): {correct1}")
-        print(f"  文件2 (api调用):   {correct2}")
-        print(f"  判断一致性: {'✅ 一致' if correct1 == correct2 else '❌ 不一致'}")
+        # print(f"\n🎯 正确性判断比较:")
+        # print(f"  文件1 (langchain): {correct1}")
+        # print(f"  文件2 (api调用):   {correct2}")
+        # print(f"  判断一致性: {'✅ 一致' if correct1 == correct2 else '❌ 不一致'}")
         
         # 比较四个维度评分
-        print(f"\n📊 四个维度评分比较:")
+        # print(f"\n📊 四个维度评分比较:")
         
         # 获取文件1的评分
         scores1 = item1.get('detailed_scores_by_llm', [])
@@ -90,9 +90,9 @@ def compare_diagnosis_results():
                 scores2_dict.append(score.get('score', 0))
         
         # 打印维度对比
-        print(f"  文件1 (langchain): {scores1_dict}")
-        print(f"  文件2 (api调用):   {scores2_dict}")
-        print("-" * 60)
+        # print(f"  文件1 (langchain): {scores1_dict}")
+        # print(f"  文件2 (api调用):   {scores2_dict}")
+        # print("-" * 60)
 
         if abs(sum(scores1_dict) - sum(scores2_dict)) <= 0.8:
             num_true += 1

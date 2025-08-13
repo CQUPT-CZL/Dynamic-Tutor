@@ -105,7 +105,7 @@ def evaluate_diagnosis():
     start_time = time.time()
     
     # 数据文件路径
-    data_file = "../../eval_data/题目诊断/解题进度_llm_批改_v1.json"
+    data_file = "../../eval_data/题目诊断/黄金测试集-题目诊断.json"
     
     # 检查文件是否存在
     if not os.path.exists(data_file):
@@ -116,7 +116,7 @@ def evaluate_diagnosis():
     print(f"📁 数据文件: {data_file}")
     
     # 加载测试数据
-    test_data = load_test_data(data_file, num_samples=-50, seed=42)
+    test_data = load_test_data(data_file, num_samples=-110, seed=42)
     print(f"✅ 成功加载 {len(test_data)} 条测试数据")
     print("\n🚀 开始处理数据...")
     
