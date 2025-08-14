@@ -77,12 +77,27 @@ def get_user_profile_data(user_id: int, last_n: int = 30):
                 try:
                     diagnosis = json.loads(answer['diagnosis_json'])
                     # print(f"诊断数据: {diagnosis}")  # 打印诊断数据
-                    for dim in diagnosis.get('assessment_dimensions', []):
-                        dimension_name = dim['dimension'].split(' ')[0] # '知识掌握' -> '知识掌握'
-                        domain_stats[node_name]["scores"][dimension_name].append(dim['score'])
-                        # print(f"维度: {dimension_name}, 分数: {dim['score']}")  # 打印维度和分数
-                except (json.JSONDecodeError, KeyError):
-                    # print(f"JSON解析错误或缺少键: {answer['diagnosis_json']}")  # 打印错误信息
+                    
+                    # 处理第一种格式：assessment_dimensions
+                    if 'assessment_dimensions' in diagnosis:
+                        for dim in diagnosis['assessment_dimensions']:
+                            dimension_name = dim['dimension'].split(' ')[0] # '知识掌握' -> '知识掌握'
+                            domain_stats[node_name]["scores"][dimension_name].append(dim['score'])
+                            # print(f"维度: {dimension_name}, 分数: {dim['score']}")  # 打印维度和分数
+                    
+                    # 处理第二种格式：scores数组
+                    elif 'scores' in diagnosis:
+                        for score_item in diagnosis['scores']:
+                            # 提取中文维度名称
+                            for key, chinese_name in score_item.items():
+                                if key != 'score' and key != 'feedback' and isinstance(chinese_name, str):
+                                    dimension_name = chinese_name.split(' ')[0]  # 取中文名称的第一部分
+                                    domain_stats[node_name]["scores"][dimension_name].append(score_item['score'])
+                                    # print(f"维度: {dimension_name}, 分数: {score_item['score']}")  # 打印维度和分数
+                                    break  # 找到维度名称后跳出内层循环
+                                    
+                except (json.JSONDecodeError, KeyError) as e:
+                    # print(f"JSON解析错误或缺少键: {answer['diagnosis_json']}, 错误: {e}")  # 打印错误信息
                     continue
 
         # 3. 格式化输出，计算平均分
